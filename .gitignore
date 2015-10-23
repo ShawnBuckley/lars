@@ -20,7 +20,6 @@ hs_err_pid*
 
 ### Scala ###
 
-*.class
 *.log
 
 # sbt specific
@@ -91,3 +90,6 @@ local.properties
 
 /out/
 
+###
+
+bower_components/

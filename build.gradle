@@ -12,12 +12,10 @@ configurations {
 }
 
 repositories {
-	mavenCentral()
+   	mavenCentral()
 }
 
 dependencies {
 	compile 'org.scala-lang:scala-library:2.11.7'
 	compile 'org.eclipse.jetty.aggregate:jetty-all:9.3.5.v20151012'
-	compile 'jetty:javax.servlet:5.1.12'
 }
-
