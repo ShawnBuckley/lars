@@ -7,8 +7,11 @@ class TerrestrialBody(mass: Long, loc: Vector2, orbit: (Double) => Vector2, size
   extends CelestialBody(mass, loc, size, primary, orbit, dist, drift) {
 
   override def collide(other: Sizeable, velocity: Vector2): Unit = {
-
+    // map space location to surface location
+    // create crater
   }
 
-  override def observe(): Unit = ???
+  override def observe(): Unit = {
+
+  }
 }
