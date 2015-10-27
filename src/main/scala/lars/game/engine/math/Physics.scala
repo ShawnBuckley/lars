@@ -1,6 +1,5 @@
 package lars.game.engine.math
 
-import lars.game.engine.Location
 import lars.game.engine.celestial.Massive
 
 import scala.collection.mutable.ArrayBuffer
@@ -32,8 +31,8 @@ object Physics {
    * @param m2 massive2
    * @return barycenter
    */
-  def barycenter(m1: Massive, m2: Massive): Location = {
-    val dist = distance(m1.location.get, m2.location.get)
+  def barycenter(m1: Massive, m2: Massive): Vector2 = {
+    val dist = distance(m1.location, m2.location)
     val center = center(m1.location, m2.location)
     val massRatio = massRatio(m1, m2)
 
@@ -49,7 +48,7 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: ArrayBuffer[Massive]): Location = {
+  def barycenter(massives: ArrayBuffer[Massive]): Vector2 = {
 
   }
 }

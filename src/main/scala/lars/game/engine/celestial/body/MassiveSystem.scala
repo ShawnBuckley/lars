@@ -1,8 +1,7 @@
 package lars.game.engine.celestial.body
 
-import lars.game.engine.Location
 import lars.game.engine.celestial.Massive
-import lars.game.engine.math.Physics
+import lars.game.engine.math.{Vector2, Physics}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -27,7 +26,7 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * Returns the barcyenter for the system
    * @return system barycenter
    */
-  override def location(): Location = barycenter
+  override def location(): Vector2 = barycenter
 
   /**
    * This observes all of the objects in the system.
