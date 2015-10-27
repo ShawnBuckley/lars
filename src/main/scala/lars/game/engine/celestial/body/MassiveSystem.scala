@@ -26,7 +26,7 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * Returns the barycenter for the system
    * @return system barycenter
    */
-  override def location(): Vector2 = barycenter
+  override def location: Vector2 = barycenter
 
   /**
    * Moves all objects in the system to the new location.  Positions relative to each other are maintained.
