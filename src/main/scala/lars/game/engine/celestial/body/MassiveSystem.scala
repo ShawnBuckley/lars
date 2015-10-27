@@ -13,6 +13,7 @@ import scala.collection.mutable.ArrayBuffer
  */
 class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
   var barycenter = Physics.barycenter(massives)
+  var vel = Vector2(0,0)
 
   /**
    * Returns the total mass of the system.  Note: it is possible to double the mass value in calculations when
@@ -20,7 +21,15 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * system.
    * @return total mass of the system
    */
-  override def mass: Long = massives.reduceLeft{ _.mass + _.mass }
+  override def mass: Long = {
+    var sum = 0L
+    var i = 0
+    while(i < massives.length) {
+      sum += massives(i).mass
+      i += 1
+    }
+    sum
+  }
 
   /**
    * Returns the barycenter for the system
@@ -47,6 +56,17 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * This observes all of the objects in the system.
    */
   override def observe(): Unit = {
+    var i = 0
+    while(i < massives.length) {
+      massives(i).observe()
+      i += 1
+    }
+  }
+
+  override def drift: Vector2 = vel
+
+  override def drift_(vec: Vector2): Unit = {
+    vel = vec
     var i = 0
     while(i < massives.length) {
       massives(i).observe()
