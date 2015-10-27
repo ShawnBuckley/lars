@@ -14,19 +14,19 @@ abstract class CelestialBody(
   var loc = _loc
   override def mass: Long = _mass
 
-  override def location(): Vector2 = loc
+  override def location: Vector2 = loc
 
   override def location_(loc: Vector2) = this.loc = loc
 
-  override def size(): Long = _size
+  override def size: Long = _size
 
-  override def distance(): Long = _dist
+  override def distance: Long = _dist
 
-  override def primary(): Massive = _primary
+  override def primary: Massive = _primary
 
   override def getLocation(period: Double): Vector2 = _orbit(period)
 
-  override def getDrift(): Vector2 = dri
+  override def getDrift: Vector2 = dri
 
   override def drift(): Unit = location_(location + getDrift)
 
