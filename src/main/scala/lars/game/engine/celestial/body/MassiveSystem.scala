@@ -20,7 +20,7 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * system.
    * @return total mass of the system
    */
-  override def mass(): Long = massives.reduceLeft{ _.mass + _.mass }
+  override def mass: Long = massives.reduceLeft{ _.mass + _.mass }
 
   /**
    * Returns the barycenter for the system

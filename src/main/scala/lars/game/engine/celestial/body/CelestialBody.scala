@@ -12,7 +12,7 @@ abstract class CelestialBody(
                               _dist: Long, dri: Vector2)
   extends Massive with Sizeable with Orbiting with Drifting {
   var loc = _loc
-  override def mass(): Long = _mass
+  override def mass: Long = _mass
 
   override def location(): Vector2 = loc
 
