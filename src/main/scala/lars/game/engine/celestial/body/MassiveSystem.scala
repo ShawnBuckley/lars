@@ -12,7 +12,7 @@ import scala.collection.mutable.ArrayBuffer
  * @param massives The components to make the system
  */
 class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
-  val barycenter = Physics.barycenter(massives)
+  var barycenter = Physics.barycenter(massives)
 
   /**
    * Returns the total mass of the system.  Note: it is possible to double the mass value in calculations when
@@ -23,10 +23,25 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
   override def mass(): Long = massives.reduceLeft{ _.mass + _.mass }
 
   /**
-   * Returns the barcyenter for the system
+   * Returns the barycenter for the system
    * @return system barycenter
    */
   override def location(): Vector2 = barycenter
+
+  /**
+   * Moves all objects in the system to the new location.  Positions relative to each other are maintained.
+   * @param loc new barycenter
+   */
+  override def location_(loc: Vector2): Unit = {
+    val diff = barycenter - loc
+    barycenter = loc
+    var i = 0
+    while(i < massives.length) {
+      val massive = massives(i)
+      massive.location_(massive.location + diff)
+      i += 1
+    }
+  }
 
   /**
    * This observes all of the objects in the system.
