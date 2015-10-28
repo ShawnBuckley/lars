@@ -1,7 +1,7 @@
 package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.{Orbiting, Sizeable, Massive}
-import lars.game.engine.math.Vector2
+import lars.game.engine.math.{Sphere, Vector2}
 
 abstract class CelestialBody(
                               _mass: Long,
@@ -32,4 +32,6 @@ abstract class CelestialBody(
   override def drift_(vec: Vector2): Unit = vel = vec
 
   override def drift: Vector2 = vel
+
+  override def density: Double = mass/Sphere.volume(size)
 }
