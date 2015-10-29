@@ -19,7 +19,7 @@ abstract class CelestialBody(
 
   override def location: Vector2 = loc
 
-  override def location_(loc: Vector2) = this.loc = loc
+  override def location_=(loc: Vector2) = this.loc = loc
 
   override def size: Long = _size
 
@@ -29,7 +29,7 @@ abstract class CelestialBody(
 
   override def getLocation(period: Double): Vector2 = _orbit(period)
 
-  override def drift_(vec: Vector2): Unit = vel = vec
+  override def drift_=(vec: Vector2): Unit = vel = vec
 
   override def drift: Vector2 = vel
 
