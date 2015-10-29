@@ -11,9 +11,9 @@ import scala.collection.mutable.ArrayBuffer
  *
  * @param massives The components to make the system
  */
-class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
-  var barycenter = Physics.barycenter(massives)
-  var vel = Vector2(0,0)
+class MassiveSystem(massives: Array[Massive]) extends Massive {
+  private var barycenter = Physics.barycenter(massives)
+  private var vel = Vector2(0,0)
 
   /**
    * Returns the total mass of the system.  Note: it is possible to double the mass value in calculations when
@@ -21,56 +21,45 @@ class MassiveSystem(massives: ArrayBuffer[Massive]) extends Massive {
    * system.
    * @return total mass of the system
    */
-  override def mass: Long = {
-    var sum = 0L
-    var i = 0
-    while(i < massives.length) {
-      sum += massives(i).mass
-      i += 1
-    }
-    sum
-  }
+  override def mass: Long =
+    massives.reduceLeft(_.mass + _.mass)
 
   /**
    * Returns the barycenter for the system
    * @return system barycenter
    */
-  override def location: Vector2 = barycenter
+  override def location: Vector2 =
+    barycenter
 
   /**
    * Moves all objects in the system to the new location.  Positions relative to each other are maintained.
    * @param loc new barycenter
    */
-  override def location_(loc: Vector2): Unit = {
+  override def location_=(loc: Vector2): Unit = {
     val diff = barycenter - loc
     barycenter = loc
-    var i = 0
-    while(i < massives.length) {
-      val massive = massives(i)
-      massive.location_(massive.location + diff)
-      i += 1
-    }
+    massives.foreach(_.location += diff)
   }
 
   /**
    * This observes all of the objects in the system.
    */
-  override def observe(): Unit = {
-    var i = 0
-    while(i < massives.length) {
-      massives(i).observe()
-      i += 1
-    }
-  }
+  override def observe(): Unit =
+    massives.foreach(_.observe())
 
-  override def drift: Vector2 = vel
+  /**
+   * Returns the current velocity that the system is drifting
+   * @return drift
+   */
+  override def drift: Vector2 =
+    vel
 
-  override def drift_(vec: Vector2): Unit = {
+  /**
+   * Sets the drift for the system and all objects in it
+   * @param vec new drift
+   */
+  override def drift_=(vec: Vector2): Unit = {
     vel = vec
-    var i = 0
-    while(i < massives.length) {
-      massives(i).observe()
-      i += 1
-    }
+    massives.foreach(_.drift = vec)
   }
 }
