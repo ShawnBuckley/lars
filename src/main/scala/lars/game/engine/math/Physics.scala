@@ -6,6 +6,7 @@ import lars.game.engine.celestial.body.TerrestrialBody
 import scala.collection.mutable.ArrayBuffer
 
 object Physics {
+  val G = 6.67e-11
   /**
    * Returns the midpoint between two points.
    * @param p1 point1
@@ -54,12 +55,19 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: ArrayBuffer[Massive]): Vector2 = {
+  def barycenter(massives: Array[Massive]): Vector2 = {
     new Vector2(0,0)
   }
 
+//  def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
+//    val dist = distance(m1.location, m2.location)
+//    val f =
+//      (
+//        )
+//  }
+
   def main(args: Array[String]): Unit = {
-    // TerrestrialBody(mass: Long, loc: Vector2, orbit: (Double) => Vector2, size: Long, primary: Massive, dist: Long, drift: Vector2)
+//     TerrestrialBody(mass: Long, loc: Vector2, orbit: (Double) => Vector2, size: Long, primary: Massive, dist: Long, drift: Vector2)
     val m1 = new TerrestrialBody(1000000, Vector2(10,0), (Double) => new Vector2(0,0), 1000, null, 1000, new Vector2(0,0))
     val m2 = new TerrestrialBody(1000, Vector2(0,0), (Double) => new Vector2(0,0), 1000, null, 1000, new Vector2(0,0))
     val barycenter = Physics.barycenter(m2, m1)
