@@ -1,6 +1,6 @@
 package lars.game.engine.celestial.body
 
-import lars.game.engine.celestial.Massive
+import lars.game.engine.celestial.{Child, Parent, Massive}
 import lars.game.engine.math.{Vector2, Physics}
 
 import scala.collection.mutable.ArrayBuffer
@@ -11,9 +11,11 @@ import scala.collection.mutable.ArrayBuffer
  *
  * @param massives The components to make the system
  */
-class MassiveSystem(massives: Array[Massive]) extends Massive {
+class MassiveSystem(_par: Parent, massives: Array[Massive]) extends Massive with Child {
   private var barycenter = Physics.barycenter(massives)
   private var vel = Vector2(0,0)
+
+  override var par: Parent = _par
 
   /**
    * Returns the total mass of the system.  Note: it is possible to double the mass value in calculations when
@@ -62,4 +64,13 @@ class MassiveSystem(massives: Array[Massive]) extends Massive {
     vel = vec
     massives.foreach(_.drift = vec)
   }
+
+  /**
+   * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
+   * it's coordinate system.
+   * @param relative relative location
+   * @return absolute location
+   */
+  override def absoluteLocation(relative: Vector2): Vector2 =
+    parent.absoluteLocation(relative)
 }
