@@ -1,9 +1,7 @@
 package lars.game.engine.math
 
 import lars.game.engine.celestial.Massive
-import lars.game.engine.celestial.body.TerrestrialBody
-
-import scala.collection.mutable.ArrayBuffer
+import lars.game.engine.celestial.body.{MassiveBody, TerrestrialBody}
 
 object Physics {
   val G = 6.67e-11
@@ -55,8 +53,27 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: Array[Massive]): Vector2 = {
-    new Vector2(0,0)
+  def barycenter(massives: Seq[Massive]): Vector2 = massives.length match {
+    case 0 => Vector2.identity
+    case 1 => massives(0).location
+    case 2 => barycenter(massives(0), massives(1))
+    case _ => {
+      var center = new MassiveBody(
+        massives(0).mass + massives(1).mass,
+        barycenter(massives(0), massives(1)),
+        Vector2.identity
+      )
+      var i = 2
+      while(i < massives.length) {
+        center = new MassiveBody(
+          center.mass + massives(i).mass,
+          barycenter(center, massives(i)),
+          Vector2.identity
+        )
+        i += 1
+      }
+      center.location
+    }
   }
 
 //  def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
