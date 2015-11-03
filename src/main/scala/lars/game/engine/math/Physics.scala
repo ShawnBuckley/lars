@@ -58,18 +58,10 @@ object Physics {
     case 1 => massives(0).location
     case 2 => barycenter(massives(0), massives(1))
     case _ => {
-      var center = new MassiveBody(
-        massives(0).mass + massives(1).mass,
-        barycenter(massives(0), massives(1)),
-        Vector2.identity
-      )
+      var center = new MassiveBody(massives(0).mass + massives(1).mass, barycenter(massives(0), massives(1)))
       var i = 2
       while(i < massives.length) {
-        center = new MassiveBody(
-          center.mass + massives(i).mass,
-          barycenter(center, massives(i)),
-          Vector2.identity
-        )
+        center = new MassiveBody(center.mass + massives(i).mass, barycenter(center, massives(i)))
         i += 1
       }
       center.location
@@ -84,9 +76,8 @@ object Physics {
 //  }
 
   def main(args: Array[String]): Unit = {
-//     TerrestrialBody(mass: Long, loc: Vector2, orbit: (Double) => Vector2, size: Long, primary: Massive, dist: Long, drift: Vector2)
-    val m1 = new TerrestrialBody(1000000, Vector2(10,0), (Double) => new Vector2(0,0), 1000, null, 1000, new Vector2(0,0))
-    val m2 = new TerrestrialBody(1000, Vector2(0,0), (Double) => new Vector2(0,0), 1000, null, 1000, new Vector2(0,0))
+    val m1 = new MassiveBody(10000, new Vector2(10,0))
+    val m2 = new MassiveBody(1000,  new Vector2( 0,0))
     val barycenter = Physics.barycenter(m2, m1)
     print(barycenter.x + "," + barycenter.y)
   }
