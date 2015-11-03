@@ -1,9 +1,8 @@
 package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.{Child, Parent, Massive}
+import lars.game.engine.math
 import lars.game.engine.math.{Vector2, Physics}
-
-import scala.collection.mutable.ArrayBuffer
 
 /**
  * This is a class that is used to create a virtual binary+ system of massive objects.  It takes in an array of massives
@@ -11,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
  *
  * @param massives The components to make the system
  */
-class MassiveSystem(_par: Parent, massives: Array[Massive]) extends Massive with Child {
+class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with Child {
   private var barycenter = Physics.barycenter(massives)
   private var vel = Vector2(0,0)
 
@@ -19,12 +18,11 @@ class MassiveSystem(_par: Parent, massives: Array[Massive]) extends Massive with
 
   /**
    * Returns the total mass of the system.  Note: it is possible to double the mass value in calculations when
-   * calling this method and and the mass of its components together.  Use just one approach to find the mass of the
-   * system.
+   * calling this method and the mass of its components together.  Use just one approach to find the mass of the system.
    * @return total mass of the system
    */
   override def mass: Long =
-    massives.reduceLeft(_.mass + _.mass)
+    math.Util.sum(0, massives.length, (i: Int) => massives(i).mass )
 
   /**
    * Returns the barycenter for the system
