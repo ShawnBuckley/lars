@@ -37,6 +37,10 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
+### Gradle ###
+
+build/
+
 ### Eclipse ###
 
 *.pydevproject

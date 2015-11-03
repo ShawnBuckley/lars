@@ -68,17 +68,8 @@ object Physics {
     }
   }
 
-//  def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
-//    val dist = distance(m1.location, m2.location)
-//    val f =
-//      (
-//        )
-//  }
-
-  def main(args: Array[String]): Unit = {
-    val m1 = new MassiveBody(10000, new Vector2(10,0))
-    val m2 = new MassiveBody(1000,  new Vector2( 0,0))
-    val barycenter = Physics.barycenter(m2, m1)
-    print(barycenter.x + "," + barycenter.y)
+  def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
+    val distSq = math.pow(distance(m1.location, m2.location), 2)
+    (G * m1.mass / distSq, G * m2.mass / distSq)
   }
 }
