@@ -11,7 +11,7 @@ class MassiveBody(_mass: Long, _location: Vector2, _drift: Vector2) extends Mass
 
   override def location_=(_loc: Vector2): Unit = loc = _loc
 
-  override def location: Vector2 = location
+  override def location: Vector2 = loc
 
   override def observe(): Unit = {}
 
