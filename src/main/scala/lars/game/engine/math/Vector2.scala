@@ -5,7 +5,16 @@ case class Vector2(x: Long, y: Long) {
   def -(vec: Vector2): Vector2 = new Vector2(x - vec.x, y - vec.y)
   def *(factor: Int): Vector2 = new Vector2(x * factor, y * factor)
   def /(factor: Int): Vector2 = new Vector2(x / factor, y / factor)
-  def ==(vec: Vector2) : Boolean = (x == vec.x && y == vec.y)
+
+  def >(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) > Vector2.distance(Vector2.addIdent, other)
+  def <(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) < Vector2.distance(Vector2.addIdent, other)
+  def >=(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) >= Vector2.distance(Vector2.addIdent, other)
+  def <=(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) <= Vector2.distance(Vector2.addIdent, other)
+
+  override def equals(other: Any): Boolean = other match {
+    case that: Vector2 => x == that.x && y == that.y
+    case _ => false
+  }
 }
 
 object Vector2 {
