@@ -6,10 +6,12 @@ case class Vector2(x: Long, y: Long) {
   def *(factor: Int): Vector2 = new Vector2(x * factor, y * factor)
   def /(factor: Int): Vector2 = new Vector2(x / factor, y / factor)
 
-  def >(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) > Vector2.distance(Vector2.addIdent, other)
-  def <(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) < Vector2.distance(Vector2.addIdent, other)
-  def >=(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) >= Vector2.distance(Vector2.addIdent, other)
-  def <=(other: Vector2): Boolean = Vector2.distance(Vector2.addIdent, this) <= Vector2.distance(Vector2.addIdent, other)
+  def >(other: Vector2): Boolean = length > other.length
+  def <(other: Vector2): Boolean = length < other.length
+  def >=(other: Vector2): Boolean = length >= other.length
+  def <=(other: Vector2): Boolean = length <= other.length
+
+  def length: Long = Vector2.distance(Vector2.addIdent, this)
 
   override def equals(other: Any): Boolean = other match {
     case that: Vector2 => x == that.x && y == that.y
