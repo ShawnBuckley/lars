@@ -1,26 +1,27 @@
 import lars.game.engine.celestial.body.MassiveBody
 import lars.game.engine.math.{Physics, Vector2}
 import org.testng.annotations.Test
+import org.testng.Assert._
 
-object PhysicsTest {
-  def createBody(factor: Int, loc: Vector2): MassiveBody = {
-    new MassiveBody(1000 * factor, loc * factor)
+class PhysicsTest {
+  @Test
+  def barycenter() = {
+    val m1 = new MassiveBody(1000000, new Vector2(0,0))
+    val m2 = new MassiveBody(1000,    new Vector2(10,0))
+    assertEquals(Physics.barycenter(m1, m2), Vector2.addIdent)
+
+    val m3 = new MassiveBody(100, new Vector2( 10,0))
+    val m4 = new MassiveBody(100, new Vector2(-10,0))
+    assertEquals(Physics.barycenter(m3, m4), Vector2.addIdent)
   }
 
   @Test
-  def barycenter(): Boolean = {
-    val m1 = createBody(10, new Vector2(1,0))
-    val m2 = createBody(1, new Vector2(0,1))
-    Physics.barycenter(m1, m2) == Vector2.addIdent
-  }
-
-  @Test
-  def barycenterSeq(): Boolean = {
-    val m1 = createBody(5, new Vector2(1,0))
-    val m2 = createBody(4, new Vector2(0,4))
-    val m3 = createBody(8, new Vector2(-1,0))
-    val m4 = createBody(3, new Vector2(0,-1))
+  def barycenterSeq() = {
+    val m1 = new MassiveBody(5000, new Vector2(2,0))
+    val m2 = new MassiveBody(5000, new Vector2(-2,0))
+    val m3 = new MassiveBody(12000, new Vector2(4,6))
+    val m4 = new MassiveBody(8000, new Vector2(-2,-3))
     val massives = Array(m1, m2, m3, m4)
-    Physics.barycenter(massives) == Vector2.addIdent
+    assertEquals(Physics.barycenter(massives), Vector2.addIdent)
   }
 }
