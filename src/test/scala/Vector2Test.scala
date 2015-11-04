@@ -49,4 +49,20 @@ class Vector2Test {
 
   @Test
   def equals() = assertEquals(larger, new Vector2(x1, y1))
+
+  @Test
+  def distance() = {
+    assertEquals(Vector2.distance(new Vector2(x1,0), Vector2.addIdent), x1)
+    assertEquals(Vector2.distance(new Vector2(0,y1), Vector2.addIdent), y1)
+    assertEquals(Vector2.distance(new Vector2(x1,y1), Vector2.addIdent),
+      math.sqrt(math.pow(x1,2) + math.pow(y1,2)).toLong)
+  }
+
+  @Test
+  def midpoint() = {
+    assertEquals(
+      Vector2.addIdent,
+      Vector2.midpoint(new Vector2(x1,y1), new Vector2(0-x1, 0-y1))
+    )
+  }
 }

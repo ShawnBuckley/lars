@@ -47,6 +47,6 @@ object Vector2 {
     * @return distance
     */
   def distance(one: Vector2, two: Vector2): Long = {
-    math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - two.x, 2)).toLong
+    math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - one.y, 2)).toLong
   }
 }
