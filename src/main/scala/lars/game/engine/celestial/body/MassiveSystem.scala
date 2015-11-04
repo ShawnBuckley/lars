@@ -22,7 +22,7 @@ class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with C
    * @return total mass of the system
    */
   override def mass: Long =
-    math.Util.sum(0, massives.length, (i: Int) => massives(i).mass )
+    math.Util.sum(0, massives.length, (i: Int) => massives(i).mass)
 
   /**
    * Returns the barycenter for the system
