@@ -13,9 +13,9 @@ object Physics {
    * @return barycenter
    */
   def barycenter(m1: Massive, m2: Massive): Vector2 = {
-    if(m1.mass > m2.mass) {
+    if(m1 > m2) {
       barycenterSorted(m1, m2)
-    } else if(m1.mass < m2.mass) {
+    } else if(m1 < m2) {
       barycenterSorted(m2, m1)
     } else {
       Vector2.midpoint(m1.location, m2.location)

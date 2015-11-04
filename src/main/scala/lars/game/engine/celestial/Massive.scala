@@ -9,4 +9,9 @@ trait Massive {
   def drift: Vector2
   def drift_=(vec: Vector2)
   def observe()
+
+  def >(other: Massive): Boolean = mass > other.mass
+  def <(other: Massive): Boolean = mass < other.mass
+  def >=(other: Massive): Boolean = mass >= other.mass
+  def <=(other: Massive): Boolean = mass <= other.mass
 }
