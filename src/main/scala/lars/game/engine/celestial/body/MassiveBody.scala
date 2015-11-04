@@ -5,7 +5,7 @@ import lars.game.engine.math.Vector2
 
 class MassiveBody(_mass: Long, _location: Vector2) extends Massive {
   var loc = _location
-  var vel = Vector2.identity
+  var vel = Vector2.addIdent
 
   override def mass: Long = _mass
 

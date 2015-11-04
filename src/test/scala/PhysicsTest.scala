@@ -11,7 +11,7 @@ object PhysicsTest {
   def barycenter(): Boolean = {
     val m1 = createBody(10, new Vector2(1,0))
     val m2 = createBody(1, new Vector2(0,1))
-    Physics.barycenter(m1, m2) == Vector2.identity
+    Physics.barycenter(m1, m2) == Vector2.addIdent
   }
 
   @Test
@@ -21,6 +21,6 @@ object PhysicsTest {
     val m3 = createBody(8, new Vector2(-1,0))
     val m4 = createBody(3, new Vector2(0,-1))
     val massives = Array(m1, m2, m3, m4)
-    Physics.barycenter(massives) == Vector2.identity
+    Physics.barycenter(massives) == Vector2.addIdent
   }
 }

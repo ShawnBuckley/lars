@@ -5,25 +5,6 @@ import lars.game.engine.celestial.body.{MassiveBody, TerrestrialBody}
 
 object Physics {
   val G = 6.67e-11
-  /**
-   * Returns the midpoint between two points.
-   * @param p1 point1
-   * @param p2 point2
-   * @return midpoint
-   */
-  def midpoint(p1: Vector2, p2: Vector2): Vector2 = {
-    new Vector2((p1.x + p2.x)/2, (p1.y + p2.y)/2)
-  }
-
-  /**
-   * Returns the distance between two points.
-   * @param p1 point1
-   * @param p2 point2
-   * @return distance
-   */
-  def distance(p1: Vector2, p2: Vector2): Long = {
-    math.sqrt(math.pow(p2.x - p1.x, 2) + math.pow(p2.y - p2.x, 2)).toLong
-  }
 
   /**
    * Calculates the barycenter of two Massives.
@@ -37,7 +18,7 @@ object Physics {
     } else if(m1.mass < m2.mass) {
       barycenterSorted(m2, m1)
     } else {
-      midpoint(m1.location, m2.location)
+      Vector2.midpoint(m1.location, m2.location)
     }
   }
 
@@ -54,7 +35,7 @@ object Physics {
    * @return barycenter
    */
   def barycenter(massives: Seq[Massive]): Vector2 = massives.length match {
-    case 0 => Vector2.identity
+    case 0 => Vector2.addIdent
     case 1 => massives(0).location
     case 2 => barycenter(massives(0), massives(1))
     case _ => {
@@ -69,7 +50,7 @@ object Physics {
   }
 
   def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
-    val distSq = math.pow(distance(m1.location, m2.location), 2)
+    val distSq = math.pow(Vector2.distance(m1.location, m2.location), 2)
     (G * m1.mass / distSq, G * m2.mass / distSq)
   }
 }
