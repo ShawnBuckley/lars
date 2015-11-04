@@ -4,6 +4,9 @@ import lars.game.engine.celestial.Massive
 import lars.game.engine.celestial.body.{MassiveBody, TerrestrialBody}
 
 object Physics {
+  /**
+    * The gravitational constant.
+    */
   val G = 6.67e-11
 
   /**
