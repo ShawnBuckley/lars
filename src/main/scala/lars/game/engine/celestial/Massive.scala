@@ -2,7 +2,7 @@ package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
 
-trait Massive {
+trait Massive extends Ordered[Massive] {
   def mass: Long
   def location: Vector2
   def location_=(loc: Vector2)
@@ -10,8 +10,25 @@ trait Massive {
   def drift_=(vec: Vector2)
   def observe()
 
-  def >(other: Massive): Boolean = mass > other.mass
-  def <(other: Massive): Boolean = mass < other.mass
-  def >=(other: Massive): Boolean = mass >= other.mass
-  def <=(other: Massive): Boolean = mass <= other.mass
+  override def >(other: Massive): Boolean = mass > other.mass
+  override def <(other: Massive): Boolean = mass < other.mass
+  override def >=(other: Massive): Boolean = mass >= other.mass
+  override def <=(other: Massive): Boolean = mass <= other.mass
+
+  override def compare(that: Massive): Int = (mass - that.mass).toInt
+}
+
+object Massive {
+  def min(m1: Massive, m2: Massive): Massive = if(m1 < m2) m1 else m2
+  def max(m1: Massive, m2: Massive): Massive = if(m1 > m2) m1 else m2
+
+  /**
+    * Returns a tuple with the larger Massive first.
+    * @param m1
+    * @param m2
+    * @return tuple, larger Massive first
+    */
+  def sort(m1: Massive, m2: Massive): (Massive, Massive) = {
+    if(m1 > m2) (m1, m2) else (m2,m1)
+  }
 }
