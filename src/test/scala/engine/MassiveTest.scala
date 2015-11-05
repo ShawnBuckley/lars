@@ -1,12 +1,20 @@
 import lars.game.engine.celestial.Massive
-import lars.game.engine.celestial.body.MassiveBody
 import lars.game.engine.math.Vector2
 import org.testng.annotations.Test
 import org.testng.Assert._
 
 class MassiveTest {
-  val smaller = new MassiveBody(1000, Vector2.addIdent)
-  val larger = new MassiveBody(10000, Vector2.addIdent)
+  class MassiveTestImpl(m: Long) extends Massive {
+    override def mass: Long = m
+    override def location_=(loc: Vector2): Unit = ???
+    override def location: Vector2 = ???
+    override def observe(): Unit = ???
+    override def drift_=(vec: Vector2): Unit = ???
+    override def drift: Vector2 = ???
+  }
+
+  val smaller = new MassiveTestImpl(1000)
+  val larger = new MassiveTestImpl(10000)
 
   @Test
   def >() = assert(smaller < larger)
