@@ -30,21 +30,21 @@ class Vector2Test {
   def /() = assertEquals(larger / scalar, new Vector2(x1 / scalar, y1 / scalar))
 
   @Test
-  def >() = assertEquals(larger > smaller, true)
+  def >() = assert(larger > smaller)
 
   @Test
-  def <() = assertEquals(smaller < larger, true)
+  def <() = assert(smaller < larger)
 
   @Test
   def >=() = {
-    assertEquals(larger >= smaller, true)
-    assertEquals(larger >= larger, true)
+    assert(larger >= smaller)
+    assert(larger >= larger)
   }
 
   @Test
   def <=() = {
-    assertEquals(smaller <= larger, true)
-    assertEquals(smaller <= smaller, true)
+    assert(smaller <= larger)
+    assert(smaller <= smaller)
   }
 
   @Test

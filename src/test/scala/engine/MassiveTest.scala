@@ -9,21 +9,21 @@ class MassiveTest {
   val larger = new MassiveBody(10000, Vector2.addIdent)
 
   @Test
-  def >() = assertEquals(smaller < larger, true)
+  def >() = assert(smaller < larger)
 
   @Test
-  def <() = assertEquals(larger > smaller, true)
+  def <() = assert(larger > smaller)
 
   @Test
   def >=() = {
-    assertEquals(larger >= smaller, true)
-    assertEquals(smaller >= smaller, true)
+    assert(larger >= smaller)
+    assert(smaller >= smaller)
   }
 
   @Test
   def <=() = {
-    assertEquals(smaller <= larger, true)
-    assertEquals(smaller <= smaller, true)
+    assert(smaller <= larger)
+    assert(smaller <= smaller)
   }
 
   @Test
