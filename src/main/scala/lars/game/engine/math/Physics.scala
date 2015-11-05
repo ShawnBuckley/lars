@@ -16,20 +16,9 @@ object Physics {
    * @return barycenter
    */
   def barycenter(m1: Massive, m2: Massive): Vector2 = {
-    if(m1 > m2) {
-      barycenterSorted(m1, m2)
-    } else if(m1 < m2) {
-      barycenterSorted(m2, m1)
-    } else {
-      Vector2.midpoint(m1.location, m2.location)
-    }
-  }
-
-  private def barycenterSorted(larger: Massive, smaller: Massive): Vector2 = {
-    val massRatio = smaller.mass/larger.mass.toDouble
-    val xDist = (larger.location.x - smaller.location.x) * massRatio
-    val yDist = (larger.location.y - smaller.location.y) * massRatio
-    new Vector2(math.round(larger.location.x - xDist), math.round(larger.location.y - yDist))
+    val mass = m1.mass + m2.mass
+    val inverse = 1 / mass
+    new Vector2((m1.location.x * mass + m2.location.x * mass) * inverse, (m1.location.y * mass + m2.location.y * mass) * inverse)
   }
 
   /**
