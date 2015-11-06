@@ -1,7 +1,6 @@
 package lars.game.engine.math
 
 import lars.game.engine.celestial.Massive
-import lars.game.engine.celestial.body.{MassiveBody, TerrestrialBody}
 
 object Physics {
   /**
@@ -17,8 +16,9 @@ object Physics {
    */
   def barycenter(m1: Massive, m2: Massive): Vector2 = {
     val mass = m1.mass + m2.mass
-    val inverse = 1 / mass
-    new Vector2((m1.location.x * mass + m2.location.x * mass) * inverse, (m1.location.y * mass + m2.location.y * mass) * inverse)
+    val inverse = 1.0 / mass
+    new Vector2(((m1.location.x * m1.mass + m2.location.x * m2.mass) * inverse).toLong,
+                ((m1.location.y * m1.mass + m2.location.y * m2.mass) * inverse).toLong)
   }
 
   /**
@@ -26,19 +26,20 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: Seq[Massive]): Vector2 = massives.length match {
-    case 0 => Vector2.addIdent
-    case 1 => massives(0).location
-    case 2 => barycenter(massives(0), massives(1))
-    case _ => {
-      var center = new MassiveBody(massives(0).mass + massives(1).mass, barycenter(massives(0), massives(1)))
-      var i = 2
-      while(i < massives.length) {
-        center = new MassiveBody(center.mass + massives(i).mass, barycenter(center, massives(i)))
-        i += 1
-      }
-      center.location
+  def barycenter(massives: Seq[Massive]): Vector2 = {
+    var mass = 0L
+    var x = 0L
+    var y = 0L
+    var i = 0
+    while(i < massives.length) {
+      val massive = massives(i)
+      mass += massive.mass
+      x += massive.location.x + massive.mass
+      y += massive.location.y + massive.mass
+      i += 1
     }
+    val inverse = 1.0 / mass
+    new Vector2((x * inverse).toLong, (y * inverse).toLong)
   }
 
   def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
