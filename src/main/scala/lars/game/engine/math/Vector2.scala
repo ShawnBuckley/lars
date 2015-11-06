@@ -1,15 +1,16 @@
 package lars.game.engine.math
 
-case class Vector2(x: Long, y: Long) {
+case class Vector2(x: Long, y: Long) extends Ordered[Vector2] {
   def +(vec: Vector2): Vector2 = new Vector2(x + vec.x, y + vec.y)
   def -(vec: Vector2): Vector2 = new Vector2(x - vec.x, y - vec.y)
   def *(factor: Int): Vector2 = new Vector2(x * factor, y * factor)
   def /(factor: Int): Vector2 = new Vector2(x / factor, y / factor)
 
-  def >(other: Vector2): Boolean = length > other.length
-  def <(other: Vector2): Boolean = length < other.length
-  def >=(other: Vector2): Boolean = length >= other.length
-  def <=(other: Vector2): Boolean = length <= other.length
+  override def >(other: Vector2): Boolean = length > other.length
+  override def <(other: Vector2): Boolean = length < other.length
+  override def >=(other: Vector2): Boolean = length >= other.length
+  override def <=(other: Vector2): Boolean = length <= other.length
+  override def compare(that: Vector2): Int = (length - that.length).toInt
 
   def length: Long = Vector2.distance(Vector2.addIdent, this)
 
