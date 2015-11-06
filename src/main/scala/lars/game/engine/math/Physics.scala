@@ -41,6 +41,12 @@ object Physics {
     new Vector2((x * inverse).toLong, (y * inverse).toLong)
   }
 
+  /**
+    * Calculates the amount of force each object recives from the other.
+    * @param m1
+    * @param m2
+    * @return tuple, force each object recives.
+    */
   def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
     val distSq = math.pow(Vector2.distance(m1.location, m2.location), 2)
     (G * m1.mass / distSq, G * m2.mass / distSq)
