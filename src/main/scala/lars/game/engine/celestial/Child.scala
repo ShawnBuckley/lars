@@ -6,7 +6,7 @@ trait Child {
   var par: Parent
 
   /**
-   * Returns the objects absolute location. This works by propegating the call up to the most elder parent and using
+   * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
    * it's coordinate system.
    * @param relative relative location
    * @return absolute location
