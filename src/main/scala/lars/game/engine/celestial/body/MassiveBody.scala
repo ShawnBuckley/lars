@@ -8,15 +8,21 @@ class MassiveBody(_mass: Mass, _location: Vector2) extends Massive {
   var loc = _location
   var vel = Vector2.addIdent
 
-  override def mass: Mass = _mass
+  override def mass: Mass =
+    _mass
 
-  override def location_=(_loc: Vector2): Unit = loc = _loc
+  override def location_=(_loc: Vector2): Unit =
+    loc = _loc
 
-  override def location: Vector2 = loc
+  override def location: Vector2 =
+    loc
 
-  override def observe(): Unit = {}
+  override def observe(): Unit =
+    _
 
-  override def drift_=(vec: Vector2): Unit = vel = vec
+  override def drift_=(vec: Vector2): Unit =
+    vel = vec
 
-  override def drift: Vector2 = vel
+  override def drift: Vector2 =
+    vel
 }

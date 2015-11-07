@@ -8,10 +8,12 @@ class MassTest {
   val larger =  new Mass(10000)
 
   @Test
-  def >() = assert(smaller < larger)
+  def >() =
+    assert(smaller < larger)
 
   @Test
-  def <() = assert(larger > smaller)
+  def <() =
+    assert(larger > smaller)
 
   @Test
   def >=() = {

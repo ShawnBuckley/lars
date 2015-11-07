@@ -5,6 +5,8 @@ import lars.game.engine.physics.{Density, Length}
 
 trait Sizeable {
   def size: Length
+
   def density: Density
+
   def collide(other: Sizeable, velocity: Vector2)
 }

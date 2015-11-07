@@ -16,17 +16,24 @@ abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends 
   var loc = _loc
   var vel = Vector2.addIdent
 
-  override def mass: Mass = _mass
+  override def mass: Mass =
+    _mass
 
-  override def location: Vector2 = loc
+  override def location: Vector2 =
+    loc
 
-  override def location_=(loc: Vector2) = this.loc = loc
+  override def location_=(loc: Vector2) =
+    this.loc = loc
 
-  override def size: Length = _size
+  override def size: Length =
+    _size
 
-  override def drift_=(vec: Vector2): Unit = vel = vec
+  override def drift_=(vec: Vector2): Unit =
+    vel = vec
 
-  override def drift: Vector2 = vel
+  override def drift: Vector2 =
+    vel
 
-  override def density: Density = new Density(mass.kg / Sphere.volume(size.km))
+  override def density: Density =
+    new Density(mass.kg / Sphere.volume(size.km))
 }

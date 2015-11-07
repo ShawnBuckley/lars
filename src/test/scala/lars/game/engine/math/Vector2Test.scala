@@ -20,22 +20,28 @@ class Vector2Test {
   val smaller = new Vector2(x2, y2)
 
   @Test
-  def +() = assertEquals(larger + smaller, new Vector2(x1 + x2, y1 + y2))
+  def +() =
+    assertEquals(larger + smaller, new Vector2(x1 + x2, y1 + y2))
 
   @Test
-  def -() = assertEquals(larger - smaller, new Vector2(x1 - x2, y1 - y2))
+  def -() =
+    assertEquals(larger - smaller, new Vector2(x1 - x2, y1 - y2))
 
   @Test
-  def *() = assertEquals(larger * scalar, new Vector2(x1 * scalar, y1 * scalar))
+  def *() =
+    assertEquals(larger * scalar, new Vector2(x1 * scalar, y1 * scalar))
 
   @Test
-  def /() = assertEquals(larger / scalar, new Vector2(x1 / scalar, y1 / scalar))
+  def /() =
+    assertEquals(larger / scalar, new Vector2(x1 / scalar, y1 / scalar))
 
   @Test
-  def >() = assert(larger > smaller)
+  def >() =
+    assert(larger > smaller)
 
   @Test
-  def <() = assert(smaller < larger)
+  def <() =
+    assert(smaller < larger)
 
   @Test
   def >=() = {

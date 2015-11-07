@@ -24,11 +24,15 @@ class System extends Massive with Parent {
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)
 
-  override def location: Vector2 = ???
+  override def location: Vector2 =
+    ???
 
-  override def location_=(loc: Vector2): Unit = ???
+  override def location_=(loc: Vector2): Unit =
+    ???
 
-  override def drift_=(vec: Vector2): Unit = ???
+  override def drift_=(vec: Vector2): Unit =
+    ???
 
-  override def drift: Vector2 = ???
+  override def drift: Vector2 =
+    ???
 }

@@ -1,18 +1,35 @@
 package lars.game.engine.math
 
 case class Vector2(x: Long, y: Long) extends Ordered[Vector2] {
-  def +(vec: Vector2): Vector2 = new Vector2(x + vec.x, y + vec.y)
-  def -(vec: Vector2): Vector2 = new Vector2(x - vec.x, y - vec.y)
-  def *(factor: Int): Vector2 = new Vector2(x * factor, y * factor)
-  def /(factor: Int): Vector2 = new Vector2(x / factor, y / factor)
+  def +(vec: Vector2): Vector2 =
+    new Vector2(x + vec.x, y + vec.y)
 
-  override def >(other: Vector2): Boolean = length > other.length
-  override def <(other: Vector2): Boolean = length < other.length
-  override def >=(other: Vector2): Boolean = length >= other.length
-  override def <=(other: Vector2): Boolean = length <= other.length
-  override def compare(that: Vector2): Int = (length - that.length).toInt
+  def -(vec: Vector2): Vector2 =
+    new Vector2(x - vec.x, y - vec.y)
 
-  def length: Long = Vector2.distance(Vector2.addIdent, this)
+  def *(factor: Int): Vector2 =
+    new Vector2(x * factor, y * factor)
+
+  def /(factor: Int): Vector2 =
+    new Vector2(x / factor, y / factor)
+
+  override def >(other: Vector2): Boolean =
+    length > other.length
+
+  override def <(other: Vector2): Boolean =
+    length < other.length
+
+  override def >=(other: Vector2): Boolean =
+    length >= other.length
+
+  override def <=(other: Vector2): Boolean =
+    length <= other.length
+
+  override def compare(that: Vector2): Int =
+    (length - that.length).toInt
+
+  def length: Long =
+    Vector2.distance(Vector2.addIdent, this)
 
   override def equals(other: Any): Boolean = other match {
     case that: Vector2 => x == that.x && y == that.y
@@ -37,9 +54,8 @@ object Vector2 {
     * @param two point2
     * @return midpoint
     */
-  def midpoint(one: Vector2, two: Vector2): Vector2 = {
+  def midpoint(one: Vector2, two: Vector2): Vector2 =
     new Vector2((one.x + two.x)/2, (one.y + two.y)/2)
-  }
 
   /**
     * Returns the distance between two points.
@@ -47,7 +63,6 @@ object Vector2 {
     * @param two point2
     * @return distance
     */
-  def distance(one: Vector2, two: Vector2): Long = {
+  def distance(one: Vector2, two: Vector2): Long =
     math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - one.y, 2)).toLong
-  }
 }
