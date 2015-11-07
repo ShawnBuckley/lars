@@ -3,13 +3,15 @@ package lars.game.engine.celestial.body
 import lars.game.engine.celestial.{Child, Sizeable, Massive}
 import lars.game.engine.math.{Sphere, Vector2}
 
-abstract class CelestialBody(
-                              _mass: Long,
-                              _loc: Vector2,
-                              _size: Long,
-                              dri: Vector2)
-  extends Massive with Sizeable with Child {
-
+/**
+  * Celestial bodies are an abstract base class used for the creation of other objects.  These include stellar, gaseous,
+  * terrestrial, and micro bodies.  Celestial bodies are standard (massive and sizeable) objects
+  *
+  * @param _mass
+  * @param _loc
+  * @param _size
+  */
+abstract class CelestialBody(_mass: Long, _loc: Vector2, _size: Long) extends Massive with Sizeable with Child {
   var loc = _loc
   var vel = Vector2.addIdent
 
