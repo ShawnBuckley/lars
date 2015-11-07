@@ -1,4 +1,4 @@
-package engine
+package lars.game.engine.math
 
 import org.testng.annotations.Test
 

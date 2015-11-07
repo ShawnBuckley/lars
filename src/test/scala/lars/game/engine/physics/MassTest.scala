@@ -1,4 +1,5 @@
-import lars.game.engine.physics.Mass
+package lars.game.engine.physics
+
 import org.testng.annotations.Test
 import org.testng.Assert._
 
