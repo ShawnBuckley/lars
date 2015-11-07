@@ -18,7 +18,7 @@ class MassiveBody(_mass: Mass, _location: Vector2) extends Massive {
     loc
 
   override def observe(): Unit =
-    _
+    {}
 
   override def drift_=(vec: Vector2): Unit =
     vel = vec
