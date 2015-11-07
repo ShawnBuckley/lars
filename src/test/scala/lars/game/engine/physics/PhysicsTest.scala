@@ -2,6 +2,7 @@ package lars.game.engine.physics
 
 import lars.game.engine.celestial.body.MassiveBody
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.units.Mass
 import org.testng.annotations.Test
 import org.testng.Assert._
 

@@ -4,7 +4,7 @@ import lars.Game
 import lars.game.engine.celestial.{NestedLocation, Parent, Massive}
 import lars.game.engine.math
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Mass
+import lars.game.engine.physics.units.Mass
 
 import scala.collection.mutable.ArrayBuffer
 

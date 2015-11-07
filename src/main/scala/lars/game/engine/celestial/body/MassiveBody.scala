@@ -2,7 +2,7 @@ package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Mass
+import lars.game.engine.physics.units.Mass
 
 class MassiveBody(_mass: Mass, _location: Vector2) extends Massive {
   var loc = _location

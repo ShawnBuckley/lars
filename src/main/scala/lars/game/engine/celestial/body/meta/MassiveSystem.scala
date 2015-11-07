@@ -2,7 +2,8 @@ package lars.game.engine.celestial.body.meta
 
 import lars.game.engine.celestial.{Child, Massive, NestedLocation, Parent}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.{Mass, Physics}
+import lars.game.engine.physics.Physics
+import lars.game.engine.physics.units.Mass
 
 /**
  * This is a class that is used to create a virtual binary+ system of massive objects.  It takes in an array of massives

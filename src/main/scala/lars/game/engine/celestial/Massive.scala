@@ -1,7 +1,7 @@
 package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Mass
+import lars.game.engine.physics.units.Mass
 
 trait Massive {
   def mass: Mass

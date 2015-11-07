@@ -1,4 +1,4 @@
-package lars.game.engine.physics
+package lars.game.engine.physics.units
 
 case class Length(length: Long) {
   /**
