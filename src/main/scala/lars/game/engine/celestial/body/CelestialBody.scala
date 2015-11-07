@@ -1,16 +1,14 @@
 package lars.game.engine.celestial.body
 
-import lars.game.engine.celestial.{Orbiting, Sizeable, Massive}
+import lars.game.engine.celestial.{Child, Sizeable, Massive}
 import lars.game.engine.math.{Sphere, Vector2}
 
 abstract class CelestialBody(
                               _mass: Long,
                               _loc: Vector2,
                               _size: Long,
-                              _primary: Massive,
-                              _orbit:(Double) => Vector2,
-                              _dist: Long, dri: Vector2)
-  extends Massive with Sizeable with Orbiting {
+                              dri: Vector2)
+  extends Massive with Sizeable with Child {
 
   var loc = _loc
   var vel = Vector2(0,0)
@@ -22,12 +20,6 @@ abstract class CelestialBody(
   override def location_=(loc: Vector2) = this.loc = loc
 
   override def size: Long = _size
-
-  override def distance: Long = _dist
-
-  override def primary: Massive = _primary
-
-  override def getLocation(period: Double): Vector2 = _orbit(period)
 
   override def drift_=(vec: Vector2): Unit = vel = vec
 
