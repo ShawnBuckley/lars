@@ -4,6 +4,7 @@ import lars.Game
 import lars.game.engine.celestial.{NestedLocation, Parent, Massive}
 import lars.game.engine.math
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.Mass
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -17,8 +18,8 @@ class System extends Massive with Parent {
   def observe(): Unit =
     bodies.foreach(_.observe())
 
-  override def mass: Long =
-    bodies.foldLeft(0L)((sum, body) => body + sum)
+  override def mass: Mass =
+    new Mass(bodies.foldLeft(0L)((sum, body) => body.mass.kg + sum))
 
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)

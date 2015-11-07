@@ -3,7 +3,7 @@ package lars.game.engine.celestial.body
 import lars.game.engine.celestial.{NestedLocation, Child, Parent, Massive}
 import lars.game.engine.math
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Physics
+import lars.game.engine.physics.{Mass, Physics}
 
 /**
  * This is a class that is used to create a virtual binary+ system of massive objects.  It takes in an array of massives
@@ -22,8 +22,8 @@ class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with C
    * calling this method and the mass of its components together.  Use just one approach to find the mass of the system.
    * @return total mass of the system
    */
-  override def mass: Long =
-    massives.foldLeft(0L)((sum, massive) => massive + sum)
+  override def mass: Mass =
+    new Mass(massives.foldLeft(0L)((sum, massive) => massive.mass.kg + sum))
 
   /**
    * Returns the barycenter for the system

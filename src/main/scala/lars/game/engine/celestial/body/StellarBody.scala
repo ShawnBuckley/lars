@@ -2,6 +2,7 @@ package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.{Length, Mass}
 
 /**
   * Stellar bodies are stars of all varieties. This
@@ -13,7 +14,7 @@ import lars.game.engine.math.Vector2
   * @param loc
   * @param size
   */
-class StellarBody(mass: Long, loc: Vector2, size: Long) extends CelestialBody(mass, loc, size) {
+class StellarBody(mass: Mass, loc: Vector2, size: Length) extends CelestialBody(mass, loc, size) {
   override var par: Parent = _
 
   override def observe(): Unit = ???

@@ -1,9 +1,10 @@
 package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.{Density, Length}
 
 trait Sizeable {
-  def size: Long
-  def density: Double
+  def size: Length
+  def density: Density
   def collide(other: Sizeable, velocity: Vector2)
 }

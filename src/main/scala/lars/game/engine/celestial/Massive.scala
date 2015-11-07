@@ -1,24 +1,22 @@
 package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.Mass
 
 trait Massive extends Ordered[Massive] {
-  def mass: Long
+  def mass: Mass
   def location: Vector2
   def location_=(loc: Vector2)
   def drift: Vector2
   def drift_=(vec: Vector2)
   def observe()
 
-  override def >(other: Massive): Boolean = mass > other.mass
-  override def <(other: Massive): Boolean = mass < other.mass
-  override def >=(other: Massive): Boolean = mass >= other.mass
-  override def <=(other: Massive): Boolean = mass <= other.mass
+  override def >(other: Massive): Boolean = mass.kg > other.mass.kg
+  override def <(other: Massive): Boolean = mass.kg < other.mass.kg
+  override def >=(other: Massive): Boolean = mass.kg >= other.mass.kg
+  override def <=(other: Massive): Boolean = mass.kg <= other.mass.kg
 
-  def +(that: Massive): Long = mass + that.mass
-  def +(that: Long): Long = mass + that
-
-  override def compare(that: Massive): Int = (mass - that.mass).toInt
+  override def compare(that: Massive): Int = (mass.kg - that.mass.kg).toInt
 }
 
 object Massive {

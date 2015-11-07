@@ -2,6 +2,7 @@ package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.{Child, Sizeable, Massive}
 import lars.game.engine.math.{Sphere, Vector2}
+import lars.game.engine.physics.{Length, Density, Mass}
 
 /**
   * Celestial bodies are an abstract base class used for the creation of other objects.  These include stellar, gaseous,
@@ -11,21 +12,21 @@ import lars.game.engine.math.{Sphere, Vector2}
   * @param _loc
   * @param _size
   */
-abstract class CelestialBody(_mass: Long, _loc: Vector2, _size: Long) extends Massive with Sizeable with Child {
+abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends Massive with Sizeable with Child {
   var loc = _loc
   var vel = Vector2.addIdent
 
-  override def mass: Long = _mass
+  override def mass: Mass = _mass
 
   override def location: Vector2 = loc
 
   override def location_=(loc: Vector2) = this.loc = loc
 
-  override def size: Long = _size
+  override def size: Length = _size
 
   override def drift_=(vec: Vector2): Unit = vel = vec
 
   override def drift: Vector2 = vel
 
-  override def density: Double = mass/Sphere.volume(size)
+  override def density: Density = new Density(mass.kg / Sphere.volume(size.km))
 }

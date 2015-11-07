@@ -2,12 +2,13 @@ package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.Mass
 
-class MassiveBody(_mass: Long, _location: Vector2) extends Massive {
+class MassiveBody(_mass: Mass, _location: Vector2) extends Massive {
   var loc = _location
   var vel = Vector2.addIdent
 
-  override def mass: Long = _mass
+  override def mass: Mass = _mass
 
   override def location_=(_loc: Vector2): Unit = loc = _loc
 

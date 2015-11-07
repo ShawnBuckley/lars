@@ -2,8 +2,9 @@ package lars.game.engine.celestial.body
 
 import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.{Length, Mass}
 
-class GaseousBody(mass: Long, loc: Vector2, size: Long) extends CelestialBody(mass, loc, size) {
+class GaseousBody(mass: Mass, loc: Vector2, size: Length) extends CelestialBody(mass, loc, size) {
   override var par: Parent = _
 
   override def observe(): Unit = ???
