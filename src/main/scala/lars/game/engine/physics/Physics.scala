@@ -1,6 +1,7 @@
-package lars.game.engine.math
+package lars.game.engine.physics
 
 import lars.game.engine.celestial.Massive
+import lars.game.engine.math.Vector2
 
 object Physics {
   /**

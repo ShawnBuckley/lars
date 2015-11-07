@@ -1,5 +1,6 @@
 import lars.game.engine.celestial.body.MassiveBody
-import lars.game.engine.math.{Physics, Vector2}
+import lars.game.engine.math.Vector2
+import lars.game.engine.physics.Physics
 import org.testng.annotations.Test
 import org.testng.Assert._
 
