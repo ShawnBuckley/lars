@@ -15,6 +15,9 @@ trait Massive extends Ordered[Massive] {
   override def >=(other: Massive): Boolean = mass >= other.mass
   override def <=(other: Massive): Boolean = mass <= other.mass
 
+  def +(that: Massive): Long = mass + that.mass
+  def +(that: Long): Long = mass + that
+
   override def compare(that: Massive): Int = (mass - that.mass).toInt
 }
 
