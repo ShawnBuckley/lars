@@ -1,6 +1,5 @@
 package lars.game.engine.math
 
-import lars.game.engine.math.Vector2
 import org.testng.annotations.Test
 import org.testng.Assert._
 
