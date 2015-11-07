@@ -14,9 +14,8 @@ class System extends Massive with Parent {
 
   }
 
-  def observe(): Unit = {
-
-  }
+  def observe(): Unit =
+    bodies.foreach(_.observe())
 
   override def mass: Long =
     bodies.foldLeft(0L)((sum, body) => body + sum)
