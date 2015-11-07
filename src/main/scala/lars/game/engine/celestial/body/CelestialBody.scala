@@ -11,7 +11,7 @@ abstract class CelestialBody(
   extends Massive with Sizeable with Child {
 
   var loc = _loc
-  var vel = Vector2(0,0)
+  var vel = Vector2.addIdent
 
   override def mass: Long = _mass
 
