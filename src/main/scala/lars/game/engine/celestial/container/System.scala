@@ -19,7 +19,7 @@ class System extends Massive with Parent {
   }
 
   override def mass: Long =
-  math.Util.sum(0, bodies.length, (i: Int) => bodies(i).mass )
+    bodies.foldLeft(0L)((sum, body) => sum + body.mass)
 
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)
