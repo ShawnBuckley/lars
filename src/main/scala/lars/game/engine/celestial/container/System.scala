@@ -1,7 +1,7 @@
 package lars.game.engine.celestial.container
 
 import lars.Game
-import lars.game.engine.celestial.{Parent, Massive}
+import lars.game.engine.celestial.{NestedLocation, Parent, Massive}
 import lars.game.engine.math
 import lars.game.engine.math.Vector2
 

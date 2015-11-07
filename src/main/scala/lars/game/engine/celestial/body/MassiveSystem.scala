@@ -1,6 +1,6 @@
 package lars.game.engine.celestial.body
 
-import lars.game.engine.celestial.{Child, Parent, Massive}
+import lars.game.engine.celestial.{NestedLocation, Child, Parent, Massive}
 import lars.game.engine.math
 import lars.game.engine.math.{Vector2, Physics}
 
@@ -10,7 +10,7 @@ import lars.game.engine.math.{Vector2, Physics}
  *
  * @param massives The components to make the system
  */
-class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with Child {
+class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with Child with NestedLocation {
   private var barycenter = Physics.barycenter(massives)
   private var vel = Vector2(0,0)
 
@@ -22,7 +22,8 @@ class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with C
    * @return total mass of the system
    */
   override def mass: Long =
-    math.Util.sum(0, massives.length, (i: Int) => massives(i).mass)
+//    math.Util.sum(0, massives.length, (i: Int) => massives(i).mass)
+    math.Util.sum(massives)
 
   /**
    * Returns the barycenter for the system
