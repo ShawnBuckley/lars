@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
 	compile 'org.scala-lang:scala-library:2.11.7'
+	compile 'com.nativelibs4java:scalaxy-loops_2.11:0.3.4'
 	compile 'org.eclipse.jetty.aggregate:jetty-all:9.3.5.v20151012'
 	compile 'org.testng:testng:6.9.9'
 }

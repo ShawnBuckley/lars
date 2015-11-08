@@ -1,5 +1,7 @@
 package lars.game.engine.physics
 
+import scalaxy.loops._
+
 import lars.game.engine.Types
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
@@ -34,19 +36,17 @@ object Physics {
    * @return barycenter
    */
   def barycenter(massives: Seq[Massive]): Vector2 = {
-    var total = Types.zeroMass
+    var total = new Mass(Types.zeroMass)
     var x, y = Types.zeroDistance
-    var i = 0
-    while(i < massives.length) {
+    for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
       val mass = Types.toDistance(massive.mass.kg)
       val loc = massive.location
-      total += massive.mass.kg
+      total += massive.mass
       x += loc.x + mass
       y += loc.y + mass
-      i += 1
     }
-    val inverse = 1.0 / total
+    val inverse = 1.0 / total.kg
     new Vector2(Types.toDistance(x * inverse), Types.toDistance(y * inverse))
   }
 
