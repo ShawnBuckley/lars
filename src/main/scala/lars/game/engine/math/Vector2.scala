@@ -1,8 +1,10 @@
 package lars.game.engine.math
 
-case class Vector2(x: Long, y: Long) extends Ordered[Vector2] {
-  def +(vec: Vector2): Vector2 =
-    new Vector2(x + vec.x, y + vec.y)
+import lars.game.engine.Types.DistanceType
+
+case class Vector2(x: DistanceType, y: DistanceType) extends Ordered[Vector2] {
+  def +(that: Vector2): Vector2 =
+    new Vector2(x + that.x, y + that.y)
 
   def -(vec: Vector2): Vector2 =
     new Vector2(x - vec.x, y - vec.y)

@@ -1,14 +1,16 @@
 package lars.game.engine.physics.units
 
-case class Mass(mass: Long) extends Ordered[Mass] {
+import lars.game.engine.Types.MassType
+
+case class Mass(mass: MassType) extends Ordered[Mass] {
   /**
-    * Returns mass as the standard unit of measure, kg
+    * Returns mass as the standard unit of measure, kg.
     * @return mass in kg
     */
-  def kg: Long = mass
+  def kg: MassType = mass
 
   def +(that: Mass): Mass = new Mass(kg + that.kg)
-  def +(that: Long): Mass = new Mass(kg + that)
+  def +(that: MassType): Mass = new Mass(kg + that)
 
   override def >(that: Mass): Boolean = kg > that.kg
   override def <(that: Mass): Boolean = kg < that.kg
