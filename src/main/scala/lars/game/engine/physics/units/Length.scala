@@ -10,3 +10,13 @@ case class Length(length: DistanceType) {
   def km: DistanceType =
     length
 }
+
+object Length {
+  object Km {
+    val mile = 0.6
+    val km = 1
+    val au = 149597871
+    val lightyear = 9460528400000L
+    val parsec = 30856775800000L
+  }
+}
