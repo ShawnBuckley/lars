@@ -5,14 +5,14 @@ import lars.game.engine.physics.units.Length.LengthType
 import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Speed, Length, Mass}
+import lars.game.engine.physics.units.{Force, Speed, Length, Mass}
 
 object Physics {
   /**
     * The gravitational constant.
     */
   // TODO - use correct unit for this (Nm2/kg2)
-  val G = 6.67e-11
+  val G = new Length(6.67e-14)
 
   /**
     * Speed of light in a vacuum.
@@ -23,7 +23,7 @@ object Physics {
     * The proportionality constant (for 1kg), a shortcut for calculating the schwarzschild radius.
     */
   // TODO - correct units to not need division by 1e9.
-  val propConst = (2.0 * G) / math.pow(C.KmS, 2) / 1e9
+  val propConst = new Length((2.0 * G.m) / math.pow(C.KmS, 2) / 1e9)
 
   /**
    * Calculates the barycenter of two Massives.
@@ -63,9 +63,8 @@ object Physics {
     * @param m2
     * @return tuple, force each object receives.
     */
-  def gravForce(m1: Massive, m2: Massive): (Double, Double) = {
-    val distSq = math.pow(Vector2.distance(m1.location, m2.location), 2)
-    (G * m1.mass.kg / distSq, G * m2.mass.kg / distSq)
+  def gravForce(m1: Massive, m2: Massive): Force = {
+    new Force((G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
   }
 
   /**
@@ -75,11 +74,12 @@ object Physics {
     * @return tuple, gravity acceleration
     */
   def gravAccel(m1: Massive, m2: Massive): (Vector2, Vector2) = {
-    val forces = gravForce(m1, m2)
-    (m1.location * forces._1, m2.location * forces._2)
+    (null,null)
+//    val forces = gravForce(m1, m2)
+//    (m1.location * forces._1, m2.location * forces._2)
   }
 
   def schwarzschildRadius(mass: Mass): Length = {
-    new Length(propConst * mass.kg)
+    new Length(propConst.km * mass.kg)
   }
 }

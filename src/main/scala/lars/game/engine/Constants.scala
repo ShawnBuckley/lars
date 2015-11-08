@@ -11,7 +11,7 @@ object Constants {
     val sol = new Star(new Length(695500), new Mass(1.98855e30))
     val mercury = new Body(new Length(2439.7), new Mass(3.3011e23), new Orbit(new Length(57909175), new Time(87.969)))
     val venus = new Body(new Length(6051.59), new Mass(4.8690e24), new Orbit(new Length(108208930), new Time(224.5469999)))
-    val earth = new Body(new Length(6371.0), new Mass(5.9742e24), new Orbit(new Length(149597890), new Time(365.006351)))
+    val earth = new Body(new Length(6371.0), new Mass(5.9721986e24), new Orbit(new Length(1.48822e8), new Time(365.006351)))
       val luna = new Body(new Length(1737.1), new Mass(0), new Orbit(new Length(384400), new Time(27.321582)))
     val mars = new Body(new Length(3397.0), new Mass(6.4191e23), new Orbit(new Length(227936640), new Time(686.509374)))
 //    val ceres = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))

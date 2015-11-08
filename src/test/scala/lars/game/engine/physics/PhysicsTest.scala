@@ -42,4 +42,11 @@ class PhysicsTest {
     val radius = Physics.schwarzschildRadius(Constants.Sol.sol.mass)
     assertEquals(radius.km, 2.9515553987998744)
   }
+
+  @Test
+  def gravForce() = {
+    val sun = new Massive(Constants.Sol.sol.mass, new Vector2(0,0))
+    val earth = new Massive(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
+    assertEquals(Physics.gravForce(sun, earth).N, 3.5765336647647057e22)
+  }
 }
