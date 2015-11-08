@@ -1,5 +1,6 @@
 package lars.game.engine.physics
 
+import lars.game.engine.Constants
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Mass
@@ -48,7 +49,7 @@ class PhysicsTest {
 
   @Test
   def schwarzschildRadius() = {
-    val radius = Physics.schwarzschildRadius(new Mass(10000000000000000000000.0))
-    assertEquals(math.round(radius.km), 4450)
+    val radius = Physics.schwarzschildRadius(Constants.Sol.sol.mass)
+    assertEquals(radius.km, 2.9515553987998744)
   }
 }

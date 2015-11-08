@@ -5,18 +5,25 @@ import scalaxy.loops._
 import lars.game.engine.Types
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Length, Mass}
+import lars.game.engine.physics.units.{Speed, Length, Mass}
 
 object Physics {
   /**
     * The gravitational constant.
     */
+  // TODO - use correct unit for this (Nm2/kg2)
   val G = 6.67e-11
 
   /**
     * Speed of light in a vacuum.
     */
-  val C = 299792458
+  val C = new Speed(299792.458)
+
+  /**
+    * The proportionality constant (for 1kg), a shortcut for calculating the schwarzschild radius.
+    */
+  // TODO - correct units to not need division by 1e9.
+  val propConst = (2.0 * G) / math.pow(C.KmS, 2) / 1e9
 
   /**
    * Calculates the barycenter of two Massives.
@@ -73,7 +80,6 @@ object Physics {
   }
 
   def schwarzschildRadius(mass: Mass): Length = {
-    new Length(Types.toDistance(2 * G * mass.kg) / C)
-
+    new Length(propConst * mass.kg)
   }
 }
