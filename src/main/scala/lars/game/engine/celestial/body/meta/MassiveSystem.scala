@@ -1,7 +1,7 @@
 package lars.game.engine.celestial.body.meta
 
 import lars.game.engine.Types
-import lars.game.engine.celestial.{Child, Massive, NestedLocation, Parent}
+import lars.game.engine.celestial.{Child, Massive, Parent}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
 import lars.game.engine.physics.units.Mass
@@ -12,7 +12,7 @@ import lars.game.engine.physics.units.Mass
  *
  * @param massives The components to make the system
  */
-class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with Child with NestedLocation {
+class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with Child {
   private var barycenter = Physics.barycenter(massives)
   private var vel = Vector2(0,0)
 

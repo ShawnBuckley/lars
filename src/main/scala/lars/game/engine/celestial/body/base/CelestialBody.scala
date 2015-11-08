@@ -12,7 +12,7 @@ import lars.game.engine.physics.units.{Density, Length, Mass}
   * @param _loc
   * @param _size
   */
-abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends Massive with Sizeable with Child {
+abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends Sizeable with Child {
   var loc = _loc
   var vel = Vector2.addIdent
 
