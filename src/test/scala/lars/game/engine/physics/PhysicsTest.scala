@@ -35,4 +35,10 @@ class PhysicsTest {
     val massives = Array(m1, m2, m3, m4)
     assertEquals(Physics.barycenter(massives), new Vector2(1,1))
   }
+
+  @Test
+  def schwarzschildRadius() = {
+    val radius = Physics.schwarzschildRadius(new Mass(10000000000000000000000.0))
+    assertEquals(radius.km, 4449)
+  }
 }
