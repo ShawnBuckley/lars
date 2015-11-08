@@ -1,22 +1,19 @@
 package lars.game.engine.math
 
+import lars.game.engine.Types
 import org.testng.annotations.Test
 import org.testng.Assert._
 
 class Vector2Test {
-  val x1 = 14
-  val y2 = 6
-
-  val y1 = 5
-  val x2 = 3
-
-  val scalar = 2
-
-  // First point, larger of the two
+  val x1 = Types.toDistance(14)
+  val y1 = Types.toDistance(5)
   val larger = new Vector2(x1, y1)
 
-  // Second point, smaller of the two
+  val x2 = Types.toDistance(3)
+  val y2 = Types.toDistance(6)
   val smaller = new Vector2(x2, y2)
+
+  val scalar = Types.toDistance(2)
 
   @Test
   def +() =
@@ -62,7 +59,7 @@ class Vector2Test {
     assertEquals(Vector2.distance(new Vector2(x1,0), Vector2.addIdent), x1)
     assertEquals(Vector2.distance(new Vector2(0,y1), Vector2.addIdent), y1)
     assertEquals(Vector2.distance(new Vector2(x1,y1), Vector2.addIdent),
-      math.sqrt(math.pow(x1,2) + math.pow(y1,2)).toLong)
+      math.sqrt(math.pow(x1,2) + math.pow(y1,2)))
   }
 
   @Test
