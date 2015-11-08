@@ -14,9 +14,7 @@ import lars.game.engine.physics.units.{Length, Mass}
   * @param loc
   * @param size
   */
-class StellarBody(mass: Mass, loc: Vector2, size: Length) extends CelestialBody(mass, loc, size) {
-  override var par: Parent = _
-
+class StellarBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, loc, size, parent) {
   override def observe(): Unit = ???
 
   override def collide(other: Sizeable, velocity: Vector2): Unit = ???

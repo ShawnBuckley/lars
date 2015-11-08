@@ -15,10 +15,7 @@ import lars.game.engine.physics.units.Mass
   * @param mass
   * @param loc
   */
-class Singularity(mass: Mass, loc: Vector2) extends CelestialBody(mass, loc, Physics.schwarzschildRadius(mass)) {
-
-  override var par: Parent = _
-
+class Singularity(mass: Mass, loc: Vector2, parent: Parent) extends CelestialBody(mass, loc, Physics.schwarzschildRadius(mass), parent) {
   override def observe(): Unit =
     {}
 

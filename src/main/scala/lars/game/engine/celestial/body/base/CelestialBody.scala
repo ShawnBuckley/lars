@@ -1,6 +1,6 @@
 package lars.game.engine.celestial.body.base
 
-import lars.game.engine.celestial.{Child, Massive, Sizeable}
+import lars.game.engine.celestial.{Parent, Child, Massive, Sizeable}
 import lars.game.engine.math.{Sphere, Vector2}
 import lars.game.engine.physics.units.{Density, Length, Mass}
 
@@ -10,32 +10,10 @@ import lars.game.engine.physics.units.{Density, Length, Mass}
   *
   * See: https://docs.google.com/document/d/1uG7m4KMdTkZvW4E3ZjkSSvqP9JJVgQFqXzz1hyGJf7s
   *
-  * @param _mass
-  * @param _loc
-  * @param _size
+  * @param mass
+  * @param loc
+  * @param size
   */
-abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends Sizeable with Child {
-  var loc = _loc
-  var vel = Vector2.addIdent
-
-  override def mass: Mass =
-    _mass
-
-  override def location: Vector2 =
-    loc
-
-  override def location_=(loc: Vector2) =
-    this.loc = loc
-
-  override def size: Length =
-    _size
-
-  override def drift_=(vec: Vector2): Unit =
-    vel = vec
-
-  override def drift: Vector2 =
-    vel
-
-  override def density: Density =
-    new Density(mass.kg / Sphere.volume(size).km3)
+class CelestialBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends Sizeable(mass, loc, size) with Child {
+  override var par: Parent = parent
 }

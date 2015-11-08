@@ -15,8 +15,7 @@ import lars.game.engine.physics.units.{Length, Mass}
   * @param loc
   * @param size
   */
-class TerrestrialBody(mass: Mass, loc: Vector2, size: Length)
-  extends CelestialBody(mass, loc, size) {
+class TerrestrialBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, loc, size, parent) {
 
   override def collide(other: Sizeable, velocity: Vector2): Unit = {
     // map space location to surface location
@@ -26,6 +25,4 @@ class TerrestrialBody(mass: Mass, loc: Vector2, size: Length)
   override def observe(): Unit = {
 
   }
-
-  override var par: Parent = _
 }
