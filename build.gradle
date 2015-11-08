@@ -21,4 +21,8 @@ dependencies {
 	compile 'org.testng:testng:6.9.9'
 }
 
+tasks.withType(ScalaCompile) {
+	scalaCompileOptions.useAnt = false
+}
+
 test.useTestNG()
