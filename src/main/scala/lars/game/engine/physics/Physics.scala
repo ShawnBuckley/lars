@@ -1,13 +1,20 @@
 package lars.game.engine.physics
 
+import lars.game.engine.Types
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
+import lars.game.engine.physics.units.{Length, Mass}
 
 object Physics {
   /**
     * The gravitational constant.
     */
   val G = 6.67e-11
+
+  /**
+    * Speed of light in a vacuum.
+    */
+  val C = 299792458
 
   /**
    * Calculates the barycenter of two Massives.
@@ -53,5 +60,9 @@ object Physics {
   def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
     val distSq = math.pow(Vector2.distance(m1.location, m2.location), 2)
     (G * m1.mass.kg / distSq, G * m2.mass.kg / distSq)
+  }
+
+  def schwarzschildRadius(mass: Mass): Length = {
+    new Length(Types.toDistance[Double](2 * G * mass.kg) / C)
   }
 }
