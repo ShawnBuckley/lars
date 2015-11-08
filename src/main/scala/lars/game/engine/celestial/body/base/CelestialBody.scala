@@ -35,5 +35,5 @@ abstract class CelestialBody(_mass: Mass, _loc: Vector2, _size: Length) extends 
     vel
 
   override def density: Density =
-    new Density(mass.kg / Sphere.volume(size.km))
+    new Density(mass.kg / Sphere.volume(size).km3)
 }
