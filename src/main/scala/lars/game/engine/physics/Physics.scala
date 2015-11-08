@@ -56,9 +56,20 @@ object Physics {
     * @param m2
     * @return tuple, force each object receives.
     */
-  def gravAccel(m1: Massive, m2: Massive): (Double, Double) = {
+  def gravForce(m1: Massive, m2: Massive): (Double, Double) = {
     val distSq = math.pow(Vector2.distance(m1.location, m2.location), 2)
     (G * m1.mass.kg / distSq, G * m2.mass.kg / distSq)
+  }
+
+  /**
+    * Calculates the drift offset of two objects due to gravity.
+    * @param m1
+    * @param m2
+    * @return tuple, gravity acceleration
+    */
+  def gravAccel(m1: Massive, m2: Massive): (Vector2, Vector2) = {
+    val forces = gravForce(m1, m2)
+    (m1.location * forces._1, m2.location * forces._2)
   }
 
   def schwarzschildRadius(mass: Mass): Length = {
