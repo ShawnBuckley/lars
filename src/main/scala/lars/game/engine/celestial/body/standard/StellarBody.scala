@@ -6,8 +6,7 @@ import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Mass, Length}
 
 /**
-  * Stellar bodies are stars of all varieties. This
-  *
+  * Stellar bodies are stars of all varieties.  This includes stars, neutron stars, and, pulsars.
   *
   * See: https://docs.google.com/document/d/1XPz32qaK-0D5I7oc1eLFulBTn2nzxTo0b6mf65V0RLQ
   *

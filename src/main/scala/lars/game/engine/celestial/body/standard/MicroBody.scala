@@ -5,6 +5,16 @@ import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Mass, Length}
 
+/**
+  * Micro bodies are bodies that have a surface too small to land on.  This includes dust clouds, debris, comets, and
+  * meteoroids.
+  *
+  * See: https://docs.google.com/document/d/1lVRbnwU_s0HDtwDi4NilufJVVlvo9wmZjp7FL1K3ewU
+  *
+  * @param mass
+  * @param loc
+  * @param size
+  */
 class MicroBody(mass: Mass, loc: Vector2, size: Length) extends CelestialBody(mass, loc, size) {
   override def observe(): Unit = ???
 
