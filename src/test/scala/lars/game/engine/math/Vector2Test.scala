@@ -69,4 +69,12 @@ class Vector2Test {
       Vector2.midpoint(new Vector2(x1,y1), new Vector2(0-x1, 0-y1))
     )
   }
+
+  @Test
+  def normalize() = {
+    val longer: LengthType = math.abs(larger.length)
+    val shorter: LengthType = math.abs(smaller.length)
+    assertEquals(larger.normalize, new Vector2(x1 / longer, y1 / longer))
+    assertEquals(smaller.normalize, new Vector2(x2 / shorter, y2 / shorter))
+  }
 }

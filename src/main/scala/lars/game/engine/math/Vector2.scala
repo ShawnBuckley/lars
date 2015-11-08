@@ -41,6 +41,11 @@ case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
 
   def round: Vector2 =
     new Vector2(math.round(x), math.round(y))
+
+  def normalize: Vector2 = {
+    val factor = math.abs(length)
+    new Vector2(x / factor, y / factor)
+  }
 }
 
 object Vector2 {
