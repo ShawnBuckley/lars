@@ -1,7 +1,7 @@
 package lars.game.engine.celestial.body.standard
 
-import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.celestial.body.base.CelestialBody
+import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
 import lars.game.engine.physics.units.Mass

@@ -1,7 +1,7 @@
 package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Length, Density}
+import lars.game.engine.physics.units.{Density, Length}
 
 trait Sizeable {
   def size: Length

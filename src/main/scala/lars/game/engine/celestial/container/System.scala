@@ -1,9 +1,8 @@
 package lars.game.engine.celestial.container
 
 import lars.Game
-import lars.game.engine.Types.MassType
-import lars.game.engine.celestial.{NestedLocation, Parent, Massive}
-import lars.game.engine.{Types, math}
+import lars.game.engine.Types
+import lars.game.engine.celestial.{Massive, Parent}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Mass
 

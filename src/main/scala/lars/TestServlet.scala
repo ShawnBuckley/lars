@@ -1,6 +1,6 @@
 package lars
 
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
 
 class TestServlet extends HttpServlet {
   override def service(request: HttpServletRequest, response: HttpServletResponse): Unit = {

@@ -1,7 +1,6 @@
 package lars.game.engine.physics
 
 import lars.game.engine.Types
-import lars.game.engine.Types.{DistanceType, MassType}
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Length, Mass}

@@ -3,7 +3,7 @@ package lars.game.engine.celestial.body.standard
 import lars.game.engine.celestial.body.base.CelestialBody
 import lars.game.engine.celestial.{Parent, Sizeable}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Mass, Length}
+import lars.game.engine.physics.units.{Length, Mass}
 
 /**
   * Gaseous bodies are any body that consists on a non solid outermost surface.  This includes gas clouds, gas dwarfs,
