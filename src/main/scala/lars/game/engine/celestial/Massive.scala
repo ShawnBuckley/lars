@@ -3,11 +3,7 @@ package lars.game.engine.celestial
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Mass
 
-trait Massive {
-  def mass: Mass
-  def location: Vector2
-  def location_=(loc: Vector2)
-  def drift: Vector2
-  def drift_=(vec: Vector2)
-  def observe()
+class Massive(var mass: Mass, var location: Vector2, var drift: Vector2 = Vector2.addIdent) {
+  def observe(): Unit =
+    {}
 }

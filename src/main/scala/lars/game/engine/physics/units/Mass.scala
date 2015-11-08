@@ -12,6 +12,9 @@ case class Mass(mass: MassType) extends Ordered[Mass] {
   def +(that: Mass): Mass = new Mass(kg + that.kg)
   def +(that: MassType): Mass = new Mass(kg + that)
 
+  def -(that: Mass): Mass = new Mass(kg - that.kg)
+  def -(that: MassType): Mass = new Mass(kg - that)
+
   override def >(that: Mass): Boolean = kg > that.kg
   override def <(that: Mass): Boolean = kg < that.kg
   override def >=(that: Mass): Boolean = kg >= that.kg
