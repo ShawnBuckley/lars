@@ -1,6 +1,5 @@
 package lars.game.engine.celestial.body.meta
 
-import lars.game.engine.Types
 import lars.game.engine.celestial.{Child, Massive, Parent}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
@@ -24,7 +23,7 @@ class MassiveSystem(_par: Parent, massives: Seq[Massive]) extends Massive with C
    * @return total mass of the system
    */
   override def mass: Mass =
-    new Mass(massives.foldLeft(Types.zeroMass)((sum, massive) => massive.mass.kg + sum))
+    new Mass(massives.foldLeft(Mass.zero)((sum, massive) => massive.mass.kg + sum))
 
   /**
    * Returns the barycenter for the system

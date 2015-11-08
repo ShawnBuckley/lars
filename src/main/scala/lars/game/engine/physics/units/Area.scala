@@ -1,10 +1,12 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.Types.DistanceType
+import lars.game.engine.physics.units.Area.AreaType
 
-class Area(width: Length, height: Length) {
-  val area = width.km * height.km
+case class Area(val km2: AreaType) {
+  def this(width: Length, height: Length) =
+    this(width.km * height.km)
+}
 
-  def km2: DistanceType =
-    area
+object Area {
+  type AreaType = Double
 }

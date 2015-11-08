@@ -1,19 +1,19 @@
 package lars.game.engine.math
 
-import lars.game.engine.Types
+import lars.game.engine.physics.units.Length.LengthType
 import org.testng.annotations.Test
 import org.testng.Assert._
 
 class Vector2Test {
-  val x1 = Types.toDistance(14)
-  val y1 = Types.toDistance(5)
+  val x1: LengthType = 14
+  val y1: LengthType = 5
   val larger = new Vector2(x1, y1)
 
-  val x2 = Types.toDistance(3)
-  val y2 = Types.toDistance(6)
+  val x2: LengthType = 3
+  val y2: LengthType = 6
   val smaller = new Vector2(x2, y2)
 
-  val scalar = Types.toDistance(2)
+  val scalar: LengthType = 2
 
   @Test
   def +() =

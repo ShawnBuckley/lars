@@ -1,7 +1,13 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.Types.SpeedType
+import lars.game.engine.physics.units.Speed.SpeedType
 
-class Speed(val KmS: SpeedType) {
+case class Speed(val KmS: SpeedType) {
 
+}
+
+object Speed {
+  type SpeedType = Double
+
+  val zero: SpeedType = 0
 }

@@ -1,19 +1,19 @@
 package lars.game.engine.math
 
-import lars.game.engine.Types
-import lars.game.engine.Types.DistanceType
+import lars.game.engine.physics.units.Length
+import lars.game.engine.physics.units.Length.LengthType
 
-case class Vector2(x: DistanceType, y: DistanceType) extends Ordered[Vector2] {
+case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
   def +(that: Vector2): Vector2 =
     new Vector2(x + that.x, y + that.y)
 
   def -(vec: Vector2): Vector2 =
     new Vector2(x - vec.x, y - vec.y)
 
-  def *(factor: DistanceType): Vector2 =
+  def *(factor: LengthType): Vector2 =
     new Vector2(x * factor, y * factor)
 
-  def /(factor: DistanceType): Vector2 =
+  def /(factor: LengthType): Vector2 =
     new Vector2(x / factor, y / factor)
 
   override def >(other: Vector2): Boolean =
@@ -31,7 +31,7 @@ case class Vector2(x: DistanceType, y: DistanceType) extends Ordered[Vector2] {
   override def compare(that: Vector2): Int =
     (length - that.length).toInt
 
-  def length: DistanceType =
+  def length: LengthType =
     Vector2.distance(Vector2.addIdent, this)
 
   override def equals(other: Any): Boolean = other match {
@@ -47,12 +47,12 @@ object Vector2 {
   /**
     * The additive identity.
     */
-  val addIdent = new Vector2(Types.zeroDistance, Types.zeroDistance)
+  val addIdent = new Vector2(Length.zero, Length.zero)
 
   /**
     * The multiplicative identity.
     */
-  val mulIdent = new Vector2(Types.oneDistance, Types.oneDistance)
+  val mulIdent = new Vector2(Length.one, Length.one)
 
   /**
     * Returns the midpoint between two points.
@@ -69,6 +69,6 @@ object Vector2 {
     * @param two point2
     * @return distance
     */
-  def distance(one: Vector2, two: Vector2): DistanceType =
+  def distance(one: Vector2, two: Vector2): LengthType =
     math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - one.y, 2))
 }

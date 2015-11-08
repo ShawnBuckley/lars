@@ -1,7 +1,6 @@
 package lars.game.engine.celestial.container
 
 import lars.Game
-import lars.game.engine.Types
 import lars.game.engine.celestial.body.base.CelestialBody
 import lars.game.engine.celestial.{Parent, Massive, Child}
 import lars.game.engine.math.Vector2
@@ -23,7 +22,7 @@ class System(_loc: Vector2, parent: Parent) extends Massive with Parent with Chi
     bodies.foreach(_.observe())
 
   override def mass: Mass =
-    new Mass(bodies.foldLeft(Types.zeroMass)((sum, body) => body.mass.kg + sum))
+    new Mass(bodies.foldLeft(Mass.zero)((sum, body) => body.mass.kg + sum))
 
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)

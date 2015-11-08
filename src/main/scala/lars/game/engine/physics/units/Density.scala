@@ -1,6 +1,7 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.Types.DensityType
+import lars.game.engine.physics.units.Density.DensityType
+
 
 case class Density(density: DensityType) {
   /**
@@ -12,6 +13,10 @@ case class Density(density: DensityType) {
 }
 
 object Density {
+  type DensityType = Double
+
+  val zero: DensityType = 0
+
   def calculate(mass: Mass, length: Length): Density =
     this(mass.kg / length.km)
 

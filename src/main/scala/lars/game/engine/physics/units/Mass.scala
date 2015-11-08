@@ -1,6 +1,6 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.Types.MassType
+import lars.game.engine.physics.units.Mass.MassType
 
 case class Mass(mass: MassType) extends Ordered[Mass] {
   /**
@@ -21,6 +21,10 @@ case class Mass(mass: MassType) extends Ordered[Mass] {
 }
 
 object Mass {
+  type MassType = Double
+
+  val zero: MassType = 0
+
   def min(m1: Mass, m2: Mass): Mass = if(m1 < m2) m1 else m2
   def max(m1: Mass, m2: Mass): Mass = if(m1 > m2) m1 else m2
 

@@ -1,8 +1,8 @@
 package lars.game.engine.physics
 
-import scalaxy.loops._
+import lars.game.engine.physics.units.Length.LengthType
 
-import lars.game.engine.Types
+import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Speed, Length, Mass}
@@ -33,8 +33,8 @@ object Physics {
    */
   def barycenter(m1: Massive, m2: Massive): Vector2 = {
     val inverse = 1 / (m1.mass.kg + m2.mass.kg)
-    new Vector2(Types.toDistance((m1.location.x * m1.mass.kg + m2.location.x * m2.mass.kg) * inverse),
-                Types.toDistance((m1.location.y * m1.mass.kg + m2.location.y * m2.mass.kg) * inverse))
+    new Vector2((m1.location.x * m1.mass.kg + m2.location.x * m2.mass.kg) * inverse,
+               ((m1.location.y * m1.mass.kg + m2.location.y * m2.mass.kg) * inverse))
   }
 
   /**
@@ -43,18 +43,18 @@ object Physics {
    * @return barycenter
    */
   def barycenter(massives: Seq[Massive]): Vector2 = {
-    var total = new Mass(Types.zeroMass)
-    var x, y = Types.zeroDistance
+    var total = new Mass(Mass.zero)
+    var x, y = Length.zero
     for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
-      val mass = Types.toDistance(massive.mass.kg)
+      val mass: LengthType = massive.mass.kg
       val loc = massive.location
       total += massive.mass
       x += loc.x + mass
       y += loc.y + mass
     }
     val inverse = 1.0 / total.kg
-    new Vector2(Types.toDistance(x * inverse), Types.toDistance(y * inverse))
+    new Vector2(x * inverse, y * inverse)
   }
 
   /**

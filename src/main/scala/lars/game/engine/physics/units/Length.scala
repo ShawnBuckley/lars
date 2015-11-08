@@ -1,17 +1,17 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.Types.DistanceType
+import lars.game.engine.physics.units.Length.LengthType
 
-case class Length(length: DistanceType) {
-  /**
-    * Returns length in the standard unit of measure, km.
-    * @return km
-    */
-  def km: DistanceType =
-    length
+case class Length(val km: LengthType) {
+
 }
 
 object Length {
+  type LengthType = Double
+
+  val zero: LengthType = 0
+  val one: LengthType = 1
+
   object Km {
     val mile = 0.6
     val km = 1
