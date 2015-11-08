@@ -40,7 +40,7 @@ class PhysicsTest {
   @Test
   def schwarzschildRadius() = {
     val radius = Physics.schwarzschildRadius(Constants.Sol.sol.mass)
-    assertEquals(radius.km, 2.9515553987998744)
+    assertEquals(radius.km, 2.951555398799874)
   }
 
   @Test

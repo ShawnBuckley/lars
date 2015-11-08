@@ -14,6 +14,7 @@ object Length {
   val one: LengthType = 1
 
   object Km {
+    val m = 1e-3
     val mile = 0.6
     val km = 1
     val au = 149597871
