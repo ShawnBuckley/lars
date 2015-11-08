@@ -3,7 +3,6 @@ package lars.game.engine.celestial.body.base
 import lars.game.engine.celestial.{Child, Massive, Sizeable}
 import lars.game.engine.math.{Sphere, Vector2}
 import lars.game.engine.physics.units.{Mass, Length, Density}
-import lars.game.engine.physics.Mass
 
 /**
   * Celestial bodies are an abstract base class used for the creation of other objects.  These include stellar, gaseous,
