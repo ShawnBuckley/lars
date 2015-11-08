@@ -5,6 +5,8 @@ object Types {
   type DistanceType = Double
   type VolumeType = Double
   type DensityType = Double
+  type TimeType = Double
+  type TemperatureType = Double
 
   val zeroMass = toMass(0)
   val zeroDistance = toDistance(0)
@@ -24,6 +26,12 @@ object Types {
   def toDensity(value: AnyVal): DensityType =
     value.asInstanceOf[Number].doubleValue
 
+  def toTime(value: AnyVal): TimeType =
+    value.asInstanceOf[Number].doubleValue
+
+  def toTemperature(value: AnyVal): TemperatureType =
+    value.asInstanceOf[Number].doubleValue
+
   // Performance optimization conversion.
   // Happens when the type to be converted is the same.
 
@@ -37,5 +45,11 @@ object Types {
     value
 
   def toDensity(value: DensityType): DensityType =
+    value
+
+  def toTime(value: TimeType): TimeType =
+    value
+
+  def toTemperature(value: TemperatureType): TemperatureType =
     value
 }
