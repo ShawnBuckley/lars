@@ -1,7 +1,6 @@
 package lars.game.engine.celestial.body.standard
 
-import lars.game.engine.celestial.body.base.CelestialBody
-import lars.game.engine.celestial.{Parent, Sizeable}
+import lars.game.engine.celestial.{Child, Parent, Sizeable}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Length, Mass}
 
@@ -15,7 +14,10 @@ import lars.game.engine.physics.units.{Length, Mass}
   * @param location
   * @param size
   */
-class GaseousBody(mass: Mass, location: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, location, size, parent) {
+class GaseousBody(override var mass: Mass,
+                  override var location: Vector2,
+                  override var size: Length,
+                  override var parent: Parent) extends Sizeable with Child {
   override def observe(): Unit = ???
 
   override def collide(other: Sizeable): Unit = ???
