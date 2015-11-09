@@ -60,7 +60,7 @@ object Physics {
     * Calculates the amount of force each object receives from the other.
     * @param m1
     * @param m2
-    * @return tuple, force each object receives.
+    * @return the gravitation force the objects are exerting on each other
     */
   def gravForce(m1: Massive, m2: Massive): Force = {
     new Force((G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))

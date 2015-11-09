@@ -13,6 +13,9 @@ object Length {
   val zero: LengthType = 0
   val one: LengthType = 1
 
+  /**
+    * Constants used for converting length measurements into kilometers.
+    */
   object Km {
     val m = 1e-3
     val mile = 0.6

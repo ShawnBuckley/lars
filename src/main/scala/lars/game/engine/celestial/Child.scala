@@ -2,6 +2,9 @@ package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
 
+/**
+  * This trait is used to determine a nested object's absolute location in the galaxy.
+  */
 trait Child extends NestedLocation {
   var parent: Parent
 
