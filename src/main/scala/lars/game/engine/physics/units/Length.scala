@@ -13,6 +13,11 @@ object Length {
   val zero: LengthType = 0
   val one: LengthType = 1
 
+  object in {
+    def m(m: LengthType): Length =
+      new Length(m * Km.m)
+  }
+
   /**
     * Constants used for converting length measurements into kilometers.
     */

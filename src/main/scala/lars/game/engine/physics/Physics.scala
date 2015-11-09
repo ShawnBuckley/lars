@@ -22,7 +22,7 @@ object Physics {
   /**
     * The proportionality constant (for 1kg), a shortcut for calculating the schwarzschild radius.
     */
-  val propConst = new Length((2.0 * G.m) / math.pow(C.ms, 2) * Length.Km.m)
+  val propConst = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
 
   /**
    * Calculates the barycenter of two Massives.
