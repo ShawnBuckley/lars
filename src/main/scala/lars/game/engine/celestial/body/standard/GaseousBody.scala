@@ -12,11 +12,11 @@ import lars.game.engine.physics.units.{Length, Mass}
   * See: https://docs.google.com/document/d/1i7DdZ9atqvvfzx_K6bwlE2WKCwg3kxGPfTSWkG_VmO4
   *
   * @param mass
-  * @param loc
+  * @param location
   * @param size
   */
-class GaseousBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, loc, size, parent) {
+class GaseousBody(mass: Mass, location: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, location, size, parent) {
   override def observe(): Unit = ???
 
-  override def collide(other: Sizeable, velocity: Vector2): Unit = ???
+  override def collide(other: Sizeable): Unit = ???
 }

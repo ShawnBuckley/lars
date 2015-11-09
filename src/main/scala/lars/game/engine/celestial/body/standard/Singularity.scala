@@ -13,9 +13,9 @@ import lars.game.engine.physics.units.Mass
   * See: https://docs.google.com/document/d/1CbM0HG1Tb4D8JjgCdMcMY4PkaqaRTMqWDbzBZzniOFo/
   *
   * @param mass
-  * @param loc
+  * @param location
   */
-class Singularity(mass: Mass, loc: Vector2, parent: Parent) extends CelestialBody(mass, loc, Physics.schwarzschildRadius(mass), parent) {
+class Singularity(mass: Mass, location: Vector2, parent: Parent) extends CelestialBody(mass, location, Physics.schwarzschildRadius(mass), parent) {
   override def observe(): Unit =
     {}
 
@@ -23,8 +23,7 @@ class Singularity(mass: Mass, loc: Vector2, parent: Parent) extends CelestialBod
     * This happens when an object falls into the event horizon of a blackhole.
     *
     * @param other
-    * @param velocity
     */
-  override def collide(other: Sizeable, velocity: Vector2): Unit =
+  override def collide(other: Sizeable): Unit =
     ???
 }

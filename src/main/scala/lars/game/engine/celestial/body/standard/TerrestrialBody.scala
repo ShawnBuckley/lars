@@ -12,17 +12,17 @@ import lars.game.engine.physics.units.{Length, Mass}
   * See: https://docs.google.com/document/d/1f3JKtOjPvJIYzYThT43RCBR61_LUqYzk631wu4QGxac
   *
   * @param mass
-  * @param loc
+  * @param location
   * @param size
   */
-class TerrestrialBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, loc, size, parent) {
-
-  override def collide(other: Sizeable, velocity: Vector2): Unit = {
-    // map space location to surface location
-    // create crater
-  }
+class TerrestrialBody(mass: Mass, location: Vector2, size: Length, parent: Parent) extends CelestialBody(mass, location, size, parent) {
 
   override def observe(): Unit = {
 
+  }
+
+  override def collide(other: Sizeable): Unit = {
+    // map space location to surface location
+    // create crater
   }
 }

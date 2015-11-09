@@ -8,10 +8,8 @@ import lars.game.engine.physics.units.Mass
 
 import scala.collection.mutable.ArrayBuffer
 
-class System(loc: Vector2, parent: Parent) extends Massive(new Mass(Mass.zero), loc) with Parent with Child {
-  override var par: Parent = parent
-  var vec = Vector2.addIdent
-
+class System(override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
+  override var mass: Mass = new Mass(Mass.zero)
   var bodies = new ArrayBuffer[Massive]
 
   def add(body: CelestialBody): Unit = {
@@ -26,6 +24,7 @@ class System(loc: Vector2, parent: Parent) extends Massive(new Mass(Mass.zero), 
 
   override def observe(): Unit =
     bodies.foreach(_.observe())
+
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)
 }
