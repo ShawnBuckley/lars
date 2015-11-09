@@ -14,6 +14,4 @@ import lars.game.engine.physics.units.{Density, Length, Mass}
   * @param loc
   * @param size
   */
-class CelestialBody(mass: Mass, loc: Vector2, size: Length, parent: Parent) extends Sizeable(mass, loc, size) with Child {
-  override var par: Parent = parent
-}
+class CelestialBody(mass: Mass, loc: Vector2, size: Length, override var parent: Parent) extends Sizeable(mass, loc, size) with Child

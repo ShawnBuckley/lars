@@ -3,20 +3,7 @@ package lars.game.engine.celestial
 import lars.game.engine.math.Vector2
 
 trait Child extends NestedLocation {
-  var par: Parent
-
-  /**
-   * Returns the parent
-   * @return parent
-   */
-  def parent: Parent =
-    par
-
-  /**
-   * Sets a new parent.
-   * @param par new parent
-   */
-  def parent_=(par: Parent) = this.par = par
+  var parent: Parent
 
   /**
     * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
@@ -26,5 +13,5 @@ trait Child extends NestedLocation {
     * @return absolute location
     */
   override def absoluteLocation(relative: Vector2): Vector2 =
-    par.absoluteLocation(relative)
+    parent.absoluteLocation(relative)
 }
