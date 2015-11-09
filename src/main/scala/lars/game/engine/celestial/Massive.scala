@@ -13,6 +13,10 @@ import lars.game.engine.physics.units.Mass
   * Massive objects are observable.  The game engine is lazy, objects will only be updated when observed.  The specifics
   * what happens during observation is determined by the object's subtype.  Generally observation will update the
   * locations objects plus update the body's surface.
+  *
+  * Some objects will inherit Massive without inheriting from Sizeable as well.  These will include containers such as
+  * systems, as well as anomalies such as dark matter and hyperspace nodes.
+  *
   */
 trait Massive {
   var mass: Mass
