@@ -1,7 +1,6 @@
 package lars.game.engine.celestial.container
 
 import lars.Game
-import lars.game.engine.celestial.body.base.CelestialBody
 import lars.game.engine.celestial.{Parent, Massive, Child}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Mass
@@ -27,12 +26,12 @@ class System(override var location: Vector2, override var parent: Parent) extend
   override var mass: Mass = new Mass(Mass.zero)
   var bodies = new ArrayBuffer[Massive]
 
-  def add(body: CelestialBody): Unit = {
+  def add(body: Massive): Unit = {
     bodies.append(body)
     mass += body.mass
   }
 
-  def del(body: CelestialBody): Unit = {
+  def del(body: Massive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
   }
