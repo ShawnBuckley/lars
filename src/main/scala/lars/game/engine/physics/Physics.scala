@@ -20,9 +20,9 @@ object Physics {
   val C = new Speed(299792.458)
 
   /**
-    * The proportionality constant (for 1kg), a shortcut for calculating the schwarzschild radius.
+    * The schwarzschild radius pre-calculated for 1kg as a performance optimization.
     */
-  val propConst = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
+  val schwarzschildFactor = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
 
   /**
    * Calculates the barycenter of two Massives.
@@ -79,6 +79,6 @@ object Physics {
   }
 
   def schwarzschildRadius(mass: Mass): Length = {
-    new Length(propConst.km * mass.kg)
+    new Length(schwarzschildFactor.km * mass.kg)
   }
 }
