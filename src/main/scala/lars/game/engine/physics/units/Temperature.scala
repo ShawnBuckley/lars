@@ -2,7 +2,7 @@ package lars.game.engine.physics.units
 
 import lars.game.engine.physics.units.Temperature.TemperatureType
 
-class Temperature(val k: TemperatureType) {
+case class Temperature(k: TemperatureType) {
 
 }
 

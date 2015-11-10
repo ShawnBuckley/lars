@@ -3,9 +3,8 @@ package lars.game.engine.physics.units
 import lars.game.engine.physics.units.Volume.VolumeType
 
 
-class Volume(volume: VolumeType) {
-  def km3: VolumeType =
-    volume
+case class Volume(km3: VolumeType) {
+
 }
 
 object Volume {

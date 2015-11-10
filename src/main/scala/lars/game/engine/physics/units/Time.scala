@@ -2,7 +2,7 @@ package lars.game.engine.physics.units
 
 import lars.game.engine.physics.units.Time.TimeType
 
-class Time(val d: TimeType) {
+case class Time(d: TimeType) {
   def us: TimeType =
     d * 86400000000L
 
