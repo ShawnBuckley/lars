@@ -31,9 +31,9 @@ object Physics {
    * @return barycenter
    */
   def barycenter(m1: Massive, m2: Massive): Vector2 = {
-    val inverse = 1 / (m1.mass.kg + m2.mass.kg)
-    new Vector2((m1.location.x * m1.mass.kg + m2.location.x * m2.mass.kg) * inverse,
-               ((m1.location.y * m1.mass.kg + m2.location.y * m2.mass.kg) * inverse))
+    val totalMass = m1.mass.kg + m2.mass.kg
+    new Vector2((m1.location.x * m1.mass.kg + m2.location.x * m2.mass.kg) / totalMass,
+               ((m1.location.y * m1.mass.kg + m2.location.y * m2.mass.kg) / totalMass))
   }
 
   /**
@@ -47,13 +47,11 @@ object Physics {
     for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
       val mass: LengthType = massive.mass.kg
-      val loc = massive.location
       total += massive.mass
-      x += loc.x + mass
-      y += loc.y + mass
+      x += massive.location.x + mass
+      y += massive.location.y + mass
     }
-    val inverse = 1.0 / total.kg
-    new Vector2(x * inverse, y * inverse)
+    new Vector2(x / total.kg, y / total.kg)
   }
 
   /**
