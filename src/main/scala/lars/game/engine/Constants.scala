@@ -7,6 +7,11 @@ object Constants {
   class Orbit(val radius: Length, val period: Time)
   class Body(val radius: Length, val mass: Mass, val orbit: Orbit)
 
+  object MilkyWay {
+    val mass: Mass = new Mass(6e42)
+    val sgr_a_star: Mass = new Mass(8.57e36)
+  }
+
   object Sol {
     val sol = new Star(new Length(695500), new Mass(1.98855e30))
     val mercury = new Body(new Length(2439.7), new Mass(3.3011e23), new Orbit(new Length(57909175), new Time(87.969)))
