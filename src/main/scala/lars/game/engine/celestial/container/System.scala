@@ -23,7 +23,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param parent
   */
 class System(override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
-  override var mass: Mass = new Mass(Mass.zero)
+  override var mass: Mass = Mass.zero
   var bodies = new ArrayBuffer[Massive]
 
   def add(body: Massive): Unit = {

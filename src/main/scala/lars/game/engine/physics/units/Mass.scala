@@ -26,7 +26,7 @@ case class Mass(mass: MassType) extends Ordered[Mass] {
 object Mass {
   type MassType = Double
 
-  val zero: MassType = 0
+  val zero: Mass = new Mass(0)
 
   def min(m1: Mass, m2: Mass): Mass = if(m1 < m2) m1 else m2
   def max(m1: Mass, m2: Mass): Mass = if(m1 > m2) m1 else m2

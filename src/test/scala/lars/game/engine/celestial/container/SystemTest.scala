@@ -21,6 +21,6 @@ class SystemTest {
     system.del(earth)
     assertEquals(system.mass, sun.mass)
     system.del(sun)
-    assertEquals(system.mass.kg, Mass.zero)
+    assertEquals(system.mass, Mass.zero)
   }
 }

@@ -42,7 +42,7 @@ object Physics {
    * @return barycenter
    */
   def barycenter(massives: Seq[Massive]): Vector2 = {
-    var total = new Mass(Mass.zero)
+    var total = Mass.zero
     var x, y = Length.zero
     for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
