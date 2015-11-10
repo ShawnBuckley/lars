@@ -65,18 +65,6 @@ object Physics {
   }
 
   /**
-    * Calculates the drift offset of two objects due to gravity.
-    * @param m1
-    * @param m2
-    * @return tuple, gravity acceleration
-    */
-  def gravAccel(m1: Massive, m2: Massive): (Vector2, Vector2) = {
-    (null,null)
-//    val forces = gravForce(m1, m2)
-//    (m1.location * forces._1, m2.location * forces._2)
-  }
-
-  /**
     * Calculates the schwarzschild radius of a mass.  The schwarzschild radius is used to calculate the radius of the
     * event horizon of a black hole.
     * @param mass
