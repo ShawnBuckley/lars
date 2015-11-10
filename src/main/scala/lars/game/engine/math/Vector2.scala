@@ -7,6 +7,9 @@ case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
   def +(that: Vector2): Vector2 =
     new Vector2(x + that.x, y + that.y)
 
+  def unary_-(): Vector2 =
+    new Vector2(-x, -y)
+
   def -(vec: Vector2): Vector2 =
     new Vector2(x - vec.x, y - vec.y)
 

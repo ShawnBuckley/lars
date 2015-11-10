@@ -52,6 +52,12 @@ class Vector2Test {
   }
 
   @Test
+  def negative() = {
+    assertEquals(-smaller, new Vector2(-smaller.x, -smaller.y))
+    assertEquals(-larger, new Vector2(-larger.x, -larger.y))
+  }
+
+  @Test
   def equals() = assertEquals(larger, new Vector2(x1, y1))
 
   @Test
