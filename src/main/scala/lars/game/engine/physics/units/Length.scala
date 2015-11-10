@@ -11,7 +11,7 @@ object Length {
   type LengthType = Double
 
   val zero: LengthType = 0
-  val one: LengthType = 1
+  val one:  LengthType = 1
 
   object in {
     def m(m: LengthType): Length =
