@@ -6,6 +6,7 @@ thumbs.db
 ### Java ###
 
 *.class
+docs/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
