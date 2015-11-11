@@ -14,6 +14,4 @@ object Density {
 
   def calculate(mass: Mass, length: Length): Density =
     this(mass.kg / length.km)
-
-
 }
