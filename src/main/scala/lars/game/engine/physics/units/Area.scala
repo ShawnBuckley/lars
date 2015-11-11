@@ -1,12 +1,9 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Area.AreaType
+import lars.game.engine.physics.units.Length.LengthType
 
-case class Area(km2: AreaType) {
-  def this(width: Length, height: Length) =
-    this(width.km * height.km)
-}
+case class Area(km2: LengthType) {
 
-object Area {
-  type AreaType = Double
+  def *(that: Length): Volume =
+    new Volume(km2 * that.km)
 }

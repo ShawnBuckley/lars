@@ -5,6 +5,9 @@ import lars.game.engine.physics.units.Length.LengthType
 case class Length(km: LengthType) {
   def m: LengthType =
     km * 1000
+
+  def *(that: Length): Area =
+    new Area(km * that.km)
 }
 
 object Length {

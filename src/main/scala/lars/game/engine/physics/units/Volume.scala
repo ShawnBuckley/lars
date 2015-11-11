@@ -1,14 +1,8 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Volume.VolumeType
+import lars.game.engine.physics.units.Length.LengthType
 
 
-case class Volume(km3: VolumeType) {
+case class Volume(km3: LengthType) {
 
-}
-
-object Volume {
-  type VolumeType = Double
-
-  val zero: VolumeType = 0
 }
