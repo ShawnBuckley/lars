@@ -27,6 +27,8 @@ class Singularity(override var mass: Mass,
     *
     * @param other
     */
-  override def collide(other: Sizeable): Unit =
-    ???
+  override def collide(other: Sizeable): Unit = {
+    mass += other.mass
+    size = Physics.schwarzschildRadius(mass)
+  }
 }
