@@ -45,4 +45,10 @@ class MassTest {
     assertEquals(Mass.sort(larger, smaller), result)
     assertEquals(Mass.sort(smaller, larger), result)
   }
+
+  @Test
+  def density() = {
+    val volume = new Volume(10)
+    assertEquals(larger / volume, new Density(1000))
+  }
 }
