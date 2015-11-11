@@ -12,6 +12,6 @@ object Density {
 
   val zero: DensityType = 0
 
-  def calculate(mass: Mass, length: Length): Density =
-    this(mass.kg / length.km)
+  def calculate(mass: Mass, volume: Volume): Density =
+    this(mass.kg / volume.km3)
 }
