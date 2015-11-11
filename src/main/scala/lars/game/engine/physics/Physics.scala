@@ -60,9 +60,8 @@ object Physics {
     * @param m2
     * @return the gravitation force the objects are exerting on each other
     */
-  def gravForce(m1: Massive, m2: Massive): Force = {
-    new Force((G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
-  }
+  def gravForce(m1: Massive, m2: Massive): Force =
+    new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
 
   /**
     * Calculates the schwarzschild radius of a mass.  The schwarzschild radius is used to calculate the radius of the

@@ -1,11 +1,11 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Force.ForceType
+import lars.game.engine.math.Vector2
 
-case class Force(N: ForceType) {
+case class Force(N: Vector2) {
 
 }
 
 object Force {
-  type ForceType = Double
+
 }

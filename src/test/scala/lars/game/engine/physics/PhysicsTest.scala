@@ -51,6 +51,6 @@ class PhysicsTest {
   def gravForce() = {
     val sun = new MassiveBody(Constants.Sol.sol.mass, new Vector2(0,0))
     val earth = new MassiveBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
-    assertEquals(Physics.gravForce(sun, earth).N, 3.5765336647647057e22)
+    assertEquals(Physics.gravForce(sun, earth).N.length, 3.5765336647647057e22)
   }
 }
