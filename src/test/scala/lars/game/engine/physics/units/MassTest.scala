@@ -1,8 +1,7 @@
-package lars.game.engine.physics
+package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Mass
-import org.testng.annotations.Test
 import org.testng.Assert._
+import org.testng.annotations.Test
 
 class MassTest {
   val smaller = new Mass(1000)
