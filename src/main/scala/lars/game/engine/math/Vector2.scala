@@ -49,6 +49,9 @@ case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
     val factor = math.abs(length)
     new Vector2(x / factor, y / factor)
   }
+
+  def angle: Double =
+    math.atan2(y, x)
 }
 
 object Vector2 {
@@ -79,4 +82,13 @@ object Vector2 {
     */
   def distance(one: Vector2, two: Vector2): LengthType =
     math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - one.y, 2))
+
+  /**
+    * Converts a polar coordinate into a cartesian coordinate.
+    *
+    * @param point
+    * @return cartesian coordinate
+    */
+  def convert(point: Polar2): Vector2 =
+    new Vector2(point.length * math.cos(point.angle), point.length * math.sin(point.angle))
 }
