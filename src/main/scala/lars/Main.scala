@@ -10,7 +10,7 @@ object Main {
   def main(args: Array[String]) {
     // Simulation
     val sec = Time.in.s(1)
-    val sun = new StellarBody(Constants.Sol.sol.mass, new Vector2(0,0), Constants.Sol.sol.radius, null)
+    val sun = new StellarBody(Constants.Sol.sol.mass * 100, new Vector2(0,0), Constants.Sol.sol.radius, null)
     val earth = new TerrestrialBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0), Constants.Sol.earth.radius, null)
     earth.velocity = new Velocity(new Vector2(0,Constants.Sol.earth.orbit.speed.ms))
 
@@ -43,7 +43,7 @@ object Main {
       max = math.max(max, percent)
 
       // print
-      if(math.round(time.w) % 2 == 0) {
+      if(count % 1000000 == 0) {
         println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + percent + ", min: " + min + ", max: " + max)
       }
     }
