@@ -1,13 +1,13 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Length.LengthType
+import lars.game.engine.math.Vector2
 
-case class AngularMomentum(kgmms: LengthType) {
+case class AngularMomentum(kgmms: Vector2) {
   def /(that: Length): Momentum =
     new Momentum(kgmms / that.m)
 }
 
 object AngularMomentum {
-  def conserve(mass: Mass, velocity: Speed, radius: Length, newRadius: Length): Speed =
+  def conserve(mass: Mass, velocity: Velocity, radius: Length, newRadius: Length): Velocity =
     ((mass * velocity * radius) / newRadius) / mass
 }

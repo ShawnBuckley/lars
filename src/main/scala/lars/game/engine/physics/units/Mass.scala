@@ -1,5 +1,6 @@
 package lars.game.engine.physics.units
 
+import lars.game.engine.physics.units.Length.LengthType
 import lars.game.engine.physics.units.Mass.MassType
 
 case class Mass(kg: MassType) extends Ordered[Mass] {
@@ -35,8 +36,8 @@ case class Mass(kg: MassType) extends Ordered[Mass] {
   def /(that: Volume): Density =
     new Density(kg / that.km3)
 
-  def *(that: Speed): Momentum =
-    new Momentum(kg * that.ms)
+  def *(that: Velocity): Momentum =
+    new Momentum(that.ms * kg)
 }
 
 object Mass {
