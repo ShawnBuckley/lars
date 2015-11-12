@@ -3,7 +3,7 @@ package lars.game.engine.physics
 import lars.game.engine.Constants
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.Mass
+import lars.game.engine.physics.units.{Speed, Length, AngularMomentum, Mass}
 import org.testng.annotations.Test
 import org.testng.Assert._
 
@@ -53,4 +53,6 @@ class PhysicsTest {
     val earth = new MassiveBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
     assertEquals(Physics.gravForce(sun, earth).N.length, 3.5765336647647057e22)
   }
+
+
 }

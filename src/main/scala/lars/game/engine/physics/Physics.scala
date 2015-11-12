@@ -17,7 +17,7 @@ object Physics {
   /**
     * Speed of light in a vacuum.
     */
-  val C = new Speed(299792.458)
+  val C = new Speed(299792458)
 
   /**
     * The schwarzschild radius pre-calculated for 1kg as a performance optimization.

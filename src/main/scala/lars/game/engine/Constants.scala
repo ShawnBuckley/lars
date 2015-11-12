@@ -1,10 +1,13 @@
 package lars.game.engine
 
-import lars.game.engine.physics.units.{Time, Mass, Length}
+import lars.game.engine.math.Circle
+import lars.game.engine.physics.units.{Speed, Time, Mass, Length}
 
 object Constants {
   class Star(val radius: Length, val mass: Mass)
-  class Orbit(val radius: Length, val period: Time)
+  class Orbit(val radius: Length, val period: Time) {
+    val speed: Speed = Circle.circumference(radius) / period
+  }
   class Body(val radius: Length, val mass: Mass, val orbit: Orbit)
 
   object MilkyWay {
