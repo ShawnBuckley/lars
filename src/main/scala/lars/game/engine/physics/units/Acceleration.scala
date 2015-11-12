@@ -1,11 +1,5 @@
 package lars.game.engine.physics.units
 
-import lars.game.engine.physics.units.Acceleration.AccelType
+import lars.game.engine.math.Vector2
 
-case class Acceleration(ms2: AccelType) {
-
-}
-
-object Acceleration {
-  type AccelType = Double
-}
+case class Acceleration(ms2: Vector2)
