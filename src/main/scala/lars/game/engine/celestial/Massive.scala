@@ -1,7 +1,7 @@
 package lars.game.engine.celestial
 
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.Mass
+import lars.game.engine.physics.units.{Velocity, Mass}
 
 /**
   * The Massive object trait.  Massive objects are the fundamental objects that can exist in space.  They have mass,
@@ -21,7 +21,7 @@ import lars.game.engine.physics.units.Mass
 trait Massive {
   var mass: Mass
   var location: Vector2
-  var drift: Vector2 = Vector2.addIdent
+  var velocity: Velocity = Velocity.zero
 
   def observe(): Unit
 }

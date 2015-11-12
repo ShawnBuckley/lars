@@ -11,5 +11,5 @@ case class Velocity(ms: Vector2) {
 }
 
 object Velocity {
-  val zero = Vector2.addIdent
+  val zero = new Velocity(Vector2.addIdent)
 }
