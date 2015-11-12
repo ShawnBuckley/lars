@@ -7,6 +7,7 @@ case class AngularMomentum(kgmms: Vector2) {
     new Momentum(kgmms / that.m)
 }
 
+// TODO - calculate with sin of angle
 object AngularMomentum {
   def conserve(mass: Mass, velocity: Velocity, radius: Length, newRadius: Length): Velocity =
     ((mass * velocity * radius) / newRadius) / mass

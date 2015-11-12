@@ -49,6 +49,4 @@ object Time {
     val w = 1/7
     val y = 1/365
   }
-
-
 }
