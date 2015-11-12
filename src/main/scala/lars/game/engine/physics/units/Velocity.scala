@@ -6,6 +6,9 @@ case class Velocity(ms: Vector2) {
   def kms: Vector2 =
     ms / 1000
 
+  def +(that: Velocity): Velocity =
+    new Velocity(ms + that.ms)
+
   def speed: Speed =
     new Speed(ms.length)
 }
