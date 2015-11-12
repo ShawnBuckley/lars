@@ -30,7 +30,7 @@ case class Mass(kg: MassType) extends Ordered[Mass] {
   override def compare(that: Mass): Int =
     (kg - that.kg).toInt
 
-  // Other types
+  // Conversion to other types
 
   def /(that: Volume): Density =
     new Density(kg / that.km3)
