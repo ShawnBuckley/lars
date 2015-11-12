@@ -3,9 +3,6 @@ package lars.game.engine.physics.units
 import lars.game.engine.math.Vector2
 
 case class Force(N: Vector2) {
-
-}
-
-object Force {
-
+  def *(that: Area): Pressure =
+    new Pressure(N.length * that.m2)
 }
