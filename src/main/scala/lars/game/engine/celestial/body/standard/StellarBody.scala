@@ -17,7 +17,7 @@ class StellarBody(override var mass: Mass,
                   override var location: Vector2,
                   override var size: Length,
                   override var parent: Parent) extends Sizeable with Child {
-  override def observe(): Unit = ???
+  override def observe(): Unit = {}
 
   override def collide(other: Sizeable): Unit = ???
 }
