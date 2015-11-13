@@ -31,6 +31,7 @@ case class Time(d: TimeType) {
 object Time {
   type TimeType = Double
   val zero: TimeType = 0
+  val second = Time.in.s(1)
 
   object in {
     def s(sec: TimeType): Time =
