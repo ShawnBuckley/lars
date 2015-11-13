@@ -41,7 +41,7 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: Seq[Massive]): Vector2 = {
+  def barycenter(massives: Seq[Massive]): Massive = {
     var total = Mass.zero
     var x, y = Length.zero
     for(i <- 0 until massives.length optimized) {
@@ -51,7 +51,11 @@ object Physics {
       x += massive.location.x + mass
       y += massive.location.y + mass
     }
-    new Vector2(x / total.kg, y / total.kg)
+    new Massive {
+      override var mass: Mass = total
+      override var location: Vector2 = new Vector2(x / total.kg, y / total.kg)
+      override def observe(): Unit = {}
+    }
   }
 
   /**
