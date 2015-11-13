@@ -1,9 +1,11 @@
 package lars.game.engine.celestial.container
 
+import scalaxy.loops._
 import lars.Game
 import lars.game.engine.celestial.{Parent, Massive, Child}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.Mass
+import lars.game.engine.physics.Physics
+import lars.game.engine.physics.units.{AngularMomentum, Time, Length, Mass}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -26,9 +28,10 @@ class System(override var location: Vector2, override var parent: Parent) extend
   override var mass: Mass = Mass.zero
   var bodies = new ArrayBuffer[Massive]
 
-  def add(body: Massive): Unit = {
+  def add(body: Massive): Massive = {
     bodies.append(body)
     mass += body.mass
+    body
   }
 
   def del(body: Massive): Unit = {
@@ -36,8 +39,23 @@ class System(override var location: Vector2, override var parent: Parent) extend
     mass -= body.mass
   }
 
-  override def observe(): Unit =
-    bodies.foreach(_.observe())
+  override def observe(): Unit = {
+    tick()
+  }
+
+  def tick(): Unit = {
+    val barycenter = Physics.barycenter(bodies)
+    for(i <- 0 until bodies.length optimized) {
+      val body = bodies(i)
+      val radius = new Length(body.location.length)
+      val lastLocation = body.location
+      body.velocity += Physics.gravForce(Physics.barycenterRemove(barycenter, body), body) / body.mass / Time.second
+      body.location += body.velocity.kms
+      if(radius.km > 0)
+        body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(lastLocation.length), radius)
+      body.observe()
+    }
+  }
 
   override def absoluteLocation(relative: Vector2): Vector2 =
     Game.galaxy.absoluteLocation(location + relative)
