@@ -2,7 +2,7 @@ package lars.game.engine.celestial.body.standard
 
 import lars.game.engine.celestial.{Child, Parent, Sizeable}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Length, Mass}
+import lars.game.engine.physics.units.{Velocity, Length, Mass}
 
 /**
   * Stellar bodies are stars of all varieties.  This includes stars, neutron stars, and, pulsars.
@@ -17,6 +17,7 @@ class StellarBody(override var mass: Mass,
                   override var location: Vector2,
                   override var size: Length,
                   override var parent: Parent) extends Sizeable with Child {
+  override var velocity: Velocity = Velocity.zero
   override def observe(): Unit = {}
 
   override def collide(other: Sizeable): Unit = ???

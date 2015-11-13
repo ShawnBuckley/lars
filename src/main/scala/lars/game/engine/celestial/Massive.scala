@@ -21,7 +21,7 @@ import lars.game.engine.physics.units.{Velocity, Mass}
 trait Massive {
   var mass: Mass
   var location: Vector2
-  var velocity: Velocity = Velocity.zero
+  var velocity: Velocity //= Velocity.zero
 
   def observe(): Unit
 }

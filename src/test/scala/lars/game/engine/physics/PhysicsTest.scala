@@ -3,13 +3,14 @@ package lars.game.engine.physics
 import lars.game.engine.Constants
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Speed, Length, AngularMomentum, Mass}
+import lars.game.engine.physics.units._
 import org.testng.annotations.Test
 import org.testng.Assert._
 
 class PhysicsTest {
   class MassiveBody(override var mass: Mass, override var location: Vector2) extends Massive {
     override def observe(): Unit = ???
+    override var velocity: Velocity = _
   }
 
   @Test

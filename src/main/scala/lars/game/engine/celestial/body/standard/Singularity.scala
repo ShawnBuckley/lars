@@ -3,7 +3,7 @@ package lars.game.engine.celestial.body.standard
 import lars.game.engine.celestial.{Child, Parent, Sizeable}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units.{Length, Mass}
+import lars.game.engine.physics.units.{Velocity, Length, Mass}
 
 /**
   * Singularities are all types of black holes.  This includes miniature, stellar, intermediate, and super massive /
@@ -17,6 +17,7 @@ import lars.game.engine.physics.units.{Length, Mass}
 class Singularity(override var mass: Mass,
                   override var location: Vector2,
                   override var parent: Parent) extends Sizeable with Child {
+  override var velocity: Velocity = Velocity.zero
   override var size: Length = Physics.schwarzschildRadius(mass)
 
   override def observe(): Unit =
