@@ -4,6 +4,9 @@ import lars.game.engine.physics.units.Length
 import lars.game.engine.physics.units.Length.LengthType
 
 case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
+  def this(a: LengthType) =
+    this(a, a)
+
   def +(that: Vector2): Vector2 =
     new Vector2(x + that.x, y + that.y)
 
