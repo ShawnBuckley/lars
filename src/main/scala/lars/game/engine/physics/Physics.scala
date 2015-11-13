@@ -30,10 +30,9 @@ object Physics {
    * @param m2 massive2
    * @return barycenter
    */
-  def barycenter(m1: Massive, m2: Massive): Vector2 = {
-    val totalMass = m1.mass.kg + m2.mass.kg
-    new Vector2((m1.location.x * m1.mass.kg + m2.location.x * m2.mass.kg) / totalMass,
-               ((m1.location.y * m1.mass.kg + m2.location.y * m2.mass.kg) / totalMass))
+  def barycenter(m1: Massive, m2: Massive): Barycenter = {
+    val totalMass = m1.mass + m2.mass
+    new Barycenter(totalMass, (((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg))
   }
 
   /**
@@ -41,7 +40,7 @@ object Physics {
    * @param massives massives
    * @return barycenter
    */
-  def barycenter(massives: Seq[Massive]): Massive = {
+  def barycenter(massives: Seq[Massive]): Barycenter = {
     var total = Mass.zero
     var x, y = Length.zero
     for(i <- 0 until massives.length optimized) {
@@ -51,11 +50,18 @@ object Physics {
       x += massive.location.x + mass
       y += massive.location.y + mass
     }
-    new Massive {
-      override var mass: Mass = total
-      override var location: Vector2 = new Vector2(x / total.kg, y / total.kg)
-      override def observe(): Unit = {}
-    }
+    new Barycenter(total, new Vector2(x,y) / total.kg)
+  }
+
+  /**
+    * Removes an object from the calculated barycenter.
+    * @param barycenter
+    * @param massive
+    * @return
+    */
+  def barycenterRemove(barycenter: Barycenter, massive: Massive): Barycenter = {
+    val mass = barycenter.mass - massive.mass
+    new Barycenter(mass, (((barycenter.location * barycenter.mass.kg) - massive.location) - new Vector2(massive.mass.kg)) / mass.kg)
   }
 
   /**
