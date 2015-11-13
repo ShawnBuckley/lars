@@ -2,7 +2,7 @@ package lars.game.engine.celestial.body.standard
 
 import lars.game.engine.celestial.{Child, Parent, Sizeable}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Length, Mass}
+import lars.game.engine.physics.units.{Velocity, Length, Mass}
 
 /**
   * Terrestrial bodies are all variety of celestial objects large enough to have a surface that can be visited.  This
@@ -16,6 +16,7 @@ import lars.game.engine.physics.units.{Length, Mass}
   */
 class TerrestrialBody(override var mass: Mass,
                       override var location: Vector2,
+                      override var velocity: Velocity,
                       override var size: Length,
                       override var parent: Parent) extends Sizeable with Child {
 
