@@ -5,7 +5,7 @@ import lars.Game
 import lars.game.engine.celestial.{Parent, Massive, Child}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units.{AngularMomentum, Time, Length, Mass}
+import lars.game.engine.physics.units._
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -25,6 +25,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param parent
   */
 class System(override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
+  override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
   var bodies = new ArrayBuffer[Massive]
 
