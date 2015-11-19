@@ -42,15 +42,13 @@ object Physics {
    */
   def barycenter(massives: Seq[Massive]): Barycenter = {
     var total = Mass.zero
-    var x, y = Length.zero
+    var location = Vector2.addIdent
     for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
-      val mass: LengthType = massive.mass.kg
       total += massive.mass
-      x += massive.location.x + mass
-      y += massive.location.y + mass
+      location += massive.location * massive.mass.kg
     }
-    new Barycenter(total, new Vector2(x,y) / total.kg)
+    new Barycenter(total, location / total.kg)
   }
 
   /**
@@ -60,8 +58,8 @@ object Physics {
     * @return
     */
   def barycenterRemove(barycenter: Barycenter, massive: Massive): Barycenter = {
-    val mass = barycenter.mass - massive.mass
-    new Barycenter(mass, (((barycenter.location * barycenter.mass.kg) - massive.location) - new Vector2(massive.mass.kg)) / mass.kg)
+    val massRemoved = (barycenter.mass - massive.mass)
+    new Barycenter(massRemoved, ((barycenter.location - ((massive.location * massive.mass.kg) / barycenter.mass.kg)) * barycenter.mass.kg) / massRemoved.kg)
   }
 
   /**

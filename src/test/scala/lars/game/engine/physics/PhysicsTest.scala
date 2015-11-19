@@ -39,7 +39,7 @@ class PhysicsTest {
     val m3 = new MassiveBody(new Mass(12000), new Vector2(4,6))
     val m4 = new MassiveBody(new Mass(8000),  new Vector2(-2,-3))
     val massives = Array(m1, m2, m3, m4)
-    assertEquals(Physics.barycenter(massives), new Barycenter(new Mass(30000), new Vector2(1.0000666666666667, 1.0001)))
+    assertEquals(Physics.barycenter(massives), new Barycenter(new Mass(30000), new Vector2(1.0666666666666667, 1.6)))
   }
 
   @Test
