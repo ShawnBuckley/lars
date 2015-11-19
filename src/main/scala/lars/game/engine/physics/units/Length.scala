@@ -6,6 +6,10 @@ case class Length(km: LengthType) {
   def m: LengthType =
     km * 1000
 
+  def au: LengthType =
+    km / 149597870.7
+
+
   def -(that: Length): Length =
     new Length(km - that.km)
 
