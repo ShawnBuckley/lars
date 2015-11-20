@@ -32,7 +32,18 @@ planet_sprites[5] = {
     'color': 'brown',
     'size': 4
 }
-
+planet_sprites[6] = {
+    'color': 'orange',
+    'size': 3
+}
+planet_sprites[7] = {
+    'color': 'blue',
+    'size': 3
+}
+planet_sprites[8] = {
+    'color': 'white',
+    'size': 3
+}
 
 function loaded() {
     $('#planets').css('background-color', 'rgba(0, 0, 0, 0.7)');

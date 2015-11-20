@@ -33,9 +33,9 @@ object Main {
     val earth = system.add(createPlanet(Constants.Sol.earth))
     val mars = system.add(createPlanet(Constants.Sol.mars))
     val jupiter = system.add(createPlanet(Constants.Sol.jupiter))
-//    val saturn = system.add(createPlanet(Constants.Sol.saturn))
-//    val neptune = system.add(createPlanet(Constants.Sol.neptune))
-//    val uranus = system.add(createPlanet(Constants.Sol.uranus))
+    val saturn = system.add(createPlanet(Constants.Sol.saturn))
+    val uranus = system.add(createPlanet(Constants.Sol.uranus))
+    val neptune = system.add(createPlanet(Constants.Sol.neptune))
 
     // min, max orbital lengths
     var min = Double.MaxValue
