@@ -11,6 +11,7 @@
     "requirejs-text": "2.0.x",
     "requirejs": "2.1.x",
     "jquery": "~2.1.4",
+    "jquery-mousewheel": "3.1.13",
     "bootstrap": "~3.3.5"
   }
 }
