@@ -47,11 +47,11 @@ planet_sprites[6] = {
     'size': 3
 }
 planet_sprites[7] = {
-    'color': 'blue',
+    'color': 'white',
     'size': 3
 }
 planet_sprites[8] = {
-    'color': 'white',
+    'color': 'blue',
     'size': 3
 }
 

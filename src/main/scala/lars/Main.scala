@@ -53,7 +53,7 @@ object Main {
       system.observe()
 
       // collect data
-      val polar = Polar2.convert(earth.location)
+      val polar = Polar2.convert(sun.location, earth.location)
       val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
       min = math.min(min, dist)
       max = math.max(max, dist)
