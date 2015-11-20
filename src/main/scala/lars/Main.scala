@@ -8,56 +8,59 @@ import lars.game.engine.math.{Polar2, Vector2}
 import lars.game.engine.physics.units.{Length, Velocity, Time}
 
 object Main {
+  val system = new System(new Vector2(0,0), null)
   def main(args: Array[String]) {
-    val system = new System(new Vector2(0,0), null)
 
-    def createPlanet(body: Body): TerrestrialBody = {
-      new TerrestrialBody(
-        body.mass,
-        new Vector2(body.orbit.radius.km,0),
-        new Velocity(new Vector2(0, body.orbit.speed.ms)),
-        body.radius,
-        system)
-    }
+    val server = new EmbeddedWebapp
+    server.start()
 
-    val sun = system.add(new StellarBody(
-      Constants.Sol.sol.mass,
-      new Vector2(0.0,0.0),
-      Constants.Sol.sol.radius,
-      system))
-    val mercury = system.add(createPlanet(Constants.Sol.mercury))
-    val earth = system.add(createPlanet(Constants.Sol.earth))
-    val mars = system.add(createPlanet(Constants.Sol.mars))
-    val jupiter = system.add(createPlanet(Constants.Sol.jupiter))
-    val saturn = system.add(createPlanet(Constants.Sol.saturn))
-    val neptune = system.add(createPlanet(Constants.Sol.neptune))
-    val uranus = system.add(createPlanet(Constants.Sol.uranus))
-
-    // min, max orbital lengths
-    var min = Double.MaxValue
-    var max = 0.0
-
-    // state tracking
-    var time = Time.second
-    var count = 0
-
-    while(true) {
-      // update state
-      count += 1
-      time += Time.second
-
-      system.observe()
-
-      // collect data
-      val polar = Polar2.convert(uranus.location)
-      val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
-      min = math.min(min, dist)
-      max = math.max(max, dist)
-
-      if(count % 1000000 == 0) {
-        //
-        println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + dist + ", min: " + min + ", max: " + max)
-      }
-    }
+//    def createPlanet(body: Body): TerrestrialBody = {
+//      new TerrestrialBody(
+//        body.mass,
+//        new Vector2(body.orbit.radius.km,0),
+//        new Velocity(new Vector2(0, body.orbit.speed.ms)),
+//        body.radius,
+//        system)
+//    }
+//
+//    val sun = system.add(new StellarBody(
+//      Constants.Sol.sol.mass,
+//      new Vector2(0.0,0.0),
+//      Constants.Sol.sol.radius,
+//      system))
+//    val mercury = system.add(createPlanet(Constants.Sol.mercury))
+//    val earth = system.add(createPlanet(Constants.Sol.earth))
+//    val mars = system.add(createPlanet(Constants.Sol.mars))
+//    val jupiter = system.add(createPlanet(Constants.Sol.jupiter))
+//    val saturn = system.add(createPlanet(Constants.Sol.saturn))
+//    val neptune = system.add(createPlanet(Constants.Sol.neptune))
+//    val uranus = system.add(createPlanet(Constants.Sol.uranus))
+//
+//    // min, max orbital lengths
+//    var min = Double.MaxValue
+//    var max = 0.0
+//
+//    // state tracking
+//    var time = Time.second
+//    var count = 0
+//
+//    while(true) {
+//      // update state
+//      count += 1
+//      time += Time.second
+//
+//      system.observe()
+//
+//      // collect data
+//      val polar = Polar2.convert(uranus.location)
+//      val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
+//      min = math.min(min, dist)
+//      max = math.max(max, dist)
+//
+//      if(count % 1000000 == 0) {
+//        //
+//        println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + dist + ", min: " + min + ", max: " + max)
+//      }
+//    }
   }
 }
