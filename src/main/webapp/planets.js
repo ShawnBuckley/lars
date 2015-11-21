@@ -19,6 +19,8 @@ var previousLocation = {}
 previousLocation.x = viewport.x
 previousLocation.y = viewport.y
 
+var planets = []
+
 var planet_sprites = []
 planet_sprites[0] = {
     'color': 'yellow',
@@ -96,23 +98,29 @@ function loaded() {
     canvas = document.getElementById("planets");
     context = canvas.getContext("2d");
 
+    updatePlanets()
     renderPlanets()
 }
 
-function renderPlanets() {
+function updatePlanets() {
     $.get("planets", function(data) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        for(var i=0; i<data.length; i++) {
-            context.beginPath();
-            var loc = toPixels(data[i])
-            loc.x += viewport.x
-            loc.y += viewport.y
-            context.arc(loc.x, loc.y, planet_sprites[i].size, 0, 2 * Math.PI, false);
-            context.fillStyle = planet_sprites[i].color;
-            context.fill();
-            context.lineWidth = 1;
-        }
-    });
+        planets = data
+    })
+    setTimeout(updatePlanets, 10)
+}
+
+function renderPlanets() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    for(var i=0; i<planets.length; i++) {
+        context.beginPath();
+        var loc = toPixels(planets[i])
+        loc.x += viewport.x
+        loc.y += viewport.y
+        context.arc(loc.x, loc.y, planet_sprites[i].size, 0, 2 * Math.PI, false);
+        context.fillStyle = planet_sprites[i].color;
+        context.fill();
+        context.lineWidth = 1;
+    }
     setTimeout(renderPlanets, 10)
 }
 
