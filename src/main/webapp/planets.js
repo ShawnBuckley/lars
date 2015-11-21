@@ -1,7 +1,9 @@
-var canvasSize = 1000;
+var canvasSize = 1000
+var halfCanvasSize = canvasSize / 2
+var zoom = 10
 // 25 au in km
-var dist = 3.73994677e9
-var pixelDistance = (dist * 2) / canvasSize
+var dist = 3.73994677e8
+var pixelDistance = ((dist * 2) / canvasSize) * zoom
 console.log(pixelDistance)
 
 var canvas
@@ -10,12 +12,12 @@ var context
 var mouseDown = false
 
 var viewport = {}
-viewport.x = 0
-viewport.y = 0
+viewport.x = halfCanvasSize
+viewport.y = halfCanvasSize
 
 var previousLocation = {}
-previousLocation.x = 0
-previousLocation.y = 0
+previousLocation.x = viewport.x
+previousLocation.y = viewport.y
 
 var planet_sprites = []
 planet_sprites[0] = {
@@ -71,14 +73,25 @@ function loaded() {
     })
     .mousemove(function(event) {
         if(mouseDown == true) {
-            var diffX = (event.pageX - previousLocation.x)
-            var diffY = (event.pageY - previousLocation.y)
-            viewport.x += diffX
-            viewport.y += diffY
+            viewport.x += (event.pageX - previousLocation.x)
+            viewport.y += (event.pageY - previousLocation.y)
             previousLocation.x = event.pageX
             previousLocation.y = event.pageY
         }
     })
+    $('#planets').on('mousewheel unmousewheel', function(event) {
+        var calc = event.deltaY
+        if(zoom - calc <= 0) {
+            zoom = 1
+            pixelDistance = ((dist * 2) / canvasSize) * zoom
+        } else if(zoom + calc >= 100) {
+            zoom = 99
+            pixelDistance = ((dist * 2) / canvasSize) * zoom
+        } else {
+            zoom -= calc
+            pixelDistance = ((dist * 2) / canvasSize) * zoom
+        }
+    });
 
     canvas = document.getElementById("planets");
     context = canvas.getContext("2d");
@@ -91,9 +104,10 @@ function renderPlanets() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         for(var i=0; i<data.length; i++) {
             context.beginPath();
-            var x = convert(data[i].x) + viewport.x
-            var y = convert(data[i].y) + viewport.y
-            context.arc(x, y, planet_sprites[i].size, 0, 2 * Math.PI, false);
+            var loc = toPixels(data[i])
+            loc.x += viewport.x
+            loc.y += viewport.y
+            context.arc(loc.x, loc.y, planet_sprites[i].size, 0, 2 * Math.PI, false);
             context.fillStyle = planet_sprites[i].color;
             context.fill();
             context.lineWidth = 1;
@@ -102,6 +116,16 @@ function renderPlanets() {
     setTimeout(renderPlanets, 10)
 }
 
-function convert(length) {
-    return (length + dist) / pixelDistance;
+function toPixels(location) {
+    var result = {}
+    result.x = location.x / pixelDistance
+    result.y = location.y / pixelDistance
+    return result
+}
+
+function toLocation(pixels) {
+    var result = {}
+    result.x = pixels.x * pixelDistance
+    result.y = pixels.y * pixelDistance
+    return result
 }
