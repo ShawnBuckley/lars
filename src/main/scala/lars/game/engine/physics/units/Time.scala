@@ -32,6 +32,7 @@ object Time {
   type TimeType = Double
   val zero: TimeType = 0
   val second = Time.in.s(1)
+  val minute = Time.in.s(60)
 
   object in {
     def s(sec: TimeType): Time =
