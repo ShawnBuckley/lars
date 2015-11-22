@@ -1,5 +1,6 @@
 package lars.game.engine.celestial
 
+import lars.game.engine.Nameable
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.{Velocity, Mass}
 
@@ -18,7 +19,7 @@ import lars.game.engine.physics.units.{Velocity, Mass}
   * systems, as well as anomalies such as dark matter and hyperspace nodes.
   *
   */
-trait Massive {
+trait Massive extends Nameable {
   var mass: Mass
   var location: Vector2
   var velocity: Velocity //= Velocity.zero

@@ -9,18 +9,21 @@ import lars.game.engine.physics.units.{Length, Velocity, Time}
 
 object Main {
   val system = new System(new Vector2(0,0), null)
+  system.name = "Sol"
   def main(args: Array[String]) {
 
     val server = new EmbeddedWebapp
     server.start()
 
     def createPlanet(body: Body): TerrestrialBody = {
-      new TerrestrialBody(
+      val result = new TerrestrialBody(
         body.mass,
         new Vector2(body.orbit.radius.km,0),
         new Velocity(new Vector2(0, body.orbit.speed.ms)),
         body.radius,
         system)
+      result.name = body.name
+      result
     }
 
     val sun = system.add(new StellarBody(
@@ -28,6 +31,7 @@ object Main {
       new Vector2(0.0,0.0),
       Constants.Sol.sol.radius,
       system))
+    sun.name = "Sol"
     val mercury = system.add(createPlanet(Constants.Sol.mercury))
     val venus = system.add(createPlanet(Constants.Sol.venus))
     val earth = system.add(createPlanet(Constants.Sol.earth))
@@ -53,15 +57,15 @@ object Main {
       system.observe()
 
       // collect data
-      val polar = Polar2.convert(sun.location, earth.location)
-      val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
-      min = math.min(min, dist)
-      max = math.max(max, dist)
+//      val polar = Polar2.convert(sun.location, earth.location)
+//      val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
+//      min = math.min(min, dist)
+//      max = math.max(max, dist)
 
-      if(count % 1000000 == 0) {
-        //
-        println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + dist + ", min: " + min + ", max: " + max)
-      }
+//      if(count % 1000000 == 0) {
+//        //
+//        println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + dist + ", min: " + min + ", max: " + max)
+//      }
     }
   }
 }
