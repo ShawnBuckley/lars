@@ -14,6 +14,7 @@ class EmbeddedWebapp(val port: Int = 8080, val contextPath: String = "/") {
   context.setContextPath(contextPath)
   context.setWar("src/main/webapp")
   context.addServlet(new ServletHolder(new PlanetServlet), "/planets")
+  context.addServlet(new ServletHolder(new DebugServlet), "/debug")
   server.setHandler(context)
 
   def start() = server.start

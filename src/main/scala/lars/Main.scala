@@ -14,6 +14,9 @@ import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, S
 object Main {
   val system = new System(new Vector2(0,0), null)
   system.name = "Sol"
+
+  var paused = false
+
   def main(args: Array[String]) {
 
     val server = new EmbeddedWebapp
@@ -65,6 +68,10 @@ object Main {
     var count = 0
 
     while(true) {
+      if(paused) {
+        Thread.sleep(1000)
+      }
+
       // update state
       count += 1
       time += Time.second
