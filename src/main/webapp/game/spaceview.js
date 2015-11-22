@@ -47,20 +47,26 @@ function SpaceView(canvasId, fps) {
     var canvas = document.getElementById(canvasId)
     var context = canvas.getContext("2d");
 
-    var canvasSize = canvas.offsetWidth
-    var halfCanvasSize = canvasSize / 2
+    var canvasSize = {}
+    canvasSize.x = canvas.offsetWidth
+    canvasSize.y = canvas.offsetHeight
+
+    var halfCanvasSize = {}
+    halfCanvasSize.x = canvasSize.x / 2
+    halfCanvasSize.y = canvasSize.y / 2
+
     var zoom = 10
 
     // 25 au in km
     var dist = 3.73994677e8
-    var pixelDistance = ((dist * 2) / canvasSize) * zoom
+    var pixelDistance = ((dist * 2) / canvasSize.x) * zoom
 
     var mouseDown = false
     var planets = []
 
     var viewport = {}
-    viewport.x = halfCanvasSize
-    viewport.y = halfCanvasSize
+    viewport.x = halfCanvasSize.x
+    viewport.y = halfCanvasSize.y
 
     var previousLocation = {}
     previousLocation.x = viewport.x
@@ -86,16 +92,20 @@ function SpaceView(canvasId, fps) {
         }
     })
     .on('mousewheel unmousewheel', function(event) {
+        function doZoom(newZoom) {
+            var center = toLocation(getCenter())
+            zoom = newZoom
+            pixelDistance = ((dist * 2) / canvasSize.x) * newZoom
+            setCenter(toPixels(center))
+        }
+
         var calc = event.deltaY
         if(zoom - calc <= 0) {
-            zoom = 1
-            pixelDistance = ((dist * 2) / canvasSize) * zoom
+            doZoom(1)
         } else if(zoom + calc >= 100) {
-            zoom = 99
-            pixelDistance = ((dist * 2) / canvasSize) * zoom
+            doZoom(99)
         } else {
-            zoom -= calc
-            pixelDistance = ((dist * 2) / canvasSize) * zoom
+            doZoom(zoom -= calc)
         }
     });
 
@@ -123,6 +133,18 @@ function SpaceView(canvasId, fps) {
     function updatePlanets() {
         socket.emit('planets', null)
         setTimeout(updatePlanets, rate)
+    }
+
+    function getCenter() {
+        var result = {}
+        result.x = viewport.x - halfCanvasSize.x
+        result.y = viewport.y - halfCanvasSize.y
+        return result
+    }
+
+    function setCenter(loc) {
+        viewport.x = loc.x + halfCanvasSize.x
+        viewport.y = loc.y + halfCanvasSize.y
     }
 
     function renderPlanets() {
