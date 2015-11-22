@@ -19,6 +19,7 @@ function createPlanetTable(id) {
             var y = row.insertCell(2)
             y.id = row.id + '_y'
             var button = document.createElement('button')
+            button.className = 'planet-button'
             button.appendChild(document.createTextNode(planet.name))
             button.onclick = function() { view.goToPlanet(i) }
             name.appendChild(button)
