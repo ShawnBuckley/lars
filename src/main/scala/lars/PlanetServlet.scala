@@ -9,9 +9,11 @@ class PlanetServlet extends HttpServlet {
   override def service(request: HttpServletRequest, response: HttpServletResponse): Unit = {
     response.setContentType("application/json")
     response.setCharacterEncoding("UTF-8")
-    response.getWriter.write(write.toString)
+    response.getWriter.write(PlanetServlet.write.toString)
   }
+}
 
+object PlanetServlet {
   def write(): JSONArray = {
     val result = new JSONArray
     for(i <- 0 until Main.system.bodies.length optimized) {

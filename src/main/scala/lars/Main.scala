@@ -7,6 +7,10 @@ import lars.game.engine.celestial.container.System
 import lars.game.engine.math.{Polar2, Vector2}
 import lars.game.engine.physics.units.{Length, Velocity, Time}
 
+import com.corundumstudio.socketio.listener._;
+import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, SocketIOServer}
+;
+
 object Main {
   val system = new System(new Vector2(0,0), null)
   system.name = "Sol"
@@ -14,6 +18,17 @@ object Main {
 
     val server = new EmbeddedWebapp
     server.start()
+
+    val config = new Configuration
+    config.setHostname("localhost");
+    config.setPort(9092);
+    val socketio = new SocketIOServer(config)
+    socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
+      override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
+        client.sendEvent("planets", PlanetServlet.write.toString)
+      }
+    })
+    socketio.start()
 
     def createPlanet(body: Body): TerrestrialBody = {
       val result = new TerrestrialBody(

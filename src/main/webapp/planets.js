@@ -1,3 +1,5 @@
+var socket = io('http://localhost:9092')
+
 var canvasSize = 1000
 var halfCanvasSize = canvasSize / 2
 var zoom = 10
@@ -102,10 +104,12 @@ function loaded() {
     renderPlanets()
 }
 
+socket.on('planets', function(msg) {
+    planets = JSON.parse(msg)
+})
+
 function updatePlanets() {
-    $.get("planets", function(data) {
-        planets = data
-    })
+    socket.emit('planets', null)
     setTimeout(updatePlanets, 10)
 }
 
