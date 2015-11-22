@@ -12,8 +12,26 @@
 	<title>Localhost</title>
 	<link rel="stylesheet" href="app.css">
 </head>
-<body onload="loaded()">
-<canvas id="planets" width="1000" height="1000"></canvas>
+<body>
+
+<script>
+	var view
+	$(document).ready(function() {
+		console.log('ready')
+		view = new SpaceView('planets_view', 30)
+	})
+</script>
+<table>
+	<tr>
+		<td>
+			<canvas id="planets_view" width="1000" height="1000"></canvas>
+		</td>
+		<td>
+			<table id="planets_data"></table>
+		</td>
+	</tr>
+</table>
+
 </body>
 <!-- <body ng-cloak>
 	<ul class="menu">

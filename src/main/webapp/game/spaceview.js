@@ -36,10 +36,6 @@ planet_sprites['Neptune'] = {
     'size': 3
 }
 
-function loaded() {
-    var view = SpaceView('planets', 30)
-}
-
 function SpaceView(canvasId, fps) {
     var self = {}
     var rate = (1 / fps) * 1000
@@ -74,7 +70,7 @@ function SpaceView(canvasId, fps) {
 
     ////////////////////////
 
-    $('#planets').css('background-color', 'rgba(0, 0, 0, 0.7)')
+    $('#' + canvasId).css('background-color', 'rgba(0, 0, 0, 0.7)')
     .mousedown(function(event) {
         mouseDown = true
         previousLocation.x = event.pageX
@@ -91,7 +87,8 @@ function SpaceView(canvasId, fps) {
             previousLocation.y = event.pageY
         }
     })
-    .on('mousewheel unmousewheel', function(event) {
+    .mousewheel(function(event) {
+        console.log(event)
         function doZoom(newZoom) {
             var center = toLocation(getCenter())
             zoom = newZoom
