@@ -24,39 +24,39 @@ previousLocation.y = viewport.y
 var planets = []
 
 var planet_sprites = []
-planet_sprites[0] = {
+planet_sprites['Sol'] = {
     'color': 'yellow',
     'size': 5
 }
-planet_sprites[1] = {
+planet_sprites['Mercury'] = {
     'color': 'gray',
     'size': 1
 }
-planet_sprites[2] = {
+planet_sprites['Venus'] = {
     'color': 'orange',
     'size': 2
 }
-planet_sprites[3] = {
+planet_sprites['Earth'] = {
     'color': 'blue',
     'size': 2
 }
-planet_sprites[4] = {
+planet_sprites['Mars'] = {
     'color': 'red',
     'size': 1
 }
-planet_sprites[5] = {
+planet_sprites['Jupiter'] = {
     'color': 'brown',
     'size': 4
 }
-planet_sprites[6] = {
+planet_sprites['Saturn'] = {
     'color': 'orange',
     'size': 3
 }
-planet_sprites[7] = {
+planet_sprites['Uranus'] = {
     'color': 'white',
     'size': 3
 }
-planet_sprites[8] = {
+planet_sprites['Neptune'] = {
     'color': 'blue',
     'size': 3
 }
@@ -117,11 +117,13 @@ function renderPlanets() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     for(var i=0; i<planets.length; i++) {
         context.beginPath();
-        var loc = toPixels(planets[i])
+        var planet = planets[i]
+        var loc = toPixels(planet.location)
         loc.x += viewport.x
         loc.y += viewport.y
-        context.arc(loc.x, loc.y, planet_sprites[i].size, 0, 2 * Math.PI, false);
-        context.fillStyle = planet_sprites[i].color;
+        var sprite = planet_sprites[planet.name]
+        context.arc(loc.x, loc.y, sprite.size, 0, 2 * Math.PI, false);
+        context.fillStyle = sprite.color;
         context.fill();
         context.lineWidth = 1;
     }

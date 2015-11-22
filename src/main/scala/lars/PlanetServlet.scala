@@ -20,8 +20,10 @@ object PlanetServlet {
       val body = Main.system.bodies(i)
       val planet = new JSONObject
       if(body.name != null) planet.put("name", body.name)
-      planet.put("x", body.location.x)
-      planet.put("y", body.location.y)
+      val location = new JSONObject
+      location.put("x", body.location.x)
+      location.put("y", body.location.y)
+      planet.put("location", location)
       result.put(planet)
     }
     result
