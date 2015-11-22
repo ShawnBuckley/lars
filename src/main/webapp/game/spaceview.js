@@ -88,7 +88,7 @@ function SpaceView(canvasId, fps) {
         }
     })
     .mousewheel(function(event) {
-        console.log(event)
+//        console.log(event)
         function doZoom(newZoom) {
             var center = toLocation(getCenter())
             zoom = newZoom
@@ -111,6 +111,7 @@ function SpaceView(canvasId, fps) {
     var socket = io('http://localhost:9092')
     socket.on('planets', function(msg) {
         planets = JSON.parse(msg)
+        updatePlanetsTable(planets)
     })
 
     function toPixels(location) {
@@ -142,6 +143,11 @@ function SpaceView(canvasId, fps) {
     function setCenter(loc) {
         viewport.x = loc.x + halfCanvasSize.x
         viewport.y = loc.y + halfCanvasSize.y
+    }
+
+    self.goToPlanet = function(id) {
+        console.log('go to: ' + planets[id].name)
+        setCenter(toPixels(planets[id].location))
     }
 
     function renderPlanets() {

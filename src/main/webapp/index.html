@@ -8,19 +8,15 @@
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
 	<script src="bower_components/socket.io-client/socket.io.js"></script>
-	<script src="index.js"></script>
 	<script src="game/spaceview.js"></script>
+	<script src="index.js"></script>
 	<title>Localhost</title>
 	<link rel="stylesheet" href="app.css">
 </head>
 <body>
 
 <script>
-	var view
-	$(document).ready(function() {
-		console.log('ready')
-		view = new SpaceView('planets_view', 30)
-	})
+
 </script>
 <table>
 	<tr>
@@ -29,7 +25,7 @@
 		</td>
 		<td>
 			<button onclick="playpause()">Play/Pause</button>
-			<table id="planets_data"></table>
+			<table id="planets_table"></table>
 		</td>
 	</tr>
 </table>

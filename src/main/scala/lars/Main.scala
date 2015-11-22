@@ -70,13 +70,15 @@ object Main {
     while(true) {
       if(paused) {
         Thread.sleep(1000)
+      } else {
+        count += 1
+        time += Time.second
+
+        system.observe()
       }
 
       // update state
-      count += 1
-      time += Time.second
 
-      system.observe()
 
       // collect data
 //      val polar = Polar2.convert(sun.location, earth.location)
