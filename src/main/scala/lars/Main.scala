@@ -4,8 +4,8 @@ import lars.game.engine.Constants
 import lars.game.engine.Constants.Body
 import lars.game.engine.celestial.body.standard.{TerrestrialBody, StellarBody}
 import lars.game.engine.celestial.container.System
-import lars.game.engine.math.{Polar2, Vector2}
-import lars.game.engine.physics.units.{Length, Velocity, Time}
+import lars.game.engine.math.Vector2
+import lars.game.engine.physics.units.Velocity
 
 import com.corundumstudio.socketio.listener._;
 import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, SocketIOServer}
@@ -59,37 +59,12 @@ object Main {
     val uranus = system.add(createPlanet(Constants.Sol.uranus))
     val neptune = system.add(createPlanet(Constants.Sol.neptune))
 
-    // min, max orbital lengths
-    var min = Double.MaxValue
-    var max = 0.0
-
-    // state tracking
-    var time = Time.second
-    var count = 0
-
     while(true) {
       if(paused) {
         Thread.sleep(1000)
       } else {
-        count += 1
-        time += Time.second
-
         system.observe()
       }
-
-      // update state
-
-
-      // collect data
-//      val polar = Polar2.convert(sun.location, earth.location)
-//      val dist = new Length(polar.length).au // Constants.Sol.sol.radius.km
-//      min = math.min(min, dist)
-//      max = math.max(max, dist)
-
-//      if(count % 1000000 == 0) {
-//        //
-//        println("Time: " + time.d + ", Angle: " + polar.angle + ", Dist: " + dist + ", min: " + min + ", max: " + max)
-//      }
     }
   }
 }
