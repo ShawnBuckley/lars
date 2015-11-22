@@ -9,7 +9,6 @@ import lars.game.engine.physics.units.Velocity
 
 import com.corundumstudio.socketio.listener._;
 import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, SocketIOServer}
-;
 
 object Main {
   val system = new System(new Vector2(0,0), null)
