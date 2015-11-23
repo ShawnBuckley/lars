@@ -49,6 +49,14 @@ object Main {
       Constants.Sol.sol.radius,
       system))
     sun.name = "Sol"
+    val luna = system.add(new TerrestrialBody(
+      Constants.Sol.luna.mass,
+      new Vector2(Constants.Sol.earth.orbit.radius.km - Constants.Sol.luna.orbit.radius.km, 0),
+      new Velocity(new Vector2(0, 0 - (Constants.Sol.luna.orbit.speed.ms))),
+      Constants.Sol.luna.radius,
+      system
+    ))
+    luna.name = "Luna"
     val mercury = system.add(createPlanet(Constants.Sol.mercury))
     val venus = system.add(createPlanet(Constants.Sol.venus))
     val earth = system.add(createPlanet(Constants.Sol.earth))

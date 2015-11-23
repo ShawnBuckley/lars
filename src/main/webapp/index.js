@@ -36,17 +36,26 @@ function playpause() {
 
 function updatePlanetsTable(planets) {
 
+    function convert(origin, location) {
+        var result = {}
+        result.angle = Math.atan2(location.y, location.x)
+        result.length = Math.sqrt(Math.pow(location.x - origin.x, 2) + Math.pow(location.y - origin.y, 2))
+        return result
+    }
+
     // update sun location
     var sun = planets[0].location
     $('#planets_table_0_x').text(sun.x / 1.496e+8)
     $('#planets_table_0_y').text(sun.y / 1.496e+8)
 
-    for(var i=1; i<planets.length; i++) {
-        var x = planets[i].location.x
-        var y = planets[i].location.y
-        var angle = Math.atan2(y, x)
-        var length = Math.sqrt(Math.pow(x - sun.x, 2) + Math.pow(y - sun.y, 2))
-        $('#planets_table_' + i + '_x').text(angle)
-        $('#planets_table_' + i + '_y').text(length / 1.496e+8)
+    var earth = planets[4]
+    var moon = convert(earth, planets[1].location)
+    $('#planets_table_1_x').text(moon.angle)
+    $('#planets_table_1_y').text(moon.length / 1.496e+8)
+
+    for(var i=2; i<planets.length; i++) {
+        var polar = convert(sun, planets[i].location)
+        $('#planets_table_' + i + '_x').text(polar.angle)
+        $('#planets_table_' + i + '_y').text(polar.length / 1.496e+8)
     }
 }

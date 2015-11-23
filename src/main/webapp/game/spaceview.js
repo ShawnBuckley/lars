@@ -3,6 +3,10 @@ planet_sprites['Sol'] = {
     'color': 'yellow',
     'size': 5
 }
+planet_sprites['Luna'] = {
+    'color': 'white',
+    'size': 1
+}
 planet_sprites['Mercury'] = {
     'color': 'gray',
     'size': 1

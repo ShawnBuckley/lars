@@ -20,7 +20,7 @@ object Constants {
     val mercury = new Body("Mercury", new Length(2439.7), new Mass(3.3011e23), new Orbit(new Length(57909175), new Time(87.969)))
     val venus = new Body("Venus", new Length(6051.59), new Mass(4.8690e24), new Orbit(new Length(108208930), new Time(224.5469999)))
     val earth = new Body("Earth", new Length(6371.0), new Mass(5.9721986e24), new Orbit(new Length(149598023), new Time(365.006351)))
-      val luna = new Body("Luna", new Length(1737.1), new Mass(0), new Orbit(new Length(384400), new Time(27.321582)))
+      val luna = new Body("Luna", new Length(1737.1), new Mass(7.342e22), new Orbit(new Length(385000), new Time(27.321582)))
     val mars = new Body("Mars", new Length(3397.0), new Mass(6.4191e23), new Orbit(new Length(227936640), new Time(686.509374)))
 //    val ceres = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
     val jupiter = new Body("Jupiter", new Length(71492.68), new Mass(1.8987e27), new Orbit(new Length(778412010), new Time(4329.854475)))
