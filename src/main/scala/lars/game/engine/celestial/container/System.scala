@@ -5,7 +5,7 @@ import lars.Game
 import lars.game.engine.celestial.{Parent, Massive, Child}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units._
+import lars.game.engine.physics.units.{Velocity, Mass}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -48,13 +48,7 @@ class System(override var location: Vector2, override var parent: Parent) extend
     val barycenter = Physics.barycenter(bodies)
     for(i <- 0 until bodies.length optimized) {
       val body = bodies(i)
-      val barycenterRemoved = Physics.barycenterRemove(barycenter, body)
-      val radius = new Length(Vector2.distance(body.location, barycenterRemoved.location))
-      val lastLocation = body.location
-      body.velocity += Physics.gravForce(barycenterRemoved, body) / body.mass / Time.second
-      body.location += body.velocity.kms
-      if(radius.km > 0)
-        body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
+      Physics.orbit(body, barycenter)
       body.observe()
     }
   }

@@ -5,7 +5,7 @@ import lars.game.engine.physics.units.Length.LengthType
 import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Force, Speed, Length, Mass}
+import lars.game.engine.physics.units._
 
 object Physics {
   /**
@@ -46,7 +46,7 @@ object Physics {
     for(i <- 0 until massives.length optimized) {
       val massive = massives(i)
       total += massive.mass
-      location += massive.location * massive.mass.kg
+      location += (massive.location * massive.mass.kg)
     }
     new Barycenter(total, location / total.kg)
   }
@@ -79,5 +79,15 @@ object Physics {
     */
   def schwarzschildRadius(mass: Mass): Length = {
     new Length(schwarzschildFactor.km * mass.kg)
+  }
+
+  def orbit(body: Massive, barycenter: Barycenter): Unit = {
+    val barycenterRemoved = Physics.barycenterRemove(barycenter, body)
+    val radius = new Length(Vector2.distance(body.location, barycenterRemoved.location))
+    val lastLocation = body.location
+    body.velocity += Physics.gravForce(barycenterRemoved, body) / body.mass / Time.second
+    body.location += body.velocity.kms
+    if(radius.km > 0)
+      body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
   }
 }
