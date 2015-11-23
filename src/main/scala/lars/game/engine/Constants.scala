@@ -24,7 +24,7 @@ object Constants {
     val mars = new Body("Mars", new Length(3397.0), new Mass(6.4191e23), new Orbit(new Length(227936640), new Time(686.509374)))
 //    val ceres = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
     val jupiter = new Body("Jupiter", new Length(71492.68), new Mass(1.8987e27), new Orbit(new Length(778412010), new Time(4329.854475)))
-    val saturn = new Body("Saturn", new Length(60267.14), new Mass(5.6851e26), new Orbit(new Length(1426725400), new Time(10748.33677)))
+    val saturn = new Body("Saturn", new Length(60267.14), new Mass(5.6851e26), new Orbit(new Length(1433449370), new Time(10748.33677)))
     val uranus = new Body("Uranus", new Length(25557.25), new Mass(8.6849e25), new Orbit(new Length(2870972200L), new Time(30666.14879)))
     val neptune = new Body("Neptune", new Length(24766.36), new Mass(1.0244e26), new Orbit(new Length(4498252900L), new Time(60148.8318)))
 //    val pluto = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
