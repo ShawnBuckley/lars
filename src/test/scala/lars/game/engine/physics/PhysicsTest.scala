@@ -55,5 +55,12 @@ class PhysicsTest {
     assertEquals(Physics.gravForce(sun, earth).N.length, 3.5395241695528224E22)
   }
 
-
+  @Test
+  def barycenterRemove() = {
+    val sun = new MassiveBody(Constants.Sol.sol.mass, new Vector2(0,0))
+    val earth = new MassiveBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
+    val barycenter = Physics.barycenter(sun, earth)
+    assertEquals(new Vector2(1.4959802299811888E8, 0), Physics.barycenterRemove(barycenter, sun).location)
+    assertEquals(sun.location, Physics.barycenterRemove(barycenter, earth).location)
+  }
 }
