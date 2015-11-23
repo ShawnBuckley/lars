@@ -48,12 +48,13 @@ class System(override var location: Vector2, override var parent: Parent) extend
     val barycenter = Physics.barycenter(bodies)
     for(i <- 0 until bodies.length optimized) {
       val body = bodies(i)
-      val radius = new Length(body.location.length)
+      val barycenterRemoved = Physics.barycenterRemove(barycenter, body)
+      val radius = new Length(Vector2.distance(body.location, barycenterRemoved.location))
       val lastLocation = body.location
-      body.velocity += Physics.gravForce(Physics.barycenterRemove(barycenter, body), body) / body.mass / Time.second
+      body.velocity += Physics.gravForce(barycenterRemoved, body) / body.mass / Time.second
       body.location += body.velocity.kms
       if(radius.km > 0)
-        body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(lastLocation.length), radius)
+        body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
       body.observe()
     }
   }
