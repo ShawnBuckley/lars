@@ -11,7 +11,7 @@ class AngularMomentumTest {
     val vel = new Velocity(new Vector2(10,0))
     val rad = new Length(10)
     val newRad = new Length(5)
-    val newVel = AngularMomentum.conserve(mass, vel, rad, newRad)
+    val newVel = AngularMomentum.conserve(vel, rad, newRad)
     assertEquals(newVel, new Velocity(new Vector2(20,0)))
   }
 }

@@ -88,6 +88,6 @@ object Physics {
     body.velocity += Physics.gravForce(barycenterRemoved, body) / body.mass / Time.second
     body.location += body.velocity.kms
     if(radius.km > 0)
-      body.velocity = AngularMomentum.conserve(body.mass, body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
+      body.velocity = AngularMomentum.conserve(body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
   }
 }
