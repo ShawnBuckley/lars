@@ -9,8 +9,7 @@
 	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
 	<script src="bower_components/socket.io-client/socket.io.js"></script>
-	<script src="game/spaceview.js"></script>
-	<script src="index.js"></script>
+	<script src="compiled.js"></script>
 	<title>Localhost</title>
 	<link rel="stylesheet" href="app.css">
 </head>
@@ -21,7 +20,7 @@
 			<canvas id="planets_view" width="1000" height="1000"></canvas>
 		</td>
 		<td>
-			<button onclick="playpause()">Play/Pause</button>
+			<button id="playpause">Play/Pause</button>
 			<table id="planets_table"></table>
 		</td>
 	</tr>

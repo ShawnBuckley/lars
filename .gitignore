@@ -98,5 +98,6 @@ local.properties
 ###
 
 bower_components/
-
 node_modules/
+src/main/webapp/compiled.js
+src/main/typescript/typings/*/*
