@@ -1,11 +1,16 @@
 buildscript {
     repositories {
         mavenCentral()
+		jcenter()
     }
+	dependencies {
+		classpath 'be.filipblondeel.gradle:gradle-gulp-plugin:0.1'
+	}
 }
 
 apply plugin: 'idea'
 apply plugin: 'scala'
+apply plugin: 'gulp'
 
 configurations {
 	compile
