@@ -11,6 +11,7 @@ buildscript {
 apply plugin: 'idea'
 apply plugin: 'scala'
 apply plugin: 'gulp'
+apply plugin: 'war'
 
 configurations {
 	compile
