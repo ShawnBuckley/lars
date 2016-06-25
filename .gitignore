@@ -41,6 +41,9 @@ project/plugins/project/
 ### Gradle ###
 
 build/
+gradlew
+gradlew.bat
+gradle/
 
 ### Eclipse ###
 
