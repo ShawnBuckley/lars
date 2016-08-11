@@ -14,6 +14,8 @@ object Main {
   val system = new System(new Vector2(0,0), null)
   system.name = "Sol"
 
+  Game.galaxy.addSystem(system)
+
   var paused = false
 
   def main(args: Array[String]) {
