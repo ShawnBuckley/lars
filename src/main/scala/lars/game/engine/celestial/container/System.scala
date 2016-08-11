@@ -44,7 +44,11 @@ class System(override var location: Vector2, override var parent: Parent) extend
   }
 
   def tick(): Unit = {
-    Physics.orbit(bodies)
+    (bodies, Physics.gravAcceleration(bodies)).zipped.map(((body: Massive, velocity: Velocity) => {
+      body.velocity += velocity
+      body.location += body.velocity.kms
+      body.observe()
+    })(_, _))
   }
 
   override def absoluteLocation(relative: Vector2): Vector2 =

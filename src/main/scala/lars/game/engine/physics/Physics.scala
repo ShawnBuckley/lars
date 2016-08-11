@@ -1,6 +1,6 @@
 package lars.game.engine.physics
 
- import scalaxy.loops._
+import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units._
@@ -71,6 +71,22 @@ object Physics {
   def gravForce(m1: Massive, m2: Massive): Force =
     new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
 
+  def gravAcceleration(bodies: ArrayBuffer[Massive]): ArrayBuffer[Velocity] = {
+    val velocities = new ArrayBuffer[Velocity]
+    velocities.sizeHint(bodies)
+    for(i <- 0 until bodies.length optimized) {
+      val body = bodies(i)
+      var velocity = Velocity.zero
+      for(j <- 0 until bodies.length optimized) {
+        if(i != j) {
+          velocity += Physics.gravForce(bodies(j), body) / body.mass / Time.second
+        }
+      }
+      velocities.insert(i, velocity)
+    }
+    velocities
+  }
+
   /**
     * Calculates the schwarzschild radius of a mass.  The schwarzschild radius is used to calculate the radius of the
     * event horizon of a black hole.
@@ -79,29 +95,5 @@ object Physics {
     */
   def schwarzschildRadius(mass: Mass): Length = {
     new Length(schwarzschildFactor.km * mass.kg)
-  }
-
-  def orbit(body: Massive, barycenter: Barycenter): Unit = {
-    val barycenterRemoved = Physics.barycenterRemove(barycenter, body)
-    val radius = new Length(Vector2.distance(body.location, barycenterRemoved.location))
-    val lastLocation = body.location
-    body.velocity += Physics.gravForce(barycenterRemoved, body) / body.mass / Time.second
-    body.location += body.velocity.kms
-    if(radius.km > 0)
-      body.velocity = AngularMomentum.conserve(body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
-  }
-
-  def orbit(bodies: ArrayBuffer[Massive]): Unit = {
-    for(i <- 0 until bodies.length optimized) {
-      val body = bodies(i)
-      for(j <- 0 until bodies.length optimized) {
-        val other = bodies(j)
-        if(i != j) {
-          body.velocity += Physics.gravForce(other, body) / body.mass / Time.second
-        }
-      }
-      body.location += body.velocity.kms
-      body.observe()
-    }
   }
 }
