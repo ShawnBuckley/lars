@@ -73,5 +73,7 @@ object Main {
         system.observe()
       }
     }
+
+    socketio.stop()
   }
 }
