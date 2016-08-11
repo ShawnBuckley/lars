@@ -1,6 +1,5 @@
 package lars.game.engine.physics
 
-import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units._
@@ -43,11 +42,10 @@ object Physics {
   def barycenter(massives: Seq[Massive]): Barycenter = {
     var total = Mass.zero
     var location = Vector2.addIdent
-    for(i <- 0 until massives.length optimized) {
-      val massive = massives(i)
+    massives.foreach((massive: Massive) => {
       total += massive.mass
       location += (massive.location * massive.mass.kg)
-    }
+    })
     new Barycenter(total, location / total.kg)
   }
 
@@ -74,16 +72,13 @@ object Physics {
   def gravAcceleration(bodies: ArrayBuffer[Massive]): ArrayBuffer[Velocity] = {
     val velocities = new ArrayBuffer[Velocity]
     velocities.sizeHint(bodies)
-    for(i <- 0 until bodies.length optimized) {
-      val body = bodies(i)
+    bodies.foreach((body: Massive) => {
       var velocity = Velocity.zero
-      for(j <- 0 until bodies.length optimized) {
-        if(i != j) {
-          velocity += Physics.gravForce(bodies(j), body) / body.mass / Time.second
-        }
-      }
-      velocities.insert(i, velocity)
-    }
+      bodies.foreach((other: Massive) => {
+        if(body != other) velocity += Physics.gravForce(other, body) / body.mass / Time.second
+      })
+      velocities.append(velocity)
+    })
     velocities
   }
 

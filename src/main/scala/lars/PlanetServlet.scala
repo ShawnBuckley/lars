@@ -1,8 +1,8 @@
 package lars
 
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
-import scalaxy.loops._
-import org.json.{JSONObject, JSONArray}
+import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+import lars.game.engine.celestial.Massive
+import org.json.{JSONArray, JSONObject}
 
 
 class PlanetServlet extends HttpServlet {
@@ -16,8 +16,7 @@ class PlanetServlet extends HttpServlet {
 object PlanetServlet {
   def write(): JSONArray = {
     val result = new JSONArray
-    for(i <- 0 until Main.system.bodies.length optimized) {
-      val body = Main.system.bodies(i)
+    Main.system.bodies.foreach((body: Massive) => {
       val planet = new JSONObject
       if(body.name != null) planet.put("name", body.name)
       val location = new JSONObject
@@ -25,7 +24,7 @@ object PlanetServlet {
       location.put("y", body.location.y)
       planet.put("location", location)
       result.put(planet)
-    }
+    })
     result
   }
 }
