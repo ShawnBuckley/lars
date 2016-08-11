@@ -1,4 +1,4 @@
-package lars;
+package lars
 
 import org.eclipse.jetty.server.{Server, ServerConnector}
 import org.eclipse.jetty.servlet.ServletHolder

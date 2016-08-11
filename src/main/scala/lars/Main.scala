@@ -7,7 +7,7 @@ import lars.game.engine.celestial.container.System
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
 
-import com.corundumstudio.socketio.listener._;
+import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, SocketIOServer}
 
 object Main {
@@ -22,8 +22,8 @@ object Main {
     server.start()
 
     val config = new Configuration
-    config.setHostname("localhost");
-    config.setPort(9092);
+    config.setHostname("localhost")
+    config.setPort(9092)
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
