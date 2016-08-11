@@ -1,11 +1,10 @@
 package lars.game.engine.celestial.container
 
-import scalaxy.loops._
 import lars.Game
-import lars.game.engine.celestial.{Parent, Massive, Child}
+import lars.game.engine.celestial.{Child, Massive, Parent}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units.{Velocity, Mass}
+import lars.game.engine.physics.units.{Mass, Velocity}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -45,12 +44,7 @@ class System(override var location: Vector2, override var parent: Parent) extend
   }
 
   def tick(): Unit = {
-    val barycenter = Physics.barycenter(bodies)
-    for(i <- 0 until bodies.length optimized) {
-      val body = bodies(i)
-      Physics.orbit(body, barycenter)
-      body.observe()
-    }
+    Physics.orbit(bodies)
   }
 
   override def absoluteLocation(relative: Vector2): Vector2 =

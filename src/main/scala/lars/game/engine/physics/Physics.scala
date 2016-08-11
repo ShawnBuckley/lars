@@ -1,11 +1,11 @@
 package lars.game.engine.physics
 
-import lars.game.engine.physics.units.Length.LengthType
-
-import scalaxy.loops._
+ import scalaxy.loops._
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units._
+
+import scala.collection.mutable.ArrayBuffer
 
 object Physics {
   /**
@@ -89,5 +89,19 @@ object Physics {
     body.location += body.velocity.kms
     if(radius.km > 0)
       body.velocity = AngularMomentum.conserve(body.velocity, new Length(Vector2.distance(lastLocation, barycenterRemoved.location)), radius)
+  }
+
+  def orbit(bodies: ArrayBuffer[Massive]): Unit = {
+    for(i <- 0 until bodies.length optimized) {
+      val body = bodies(i)
+      for(j <- 0 until bodies.length optimized) {
+        val other = bodies(j)
+        if(i != j) {
+          body.velocity += Physics.gravForce(other, body) / body.mass / Time.second
+        }
+      }
+      body.location += body.velocity.kms
+      body.observe()
+    }
   }
 }
