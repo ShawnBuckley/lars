@@ -66,7 +66,7 @@ function createPlanetTable(id: string) {
     var table: HTMLTableElement = <HTMLTableElement>document.getElementById(id);
     var button: HTMLButtonElement = <HTMLButtonElement>document.getElementById('playpause');
     button.onclick=playpause;
-    $.get('planets', function(planets) {
+    $.get('rest/system/Sol', function(planets) {
         $.each(planets, function(i, planet){
             var row: HTMLTableRowElement = <HTMLTableRowElement>table.insertRow(i);
             row.id = 'planets_table_' + i;

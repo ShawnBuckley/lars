@@ -1,22 +1,21 @@
 package lars
 
 import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+
 import lars.game.engine.celestial.Massive
 import org.json.{JSONArray, JSONObject}
 
-
-class PlanetServlet extends HttpServlet {
+/**
+  * Created by shawn on 8/11/16.
+  */
+class SystemServlet extends HttpServlet {
   override def service(request: HttpServletRequest, response: HttpServletResponse): Unit = {
+    val name = request.getRequestURI.split("/")
     response.setContentType("application/json")
     response.setCharacterEncoding("UTF-8")
-    response.getWriter.write(PlanetServlet.write.toString)
-  }
-}
-
-object PlanetServlet {
-  def write(): JSONArray = {
     val result = new JSONArray
-    Main.system.bodies.foreach((body: Massive) => {
+    val system = Game.galaxy.getSystem(name(name.length-1))
+    system.bodies.foreach((body: Massive) => {
       val planet = new JSONObject
       if(body.name != null) planet.put("name", body.name)
       val location = new JSONObject
@@ -25,6 +24,6 @@ object PlanetServlet {
       planet.put("location", location)
       result.put(planet)
     })
-    result
+    response.getWriter.write(result.toString)
   }
 }
