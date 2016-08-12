@@ -5,7 +5,8 @@ import lars.game.engine.celestial.container.System
 import lars.game.engine.math.Vector2
 import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
-import lars.game.engine.celestial.{CelestialConstants}
+import lars.controllers.PlanetController
+import lars.game.engine.celestial.CelestialConstants
 
 object Main {
   var paused = false
@@ -27,7 +28,7 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", SystemServlet.write("Sol").toString)
+        client.sendEvent("planets", PlanetController.write("Sol").toString)
       }
     })
     socketio.start()

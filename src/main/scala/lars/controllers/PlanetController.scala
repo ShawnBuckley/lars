@@ -1,23 +1,22 @@
-package lars
+package lars.controllers
 
-import javax.servlet.http.{HttpServlet, HttpServletRequest, HttpServletResponse}
+import javax.ws.rs._
 
 import lars.game.engine.celestial.Massive
+import lars.Game
 import org.json.{JSONArray, JSONObject}
 
-/**
-  * Created by shawn on 8/11/16.
-  */
-class SystemServlet extends HttpServlet {
-  override def service(request: HttpServletRequest, response: HttpServletResponse): Unit = {
-    val name = request.getRequestURI.split("/")
-    response.setContentType("application/json")
-    response.setCharacterEncoding("UTF-8")
-    response.getWriter.write(SystemServlet.write(name(name.length-1)))
+@Path("/system")
+@Produces(Array[String]("application/json"))
+class PlanetController {
+  @GET
+  @Path("/{name}")
+  def getPlanets(@PathParam("name") name: String): String = {
+    PlanetController.write(name)
   }
 }
 
-object SystemServlet {
+object PlanetController {
   def write(name: String): String = {
     val result = new JSONArray
     Game.galaxy.getSystem(name).bodies.foreach((body: Massive) => {
