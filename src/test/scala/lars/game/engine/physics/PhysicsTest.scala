@@ -1,6 +1,6 @@
 package lars.game.engine.physics
 
-import lars.game.engine.Constants
+import lars.game.engine.CelestialConstants
 import lars.game.engine.celestial.Massive
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units._
@@ -44,21 +44,21 @@ class PhysicsTest {
 
   @Test
   def schwarzschildRadius() = {
-    val radius = Physics.schwarzschildRadius(Constants.Sol.sol.mass)
+    val radius = Physics.schwarzschildRadius(CelestialConstants.Sol.sol.mass)
     assertEquals(radius.km, 2.951555398799874)
   }
 
   @Test
   def gravForce() = {
-    val sun = new MassiveBody(Constants.Sol.sol.mass, new Vector2(0,0))
-    val earth = new MassiveBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
+    val sun = new MassiveBody(CelestialConstants.Sol.sol.mass, new Vector2(0,0))
+    val earth = new MassiveBody(CelestialConstants.Sol.earth.mass, new Vector2(CelestialConstants.Sol.earth.orbit.radius.km,0))
     assertEquals(Physics.gravForce(sun, earth).N.length, 3.5395241695528224E22)
   }
 
   @Test
   def barycenterRemove() = {
-    val sun = new MassiveBody(Constants.Sol.sol.mass, new Vector2(0,0))
-    val earth = new MassiveBody(Constants.Sol.earth.mass, new Vector2(Constants.Sol.earth.orbit.radius.km,0))
+    val sun = new MassiveBody(CelestialConstants.Sol.sol.mass, new Vector2(0,0))
+    val earth = new MassiveBody(CelestialConstants.Sol.earth.mass, new Vector2(CelestialConstants.Sol.earth.orbit.radius.km,0))
     val barycenter = Physics.barycenter(sun, earth)
     assertEquals(new Vector2(1.4959802299811888E8, 0), Physics.barycenterRemove(barycenter, sun).location)
     assertEquals(sun.location, Physics.barycenterRemove(barycenter, earth).location)

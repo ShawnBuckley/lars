@@ -5,7 +5,7 @@ import lars.game.engine.celestial.body.standard.OrbitDefinition
 import lars.game.engine.math.Circle
 import lars.game.engine.physics.units.{Length, Mass, Speed, Time}
 
-object Constants {
+object CelestialConstants {
   object MilkyWay {
     val mass: Mass = new Mass(6e42)
     val sgr_a_star: Mass = new Mass(8.57e36)

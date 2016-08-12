@@ -6,7 +6,7 @@ import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
 import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
-import lars.game.engine.Constants
+import lars.game.engine.CelestialConstants
 import lars.game.engine.celestial.Massive
 import lars.game.engine.celestial.body.BodyDefinition
 
@@ -42,7 +42,7 @@ object Main {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     val system = new System(new Vector2(0,0), null)
-    system.name = Constants.Sol.name
+    system.name = CelestialConstants.Sol.name
 
     Game.galaxy.addSystem(system)
 
@@ -108,7 +108,7 @@ object Main {
         if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, new Vector2(body.orbit.radius.km, 0))
       })
     }
-    createBodies(Constants.Sol.primaries, new Vector2(0,0))
+    createBodies(CelestialConstants.Sol.primaries, new Vector2(0,0))
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
