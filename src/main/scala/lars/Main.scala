@@ -1,24 +1,25 @@
 package lars
 
-import lars.game.engine.Constants
-import lars.game.engine.Constants.Body
-import lars.game.engine.celestial.body.standard.{TerrestrialBody, StellarBody}
+import lars.game.engine.Constants.BodyDefinition
+import lars.game.engine.celestial.body.standard.{GaseousBody, MicroBody, StellarBody, TerrestrialBody}
 import lars.game.engine.celestial.container.System
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
-
 import com.corundumstudio.socketio.listener._
-import com.corundumstudio.socketio.{AckRequest, SocketIOClient, Configuration, SocketIOServer}
+import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
+import lars.game.engine.Constants
+import lars.game.engine.celestial.Massive
 
 object Main {
-  val system = new System(new Vector2(0,0), null)
-  system.name = "Sol"
-
-  Game.galaxy.addSystem(system)
-
   var paused = false
 
   def main(args: Array[String]) {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Setup
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     val server = new EmbeddedWebapp
     server.start()
@@ -34,34 +35,78 @@ object Main {
     })
     socketio.start()
 
-    def createPlanet(body: Body): TerrestrialBody = {
-      val result = new TerrestrialBody(
-        body.mass,
-        new Vector2(body.orbit.radius.km,0),
-        new Velocity(new Vector2(0, body.orbit.speed.ms)),
-        body.radius,
-        system)
-      result.name = body.name
-      result
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Create system
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    val system = new System(new Vector2(0,0), null)
+    system.name = Constants.Sol.name
+
+    Game.galaxy.addSystem(system)
+
+    def createBody(body: BodyDefinition, primary: Vector2): Massive = {
+      body.classification match {
+        case "singularity" => {null}
+        case "stellar" => {
+          val result = new StellarBody(
+            body.mass,
+            primary + new Vector2(body.orbit.radius.km,0),
+            new Velocity(new Vector2(0, body.orbit.speed.ms)),
+            body.radius,
+            system)
+          result.name = body.name
+          result
+        }
+        case "gaseous" => {
+          val result = new GaseousBody(
+            body.mass,
+            primary + new Vector2(body.orbit.radius.km,0),
+            new Velocity(new Vector2(0, body.orbit.speed.ms)),
+            body.radius,
+            system)
+          result.name = body.name
+          result
+        }
+        case "terrestrial" => {
+          val result = new TerrestrialBody(
+            body.mass,
+            primary + new Vector2(body.orbit.radius.km,0),
+            new Velocity(new Vector2(0, body.orbit.speed.ms)),
+            body.radius,
+            system)
+          result.name = body.name
+          result
+        }
+        case "micro" => {
+          val result = new MicroBody(
+            body.mass,
+            primary + new Vector2(body.orbit.radius.km,0),
+            new Velocity(new Vector2(0, body.orbit.speed.ms)),
+            body.radius,
+            system)
+          result.name = body.name
+          result
+        }
+        case default => null
+      }
     }
 
-    val sun = system.add(new StellarBody(
-      Constants.Sol.sol.mass,
-      new Vector2(0.0,0.0),
-      Constants.Sol.sol.radius,
-      system))
-    sun.name = "Sol"
-    val luna = system.add(new TerrestrialBody(
-      Constants.Sol.luna.mass,
-      new Vector2(Constants.Sol.earth.orbit.radius.km - Constants.Sol.luna.orbit.radius.km, 0),
-      new Velocity(new Vector2(0, 0 - (Constants.Sol.luna.orbit.speed.ms))),
-      Constants.Sol.luna.radius,
-      system
-    ))
-    luna.name = "Luna"
-    Constants.Sol.bodies.foreach((body: Body) => {
-      system.add(createPlanet(body))
-    })
+    def createBodies(bodies: List[BodyDefinition], primary: Vector2): Unit = {
+      bodies.foreach((body: BodyDefinition) => {
+        println("creating " + body.name)
+        system.add(createBody(body, primary))
+        if(body.satellites != null) createBodies(body.satellites, new Vector2(body.orbit.radius.km, 0))
+      })
+    }
+    createBodies(Constants.Sol.primaries, new Vector2(0,0))
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Main loop
+    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     while(true) {
       if(paused) {
