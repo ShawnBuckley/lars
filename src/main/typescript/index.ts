@@ -20,6 +20,7 @@ planet_sprites.set('Mercury', new PlanetSprite('gray', 1));
 planet_sprites.set('Venus', new PlanetSprite('red', 2));
 planet_sprites.set('Earth', new PlanetSprite('blue', 2));
 planet_sprites.set('Mars', new PlanetSprite('red', 1));
+planet_sprites.set('Ceres', new PlanetSprite('white', 1));
 planet_sprites.set('Jupiter', new PlanetSprite('brown', 4));
 planet_sprites.set('Saturn', new PlanetSprite('orange', 4));
 planet_sprites.set('Uranus', new PlanetSprite('white', 3));

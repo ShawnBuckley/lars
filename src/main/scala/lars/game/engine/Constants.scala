@@ -30,6 +30,8 @@ object Constants {
 //    val pluto = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
 //      val charon = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
 //    val sedna = new Body(new Length(), new Mass(), new Orbit(new Length(), new Time()))
+
+    val bodies = List[Body](mercury, venus, earth, mars, ceres, jupiter, saturn, uranus, neptune)
   }
 
 }

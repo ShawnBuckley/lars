@@ -29,7 +29,7 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", PlanetServlet.write.toString)
+        client.sendEvent("planets", SystemServlet.write("Sol").toString)
       }
     })
     socketio.start()
@@ -59,14 +59,9 @@ object Main {
       system
     ))
     luna.name = "Luna"
-    val mercury = system.add(createPlanet(Constants.Sol.mercury))
-    val venus = system.add(createPlanet(Constants.Sol.venus))
-    val earth = system.add(createPlanet(Constants.Sol.earth))
-    val mars = system.add(createPlanet(Constants.Sol.mars))
-    val jupiter = system.add(createPlanet(Constants.Sol.jupiter))
-    val saturn = system.add(createPlanet(Constants.Sol.saturn))
-    val uranus = system.add(createPlanet(Constants.Sol.uranus))
-    val neptune = system.add(createPlanet(Constants.Sol.neptune))
+    Constants.Sol.bodies.foreach((body: Body) => {
+      system.add(createPlanet(body))
+    })
 
     while(true) {
       if(paused) {

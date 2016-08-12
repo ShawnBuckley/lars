@@ -13,9 +13,14 @@ class SystemServlet extends HttpServlet {
     val name = request.getRequestURI.split("/")
     response.setContentType("application/json")
     response.setCharacterEncoding("UTF-8")
+    response.getWriter.write(SystemServlet.write(name(name.length-1)))
+  }
+}
+
+object SystemServlet {
+  def write(name: String): String = {
     val result = new JSONArray
-    val system = Game.galaxy.getSystem(name(name.length-1))
-    system.bodies.foreach((body: Massive) => {
+    Game.galaxy.getSystem(name).bodies.foreach((body: Massive) => {
       val planet = new JSONObject
       if(body.name != null) planet.put("name", body.name)
       val location = new JSONObject
@@ -24,6 +29,6 @@ class SystemServlet extends HttpServlet {
       planet.put("location", location)
       result.put(planet)
     })
-    response.getWriter.write(result.toString)
+    result.toString
   }
 }
