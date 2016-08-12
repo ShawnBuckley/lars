@@ -16,12 +16,11 @@ import lars.game.engine.physics.units.{Velocity, Length, Mass}
   */
 class Singularity(override var mass: Mass,
                   override var location: Vector2,
+                  override var velocity: Velocity,
                   override var parent: Parent) extends Sizeable with Child {
-  override var velocity: Velocity = Velocity.zero
   override var size: Length = Physics.schwarzschildRadius(mass)
 
-  override def observe(): Unit =
-    {}
+  override def observe(): Unit = {}
 
   /**
     * This happens when an object falls into the event horizon of a blackhole.

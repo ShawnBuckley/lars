@@ -16,11 +16,10 @@ import lars.game.engine.physics.units.{Velocity, Length, Mass}
   */
 class GaseousBody(override var mass: Mass,
                   override var location: Vector2,
+                  override var velocity: Velocity,
                   override var size: Length,
                   override var parent: Parent) extends Sizeable with Child {
-  override def observe(): Unit = ???
+  override def observe(): Unit = {}
 
   override def collide(other: Sizeable): Unit = ???
-
-  override var velocity: Velocity = Velocity.zero
 }
