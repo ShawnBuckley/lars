@@ -2,14 +2,14 @@ package lars.game.engine.celestial.body.standard
 
 import lars.game.engine.celestial.{Massive, Parent}
 import lars.game.engine.celestial.container.System
-import lars.game.engine.celestial.body.BodyDefinition
+import lars.game.engine.celestial.body.{BodyClassification, BodyDefinition}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
 
 object CelestialFactory {
   def createBody(body: BodyDefinition, primary: Vector2, parent: Parent): Massive = {
     body.classification match {
-      case "singularity" => {
+      case BodyClassification.singularity => {
         val result = new Singularity(
           body.mass,
           primary + new Vector2(body.orbit.radius.km,0),
@@ -18,7 +18,7 @@ object CelestialFactory {
         result.name = body.name
         result
       }
-      case "stellar" => {
+      case BodyClassification.stellar => {
         val result = new StellarBody(
           body.mass,
           primary + new Vector2(body.orbit.radius.km,0),
@@ -28,7 +28,7 @@ object CelestialFactory {
         result.name = body.name
         result
       }
-      case "gaseous" => {
+      case BodyClassification.gaseous => {
         val result = new GaseousBody(
           body.mass,
           primary + new Vector2(body.orbit.radius.km,0),
@@ -38,7 +38,7 @@ object CelestialFactory {
         result.name = body.name
         result
       }
-      case "terrestrial" => {
+      case BodyClassification.terrestrial => {
         val result = new TerrestrialBody(
           body.mass,
           primary + new Vector2(body.orbit.radius.km,0),
@@ -48,7 +48,7 @@ object CelestialFactory {
         result.name = body.name
         result
       }
-      case "micro" => {
+      case BodyClassification.micro => {
         val result = new MicroBody(
           body.mass,
           primary + new Vector2(body.orbit.radius.km,0),
@@ -58,7 +58,6 @@ object CelestialFactory {
         result.name = body.name
         result
       }
-      case default => null
     }
   }
 
