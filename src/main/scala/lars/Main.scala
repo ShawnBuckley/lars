@@ -1,7 +1,7 @@
 package lars
 
 import lars.game.engine.Constants.BodyDefinition
-import lars.game.engine.celestial.body.standard.{GaseousBody, MicroBody, StellarBody, TerrestrialBody}
+import lars.game.engine.celestial.body.standard._
 import lars.game.engine.celestial.container.System
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
@@ -48,7 +48,15 @@ object Main {
 
     def createBody(body: BodyDefinition, primary: Vector2): Massive = {
       body.classification match {
-        case "singularity" => {null}
+        case "singularity" => {
+          val result = new Singularity(
+            body.mass,
+            primary + new Vector2(body.orbit.radius.km,0),
+            new Velocity(new Vector2(0, body.orbit.speed.ms)),
+            system)
+          result.name = body.name
+          result
+        }
         case "stellar" => {
           val result = new StellarBody(
             body.mass,
