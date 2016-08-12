@@ -1,7 +1,6 @@
 package lars.game.engine.physics
 
-import lars.game.engine.CelestialConstants
-import lars.game.engine.celestial.Massive
+import lars.game.engine.celestial.{CelestialConstants, Massive}
 import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units._
 import org.testng.annotations.Test

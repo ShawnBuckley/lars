@@ -1,10 +1,10 @@
 package lars.game.engine.celestial.container
 
 import lars.Game
-import lars.game.engine.CelestialConstants
-import lars.game.engine.celestial.body.standard.{TerrestrialBody, StellarBody}
+import lars.game.engine.celestial.CelestialConstants
+import lars.game.engine.celestial.body.standard.{StellarBody, TerrestrialBody}
 import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Velocity, Mass}
+import lars.game.engine.physics.units.{Mass, Velocity}
 import org.testng.annotations.Test
 import org.testng.Assert._
 

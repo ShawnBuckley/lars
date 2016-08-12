@@ -1,9 +1,8 @@
-package lars.game.engine
+package lars.game.engine.celestial
 
 import lars.game.engine.celestial.body.BodyDefinition
 import lars.game.engine.celestial.body.standard.OrbitDefinition
-import lars.game.engine.math.Circle
-import lars.game.engine.physics.units.{Length, Mass, Speed, Time}
+import lars.game.engine.physics.units.{Length, Mass, Time}
 
 object CelestialConstants {
   object MilkyWay {
