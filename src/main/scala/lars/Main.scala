@@ -1,6 +1,5 @@
 package lars
 
-import lars.game.engine.Constants.BodyDefinition
 import lars.game.engine.celestial.body.standard._
 import lars.game.engine.celestial.container.System
 import lars.game.engine.math.Vector2
@@ -9,6 +8,7 @@ import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
 import lars.game.engine.Constants
 import lars.game.engine.celestial.Massive
+import lars.game.engine.celestial.body.BodyDefinition
 
 object Main {
   var paused = false
