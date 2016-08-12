@@ -97,7 +97,7 @@ object Main {
       bodies.foreach((body: BodyDefinition) => {
         println("creating " + body.name)
         system.add(createBody(body, primary))
-        if(body.satellites != null) createBodies(body.satellites, new Vector2(body.orbit.radius.km, 0))
+        if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, new Vector2(body.orbit.radius.km, 0))
       })
     }
     createBodies(Constants.Sol.primaries, new Vector2(0,0))
