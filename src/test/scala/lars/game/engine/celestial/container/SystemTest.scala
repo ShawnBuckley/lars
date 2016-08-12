@@ -15,6 +15,7 @@ class SystemTest {
     val sun = system.add(new StellarBody(
       CelestialConstants.Sol.sol.mass,
       new Vector2(0,0),
+      Velocity.zero,
       CelestialConstants.Sol.sol.radius,
       system))
     assertEquals(system.mass, sun.mass)
