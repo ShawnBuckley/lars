@@ -89,7 +89,7 @@ function createPlanetTable(id: string) {
 }
 
 function playpause() {
-    $.post('debug', null, function() {});
+    $.post('rest/game/pause', null, function() {});
 }
 
 function updatePlanetsTable(planets: Array<any>) {

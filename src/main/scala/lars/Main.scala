@@ -22,6 +22,7 @@ object Main {
     val server = new EmbeddedWebapp
     server.start()
 
+
     val config = new Configuration
     config.setHostname("localhost")
     config.setPort(9092)
