@@ -29,7 +29,7 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", PlanetController.write("Sol").toString)
+        client.sendEvent("planets", PlanetController.write("Sol"))
       }
     })
     socketio.start()
