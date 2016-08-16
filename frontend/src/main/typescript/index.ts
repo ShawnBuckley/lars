@@ -67,7 +67,7 @@ function createPlanetTable(id: string) {
     var table: HTMLTableElement = <HTMLTableElement>document.getElementById(id);
     var button: HTMLButtonElement = <HTMLButtonElement>document.getElementById('playpause');
     button.onclick=playpause;
-    $.get('rest/system/Sol', function(planets) {
+    $.get('http://localhost:8080/rest/system/Sol', function(planets) {
         $.each(planets, function(i, planet){
             var row: HTMLTableRowElement = <HTMLTableRowElement>table.insertRow(i);
             row.id = 'planets_table_' + i;
@@ -89,7 +89,7 @@ function createPlanetTable(id: string) {
 }
 
 function playpause() {
-    $.post('rest/game/pause', null, function() {});
+    $.post('http://localhost:8080/rest/game/pause', null, function() {});
 }
 
 function updatePlanetsTable(planets: Array<any>) {

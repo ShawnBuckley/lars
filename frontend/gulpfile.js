@@ -10,7 +10,7 @@ gulp.task('typescript', function () {
             noImplicitAny: true,
             out: 'compiled.js'
         }))
-        .pipe(gulp.dest('src/main/webapp/'));
+        .pipe(gulp.dest('src/main/resources/'));
 });
 
 gulp.task('jade', function() {
@@ -18,5 +18,5 @@ gulp.task('jade', function() {
         .pipe(jade({
             locals: {}
         }))
-        .pipe(gulp.dest('./src/main/webapp/'))
+        .pipe(gulp.dest('src/main/resources/'))
 });

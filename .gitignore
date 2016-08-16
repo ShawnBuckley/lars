@@ -100,8 +100,8 @@ local.properties
 
 ###
 
-bower_components/
-node_modules/
-src/main/webapp/index.html
-src/main/webapp/compiled.js
-src/main/typescript/typings/*/*
+frontend/node_modules/
+frontend/src/main/resources/
+frontend/src/main/webapp/index.html
+frontend/src/main/webapp/compiled.js
+frontend/src/main/typescript/typings/*/*

@@ -1,6 +1,6 @@
 package lars
 
-import lars.controllers.{PauseController, PlanetController}
+import lars.controllers.{JaxRsApplication, PauseController, PlanetController}
 import org.eclipse.jetty.server.{Server, ServerConnector}
 import org.eclipse.jetty.webapp.WebAppContext
 
@@ -21,6 +21,7 @@ class EmbeddedWebapp(val port: Int = 8080, val contextPath: String = "/") {
   jerseyServlet.setInitParameter("jersey.config.server.provider.classnames",
     List[String](classOf[PauseController].getCanonicalName,
       classOf[PlanetController].getCanonicalName).foldLeft("")((b,a) => b + "," + a))
+  jerseyServlet.setInitParameter("javax.ws.rs.Application", classOf[JaxRsApplication].getCanonicalName)
 
   def start() = {
     server.start()

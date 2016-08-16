@@ -12,12 +12,14 @@ class PlanetController {
   @GET
   @Path("/{name}")
   def getPlanets(@PathParam("name") name: String): String = {
+    println("get planets")
     PlanetController.write(name)
   }
 }
 
 object PlanetController {
   def write(name: String): String = {
+    println("write planets")
     val result = new JSONArray
     Game.galaxy.getSystem(name).bodies.foreach((body: Massive) => {
       val planet = new JSONObject
