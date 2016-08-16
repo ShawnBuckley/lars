@@ -14,7 +14,7 @@ gulp.task('typescript', function () {
 });
 
 gulp.task('pug', function() {
-    gulp.src('./src/main/pug/*.pug')
+    gulp.src('./src/main/pug/*.jade ')
         .pipe(pug({
             locals: {}
         }))
