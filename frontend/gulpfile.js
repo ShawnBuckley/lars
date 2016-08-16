@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
-var jade = require('gulp-jade');
+var pug = require('gulp-pug');
 
-gulp.task('default', ['jade', 'typescript'], function() {});
+gulp.task('default', ['pug', 'typescript'], function() {});
 
 gulp.task('typescript', function () {
     return gulp.src('src/main/typescript/*.ts')
@@ -13,9 +13,9 @@ gulp.task('typescript', function () {
         .pipe(gulp.dest('src/main/resources/'));
 });
 
-gulp.task('jade', function() {
-    gulp.src('./src/main/jade/*.jade')
-        .pipe(jade({
+gulp.task('pug', function() {
+    gulp.src('./src/main/pug/*.pug')
+        .pipe(pug({
             locals: {}
         }))
         .pipe(gulp.dest('src/main/resources/'))
