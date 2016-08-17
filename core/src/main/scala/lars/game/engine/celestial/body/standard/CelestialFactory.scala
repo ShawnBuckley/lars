@@ -65,7 +65,6 @@ object CelestialFactory {
 
   def createBodies(bodies: List[BodyDefinition], primary: Massive, system: System): Unit = {
     bodies.foreach((body: BodyDefinition) => {
-      println("creating " + body.name)
       val satellite = CelestialFactory.createBody(body, primary, system)
       system.add(satellite)
       if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, satellite, system)
