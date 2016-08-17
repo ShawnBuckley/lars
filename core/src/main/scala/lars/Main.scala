@@ -44,7 +44,7 @@ object Main {
     system.name = CelestialConstants.Sol.name
 
     Game.galaxy.addSystem(system)
-    CelestialFactory.createBodies(CelestialConstants.Sol.primaries, new Vector2(0,0), system)
+    CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, system)
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //

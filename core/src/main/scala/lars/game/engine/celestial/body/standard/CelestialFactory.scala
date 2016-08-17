@@ -7,13 +7,15 @@ import lars.game.engine.math.Vector2
 import lars.game.engine.physics.units.Velocity
 
 object CelestialFactory {
-  def createBody(body: BodyDefinition, primary: Vector2, parent: Parent): Massive = {
+  def createBody(body: BodyDefinition, primary: Massive, parent: Parent): Massive = {
+    val locationOffset = if(primary != null) primary.location else Vector2.addIdent
+    val velocityOffset = if(primary != null) primary.velocity else Velocity.zero
     body.classification match {
       case BodyClassification.singularity => {
         val result = new Singularity(
           body.mass,
-          primary + new Vector2(body.orbit.radius.km,0),
-          new Velocity(new Vector2(0, body.orbit.speed.ms)),
+          locationOffset + new Vector2(body.orbit.radius.km,0),
+          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
           parent)
         result.name = body.name
         result
@@ -21,8 +23,8 @@ object CelestialFactory {
       case BodyClassification.stellar => {
         val result = new StellarBody(
           body.mass,
-          primary + new Vector2(body.orbit.radius.km,0),
-          new Velocity(new Vector2(0, body.orbit.speed.ms)),
+          locationOffset + new Vector2(body.orbit.radius.km,0),
+          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
           body.radius,
           parent)
         result.name = body.name
@@ -31,8 +33,8 @@ object CelestialFactory {
       case BodyClassification.gaseous => {
         val result = new GaseousBody(
           body.mass,
-          primary + new Vector2(body.orbit.radius.km,0),
-          new Velocity(new Vector2(0, body.orbit.speed.ms)),
+          locationOffset + new Vector2(body.orbit.radius.km,0),
+          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
           body.radius,
           parent)
         result.name = body.name
@@ -41,8 +43,8 @@ object CelestialFactory {
       case BodyClassification.terrestrial => {
         val result = new TerrestrialBody(
           body.mass,
-          primary + new Vector2(body.orbit.radius.km,0),
-          new Velocity(new Vector2(0, body.orbit.speed.ms)),
+          locationOffset + new Vector2(body.orbit.radius.km,0),
+          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
           body.radius,
           parent)
         result.name = body.name
@@ -51,8 +53,8 @@ object CelestialFactory {
       case BodyClassification.micro => {
         val result = new MicroBody(
           body.mass,
-          primary + new Vector2(body.orbit.radius.km,0),
-          new Velocity(new Vector2(0, body.orbit.speed.ms)),
+          locationOffset + new Vector2(body.orbit.radius.km,0),
+          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
           body.radius,
           parent)
         result.name = body.name
@@ -61,11 +63,12 @@ object CelestialFactory {
     }
   }
 
-  def createBodies(bodies: List[BodyDefinition], primary: Vector2, system: System): Unit = {
+  def createBodies(bodies: List[BodyDefinition], primary: Massive, system: System): Unit = {
     bodies.foreach((body: BodyDefinition) => {
       println("creating " + body.name)
-      system.add(CelestialFactory.createBody(body, primary, system))
-      if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, new Vector2(body.orbit.radius.km, 0), system)
+      val satellite = CelestialFactory.createBody(body, primary, system)
+      system.add(satellite)
+      if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, satellite, system)
     })
   }
 }
