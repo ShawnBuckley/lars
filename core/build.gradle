@@ -23,7 +23,8 @@ dependencies {
 
     compile 'org.eclipse.jetty.aggregate:jetty-all:9.4.0.M0'
 
-    compile 'org.json:json:20150729'
+    compile 'com.fasterxml.jackson:jackson-parent:2.8'
+    compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.8.0.rc2'
 
     compile 'javax.websocket:javax.websocket-api:1.1'
     compile 'com.corundumstudio.socketio:netty-socketio:1.7.11'
