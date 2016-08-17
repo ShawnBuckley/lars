@@ -8,55 +8,31 @@ import lars.game.engine.physics.units.Velocity
 
 object CelestialFactory {
   def createBody(body: BodyDefinition, primary: Massive, parent: Parent): Massive = {
-    val locationOffset = if(primary != null) primary.location else Vector2.addIdent
-    val velocityOffset = if(primary != null) primary.velocity else Velocity.zero
+    val location = (if(primary != null) primary.location else Vector2.addIdent) + new Vector2(body.orbit.radius.km,0)
+    val velocity = (if(primary != null) primary.velocity else Velocity.zero) + new Velocity(new Vector2(0, body.orbit.speed.ms))
     body.classification match {
       case BodyClassification.singularity => {
-        val result = new Singularity(
-          body.mass,
-          locationOffset + new Vector2(body.orbit.radius.km,0),
-          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
-          parent)
+        val result = new Singularity(body.mass, location, velocity, parent)
         result.name = body.name
         result
       }
       case BodyClassification.stellar => {
-        val result = new StellarBody(
-          body.mass,
-          locationOffset + new Vector2(body.orbit.radius.km,0),
-          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
-          body.radius,
-          parent)
+        val result = new StellarBody(body.mass, location, velocity, body.radius, parent)
         result.name = body.name
         result
       }
       case BodyClassification.gaseous => {
-        val result = new GaseousBody(
-          body.mass,
-          locationOffset + new Vector2(body.orbit.radius.km,0),
-          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
-          body.radius,
-          parent)
+        val result = new GaseousBody(body.mass, location, velocity, body.radius, parent)
         result.name = body.name
         result
       }
       case BodyClassification.terrestrial => {
-        val result = new TerrestrialBody(
-          body.mass,
-          locationOffset + new Vector2(body.orbit.radius.km,0),
-          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
-          body.radius,
-          parent)
+        val result = new TerrestrialBody(body.mass, location, velocity, body.radius, parent)
         result.name = body.name
         result
       }
       case BodyClassification.micro => {
-        val result = new MicroBody(
-          body.mass,
-          locationOffset + new Vector2(body.orbit.radius.km,0),
-          velocityOffset + new Velocity(new Vector2(0, body.orbit.speed.ms)),
-          body.radius,
-          parent)
+        val result = new MicroBody(body.mass, location, velocity, body.radius, parent)
         result.name = body.name
         result
       }
