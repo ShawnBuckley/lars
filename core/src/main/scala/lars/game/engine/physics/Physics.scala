@@ -69,6 +69,11 @@ object Physics {
   def gravForce(m1: Massive, m2: Massive): Force =
     new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
 
+  /**
+    * Calculates the acceleration due to gravity a group of bodies have on each other
+    * @param bodies list of bodies
+    * @return list of acceleration vectors
+    */
   def gravAcceleration(bodies: ArrayBuffer[Massive]): ArrayBuffer[Velocity] = {
     val velocities = new ArrayBuffer[Velocity]
     velocities.sizeHint(bodies)
