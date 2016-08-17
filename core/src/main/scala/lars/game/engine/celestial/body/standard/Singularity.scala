@@ -14,7 +14,8 @@ import lars.game.engine.physics.units.{Velocity, Length, Mass}
   * @param mass
   * @param location
   */
-class Singularity(override var mass: Mass,
+class Singularity(override var name: String,
+                  override var mass: Mass,
                   override var location: Vector2,
                   override var velocity: Velocity,
                   override var parent: Parent) extends Sizeable with Child {

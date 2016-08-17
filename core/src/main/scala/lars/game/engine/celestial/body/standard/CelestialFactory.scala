@@ -11,31 +11,11 @@ object CelestialFactory {
     val location = (if(primary != null) primary.location else Vector2.addIdent) + new Vector2(body.orbit.radius.km,0)
     val velocity = (if(primary != null) primary.velocity else Velocity.zero) + new Velocity(new Vector2(0, body.orbit.speed.ms))
     body.classification match {
-      case BodyClassification.singularity => {
-        val result = new Singularity(body.mass, location, velocity, parent)
-        result.name = body.name
-        result
-      }
-      case BodyClassification.stellar => {
-        val result = new StellarBody(body.mass, location, velocity, body.radius, parent)
-        result.name = body.name
-        result
-      }
-      case BodyClassification.gaseous => {
-        val result = new GaseousBody(body.mass, location, velocity, body.radius, parent)
-        result.name = body.name
-        result
-      }
-      case BodyClassification.terrestrial => {
-        val result = new TerrestrialBody(body.mass, location, velocity, body.radius, parent)
-        result.name = body.name
-        result
-      }
-      case BodyClassification.micro => {
-        val result = new MicroBody(body.mass, location, velocity, body.radius, parent)
-        result.name = body.name
-        result
-      }
+      case BodyClassification.singularity => new Singularity(body.name, body.mass, location, velocity, parent)
+      case BodyClassification.stellar => new StellarBody(body.name, body.mass, location, velocity, body.radius, parent)
+      case BodyClassification.gaseous => new GaseousBody(body.name, body.mass, location, velocity, body.radius, parent)
+      case BodyClassification.terrestrial => new TerrestrialBody(body.name, body.mass, location, velocity, body.radius, parent)
+      case BodyClassification.micro => new MicroBody(body.name, body.mass, location, velocity, body.radius, parent)
     }
   }
 

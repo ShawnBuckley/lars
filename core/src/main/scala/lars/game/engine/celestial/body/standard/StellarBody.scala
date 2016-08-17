@@ -13,7 +13,8 @@ import lars.game.engine.physics.units.{Velocity, Length, Mass}
   * @param location
   * @param size
   */
-class StellarBody(override var mass: Mass,
+class StellarBody(override var name: String,
+                  override var mass: Mass,
                   override var location: Vector2,
                   override var velocity: Velocity,
                   override var size: Length,

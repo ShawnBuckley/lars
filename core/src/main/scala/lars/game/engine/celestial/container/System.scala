@@ -24,6 +24,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param parent
   */
 class System(override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
+  override var name: String = ""
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
   var bodies = new ArrayBuffer[Massive]

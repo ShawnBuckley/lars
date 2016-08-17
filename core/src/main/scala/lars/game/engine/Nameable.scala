@@ -1,5 +1,5 @@
 package lars.game.engine
 
 trait Nameable {
-  var name: String = null
+  var name: String
 }

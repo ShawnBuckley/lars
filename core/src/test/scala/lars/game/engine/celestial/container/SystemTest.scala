@@ -13,6 +13,7 @@ class SystemTest {
   def mass(): Unit = {
     val system = new System(Vector2.addIdent, Game.galaxy)
     val sun = system.add(new StellarBody(
+      "Sol",
       CelestialConstants.Sol.sol.mass,
       new Vector2(0,0),
       Velocity.zero,
@@ -20,6 +21,7 @@ class SystemTest {
       system))
     assertEquals(system.mass, sun.mass)
     val earth = system.add(new TerrestrialBody(
+      "Earth",
       CelestialConstants.Sol.earth.mass,
       new Vector2(CelestialConstants.Sol.earth.orbit.radius.km,0),
       new Velocity(new Vector2(0,CelestialConstants.Sol.earth.orbit.speed.ms)),
