@@ -26,6 +26,7 @@ object Main {
     val config = new Configuration
     config.setHostname("localhost")
     config.setPort(9092)
+    config.getSocketConfig.setReuseAddress(true)
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
@@ -52,7 +53,19 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    while(true) {
+    println("LARS Core started. Press enter to stop.")
+
+    var runLoop = true
+
+    (new Thread(new Runnable {
+      override def run(): Unit = {
+        Console.in.readLine()
+        println("LARS Core stopping.")
+        runLoop = false
+      }
+    })).start()
+
+    while(runLoop) {
       if(paused) {
         Thread.sleep(1000)
       } else {
@@ -60,6 +73,9 @@ object Main {
       }
     }
 
+    server.stop()
     socketio.stop()
+
+    println("LARS Core stopped.")
   }
 }
