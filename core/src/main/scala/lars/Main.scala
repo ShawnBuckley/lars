@@ -40,7 +40,7 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    val system = new System(new Vector2(0,0), null)
+    val system = new System(CelestialConstants.Sol.name, new Vector2(0,0), null)
     system.name = CelestialConstants.Sol.name
 
     Game.galaxy.addSystem(system)
