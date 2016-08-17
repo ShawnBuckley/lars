@@ -27,7 +27,7 @@ class System(override var location: Vector2, override var parent: Parent) extend
   override var name: String = ""
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[Massive]
+  var bodies = new ArrayBuffer[Massive]
 
   def add(body: Massive): Massive = {
     bodies.append(body)
