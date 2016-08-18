@@ -8,9 +8,6 @@ buildscript {
 
 apply plugin: 'scala'
 
-group = 'lars'
-version = '1-SNAPSHOT'
-
 configurations {
     compile
 }
