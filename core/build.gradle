@@ -25,8 +25,7 @@ repositories {
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.8'
 
-    compile 'com.fasterxml.jackson:jackson-parent:2.8'
-    compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.8.0.rc2'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.1'
 
     testCompile 'org.testng:testng:6.9.10'
 }
