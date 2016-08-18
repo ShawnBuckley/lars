@@ -9,6 +9,11 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.moowork.gulp" version "0.13"
+    id "com.moowork.node" version "0.13"
+}
+
 apply plugin: 'maven'
 apply plugin: 'scala'
 apply plugin: 'scalajs-plugin'
@@ -35,3 +40,6 @@ dependencies {
 
     compile project(':core')
 }
+
+gulp_default.dependsOn 'npmInstall'
+gulp_default.dependsOn 'installGulp'
