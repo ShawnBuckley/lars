@@ -1,7 +1,7 @@
-package lars.game.engine.celestial
+package lars.core.celestial
 
-import lars.game.engine.math.Sphere
-import lars.game.engine.physics.units.{Density, Length}
+import lars.core.math.Sphere
+import lars.core.physics.units.{Density, Length}
 
 /**
   * Sizeable objects are the second type of objects that can exist in space.  They are massive objects that have a

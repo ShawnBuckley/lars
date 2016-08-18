@@ -1,4 +1,4 @@
-package lars.game.engine.celestial.container
+package lars.core.celestial.container
 
 class Cluster {
 

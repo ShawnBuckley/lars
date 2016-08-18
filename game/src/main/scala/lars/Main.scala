@@ -1,12 +1,12 @@
 package lars
 
-import lars.game.engine.celestial.body.standard._
-import lars.game.engine.celestial.container.System
-import lars.game.engine.math.Vector2
+import lars.core.celestial.body.standard._
+import lars.core.celestial.container.System
+import lars.core.math.Vector2
 import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
 import lars.controllers.PlanetController
-import lars.game.engine.celestial.CelestialConstants
+import lars.core.celestial.CelestialConstants
 
 object Main {
   var paused = false

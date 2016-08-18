@@ -1,6 +1,6 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.physics.units.{Length, Volume}
+import lars.core.physics.units.{Length, Volume}
 
 object Sphere {
   def volume(r: Length): Volume =

@@ -1,6 +1,6 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.physics.units.Length
+import lars.core.physics.units.Length
 
 object Circle {
   def circumference(r: Length): Length =

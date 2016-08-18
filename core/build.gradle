@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.gtache:scalajs-plugin:0.2.0'
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'scala'
+apply plugin: 'scalajs-plugin'
+
+group = 'lars'
+version = '1-SNAPSHOT'
+
+configurations {
+    compile
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.8'
+
+    compile 'com.fasterxml.jackson:jackson-parent:2.8'
+    compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.8.0.rc2'
+
+    testCompile 'org.testng:testng:6.9.10'
+}
+
+test.useTestNG()

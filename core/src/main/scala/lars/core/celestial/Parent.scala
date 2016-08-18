@@ -1,4 +1,4 @@
-package lars.game.engine.celestial
+package lars.core.celestial
 
 /**
   * This is a trait that celestial containers will inherit.  It allows for transforming relative interior coordinates to

@@ -1,6 +1,6 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.physics.units.Length.LengthType
+import lars.core.physics.units.Length.LengthType
 
 case class Polar2(angle: Double, length: LengthType) {
 

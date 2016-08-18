@@ -1,7 +1,7 @@
 package lars
 
-import lars.game.engine.Gametime
-import lars.game.engine.celestial.container.Galaxy
+import lars.core.Gametime
+import lars.core.celestial.container.Galaxy
 
 object Game {
   val galaxy = new Galaxy

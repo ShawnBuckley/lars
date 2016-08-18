@@ -1,6 +1,6 @@
-package lars.game.engine.celestial
+package lars.core.celestial
 
-import lars.game.engine.math.Vector2
+import lars.core.math.Vector2
 
 /**
   * NestedLocation allows for transforming relative coordinates to absolute coordinates.  See the Parent and Child

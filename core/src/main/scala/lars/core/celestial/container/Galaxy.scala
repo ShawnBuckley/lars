@@ -1,7 +1,7 @@
-package lars.game.engine.celestial.container
+package lars.core.celestial.container
 
-import lars.game.engine.celestial.Parent
-import lars.game.engine.math.Vector2
+import lars.core.celestial.Parent
+import lars.core.math.Vector2
 
 import scala.collection.mutable.ArrayBuffer
 

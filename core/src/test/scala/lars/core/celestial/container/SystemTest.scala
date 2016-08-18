@@ -1,17 +1,16 @@
-package lars.game.engine.celestial.container
+package lars.core.celestial.container
 
-import lars.Game
-import lars.game.engine.celestial.CelestialConstants
-import lars.game.engine.celestial.body.standard.{StellarBody, TerrestrialBody}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Mass, Velocity}
+import lars.core.celestial.CelestialConstants
+import lars.core.celestial.body.standard.{StellarBody, TerrestrialBody}
+import lars.core.math.Vector2
+import lars.core.physics.units.{Mass, Velocity}
 import org.testng.annotations.Test
 import org.testng.Assert._
 
 class SystemTest {
   @Test
   def mass(): Unit = {
-    val system = new System("Sol", Vector2.addIdent, Game.galaxy)
+    val system = new System("Sol", Vector2.addIdent, null)
     val sun = system.add(new StellarBody(
       "Sol",
       CelestialConstants.Sol.sol.mass,

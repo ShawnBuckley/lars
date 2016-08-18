@@ -1,6 +1,6 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
-import lars.game.engine.physics.units.Time.TimeType
+import lars.core.physics.units.Time.TimeType
 
 case class Time(d: TimeType) {
   def us: TimeType =

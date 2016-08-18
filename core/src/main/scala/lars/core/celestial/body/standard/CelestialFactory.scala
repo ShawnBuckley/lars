@@ -1,10 +1,10 @@
-package lars.game.engine.celestial.body.standard
+package lars.core.celestial.body.standard
 
-import lars.game.engine.celestial.{Massive, Parent}
-import lars.game.engine.celestial.container.System
-import lars.game.engine.celestial.body.{BodyClassification, BodyDefinition}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.Velocity
+import lars.core.celestial.{Massive, Parent}
+import lars.core.celestial.container.System
+import lars.core.celestial.body.{BodyClassification, BodyDefinition}
+import lars.core.math.Vector2
+import lars.core.physics.units.Velocity
 
 object CelestialFactory {
   def createBody(body: BodyDefinition, primary: Massive, parent: Parent): Massive = {

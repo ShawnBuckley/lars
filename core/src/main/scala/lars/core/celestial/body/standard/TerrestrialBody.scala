@@ -1,8 +1,8 @@
-package lars.game.engine.celestial.body.standard
+package lars.core.celestial.body.standard
 
-import lars.game.engine.celestial.{Child, Parent, Sizeable}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Velocity, Length, Mass}
+import lars.core.celestial.{Child, Parent, Sizeable}
+import lars.core.math.Vector2
+import lars.core.physics.units.{Velocity, Length, Mass}
 
 /**
   * Terrestrial bodies are all variety of celestial objects large enough to have a surface that can be visited.  This

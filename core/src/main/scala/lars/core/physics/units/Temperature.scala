@@ -1,6 +1,6 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
-import lars.game.engine.physics.units.Temperature.TemperatureType
+import lars.core.physics.units.Temperature.TemperatureType
 
 case class Temperature(k: TemperatureType) {
 

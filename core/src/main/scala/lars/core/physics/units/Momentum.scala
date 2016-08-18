@@ -1,6 +1,6 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
-import lars.game.engine.math.Vector2
+import lars.core.math.Vector2
 
 case class Momentum(kgms: Vector2) {
   def /(that: Mass): Velocity =

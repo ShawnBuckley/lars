@@ -1,10 +1,9 @@
-package lars.game.engine.celestial.container
+package lars.core.celestial.container
 
-import lars.Game
-import lars.game.engine.celestial.{Child, Massive, Parent}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units.{Mass, Velocity}
+import lars.core.celestial.{Child, Massive, Parent}
+import lars.core.math.Vector2
+import lars.core.physics.Physics
+import lars.core.physics.units.{Mass, Velocity}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -52,5 +51,5 @@ class System(override var name: String, override var location: Vector2, override
   }
 
   override def absoluteLocation(relative: Vector2): Vector2 =
-    Game.galaxy.absoluteLocation(location + relative)
+    parent.absoluteLocation(location + relative)
 }

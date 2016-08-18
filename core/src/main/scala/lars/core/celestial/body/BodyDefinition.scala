@@ -1,8 +1,8 @@
-package lars.game.engine.celestial.body
+package lars.core.celestial.body
 
-import lars.game.engine.celestial.body.BodyClassification.BodyClassification
-import lars.game.engine.celestial.body.standard.OrbitDefinition
-import lars.game.engine.physics.units.{Length, Mass}
+import lars.core.celestial.body.BodyClassification.BodyClassification
+import lars.core.celestial.body.standard.OrbitDefinition
+import lars.core.physics.units.{Length, Mass}
 
 case class BodyDefinition(val name: String,
                           val classification: BodyClassification,

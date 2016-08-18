@@ -1,7 +1,7 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
-import lars.game.engine.physics.units.Length.LengthType
-import lars.game.engine.physics.units.Mass.MassType
+import lars.core.physics.units.Length.LengthType
+import lars.core.physics.units.Mass.MassType
 
 case class Mass(kg: MassType) extends Ordered[Mass] {
   def +(that: Mass): Mass =

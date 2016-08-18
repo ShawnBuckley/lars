@@ -1,8 +1,8 @@
-package lars.game.engine.celestial.body.standard
+package lars.core.celestial.body.standard
 
-import lars.game.engine.celestial.{Child, Parent, Sizeable}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Velocity, Length, Mass}
+import lars.core.celestial.{Child, Parent, Sizeable}
+import lars.core.math.Vector2
+import lars.core.physics.units.{Velocity, Length, Mass}
 
 /**
   * Micro bodies are bodies that have a surface too small to land on.  This includes dust clouds, debris, comets, and

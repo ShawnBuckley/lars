@@ -8,18 +8,23 @@ buildscript {
 
 apply plugin: 'maven'
 apply plugin: 'scala'
-apply plugin: 'war'
+
+group = 'lars'
+version = '1-SNAPSHOT'
 
 configurations {
     compile
 }
 
 repositories {
-       mavenCentral()
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.8'
+
+    compile 'lars:core:1-SNAPSHOT'
 
     compile 'org.eclipse.jetty.aggregate:jetty-all:9.4.0.M0'
 
@@ -30,7 +35,6 @@ dependencies {
     compile 'com.corundumstudio.socketio:netty-socketio:1.7.11'
 
     compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-
     compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.7'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.7'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: '2.7'

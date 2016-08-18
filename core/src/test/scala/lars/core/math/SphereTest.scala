@@ -1,6 +1,6 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.physics.units.{Volume, Length}
+import lars.core.physics.units.{Volume, Length}
 import org.testng.annotations.Test
 import org.testng.Assert._
 

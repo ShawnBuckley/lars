@@ -1,4 +1,4 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
 import org.testng.Assert._
 import org.testng.annotations.Test

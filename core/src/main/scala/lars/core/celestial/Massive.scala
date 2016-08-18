@@ -1,8 +1,8 @@
-package lars.game.engine.celestial
+package lars.core.celestial
 
-import lars.game.engine.Nameable
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units.{Velocity, Mass}
+import lars.core.Nameable
+import lars.core.math.Vector2
+import lars.core.physics.units.{Velocity, Mass}
 
 /**
   * The Massive object trait.  Massive objects are the fundamental objects that can exist in space.  They have mass,

@@ -1,4 +1,4 @@
-package lars.game.engine
+package lars.core
 
 case class Gametime(time: Long) {
   def +(other: Int): Gametime =

@@ -1,7 +1,7 @@
-package lars.game.engine.celestial
+package lars.core.celestial
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import lars.game.engine.math.Vector2
+import lars.core.math.Vector2
 
 /**
   * This trait is used to determine a nested object's absolute location in the galaxy.

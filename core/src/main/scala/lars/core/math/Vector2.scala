@@ -1,7 +1,7 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.physics.units.Length
-import lars.game.engine.physics.units.Length.LengthType
+import lars.core.physics.units.Length
+import lars.core.physics.units.Length.LengthType
 
 case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
   def this(a: LengthType) =

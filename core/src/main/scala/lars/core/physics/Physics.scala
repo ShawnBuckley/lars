@@ -1,8 +1,8 @@
-package lars.game.engine.physics
+package lars.core.physics
 
-import lars.game.engine.celestial.Massive
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.units._
+import lars.core.celestial.Massive
+import lars.core.math.Vector2
+import lars.core.physics.units._
 
 import scala.collection.mutable.ArrayBuffer
 

@@ -1,9 +1,9 @@
-package lars.game.engine.celestial.body.standard
+package lars.core.celestial.body.standard
 
-import lars.game.engine.celestial.{Child, Parent, Sizeable}
-import lars.game.engine.math.Vector2
-import lars.game.engine.physics.Physics
-import lars.game.engine.physics.units.{Velocity, Length, Mass}
+import lars.core.celestial.{Child, Parent, Sizeable}
+import lars.core.math.Vector2
+import lars.core.physics.Physics
+import lars.core.physics.units.{Velocity, Length, Mass}
 
 /**
   * Singularities are all types of black holes.  This includes miniature, stellar, intermediate, and super massive /

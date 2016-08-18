@@ -1,6 +1,6 @@
-package lars.game.engine.physics.units
+package lars.core.physics.units
 
-import lars.game.engine.physics.units.Density.DensityType
+import lars.core.physics.units.Density.DensityType
 
 
 case class Density(kgm3: DensityType) {

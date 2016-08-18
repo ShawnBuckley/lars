@@ -1,6 +1,6 @@
-package lars.game.engine.math
+package lars.core.math
 
-import lars.game.engine.math.Vector1.VectorType
+import lars.core.math.Vector1.VectorType
 
 case class Vector1(x: VectorType) extends Ordered[Vector1] {
   def +(that: Vector1): Vector1 =
