@@ -46,3 +46,7 @@ dependencies {
 }
 
 test.useTestNG()
+
+//task run {
+//    dependsOn project(':gam')
+//}

@@ -40,3 +40,4 @@ dependencies {
 
 gulp_default.dependsOn 'npmInstall'
 gulp_default.dependsOn 'installGulp'
+build.dependsOn gulp_default

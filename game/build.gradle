@@ -6,6 +6,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
 apply plugin: 'scala'
 
 configurations {
@@ -39,4 +43,15 @@ dependencies {
     testCompile 'org.testng:testng:6.9.10'
 }
 
-test.useTestNG()
+build {
+    dependsOn project(':frontend').gulp_default
+}
+
+jar {
+    manifest {
+        attributes(
+//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'lars.Main'
+        )
+    }
+}
