@@ -6,6 +6,7 @@ buildscript {
     }
 }
 
+apply plugin: 'maven'
 apply plugin: 'scala'
 
 group = 'lars'
@@ -23,7 +24,7 @@ repositories {
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.8'
 
-    compile project(':core')
+    compile 'lars:core:1-SNAPSHOT'
 
     compile 'org.eclipse.jetty.aggregate:jetty-all:9.4.0.M0'
 

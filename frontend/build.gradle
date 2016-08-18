@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.gtache:scalajs-plugin:0.2.0'
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'scala'
+apply plugin: 'scalajs-plugin'
+
+group = 'lars'
+version = '1-SNAPSHOT'
+
+configurations {
+    compile
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.11.8'
+    compile 'com.lihaoyi:scalatags_2.11:0.5.4'
+    compile 'com.lihaoyi:upickle_2.11:0.4.1'
+
+    compile 'org.scala-js:scalajs-dom_sjs0.6_2.11:0.9.1'
+    compile 'com.lihaoyi:upickle_sjs0.6_2.11:0.4.1'
+
+    compile project(':core')
+}
