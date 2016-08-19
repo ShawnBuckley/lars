@@ -5,7 +5,7 @@ import javax.ws.rs._
 import lars.Game
 import util.JsonUtil
 
-@Path("/rest/system")
+@Path("/system")
 @Produces(Array[String]("application/json"))
 class SystemResource {
   @GET

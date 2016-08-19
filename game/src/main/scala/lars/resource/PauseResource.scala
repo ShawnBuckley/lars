@@ -4,7 +4,7 @@ import javax.ws.rs._
 
 import lars.Main
 
-@Path("/rest/game")
+@Path("/game")
 @Produces(Array[String]("text/plain"))
 class PauseResource {
   @POST

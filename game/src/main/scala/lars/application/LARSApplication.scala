@@ -29,6 +29,7 @@ class LARSApplication extends Application[LARSConfiguration] {
     }
     env.jersey.register(jacksonJaxbJsonProvider)
     env.jersey.register(new LoggingFilter)
+    env.jersey.setUrlPattern("/rest/*")
   }
 
   private def jacksonJaxbJsonProvider: JacksonJaxbJsonProvider = {
