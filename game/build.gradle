@@ -26,19 +26,16 @@ dependencies {
 
     compile project(':core')
 
-    compile 'org.eclipse.jetty.aggregate:jetty-all:9.4.0.M0'
+    compile 'io.dropwizard:dropwizard-core:1.0.0'
 
     compile 'com.fasterxml.jackson:jackson-parent:2.8'
     compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.8.0.rc2'
 
+    compile 'com.google.inject:guice:4.1.0'
+    compile 'com.google.inject.extensions:guice-multibindings:4.1.0'
+
     compile 'javax.websocket:javax.websocket-api:1.1'
     compile 'com.corundumstudio.socketio:netty-socketio:1.7.11'
-
-    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.7'
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.7'
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: '2.7'
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.7'
 
     testCompile 'org.testng:testng:6.9.10'
 }
@@ -50,7 +47,6 @@ build {
 jar {
     manifest {
         attributes(
-//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
                 'Main-Class': 'lars.Main'
         )
     }

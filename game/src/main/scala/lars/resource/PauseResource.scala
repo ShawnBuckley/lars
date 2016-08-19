@@ -1,12 +1,12 @@
-package lars.controllers
+package lars.resource
 
 import javax.ws.rs._
 
 import lars.Main
 
-@Path("/game")
+@Path("/rest/game")
 @Produces(Array[String]("text/plain"))
-class PauseController {
+class PauseResource {
   @POST
   @Path("/pause")
   def togglePause(): Unit = {

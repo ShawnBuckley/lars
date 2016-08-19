@@ -5,8 +5,9 @@ import lars.core.celestial.container.System
 import lars.core.math.Vector2
 import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
-import lars.controllers.PlanetController
+import lars.application.LARSApplication
 import lars.core.celestial.CelestialConstants
+import lars.resource.SystemResource
 
 object Main {
   var paused = false
@@ -19,9 +20,7 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    val server = new EmbeddedWebapp
-    server.start()
-
+    new LARSApplication().run("server", "game/src/main/resources/config.yml")
 
     val config = new Configuration
     config.setHostname("localhost")
@@ -30,7 +29,7 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", PlanetController.write("Sol"))
+        client.sendEvent("planets", SystemResource.write("Sol"))
       }
     })
     socketio.start()
@@ -73,7 +72,6 @@ object Main {
       }
     }
 
-    server.stop()
     socketio.stop()
 
     println("LARS Core stopped.")
