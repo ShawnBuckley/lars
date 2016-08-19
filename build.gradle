@@ -29,7 +29,6 @@ dependencies {
     compile 'lars:core:1-SNAPSHOT'
 
     compile 'io.dropwizard:dropwizard-core:1.0.0'
-    compile 'org.eclipse.jetty.aggregate:jetty-all:9.4.0.M0'
 
     compile 'com.fasterxml.jackson:jackson-parent:2.8'
     compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.8.0.rc2'
@@ -50,7 +49,3 @@ dependencies {
 }
 
 test.useTestNG()
-
-//task run {
-//    dependsOn project(':gam')
-//}
