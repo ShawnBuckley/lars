@@ -1,3 +1,0 @@
-function lala() {
-    alert('test');
-}
