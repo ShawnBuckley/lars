@@ -8,6 +8,7 @@ case class AngularMomentum(kgmms: Vector2) {
 }
 
 // TODO - calculate with sin of angle
+// http://hyperphysics.phy-astr.gsu.edu/hbase/amom.html
 object AngularMomentum {
   def conserve(velocity: Velocity, radius: Length, newRadius: Length): Velocity =
     velocity * (radius / newRadius)
