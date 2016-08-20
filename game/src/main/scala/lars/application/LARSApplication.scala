@@ -8,11 +8,12 @@ import com.fasterxml.jackson.databind.{ObjectMapper, SerializationFeature}
 import com.fasterxml.jackson.datatype.joda.JodaModule
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.google.inject.Module
 import io.dropwizard.Application
 import io.dropwizard.setup.Environment
 import org.glassfish.jersey.filter.LoggingFilter
 import lars.application.GuiceInjector.{withInjector, wrap}
-import lars.module.CelestialModule
+import lars.module.{CelestialModule, GameModule}
 
 class LARSApplication extends Application[LARSConfiguration] {
 
@@ -21,12 +22,14 @@ class LARSApplication extends Application[LARSConfiguration] {
   }
 
   def configure(config: LARSConfiguration, env: Environment): Unit = {
-    withInjector(new CelestialModule(config, env)) { injector =>
-      injector.instancesWithAnnotation(classOf[Path]).foreach { r => env.jersey().register(r) }
-      injector.instancesOfType(classOf[HealthCheck]).foreach { h => env.healthChecks.register(h.getClass.getName, h) }
-      injector.instancesOfType(classOf[ContainerRequestFilter]).foreach { f => env.jersey().register(f) }
-      injector.instancesOfType(classOf[ContainerResponseFilter]).foreach { f => env.jersey().register(f) }
-    }
+    List(new CelestialModule(config, env), new GameModule(config, env)).foreach((module: Module) => {
+      withInjector(module) { injector =>
+        injector.instancesWithAnnotation(classOf[Path]).foreach { r => env.jersey().register(r) }
+        injector.instancesOfType(classOf[HealthCheck]).foreach { h => env.healthChecks.register(h.getClass.getName, h) }
+        injector.instancesOfType(classOf[ContainerRequestFilter]).foreach { f => env.jersey().register(f) }
+        injector.instancesOfType(classOf[ContainerResponseFilter]).foreach { f => env.jersey().register(f) }
+      }
+    })
     env.jersey.register(jacksonJaxbJsonProvider)
     env.jersey.register(new LoggingFilter)
     env.jersey.setUrlPattern("/rest/*")
