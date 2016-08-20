@@ -1,43 +1,17 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.gtache:scalajs-plugin:0.2.0'
-    }
-}
-
 plugins {
     id "com.moowork.gulp" version "0.13"
     id "com.moowork.node" version "0.13"
 }
 
-apply plugin: 'maven'
-apply plugin: 'scala'
-apply plugin: 'scalajs-plugin'
-
-configurations {
-    compile
-}
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
-dependencies {
-    compile 'org.scala-lang:scala-library:2.11.8'
-    compile 'com.lihaoyi:scalatags_2.11:0.5.4'
-    compile 'com.lihaoyi:upickle_2.11:0.4.1'
-
-    compile 'org.scala-js:scalajs-dom_sjs0.6_2.11:0.9.1'
-    compile 'com.lihaoyi:upickle_sjs0.6_2.11:0.4.1'
-
-    compile project(':core')
-}
-
 gulp_default.dependsOn 'npmInstall'
 gulp_default.dependsOn 'installGulp'
-build.dependsOn gulp_default
+
+task webpack(type: NodeTask, dependsOn: 'npmInstall') {
+    script = project.file('node_modules/.bin/webpack')
+}
+
+task build(dependsOn: [gulp_default, webpack]) {}
+
+task server(type: NodeTask, dependsOn: build) {
+    script = project.file('node_modules/.bin/webpack-dev-server')
+}
