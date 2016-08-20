@@ -5,6 +5,7 @@ import java.lang.annotation.Annotation
 import com.google.inject.{Guice, Injector, Module, TypeLiteral}
 
 import scala.collection.JavaConversions._
+import scala.language.implicitConversions
 import scala.reflect._
 
 /**

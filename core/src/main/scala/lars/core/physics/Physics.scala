@@ -31,7 +31,7 @@ object Physics {
    */
   def barycenter(m1: Massive, m2: Massive): Barycenter = {
     val totalMass = m1.mass + m2.mass
-    new Barycenter(totalMass, (((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg))
+    new Barycenter(totalMass, ((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg)
   }
 
   /**
@@ -56,7 +56,7 @@ object Physics {
     * @return
     */
   def barycenterRemove(barycenter: Barycenter, massive: Massive): Barycenter = {
-    val massRemoved = (barycenter.mass - massive.mass)
+    val massRemoved = barycenter.mass - massive.mass
     new Barycenter(massRemoved, ((barycenter.location - ((massive.location * massive.mass.kg) / barycenter.mass.kg)) * barycenter.mass.kg) / massRemoved.kg)
   }
 

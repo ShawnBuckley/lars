@@ -4,12 +4,12 @@ import lars.core.celestial.body.BodyClassification.BodyClassification
 import lars.core.celestial.body.standard.OrbitDefinition
 import lars.core.physics.units.{Length, Mass}
 
-case class BodyDefinition(val name: String,
-                          val classification: BodyClassification,
-                          val radius: Length,
-                          val mass: Mass,
-                          val orbit: OrbitDefinition,
-                          val satellites: List[BodyDefinition]) {
+case class BodyDefinition(name: String,
+                          classification: BodyClassification,
+                          radius: Length,
+                          mass: Mass,
+                          orbit: OrbitDefinition,
+                          satellites: List[BodyDefinition]) {
 
 }
 

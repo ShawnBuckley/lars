@@ -1,6 +1,5 @@
 package lars.core.physics.units
 
-import lars.core.physics.units.Length.LengthType
 import lars.core.physics.units.Mass.MassType
 
 case class Mass(kg: MassType) extends Ordered[Mass] {

@@ -56,13 +56,13 @@ object Main {
 
     var runLoop = true
 
-    (new Thread(new Runnable {
+    new Thread(new Runnable {
       override def run(): Unit = {
         Console.in.readLine()
         println("LARS Core stopping.")
         runLoop = false
       }
-    })).start()
+    }).start()
 
     while(runLoop) {
       if(paused) {
