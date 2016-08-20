@@ -1,24 +1,10 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.gtache:scalajs-plugin:0.2.0'
-    }
-}
-
-apply plugin: 'maven'
 apply plugin: 'scala'
-apply plugin: 'scalajs-plugin'
 
 configurations {
     compile
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
 }
 
