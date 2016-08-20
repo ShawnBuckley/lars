@@ -10,7 +10,7 @@ import lars.core.celestial.CelestialConstants
 import lars.resource.SystemResource
 
 object Main {
-  var paused = false
+  var paused = true
 
   def main(args: Array[String]) {
 
