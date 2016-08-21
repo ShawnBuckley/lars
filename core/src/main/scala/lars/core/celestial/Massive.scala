@@ -1,6 +1,5 @@
 package lars.core.celestial
 
-import lars.core.Nameable
 import lars.core.math.Vector2
 import lars.core.physics.units.{Mass, Velocity}
 
@@ -13,7 +12,7 @@ import lars.core.physics.units.{Mass, Velocity}
   *
   * Massive objects can also be non-existent meta-objects such as barycenters and celestial containers such as systems.
   */
-trait Massive extends Nameable {
+trait Massive {
   var mass: Mass
   var location: Vector2
   var velocity: Velocity

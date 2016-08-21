@@ -1,6 +1,6 @@
 package lars.core.celestial.body.standard
 
-import lars.core.Observable
+import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Parent, Sizeable}
 import lars.core.math.Vector2
 import lars.core.physics.Physics
@@ -19,7 +19,11 @@ class Singularity(override var name: String,
                   override var mass: Mass,
                   override var location: Vector2,
                   override var velocity: Velocity,
-                  override var parent: Parent) extends Sizeable with Child with Observable {
+                  override var parent: Parent)
+  extends Sizeable
+    with Child
+    with Observable
+    with Nameable {
   override var size: Length = Physics.schwarzschildRadius(mass)
 
   override def observe(time: Time): Unit = {}

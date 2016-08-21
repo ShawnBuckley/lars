@@ -10,6 +10,5 @@ import lars.core.physics.units.{Mass, Time, Velocity}
   * @param location
   */
 case class Barycenter(override var mass: Mass, override var location: Vector2) extends Massive {
-  override var name: String = null
   override var velocity: Velocity = Velocity.zero
 }

@@ -8,7 +8,6 @@ import org.testng.Assert._
 
 class PhysicsTest {
   class MassiveBody(override var mass: Mass, override var location: Vector2) extends Massive {
-    override var name: String = ""
     override var velocity: Velocity = _
   }
 

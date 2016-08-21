@@ -1,6 +1,6 @@
 package lars.core.celestial.container
 
-import lars.core.Observable
+import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vector2
 import lars.core.physics.Physics
@@ -23,7 +23,12 @@ import scala.collection.mutable.ArrayBuffer
   * @param location
   * @param parent
   */
-class System(override var name: String, override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child with Observable {
+class System(override var name: String, override var location: Vector2, override var parent: Parent)
+  extends Massive
+    with Parent
+    with Child
+    with Observable
+    with Nameable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
   private var bodies = new ArrayBuffer[Massive]
@@ -40,7 +45,7 @@ class System(override var name: String, override var location: Vector2, override
   }
 
   def get(name: String): Massive = {
-    bodies.filter((body: Massive) => body.name.equals(name)).head
+    bodies.filter((body: Massive) => if(body.isInstanceOf[Nameable]) body.asInstanceOf[Nameable].name.equals(name) else false).head
   }
 
   def getAll(): Seq[Massive] = {
