@@ -12,7 +12,7 @@ object CelestialConstants {
 
   object Sol {
     val name = "Sol"
-    val luna = new BodyDefinition("Luna", BodyClassification.gaseous, new Length(1737.1), new Mass(7.342e22), new OrbitDefinition(new Length(385000), new Time(27.321582)), null)
+    val luna = new BodyDefinition("Luna", BodyClassification.terrestrial, new Length(1737.1), new Mass(7.342e22), new OrbitDefinition(new Length(385000), new Time(27.321582)), null)
 
     val mercury = new BodyDefinition("Mercury", BodyClassification.terrestrial, new Length(2439.7), new Mass(3.3011e23), new OrbitDefinition(new Length(57909175), new Time(87.969)), null)
     val venus = new BodyDefinition("Venus", BodyClassification.terrestrial, new Length(6051.59), new Mass(4.8690e24), new OrbitDefinition(new Length(108208930), new Time(224.5469999)), null)
