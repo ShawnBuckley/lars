@@ -170,7 +170,7 @@ class SpaceView {
                 var doZoom = (newZoom: number) => {
                     var center = this.toLocation(this.getCenter());
                     this.zoom = newZoom;
-                    this.pixelDistance = (((this.dist * 2) / this.size.x)/50) * newZoom;
+                    this.pixelDistance = ((this.dist * 2) / this.size.x) * newZoom;
                     this.setCenter(this.toPixels(center));
                 };
 
