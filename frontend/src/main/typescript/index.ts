@@ -110,11 +110,13 @@ function updatePlanetsTable(planets: Array<any>) {
         var polar;
         if(planets[i].name == "Luna") {
             polar = Polar2.convert(earth.location, planets[i].location);
+            $('#planets_table_' + i + '_y').text(polar.length / 384402);
         } else {
             polar = Polar2.convert(sun, planets[i].location);
+            $('#planets_table_' + i + '_y').text(polar.length / 1.496e+8);
         }
         $('#planets_table_' + i + '_x').text(polar.angle);
-        $('#planets_table_' + i + '_y').text(polar.length / 1.496e+8);
+
     }
 }
 
