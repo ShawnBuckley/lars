@@ -2,7 +2,7 @@ package lars.core.celestial.body.standard
 
 import lars.core.celestial.{Child, Parent, Sizeable}
 import lars.core.math.Vector2
-import lars.core.physics.units.{Velocity, Length, Mass}
+import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 /**
   * Gaseous bodies are any body that consists on a non solid outermost surface.  This includes gas clouds, gas dwarfs,
@@ -20,7 +20,7 @@ class GaseousBody(override var name: String,
                   override var velocity: Velocity,
                   override var size: Length,
                   override var parent: Parent) extends Sizeable with Child {
-  override def observe(): Unit = {}
+  override def observe(time: Time): Unit = {}
 
   override def collide(other: Sizeable): Unit = ???
 }

@@ -2,7 +2,7 @@ package lars.core.celestial.body.standard
 
 import lars.core.celestial.{Child, Parent, Sizeable}
 import lars.core.math.Vector2
-import lars.core.physics.units.{Velocity, Length, Mass}
+import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 /**
   * Terrestrial bodies are all variety of celestial objects large enough to have a surface that can be visited.  This
@@ -21,7 +21,7 @@ class TerrestrialBody(override var name: String,
                       override var size: Length,
                       override var parent: Parent) extends Sizeable with Child {
 
-  override def observe(): Unit = {
+  override def observe(time: Time): Unit = {
 
   }
 

@@ -3,7 +3,7 @@ package lars.core.celestial.container
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vector2
 import lars.core.physics.Physics
-import lars.core.physics.units.{Mass, Velocity}
+import lars.core.physics.units.{Mass, Time, Velocity}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -46,15 +46,15 @@ class System(override var name: String, override var location: Vector2, override
     bodies
   }
 
-  override def observe(): Unit = {
-    tick()
+  override def observe(time: Time): Unit = {
+    tick(time)
   }
 
-  def tick(): Unit = {
+  def tick(time: Time): Unit = {
     (bodies, Physics.gravAcceleration(bodies)).zipped.map(((body: Massive, velocity: Velocity) => {
       body.velocity += velocity
       body.location += body.velocity.kms
-      body.observe()
+      body.observe(time)
     })(_, _))
   }
 

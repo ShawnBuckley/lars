@@ -2,7 +2,7 @@ package lars.core.celestial
 
 import lars.core.Nameable
 import lars.core.math.Vector2
-import lars.core.physics.units.{Velocity, Mass}
+import lars.core.physics.units.{Mass, Time, Velocity}
 
 /**
   * The Massive object trait.  Massive objects are the fundamental objects that can exist in space.  They have mass,
@@ -24,5 +24,5 @@ trait Massive extends Nameable {
   var location: Vector2
   var velocity: Velocity //= Velocity.zero
 
-  def observe(): Unit
+  def observe(time: Time): Unit
 }

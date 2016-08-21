@@ -8,6 +8,7 @@ import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
 import lars.application.LARSApplication
 import lars.core.celestial.CelestialConstants
+import lars.core.physics.units.Time
 import lars.resource.SystemResource
 
 object Main {
@@ -81,7 +82,7 @@ object Main {
 //      Thread.sleep(1000)
 //      if(!paused) system.observe()
       if(paused) Thread.sleep(1000)
-      else system.observe()
+      else system.observe(Time.second)
     }
 
     socketio.stop()
