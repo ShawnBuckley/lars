@@ -25,7 +25,7 @@ import scala.collection.mutable.ArrayBuffer
 class System(override var name: String, override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  var bodies = new ArrayBuffer[Massive]
+  private var bodies = new ArrayBuffer[Massive]
 
   def add(body: Massive): Massive = {
     bodies.append(body)
@@ -36,6 +36,14 @@ class System(override var name: String, override var location: Vector2, override
   def del(body: Massive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
+  }
+
+  def get(name: String): Massive = {
+    bodies.filter((body: Massive) => body.name.equals(name)).head
+  }
+
+  def getAll(): Seq[Massive] = {
+    bodies
   }
 
   override def observe(): Unit = {

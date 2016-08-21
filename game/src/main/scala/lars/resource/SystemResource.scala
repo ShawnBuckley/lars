@@ -17,5 +17,5 @@ class SystemResource {
 
 object SystemResource {
   def write(name: String): String =
-    JsonUtil.toJson(Game.galaxy.getSystem(name).bodies)
+    JsonUtil.toJson(Game.galaxy.getSystem(name).getAll)
 }
