@@ -1,5 +1,6 @@
 package lars.core.celestial.container
 
+import lars.core.Observable
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vector2
 import lars.core.physics.Physics
@@ -22,7 +23,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param location
   * @param parent
   */
-class System(override var name: String, override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child {
+class System(override var name: String, override var location: Vector2, override var parent: Parent) extends Massive with Parent with Child with Observable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
   private var bodies = new ArrayBuffer[Massive]
@@ -54,7 +55,7 @@ class System(override var name: String, override var location: Vector2, override
     (bodies, Physics.gravAcceleration(bodies)).zipped.map(((body: Massive, velocity: Velocity) => {
       body.velocity += velocity
       body.location += body.velocity.kms
-      body.observe(time)
+      if(body.isInstanceOf[Observable]) body.asInstanceOf[Observable].observe(time)
     })(_, _))
   }
 
