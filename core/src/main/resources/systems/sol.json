@@ -1,0 +1,127 @@
+{
+  "primaries": [
+    {
+      "name": "Sol",
+      "classification": "stellar",
+      "radius": 695500,
+      "mass": 1.98855e30,
+      "orbitDefinition": {
+        "radius": 0,
+        "period": 0
+      },
+      "satellites": [
+        {
+          "name": "Mercury",
+          "classification": "terrestrial",
+          "radius": 2439.7,
+          "mass": 3.3011e23,
+          "orbitDefinition": {
+            "radius": 57909175,
+            "period": 87.969
+          },
+          "satellites": []
+        },
+        {
+          "name": "Venus",
+          "classification": "terrestrial",
+          "radius": 6051.59,
+          "mass": 4.8690e24,
+          "orbitDefinition": {
+            "radius": 108208930,
+            "period": 224.5469999
+          },
+          "satellites": []
+        },
+        {
+          "name": "Earth",
+          "classification": "terrestrial",
+          "radius": 6371.0,
+          "mass": 5.9721986e24,
+          "orbitDefinition": {
+            "radius": 149598023,
+            "period": 365.006351
+          },
+          "satellites": [
+            {
+              "name": "Luna",
+              "classification": "terrestrial",
+              "radius": 1737.1,
+              "mass": 7.342e22,
+              "orbitDefinition": {
+                "radius": 385000,
+                "period": 27.321582
+              },
+              "satellites": []
+            }
+          ]
+        },
+        {
+          "name": "Mars",
+          "classification": "terrestrial",
+          "radius": 3397.0,
+          "mass": 6.4191e23,
+          "orbitDefinition": {
+            "radius": 227936640,
+            "period": 686.509374
+          },
+          "satellites": []
+        },
+        {
+          "name": "Ceres",
+          "classification": "terrestrial",
+          "radius": 473,
+          "mass": 9.393e20,
+          "orbitDefinition": {
+            "radius": 399426314.769,
+            "period": 1681.63
+          },
+          "satellites": []
+        },
+        {
+          "name": "Jupiter",
+          "classification": "gaseous",
+          "radius": 71492.68,
+          "mass": 1.8987e27,
+          "orbitDefinition": {
+            "radius": 778412010,
+            "period": 4329.854475
+          },
+          "satellites": []
+        },
+        {
+          "name": "Saturn",
+          "classification": "gaseous",
+          "radius": 60267.14,
+          "mass": 5.6851e26,
+          "orbitDefinition": {
+            "radius": 1433449370,
+            "period": 10748.33677
+          },
+          "satellites": []
+        },
+        {
+          "name": "Uranus",
+          "classification": "gaseous",
+          "radius": 25557.25,
+          "mass": 8.6849e25,
+          "orbitDefinition": {
+            "radius": 2870972200.0,
+            "period": 30666.14879
+          },
+          "satellites": []
+        },
+        {
+          "name": "Neptune",
+          "classification": "gaseous",
+          "radius": 24766.36,
+          "mass": 1.0244e26,
+          "orbitDefinition": {
+            "radius": 4498252900.0,
+            "period": 60148.8318
+          },
+          "satellites": []
+        },
+      ]
+    }
+  ]
+}
