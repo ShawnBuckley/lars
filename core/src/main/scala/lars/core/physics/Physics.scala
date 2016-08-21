@@ -74,7 +74,7 @@ object Physics {
     * @param bodies list of bodies
     * @return list of acceleration vectors
     */
-  def gravAcceleration(bodies: ArrayBuffer[Massive]): ArrayBuffer[Velocity] = {
+  def gravAcceleration(bodies: Seq[Massive]): Seq[Velocity] = {
     val velocities = new ArrayBuffer[Velocity]
     velocities.sizeHint(bodies)
     bodies.foreach((body: Massive) => {
