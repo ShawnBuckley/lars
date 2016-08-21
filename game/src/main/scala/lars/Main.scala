@@ -1,5 +1,6 @@
 package lars
 
+import scala.collection.JavaConversions._
 import lars.core.celestial.body.standard._
 import lars.core.celestial.container.System
 import lars.core.math.Vector2
@@ -64,12 +65,23 @@ object Main {
       }
     }).start()
 
-    while(runLoop) {
-      if(paused) {
-        Thread.sleep(1000)
-      } else {
-        system.observe()
+    new Thread(new Runnable {
+      override def run(): Unit = {
+        while(runLoop) {
+          Thread.sleep(100)
+          socketio.getAllClients.foreach((client: SocketIOClient) => {
+            client.sendEvent("planets", SystemResource.write("Sol"))
+          })
+        }
+
       }
+    }).start()
+
+    while(runLoop) {
+//      Thread.sleep(1000)
+//      if(!paused) system.observe()
+      if(paused) Thread.sleep(1000)
+      else system.observe()
     }
 
     socketio.stop()

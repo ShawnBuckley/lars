@@ -109,7 +109,7 @@ function updatePlanetsTable(planets: Array<any>) {
     for(var i=1; i<planets.length; i++) {
         var polar;
         if(planets[i].name == "Luna") {
-            polar = new Polar2.convert(earth.location, planets[i].location);
+            polar = Polar2.convert(earth.location, planets[i].location);
         } else {
             polar = Polar2.convert(sun, planets[i].location);
         }
@@ -184,6 +184,7 @@ class SpaceView {
 
         this.socket = io('http://localhost:9092');
         this.socket.on('planets', (msg: any) => {
+            console.log('update');
             this.planets = JSON.parse(msg);
             updatePlanetsTable(this.planets);
         });
@@ -208,7 +209,6 @@ class SpaceView {
 
     updatePlanets = () => {
         this.socket.emit('planets', null);
-        setTimeout(this.updatePlanets, this.rate)
     };
 
     getCenter = () => {
