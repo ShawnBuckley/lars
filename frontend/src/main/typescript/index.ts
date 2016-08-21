@@ -30,9 +30,9 @@ class Vector2 {
     x: number;
     y: number;
 
-    constructor() {
-        this.x = 0;
-        this.y = 0;
+    constructor(x: number = 0, y: number = 0) {
+        this.x = x;
+        this.y = y;
     }
 }
 
@@ -52,7 +52,8 @@ class Polar2 {
     }
 
     static convert(origin: Vector2, location: Vector2) {
-        return new Polar2(Math.atan2(location.y, location.x), Math.sqrt(Math.pow(location.x - origin.x, 2) + Math.pow(location.y - origin.y, 2)));
+        var result = new Vector2(origin.x - location.x, origin.y - location.y);
+        return new Polar2((Math.atan2(result.y, result.x)+Math.PI)*(180/Math.PI), Math.sqrt(Math.pow(result.x, 2) + Math.pow(result.y, 2)));
     }
 }
 
@@ -98,15 +99,22 @@ function updatePlanetsTable(planets: Array<any>) {
     $('#planets_table_0_x').text(sun.x / 1.496e+8);
     $('#planets_table_0_y').text(sun.y / 1.496e+8);
 
-    var earth = planets[4];
-    var moon = Polar2.convert(earth, planets[1].location);
-    $('#planets_table_1_x').text(moon.angle);
-    $('#planets_table_1_y').text(moon.length / 1.496e+8);
-
+    var earth;
     for(var i=2; i<planets.length; i++) {
-        var polar = Polar2.convert(sun, planets[i].location);
+        if(planets[i].name == "Earth") {
+            earth = planets[i];
+        }
+    }
+
+    for(var i=1; i<planets.length; i++) {
+        var polar;
+        if(planets[i].name == "Luna") {
+            polar = new Polar2.convert(earth.location, planets[i].location);
+        } else {
+            polar = Polar2.convert(sun, planets[i].location);
+        }
         $('#planets_table_' + i + '_x').text(polar.angle);
-        $('#planets_table_' + i + '_y').text(polar.length / 1.496e+8)
+        $('#planets_table_' + i + '_y').text(polar.length / 1.496e+8);
     }
 }
 
@@ -160,9 +168,7 @@ class SpaceView {
                 var doZoom = (newZoom: number) => {
                     var center = this.toLocation(this.getCenter());
                     this.zoom = newZoom;
-                    
-                    
-                    this.pixelDistance = ((this.dist * 2) / this.size.x) * newZoom;
+                    this.pixelDistance = (((this.dist * 2) / this.size.x)/50) * newZoom;
                     this.setCenter(this.toPixels(center));
                 };
 
