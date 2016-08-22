@@ -32,7 +32,29 @@ object CelestialConstants {
     val sol = new BodyDefinition(name, BodyClassification.stellar, new Length(695500), new Mass(1.98855e30), new OrbitDefinition(new Length(1), new Time(1)), planets)
 
     val primaries = List[BodyDefinition](sol)
-
   }
+
+  object Xygon {
+    val name = "Xygon"
+
+    val orbitLength = Sol.venus.orbit.radius
+
+    val xyferius = new BodyDefinition("Xyferius", BodyClassification.terrestrial, Sol.venus.radius, Sol.venus.mass, new OrbitDefinition(orbitLength * 2, Sol.venus.orbit.period * 100), null)
+
+    val planets = List(xyferius)
+
+    val xygon_star_mass = Sol.jupiter.mass
+    val xygon_star_radius = Sol.jupiter.radius
+
+    val xygon_a = new BodyDefinition("Xygon A", BodyClassification.stellar, xygon_star_radius, xygon_star_mass, new OrbitDefinition(orbitLength, new Time(100000000)), planets)
+    val xygon_b = new BodyDefinition("Xygon B", BodyClassification.stellar, xygon_star_radius, xygon_star_mass, new OrbitDefinition(orbitLength*(-1), new Time(100000000)), null)
+
+    val stars = List(xygon_a, xygon_b)
+
+    val barycenter = new BodyDefinition("Xygon", BodyClassification.none, new Length(1), Mass.zero, new OrbitDefinition(new Length(1), Time.second), stars)
+
+    val primaries = List(barycenter)
+  }
+
 
 }
