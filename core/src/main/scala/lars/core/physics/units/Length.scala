@@ -16,6 +16,9 @@ case class Length(km: LengthType) {
   def *(that: Length): Area =
     new Area(km * that.km)
 
+  def *(that: LengthType): Length =
+    new Length(that * km)
+
   def /(that: Time): Speed =
     new Speed(m / that.s)
 

@@ -26,6 +26,9 @@ case class Time(d: TimeType) {
 
   def +(that: Time): Time =
     new Time(d + that.d)
+
+  def *(that: TimeType): Time =
+    new Time(d * that)
 }
 
 object Time {
