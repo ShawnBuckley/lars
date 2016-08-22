@@ -16,6 +16,8 @@ object Main {
 
   def main(args: Array[String]) {
 
+    val systemName = "Sol"
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Setup
@@ -31,7 +33,7 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", SystemResource.write("Sol"))
+        client.sendEvent("planets", SystemResource.write(systemName))
       }
     })
     socketio.start()
@@ -42,11 +44,14 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    val system = new System(CelestialConstants.Sol.name, new Vector2(0,0), null)
-    system.name = CelestialConstants.Sol.name
+    val sol = new System(CelestialConstants.Sol.name, new Vector2(0,0), null)
+    Game.galaxy.addSystem(sol)
+    CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, sol)
 
-    Game.galaxy.addSystem(system)
-    CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, system)
+    val xygon = new System(CelestialConstants.Xygon.name, Vector2.addIdent, null)
+    Game.galaxy.addSystem(xygon)
+    CelestialFactory.createBodies(CelestialConstants.Xygon.primaries, null, xygon)
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -71,7 +76,7 @@ object Main {
         while(runLoop) {
           Thread.sleep(100)
           socketio.getAllClients.foreach((client: SocketIOClient) => {
-            client.sendEvent("planets", SystemResource.write("Sol"))
+            client.sendEvent("planets", SystemResource.write(systemName))
           })
         }
 
@@ -82,7 +87,10 @@ object Main {
 //      Thread.sleep(1000)
 //      if(!paused) system.observe()
       if(paused) Thread.sleep(1000)
-      else system.observe(Time.second)
+      else {
+        sol.observe(Time.second)
+//        xygon.observe(Time.second)
+      }
     }
 
     socketio.stop()

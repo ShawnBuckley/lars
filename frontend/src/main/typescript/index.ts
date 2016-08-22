@@ -13,6 +13,8 @@ class PlanetSprite {
     }
 }
 
+var currentSystem: String = "Sol";
+
 var planet_sprites: Map<string, PlanetSprite> = new Map<string, PlanetSprite>();
 planet_sprites.set('Sol', new PlanetSprite('yellow', 5));
 planet_sprites.set('Luna', new PlanetSprite('white', 1));
@@ -25,6 +27,10 @@ planet_sprites.set('Jupiter', new PlanetSprite('brown', 4));
 planet_sprites.set('Saturn', new PlanetSprite('orange', 4));
 planet_sprites.set('Uranus', new PlanetSprite('white', 3));
 planet_sprites.set('Neptune', new PlanetSprite('blue', 3));
+
+planet_sprites.set('Xygon A', new PlanetSprite('yellow', 5));
+planet_sprites.set('Xygon B', new PlanetSprite('yellow', 5));
+planet_sprites.set('Xyferius', new PlanetSprite('red', 2));
 
 class Vector2 {
     x: number;
@@ -68,7 +74,7 @@ function createPlanetTable(id: string) {
     var table: HTMLTableElement = <HTMLTableElement>document.getElementById(id);
     var button: HTMLButtonElement = <HTMLButtonElement>document.getElementById('playpause');
     button.onclick=playpause;
-    $.get('rest/system/Sol', function(planets) {
+    $.get('rest/system/' + currentSystem, function(planets) {
         $.each(planets, function(i, planet){
             var row: HTMLTableRowElement = <HTMLTableRowElement>table.insertRow(i);
             row.id = 'planets_table_' + i;
@@ -186,7 +192,6 @@ class SpaceView {
 
         this.socket = io('http://localhost:9092');
         this.socket.on('planets', (msg: any) => {
-            console.log('update');
             this.planets = JSON.parse(msg);
             updatePlanetsTable(this.planets);
         });
