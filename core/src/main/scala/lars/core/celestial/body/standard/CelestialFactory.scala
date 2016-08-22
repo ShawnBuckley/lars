@@ -16,13 +16,14 @@ object CelestialFactory {
       case BodyClassification.gaseous => new GaseousBody(body.name, body.mass, location, velocity, body.radius, parent)
       case BodyClassification.terrestrial => new TerrestrialBody(body.name, body.mass, location, velocity, body.radius, parent)
       case BodyClassification.micro => new MicroBody(body.name, body.mass, location, velocity, body.radius, parent)
+      case BodyClassification.none => null
     }
   }
 
   def createBodies(bodies: List[BodyDefinition], primary: Massive, system: System): Unit = {
     bodies.foreach((body: BodyDefinition) => {
       val satellite = CelestialFactory.createBody(body, primary, system)
-      system.add(satellite)
+      if(satellite != null) system.add(satellite)
       if(body.satellites != null && body.satellites.nonEmpty) createBodies(body.satellites, satellite, system)
     })
   }

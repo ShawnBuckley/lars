@@ -20,4 +20,5 @@ object BodyClassification extends Enumeration {
   val gaseous = Value("gaseous")
   val terrestrial = Value("terrestrial")
   val micro = Value("micro")
+  val none = Value("none")
 }
