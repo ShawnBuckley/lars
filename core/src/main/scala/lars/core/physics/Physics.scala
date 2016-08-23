@@ -1,7 +1,7 @@
 package lars.core.physics
 
 import lars.core.celestial.Massive
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 import lars.core.physics.units._
 
 import scala.collection.mutable.ArrayBuffer
@@ -41,7 +41,7 @@ object Physics {
    */
   def barycenter(massives: Seq[Massive]): Barycenter = {
     var total = Mass.zero
-    var location = Vector2.addIdent
+    var location = Vec2.addIdent
     massives.foreach((massive: Massive) => {
       total += massive.mass
       location += (massive.location * massive.mass.kg)
@@ -67,7 +67,7 @@ object Physics {
     * @return the gravitation force the objects are exerting on each other
     */
   def gravForce(m1: Massive, m2: Massive): Force =
-    new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(Vector2.distance(m1.location, m2.location)).m, 2))
+    new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(m1.location.distance(m2.location).magnitude).m, 2))
 
   /**
     * Calculates the acceleration due to gravity a group of bodies have on each other

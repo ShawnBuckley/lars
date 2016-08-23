@@ -1,36 +1,20 @@
 package lars.core.math
 
-import lars.core.math.Vector1.VectorType
+trait Vector1[T] extends Ordered[T] {
+  def +(that: T): T
+  def -(that: T): T
+  def *(scalar: Double): T
+  def /(scalar: Double): T
+  def /(that: T): Double
 
-case class Vector1(x: VectorType) extends Ordered[Vector1] {
-  def +(that: Vector1): Vector1 =
-    new Vector1(x + that.x)
+  def unary_- : T
 
-  def -(that: Vector1): Vector1 =
-    new Vector1(x - that.x)
-
-  def *(that: VectorType): Vector1 =
-    new Vector1(x * that)
-
-  def /(that: VectorType): Vector1 =
-    new Vector1(x / that)
-
-  override def >(other: Vector1): Boolean =
-    x > other.x
-
-  override def <(other: Vector1): Boolean =
-    x < other.x
-
-  override def >=(other: Vector1): Boolean =
-    x >= other.x
-
-  override def <=(other: Vector1): Boolean =
-    x <= other.x
-
-  override def compare(that: Vector1): Int =
-    (x - that.x).toInt
+  def midpoint(that: T): T
+  def distance(that: T): Double
+  def magnitude: Double
 }
 
 object Vector1 {
-  type VectorType = Long
+  def midpoint(a: Double, b: Double) = (a + b) / 2
+  def distance(a: Double, b: Double) = math.abs(a - b)
 }

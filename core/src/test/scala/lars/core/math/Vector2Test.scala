@@ -1,86 +1,64 @@
 package lars.core.math
 
-import lars.core.physics.units.Length.LengthType
 import org.testng.annotations.Test
 import org.testng.Assert._
 
-class Vector2Test {
-  val x1: LengthType = 14
-  val y1: LengthType = 5
-  val larger = new Vector2(x1, y1)
+class Vec2Test {
+  val largerX: Double = 14
+  val largerY: Double = 5
+  val larger = new Vec2(largerX, largerY)
 
-  val x2: LengthType = 3
-  val y2: LengthType = 6
-  val smaller = new Vector2(x2, y2)
+  val smallerX: Double = 3
+  val smallerY: Double = 6
+  val smaller = new Vec2(smallerX, smallerY)
 
-  val scalar: LengthType = 2
+  val scalar: Double = 2
 
-  @Test
-  def +() =
-    assertEquals(larger + smaller, new Vector2(x1 + x2, y1 + y2))
-
-  @Test
-  def -() =
-    assertEquals(larger - smaller, new Vector2(x1 - x2, y1 - y2))
+  @Test def + = assertEquals(larger + smaller, new Vec2(largerX + smallerX, largerY + smallerY))
+  @Test def - = assertEquals(larger - smaller, new Vec2(largerX - smallerX, largerY - smallerY))
+  @Test def * = assertEquals(larger * scalar, new Vec2(largerX * scalar, largerY * scalar))
+  @Test def / = assertEquals(larger / scalar, new Vec2(largerX / scalar, largerY / scalar))
 
   @Test
-  def *() =
-    assertEquals(larger * scalar, new Vector2(x1 * scalar, y1 * scalar))
+  def unary_- = assertEquals(-smaller, new Vec2(-smaller.x, -smaller.y))
 
-  @Test
-  def /() =
-    assertEquals(larger / scalar, new Vector2(x1 / scalar, y1 / scalar))
-
-  @Test
-  def >() =
+  @Test def > = {
     assert(larger > smaller)
+    assert(!(smaller > larger))
+    assert(!(larger > larger))
+  }
 
-  @Test
-  def <() =
+  @Test def < = {
     assert(smaller < larger)
+    assert(!(larger < smaller))
+    assert(!(smaller < smaller))
+  }
 
-  @Test
-  def >=() = {
+  @Test def >= = {
     assert(larger >= smaller)
+    assert(!(smaller >= larger))
     assert(larger >= larger)
   }
 
-  @Test
-  def <=() = {
+  @Test def <= = {
     assert(smaller <= larger)
+    assert(!(larger <= smaller))
     assert(smaller <= smaller)
   }
 
-  @Test
-  def negative() = {
-    assertEquals(-smaller, new Vector2(-smaller.x, -smaller.y))
-    assertEquals(-larger, new Vector2(-larger.x, -larger.y))
+  @Test def equals = assertEquals(larger, new Vec2(largerX, largerY))
+
+  @Test def distance = {
+    assertEquals(Vec2(largerX,0).distance(Vec2.addIdent), Vec2(largerX, 0.0))
+    assertEquals(Vec2(0,largerY).distance(Vec2.addIdent), Vec2(0.0, largerY))
   }
 
-  @Test
-  def equals() = assertEquals(larger, new Vector2(x1, y1))
+  @Test def midpoint = assertEquals(larger.midpoint(smaller), Vec2((largerX + smallerX)/2, (largerY + smallerY)/2))
 
-  @Test
-  def distance() = {
-    assertEquals(Vector2.distance(new Vector2(x1,0), Vector2.addIdent), x1)
-    assertEquals(Vector2.distance(new Vector2(0,y1), Vector2.addIdent), y1)
-    assertEquals(Vector2.distance(new Vector2(x1,y1), Vector2.addIdent),
-      math.sqrt(math.pow(x1,2) + math.pow(y1,2)))
-  }
-
-  @Test
-  def midpoint() = {
-    assertEquals(
-      Vector2.addIdent,
-      Vector2.midpoint(new Vector2(x1,y1), new Vector2(0-x1, 0-y1))
-    )
-  }
-
-  @Test
-  def normalize() = {
-    val longer: LengthType = math.abs(larger.length)
-    val shorter: LengthType = math.abs(smaller.length)
-    assertEquals(larger.normalize, new Vector2(x1 / longer, y1 / longer))
-    assertEquals(smaller.normalize, new Vector2(x2 / shorter, y2 / shorter))
+  @Test def normalize = {
+    val longer: Double = math.abs(larger.magnitude)
+    val shorter: Double = math.abs(smaller.magnitude)
+    assertEquals(larger.normalize, new Vec2(largerX / longer, largerY / longer))
+    assertEquals(smaller.normalize, new Vec2(smallerX / shorter, smallerY / shorter))
   }
 }

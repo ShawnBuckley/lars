@@ -3,7 +3,7 @@ package lars
 import scala.collection.JavaConversions._
 import lars.core.celestial.body.standard._
 import lars.core.celestial.container.System
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 import com.corundumstudio.socketio.listener._
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
 import lars.application.LARSApplication
@@ -44,11 +44,11 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    val sol = new System(CelestialConstants.Sol.name, new Vector2(0,0), null)
+    val sol = new System(CelestialConstants.Sol.name, new Vec2(0,0), null)
     Game.galaxy.addSystem(sol)
     CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, sol)
 
-    val xygon = new System(CelestialConstants.Xygon.name, Vector2.addIdent, null)
+    val xygon = new System(CelestialConstants.Xygon.name, Vec2.addIdent, null)
     Game.galaxy.addSystem(xygon)
     CelestialFactory.createBodies(CelestialConstants.Xygon.primaries, null, xygon)
 

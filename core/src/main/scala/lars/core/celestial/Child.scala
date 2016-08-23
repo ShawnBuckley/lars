@@ -1,7 +1,7 @@
 package lars.core.celestial
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 
 /**
   * This trait is used to determine a nested object's absolute location in the galaxy.
@@ -17,6 +17,6 @@ trait Child extends NestedLocation {
     * @param relative relative location
     * @return absolute location
     */
-  override def absoluteLocation(relative: Vector2): Vector2 =
+  override def absoluteLocation(relative: Vec2): Vec2 =
     parent.absoluteLocation(relative)
 }

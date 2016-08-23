@@ -1,50 +1,30 @@
 package lars.core.physics.units
 
-import lars.core.physics.units.Mass.MassType
+import lars.core.math.Vector1
 
-case class Mass(kg: MassType) extends Ordered[Mass] {
-  def +(that: Mass): Mass =
-    new Mass(kg + that.kg)
+case class Mass(kg: Double) extends Vector1[Mass] {
+  override def +(that: Mass): Mass = new Mass(kg + that.kg)
+  override def -(that: Mass): Mass = new Mass(kg + that.kg)
+  override def *(scalar: Double): Mass = new Mass(kg * scalar)
+  override def /(scalar: Double): Mass = new Mass(kg / scalar)
+  override def /(that: Mass): Double = kg / that.kg
 
-  def +(that: MassType): Mass =
-    new Mass(kg + that)
+  override def unary_- : Mass = new Mass(-kg)
 
-  def -(that: Mass): Mass =
-    new Mass(kg - that.kg)
+  override def compare(that: Mass): Int = kg.compare(that.kg)
 
-  def -(that: MassType): Mass =
-    new Mass(kg - that)
-
-  def *(factor: MassType): Mass =
-    new Mass(kg * factor)
-
-  override def >(that: Mass): Boolean =
-    kg > that.kg
-
-  override def <(that: Mass): Boolean =
-    kg < that.kg
-
-  override def >=(that: Mass): Boolean =
-    kg >= that.kg
-
-  override def <=(that: Mass): Boolean =
-    kg <= that.kg
-
-  override def compare(that: Mass): Int =
-    (kg - that.kg).toInt
+  override def midpoint(that: Mass): Mass = new Mass(Vector1.midpoint(kg, that.kg))
+  override def distance(that: Mass): Double = Vector1.distance(kg, that.kg)
+  override def magnitude: Double = kg
 
   // Conversion to other types
 
-  def /(that: Volume): Density =
-    new Density(kg / that.km3)
+  def /(that: Volume): Density = new Density(kg / that.km3)
 
-  def *(that: Velocity): Momentum =
-    new Momentum(that.ms * kg)
+  def *(that: Velocity): Momentum = new Momentum(that.ms * kg)
 }
 
 object Mass {
-  type MassType = Double
-
   val zero: Mass = new Mass(0)
 
   def min(m1: Mass, m2: Mass): Mass =

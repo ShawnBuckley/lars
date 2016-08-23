@@ -1,97 +1,54 @@
 package lars.core.math
 
-import lars.core.physics.units.Length
-import lars.core.physics.units.Length.LengthType
+trait Vector2[T] extends Ordered[T] {
+  def +(that: T): T
+  def -(that: T): T
+  def *(scalar: Double): T
+  def /(scalar: Double): T
+  def /(that: T): Double
 
-case class Vector2(x: LengthType, y: LengthType) extends Ordered[Vector2] {
-  def this(a: LengthType) =
-    this(a, a)
+  def unary_- : T
 
-  def +(that: Vector2): Vector2 =
-    new Vector2(x + that.x, y + that.y)
+  def midpoint(that: T): T
+  def distance(that: T): T
+  def magnitude: Double
+  def normalize: T
+  def angle: Double
+}
 
-  def unary_-(): Vector2 =
-    new Vector2(-x, -y)
+case class Vec2(x: Double, y: Double) extends Ordered[Vec2] {
+  def this(a: Double) = this(a, a)
 
-  def -(vec: Vector2): Vector2 =
-    new Vector2(x - vec.x, y - vec.y)
+  def +(that: Vec2) = new Vec2(x + that.x, y + that.y)
+  def -(that: Vec2) = new Vec2(x - that.x, y - that.y)
+  def *(scalar: Double) = new Vec2(x * scalar, y * scalar)
+  def /(scalar: Double) = new Vec2(x / scalar, y / scalar)
+  def /(that: Vec2) = magnitude / that.magnitude
 
-  def *(factor: LengthType): Vector2 =
-    new Vector2(x * factor, y * factor)
+  def unary_- = new Vec2(-x, -y)
 
-  def /(factor: LengthType): Vector2 =
-    new Vector2(x / factor, y / factor)
+  override def compare(that: Vec2) = magnitude.compare(that.magnitude)
 
-  override def >(other: Vector2): Boolean =
-    length > other.length
+  def midpoint(that: Vec2) = new Vec2((x + that.x)/2, (y + that.y)/2)
+  def distance(that: Vec2) = new Vec2(x - that.x, y - that.y)
+  def magnitude = math.sqrt(math.pow(x, 2) + math.pow(y, 2))
 
-  override def <(other: Vector2): Boolean =
-    length < other.length
-
-  override def >=(other: Vector2): Boolean =
-    length >= other.length
-
-  override def <=(other: Vector2): Boolean =
-    length <= other.length
-
-  override def compare(that: Vector2): Int =
-    (length - that.length).toInt
-
-  def length: LengthType =
-    Vector2.distance(Vector2.addIdent, this)
-
-  override def equals(other: Any): Boolean = other match {
-    case that: Vector2 => x == that.x && y == that.y
+  override def equals(that: Any): Boolean = that match {
+    case that: Vec2 => x == that.x && y == that.y
     case _ => false
   }
 
-  def round: Vector2 =
-    new Vector2(math.round(x), math.round(y))
-
-  def normalize: Vector2 = {
-    val factor = math.abs(length)
-    new Vector2(x / factor, y / factor)
+  def normalize = {
+    val factor = math.abs(magnitude)
+    new Vec2(x / factor, y / factor)
   }
 
-  def angle: Double =
-    math.atan2(y, x)
+  def angle: Double = math.atan2(y, x)
+
+  def toPolar = new Polar2(angle, magnitude)
 }
 
-object Vector2 {
-  /**
-    * The additive identity.
-    */
-  val addIdent = new Vector2(Length.zero, Length.zero)
-
-  /**
-    * The multiplicative identity.
-    */
-  val mulIdent = new Vector2(Length.one, Length.one)
-
-  /**
-    * Returns the midpoint between two points.
-    * @param one point1
-    * @param two point2
-    * @return midpoint
-    */
-  def midpoint(one: Vector2, two: Vector2): Vector2 =
-    new Vector2((one.x + two.x)/2, (one.y + two.y)/2)
-
-  /**
-    * Returns the distance between two points.
-    * @param one point1
-    * @param two point2
-    * @return distance
-    */
-  def distance(one: Vector2, two: Vector2): LengthType =
-    math.sqrt(math.pow(two.x - one.x, 2) + math.pow(two.y - one.y, 2))
-
-  /**
-    * Converts a polar coordinate into a cartesian coordinate.
-    *
-    * @param point
-    * @return cartesian coordinate
-    */
-  def convert(point: Polar2): Vector2 =
-    new Vector2(point.length * math.cos(point.angle), point.length * math.sin(point.angle))
+object Vec2 {
+  val addIdent = new Vec2(0.0, 0.0)
+  val mulIdent = 1.0
 }

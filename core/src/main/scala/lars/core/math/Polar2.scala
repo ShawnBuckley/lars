@@ -1,8 +1,6 @@
 package lars.core.math
 
-import lars.core.physics.units.Length.LengthType
-
-case class Polar2(angle: Double, length: LengthType) {
+case class Polar2(angle: Double, length: Double) {
 
 }
 
@@ -13,8 +11,8 @@ object Polar2 {
     * @param point
     * @return polar coordinate
     */
-  def convert(point: Vector2): Polar2 =
-    new Polar2(point.angle, point.length)
+  def convert(point: Vec2): Polar2 =
+    new Polar2(point.angle, point.magnitude)
 
   /**
     * Converts a cartesian coordinate with a specified origin to a polar coordinate.
@@ -23,6 +21,6 @@ object Polar2 {
     * @param point
     * @return polar coordinate
     */
-  def convert(origin: Vector2, point: Vector2): Polar2 =
+  def convert(origin: Vec2, point: Vec2): Polar2 =
     convert(point - origin)
 }

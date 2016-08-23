@@ -1,57 +1,45 @@
 package lars.core.physics.units
 
-import lars.core.physics.units.Time.TimeType
+import lars.core.math.Vector1
 
-case class Time(d: TimeType) {
-  def us: TimeType =
-    d * Time.d.us
+case class Time(d: Double) extends Vector1[Time] {
+  override def +(that: Time) = new Time(d + that.d)
+  override def -(that: Time) = new Time(d - that.d)
+  override def *(scalar: Double) = new Time(d * scalar)
+  override def /(scalar: Double) = new Time(d / scalar)
+  override def /(that: Time): Double = d / that.d
 
-  def ms: TimeType =
-    d * Time.d.ms
+  override def unary_- = new Time(-d)
 
-  def s: TimeType =
-    d * Time.d.s
+  override def compare(that: Time) = d.compare(that.d)
 
-  def m: TimeType =
-    d * Time.d.m
+  override def midpoint(that: Time): Time = new Time(Vector1.midpoint(d, that.d))
+  override def distance(that: Time): Double = Vector1.distance(d, that.d)
+  override def magnitude: Double = d
 
-  def h: TimeType =
-    d * Time.d.h
-
-  def w: TimeType =
-    d * Time.d.w
-
-  def y: TimeType =
-    d * Time.d.y
-
-  def +(that: Time): Time =
-    new Time(d + that.d)
-
-  def *(that: TimeType): Time =
-    new Time(d * that)
+  def us = d * Time.day.microseconds
+  def ms = d * Time.day.milliseconds
+  def s = d * Time.day.seconds
+  def m = d * Time.day.minutes
+  def h = d * Time.day.hours
+  def w = d * Time.day.weeks
+  def y = d * Time.day.years
 }
 
 object Time {
-  type TimeType = Double
-  val zero: TimeType = 0
-  val second = Time.in.s(1)
-  val minute = Time.in.s(60)
+  val zero = Time(0)
+  val second = Time(1/Time.day.seconds)
+  val minute = second * 60
 
-  object in {
-    def s(sec: TimeType): Time =
-      new Time(sec / d.s)
+  def seconds(s: Double) = new Time(s/day.seconds)
 
-    def m(min: TimeType): Time =
-      new Time(min / d.m)
-  }
-
-  object d {
-    val us = 86400000000L
-    val ms = 86400000
-    val s = 86400
-    val m = 1440
-    val h = 24
-    val w = 1/7
-    val y = 1/365
+  object day {
+    val microseconds = 86400000000.0
+    val milliseconds = 86400000.0
+    val seconds = 86400.0
+    val minutes = 1440.0
+    val hours = 24.0
+    val weeks = 1/7
+    val years = 1/365
   }
 }

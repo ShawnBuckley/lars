@@ -2,7 +2,7 @@ package lars.core.celestial.container
 
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent}
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 import lars.core.physics.Physics
 import lars.core.physics.units.{Mass, Time, Velocity}
 
@@ -23,7 +23,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param location
   * @param parent
   */
-class System(override var name: String, override var location: Vector2, override var parent: Parent)
+class System(override var name: String, override var location: Vec2, override var parent: Parent)
   extends Massive
     with Parent
     with Child
@@ -64,6 +64,6 @@ class System(override var name: String, override var location: Vector2, override
     })(_, _))
   }
 
-  override def absoluteLocation(relative: Vector2): Vector2 =
+  override def absoluteLocation(relative: Vec2): Vec2 =
     parent.absoluteLocation(location + relative)
 }

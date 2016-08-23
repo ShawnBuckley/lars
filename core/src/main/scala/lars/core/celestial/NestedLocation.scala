@@ -1,6 +1,6 @@
 package lars.core.celestial
 
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 
 /**
   * NestedLocation allows for transforming relative coordinates to absolute coordinates.  See the Parent and Child
@@ -13,5 +13,5 @@ trait NestedLocation {
     * @param relative relative location
     * @return absolute location
     */
-  def absoluteLocation(relative: Vector2): Vector2
+  def absoluteLocation(relative: Vec2): Vec2
 }

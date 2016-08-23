@@ -1,22 +1,32 @@
 package lars.core.physics.units
 
-import lars.core.math.Vector2
-import lars.core.physics.units.Length.LengthType
+import lars.core.math.{Vec2, Vector2}
 
-case class Velocity(ms: Vector2) {
-  def kms: Vector2 =
-    ms / 1000
+case class Velocity(ms: Vec2) extends Vector2[Velocity] {
+  def +(that: Velocity) = new Velocity(ms + that.ms)
+  def -(that: Velocity) = new Velocity(ms + that.ms)
+  def *(scalar: Double) = new Velocity(ms * scalar)
+  def /(scalar: Double) = new Velocity(ms / scalar)
+  def /(that: Velocity) = ms / that.ms
 
-  def +(that: Velocity): Velocity =
-    new Velocity(ms + that.ms)
+  def unary_- = new Velocity(-ms)
 
-  def *(that: LengthType): Velocity =
-    new Velocity(ms * that)
+  override def compare(that: Velocity): Int = ms.compare(that.ms)
+
+  def midpoint(that: Velocity) = new Velocity(ms.midpoint(that.ms))
+  def distance(that: Velocity) = new Velocity(ms.distance(that.ms))
+  def magnitude = ms.magnitude
+  def normalize = new Velocity(ms.normalize)
+  def angle = ms.angle
+  
+  def kms: Vec2 = ms / 1000
+
+
 
   def speed: Speed =
-    new Speed(ms.length)
+    new Speed(magnitude)
 }
 
 object Velocity {
-  val zero = new Velocity(Vector2.addIdent)
+  val zero = new Velocity(Vec2.addIdent)
 }

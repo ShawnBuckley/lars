@@ -2,7 +2,7 @@ package lars.core.celestial.body.standard
 
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Parent, Sizeable}
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 import lars.core.physics.Physics
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
@@ -17,7 +17,7 @@ import lars.core.physics.units.{Length, Mass, Time, Velocity}
   */
 class Singularity(override var name: String,
                   override var mass: Mass,
-                  override var location: Vector2,
+                  override var location: Vec2,
                   override var velocity: Velocity,
                   override var parent: Parent)
   extends Sizeable

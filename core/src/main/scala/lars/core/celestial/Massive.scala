@@ -1,6 +1,6 @@
 package lars.core.celestial
 
-import lars.core.math.Vector2
+import lars.core.math.Vec2
 import lars.core.physics.units.{Mass, Velocity}
 
 /**
@@ -14,6 +14,6 @@ import lars.core.physics.units.{Mass, Velocity}
   */
 trait Massive {
   var mass: Mass
-  var location: Vector2
+  var location: Vec2
   var velocity: Velocity
 }
