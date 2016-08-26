@@ -88,7 +88,7 @@ object Main {
 //      if(!paused) system.observe()
       if(paused) Thread.sleep(1000)
       else {
-        sol.observe(Time.second)
+        sol.observe(Time.minute)
 //        xygon.observe(Time.second)
       }
     }

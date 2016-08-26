@@ -74,13 +74,13 @@ object Physics {
     * @param bodies list of bodies
     * @return list of acceleration vectors
     */
-  def gravAcceleration(bodies: Seq[Massive]): Seq[Velocity] = {
+  def gravAcceleration(bodies: Seq[Massive], time: Time = Time.second): Seq[Velocity] = {
     val velocities = new ArrayBuffer[Velocity]
     velocities.sizeHint(bodies)
     bodies.foreach((body: Massive) => {
       var velocity = Velocity.zero
       bodies.foreach((other: Massive) => {
-        if(body != other) velocity += Physics.gravForce(other, body) / body.mass / Time.second
+        if(body != other) velocity += Physics.gravForce(other, body) / body.mass / time
       })
       velocities.append(velocity)
     })

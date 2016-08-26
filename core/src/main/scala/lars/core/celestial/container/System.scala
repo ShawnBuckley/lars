@@ -57,9 +57,9 @@ class System(override var name: String, override var location: Vec2, override va
   }
 
   def tick(time: Time): Unit = {
-    (bodies, Physics.gravAcceleration(bodies)).zipped.map(((body: Massive, velocity: Velocity) => {
+    (bodies, Physics.gravAcceleration(bodies, time)).zipped.map(((body: Massive, velocity: Velocity) => {
       body.velocity += velocity
-      body.location += body.velocity.kms
+      body.location += (body.velocity * time.s).kms
       if(body.isInstanceOf[Observable]) body.asInstanceOf[Observable].observe(time)
     })(_, _))
   }
