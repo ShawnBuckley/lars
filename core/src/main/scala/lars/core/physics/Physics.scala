@@ -21,7 +21,7 @@ object Physics {
   /**
     * The schwarzschild radius pre-calculated for 1kg as a performance optimization.
     */
-  val schwarzschildFactor = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
+  val schwarzschildFactor: Length = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
 
   /**
    * Calculates the barycenter of two Massives.
@@ -31,7 +31,7 @@ object Physics {
    */
   def barycenter(m1: Massive, m2: Massive): Barycenter = {
     val totalMass = m1.mass + m2.mass
-    new Barycenter(totalMass, ((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg)
+    Barycenter(totalMass, ((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg)
   }
 
   /**
@@ -46,28 +46,28 @@ object Physics {
       total += massive.mass
       location += (massive.location * massive.mass.kg)
     })
-    new Barycenter(total, location / total.kg)
+    Barycenter(total, location / total.kg)
   }
 
   /**
     * Removes an object from the calculated barycenter.
-    * @param barycenter
-    * @param massive
-    * @return
+    * @param barycenter calculated barycenter
+    * @param massive massive object to remove
+    * @return barycenter with mass removed
     */
   def barycenterRemove(barycenter: Barycenter, massive: Massive): Barycenter = {
     val massRemoved = barycenter.mass - massive.mass
-    new Barycenter(massRemoved, ((barycenter.location - ((massive.location * massive.mass.kg) / barycenter.mass.kg)) * barycenter.mass.kg) / massRemoved.kg)
+    Barycenter(massRemoved, ((barycenter.location - ((massive.location * massive.mass.kg) / barycenter.mass.kg)) * barycenter.mass.kg) / massRemoved.kg)
   }
 
   /**
     * Calculates the amount of force each object receives from the other.
-    * @param m1
-    * @param m2
+    * @param m1 first mass
+    * @param m2 second mass
     * @return the gravitation force the objects are exerting on each other
     */
   def gravForce(m1: Massive, m2: Massive): Force =
-    new Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(m1.location.distance(m2.location).magnitude).m, 2))
+    Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(m1.location.distance(m2.location).magnitude).m, 2))
 
   /**
     * Calculates the acceleration due to gravity a group of bodies have on each other
@@ -90,7 +90,7 @@ object Physics {
   /**
     * Calculates the schwarzschild radius of a mass.  The schwarzschild radius is used to calculate the radius of the
     * event horizon of a black hole.
-    * @param mass
+    * @param mass input mass
     * @return schwarzschild radius
     */
   def schwarzschildRadius(mass: Mass): Length = {
