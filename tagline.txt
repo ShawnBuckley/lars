@@ -1,7 +1,7 @@
 1 galaxy
-100,000 lightyears wide with
-1,000,000 star systems contains
-5,000,000 stars,
-10,000,000 planets that have
-75,000,000,000,000 square kilometers of surface area in
-70,000,000,000,000,000,000,000,000,000,000,000 square kilometers of space
+1e5 lightyears wide with
+1e6 star systems containing
+5e6 stars with
+1e7 planets that have
+7e13 square kilometers of surface area in
+7e34 square kilometers of space
