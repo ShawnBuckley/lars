@@ -8,6 +8,26 @@ class MassTest {
   val larger =  new Mass(10000)
 
   @Test
+  def +(): Unit = {
+    assertEquals(smaller + larger, Mass(11000))
+  }
+
+  @Test
+  def -(): Unit = {
+    assertEquals(larger - smaller, Mass(9000))
+  }
+
+  @Test
+  def *(): Unit = {
+    assertEquals(smaller * 2, Mass(2000))
+  }
+
+  @Test
+  def /(): Unit = {
+    assertEquals(smaller / 2, Mass(500))
+  }
+
+  @Test
   def >() =
     assert(smaller < larger)
 
