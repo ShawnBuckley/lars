@@ -20,8 +20,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   * Observing a system will update the locations of all objects within it and observe all objects within it.
   *
-  * @param location
-  * @param parent
+  * @param location system location
+  * @param parent system parent
   */
 class System(override var name: String, override var location: Vec2, override var parent: Parent)
   extends Massive
@@ -45,10 +45,15 @@ class System(override var name: String, override var location: Vec2, override va
   }
 
   def get(name: String): Massive = {
-    bodies.filter((body: Massive) => if(body.isInstanceOf[Nameable]) body.asInstanceOf[Nameable].name.equals(name) else false).head
+    bodies.filter((body: Massive) =>
+      body match {
+        case nameable: Nameable => nameable.name.equals(name)
+        case _=> false
+      }
+    ).head
   }
 
-  def getAll(): Seq[Massive] = {
+  def getAll: Seq[Massive] = {
     bodies
   }
 
@@ -60,7 +65,9 @@ class System(override var name: String, override var location: Vec2, override va
     (bodies, Physics.gravAcceleration(bodies, time)).zipped.map(((body: Massive, velocity: Velocity) => {
       body.velocity += velocity
       body.location += (body.velocity * time.s).kms
-      if(body.isInstanceOf[Observable]) body.asInstanceOf[Observable].observe(time)
+      body match {
+        case observable: Observable => observable.observe(time)
+      }
     })(_, _))
   }
 

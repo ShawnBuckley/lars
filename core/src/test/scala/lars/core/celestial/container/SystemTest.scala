@@ -11,25 +11,39 @@ class SystemTest {
   @Test
   def mass(): Unit = {
     val system = new System("Sol", Vec2.addIdent, null)
-    val sun = system.add(new StellarBody(
+
+    val sun = new StellarBody(
       "Sol",
       CelestialConstants.Sol.sol.mass,
       new Vec2(0,0),
       Velocity.zero,
       CelestialConstants.Sol.sol.radius,
-      system))
-    assertEquals(system.mass, sun.mass)
-    val earth = system.add(new TerrestrialBody(
+      system)
+
+    val earth = new TerrestrialBody(
       "Earth",
       CelestialConstants.Sol.earth.mass,
       new Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0),
       new Velocity(new Vec2(0,CelestialConstants.Sol.earth.orbit.speed.ms)),
       CelestialConstants.Sol.earth.radius,
-      system))
-    assertEquals(system.mass, sun.mass + earth.mass)
-    system.del(earth)
+      system)
+
+    system.add(sun)
+    assertEquals(system.getAll.size, 1)
     assertEquals(system.mass, sun.mass)
+
+    system.add(earth)
+    assertEquals(system.getAll.size, 2)
+    assertEquals(system.mass, sun.mass + earth.mass)
+
+    system.del(earth)
+
+    assertEquals(system.getAll.size, 1)
+    assertEquals(system.mass.kg, sun.mass.kg)
+
     system.del(sun)
+
+    assertEquals(system.getAll.size, 0)
     assertEquals(system.mass, Mass.zero)
   }
 }
