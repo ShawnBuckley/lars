@@ -7,12 +7,6 @@ import org.testng.Assert._
 
 class PhysicsTest {
   @Test
-  def schwarzschildRadius(): Unit = {
-    val radius = Physics.schwarzschildRadius(CelestialConstants.Sol.sol.mass)
-    assertEquals(radius.km, 2.951555398799874)
-  }
-
-  @Test
   def gravForce(): Unit = {
     val sun = new MassiveBody(CelestialConstants.Sol.sol.mass, Vec2(0,0))
     val earth = new MassiveBody(CelestialConstants.Sol.earth.mass, Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0))

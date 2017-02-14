@@ -11,9 +11,11 @@ import lars.core.physics.units.{Length, Mass, Time, Velocity}
   * quasars.
   *
   * See: https://docs.google.com/document/d/1CbM0HG1Tb4D8JjgCdMcMY4PkaqaRTMqWDbzBZzniOFo/
-  *
-  * @param mass
-  * @param location
+  * @param name object's name
+  * @param mass initial mass
+  * @param location initial location
+  * @param velocity initial drift
+  * @param parent parent container
   */
 class Singularity(override var name: String,
                   override var mass: Mass,
@@ -24,17 +26,31 @@ class Singularity(override var name: String,
     with Child
     with Observable
     with Nameable {
-  override var size: Length = Physics.schwarzschildRadius(mass)
+  override var size: Length = schwarzschildRadius
 
   override def observe(time: Time): Unit = {}
 
   /**
     * This happens when an object falls into the event horizon of a blackhole.
-    *
-    * @param other
+    * @param other other sizeable object
     */
   override def collide(other: Sizeable): Unit = {
     mass += other.mass
-    size = Physics.schwarzschildRadius(mass)
+    size = schwarzschildRadius
+    // TODO - destroy other object
+  }
+
+  /**
+    * Calculates the schwarzschild radius of the singularity.  The schwarzschild radius is used to calculate the radius
+    * of the event horizon.
+    * @return schwarzschild radius
+    */
+  def schwarzschildRadius: Length =
+    Singularity.schwarzschildRadius(mass)
+}
+
+object Singularity {
+  def schwarzschildRadius(mass: Mass): Length = {
+    new Length(Physics.schwarzschildFactor.km * mass.kg)
   }
 }

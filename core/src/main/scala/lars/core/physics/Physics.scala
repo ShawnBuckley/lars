@@ -49,14 +49,4 @@ object Physics {
     })
     velocities
   }
-
-  /**
-    * Calculates the schwarzschild radius of a mass.  The schwarzschild radius is used to calculate the radius of the
-    * event horizon of a black hole.
-    * @param mass input mass
-    * @return schwarzschild radius
-    */
-  def schwarzschildRadius(mass: Mass): Length = {
-    new Length(schwarzschildFactor.km * mass.kg)
-  }
 }
