@@ -24,43 +24,6 @@ object Physics {
   val schwarzschildFactor: Length = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
 
   /**
-   * Calculates the barycenter of two Massives.
-   * @param m1 massive1
-   * @param m2 massive2
-   * @return barycenter
-   */
-  def barycenter(m1: Massive, m2: Massive): Barycenter = {
-    val totalMass = m1.mass + m2.mass
-    Barycenter(totalMass, ((m1.location * m1.mass.kg) + (m2.location * m2.mass.kg)) / totalMass.kg)
-  }
-
-  /**
-   * Calculates the barycenter from a number of Massives.
-   * @param massives massives
-   * @return barycenter
-   */
-  def barycenter(massives: Seq[Massive]): Barycenter = {
-    var total = Mass.zero
-    var location = Vec2.addIdent
-    massives.foreach((massive: Massive) => {
-      total += massive.mass
-      location += (massive.location * massive.mass.kg)
-    })
-    Barycenter(total, location / total.kg)
-  }
-
-  /**
-    * Removes an object from the calculated barycenter.
-    * @param barycenter calculated barycenter
-    * @param massive massive object to remove
-    * @return barycenter with mass removed
-    */
-  def barycenterRemove(barycenter: Barycenter, massive: Massive): Barycenter = {
-    val massRemoved = barycenter.mass - massive.mass
-    Barycenter(massRemoved, ((barycenter.location - ((massive.location * massive.mass.kg) / barycenter.mass.kg)) * barycenter.mass.kg) / massRemoved.kg)
-  }
-
-  /**
     * Calculates the amount of force each object receives from the other.
     * @param m1 first mass
     * @param m2 second mass
