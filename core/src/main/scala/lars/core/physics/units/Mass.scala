@@ -4,7 +4,7 @@ import lars.core.math.Vector1
 
 case class Mass(kg: Double) extends Vector1[Mass] {
   override def +(that: Mass): Mass = new Mass(kg + that.kg)
-  override def -(that: Mass): Mass = new Mass(kg + that.kg)
+  override def -(that: Mass): Mass = new Mass(kg - that.kg)
   override def *(scalar: Double): Mass = new Mass(kg * scalar)
   override def /(scalar: Double): Mass = new Mass(kg / scalar)
   override def /(that: Mass): Double = kg / that.kg
