@@ -1,7 +1,8 @@
 package lars.core.celestial
 
 import lars.core.math.Vec2
-import lars.core.physics.units.{Mass, Velocity}
+import lars.core.physics.Physics
+import lars.core.physics.units.{Force, Length, Mass, Velocity}
 
 /**
   * The Massive object trait.  Massive objects are the fundamental objects that can exist in space.  They have mass,
@@ -16,4 +17,12 @@ trait Massive {
   var mass: Mass
   var location: Vec2
   var velocity: Velocity
+
+  /**
+    * Calculates the amount of force each object receives from the other.
+    * @param other other mass
+    * @return the gravitation force the objects are exerting on each other
+    */
+  def gravForce(other: Massive): Force =
+    Force((location - other.location).normalize * (Physics.G.m * mass.kg * other.mass.kg) / math.pow(new Length(location.distance(other.location).magnitude).m, 2))
 }

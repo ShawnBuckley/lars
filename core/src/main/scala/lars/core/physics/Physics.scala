@@ -24,15 +24,6 @@ object Physics {
   val schwarzschildFactor: Length = Length.in.m((2.0 * G.m) / math.pow(C.ms, 2))
 
   /**
-    * Calculates the amount of force each object receives from the other.
-    * @param m1 first mass
-    * @param m2 second mass
-    * @return the gravitation force the objects are exerting on each other
-    */
-  def gravForce(m1: Massive, m2: Massive): Force =
-    Force((m1.location - m2.location).normalize * (G.m * m1.mass.kg * m2.mass.kg) / math.pow(new Length(m1.location.distance(m2.location).magnitude).m, 2))
-
-  /**
     * Calculates the acceleration due to gravity a group of bodies have on each other
     * @param bodies list of bodies
     * @return list of acceleration vectors
@@ -43,7 +34,7 @@ object Physics {
     bodies.foreach((body: Massive) => {
       var velocity = Velocity.zero
       bodies.foreach((other: Massive) => {
-        if(body != other) velocity += Physics.gravForce(other, body) / body.mass / time
+        if(body != other) velocity += other.gravForce(body) / body.mass / time
       })
       velocities.append(velocity)
     })
