@@ -17,8 +17,12 @@ case class Barycenter(override var mass: Mass, override var location: Vec2) exte
     * @param massive massive to add
     */
   def add(massive: Massive): Unit = {
-    location += (massive.location * massive.mass.kg) / mass.kg
-    mass += massive.mass
+    val totalMass = mass + massive.mass
+    location = new Vec2(
+      (mass*location.x + massive.mass*massive.location.x) / totalMass,
+      (mass*location.y + massive.mass*massive.location.y) / totalMass
+    )
+    mass = totalMass
   }
 
   /**
