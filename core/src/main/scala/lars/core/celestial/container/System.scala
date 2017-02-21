@@ -3,8 +3,8 @@ package lars.core.celestial.container
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vec2
-import lars.core.physics.Physics
-import lars.core.physics.units.{Mass, Time, Velocity}
+import lars.core.physics.BarnesHutTree
+import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -62,13 +62,14 @@ class System(override var name: String, override var location: Vec2, override va
   }
 
   def tick(time: Time): Unit = {
-    (bodies, Physics.gravAcceleration(bodies, time)).zipped.map(((body: Massive, velocity: Velocity) => {
-      body.velocity += velocity
+    val tree = new BarnesHutTree(bodies, new Length(Length.Km.au*50))
+    bodies.foreach(body => {
+      body.velocity += tree.root.calculate(body, time)
       body.location += (body.velocity * time.s).kms
       body match {
         case observable: Observable => observable.observe(time)
       }
-    })(_, _))
+    })
   }
 
   override def absoluteLocation(relative: Vec2): Vec2 =
