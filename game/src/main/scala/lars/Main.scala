@@ -12,7 +12,7 @@ import lars.core.physics.units.Time
 import lars.resource.SystemResource
 
 object Main {
-  var paused = true
+  var paused = false
 
   def main(args: Array[String]) {
 
