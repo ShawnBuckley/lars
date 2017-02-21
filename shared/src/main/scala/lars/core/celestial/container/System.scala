@@ -1,5 +1,6 @@
 package lars.core.celestial.container
 
+import lars.core.celestial.body.standard.StandardBody
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
@@ -31,29 +32,23 @@ class System(override var name: String, override var location: Vec2, override va
     with Nameable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[TemporalMassive]
+  private var bodies = new ArrayBuffer[StandardBody]
 
-  def add(body: TemporalMassive): Massive = {
+  def add(body: StandardBody): Massive = {
     bodies.append(body)
     mass += body.mass
     body
   }
 
-  def del(body: TemporalMassive): Unit = {
+  def del(body: StandardBody): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
   }
 
-  def get(name: String): Massive = {
-    bodies.filter((body: TemporalMassive) =>
-      body match {
-        case nameable: Nameable => nameable.name.equals(name)
-        case _=> false
-      }
-    ).head
-  }
+  def get(name: String): StandardBody =
+    bodies.filter(body => body.name.equals(name)).head
 
-  def getAll: Seq[TemporalMassive] = {
+  def getAll: Seq[StandardBody] = {
     bodies
   }
 
