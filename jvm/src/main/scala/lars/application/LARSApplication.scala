@@ -11,7 +11,6 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.google.inject.Module
 import io.dropwizard.Application
 import io.dropwizard.setup.Environment
-import org.glassfish.jersey.filter.LoggingFilter
 import lars.application.GuiceInjector.{withInjector, wrap}
 import lars.module.{CelestialModule, GameModule}
 
@@ -31,7 +30,6 @@ class LARSApplication extends Application[LARSConfiguration] {
       }
     })
     env.jersey.register(jacksonJaxbJsonProvider)
-    env.jersey.register(new LoggingFilter)
     env.jersey.setUrlPattern("/rest/*")
   }
 
