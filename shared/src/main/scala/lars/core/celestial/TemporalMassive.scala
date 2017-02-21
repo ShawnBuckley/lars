@@ -1,7 +1,7 @@
 package lars.core.celestial
 
 import lars.core.math.Vec2
-import lars.core.physics.{BarnesHutTree, Physics}
+import lars.core.physics.Physics
 import lars.core.physics.units.{Time, Velocity}
 
 /**
@@ -20,8 +20,8 @@ trait TemporalMassive extends Massive {
     Physics.escapeVelocity(this, location)
   }
 
-  def update(tree: BarnesHutTree, time: Time): Unit = {
-    velocity += tree.root.calculate(this, time)
+  def update(forceCalculation: (TemporalMassive, Time) => Velocity, time: Time): Unit = {
+    velocity += forceCalculation(this, time)
     location += (velocity * time.s).kms
   }
 }
