@@ -40,4 +40,15 @@ object Physics {
     })
     velocities
   }
+
+  /**
+    * Calculates the required velocity to escape a massive body.
+    * @param body body
+    * @param location location escaping from
+    * @return required escape velocity
+    */
+  def escapeVelocity(body: Massive, location: Vec2): Velocity = {
+    val distance = body.location.distance(location)
+    new Velocity(distance.normalize * Math.sqrt((Physics.G.km * 2 * body.mass.kg) / distance.magnitude))
+  }
 }
