@@ -24,7 +24,7 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    new LARSApplication().run("server", "game/src/main/resources/config.yml")
+    new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
 
     val config = new Configuration
     config.setHostname("localhost")
