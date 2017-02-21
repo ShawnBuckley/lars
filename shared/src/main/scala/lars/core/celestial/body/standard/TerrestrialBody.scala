@@ -15,7 +15,7 @@ import lars.core.physics.units.{Length, Mass, Time, Velocity}
   * @param location
   * @param size
   */
-class TerrestrialBody(override var name: String,
+class TerrestrialBody(override var name: Option[String],
                       override var mass: Mass,
                       override var location: Vec2,
                       override var velocity: Velocity,

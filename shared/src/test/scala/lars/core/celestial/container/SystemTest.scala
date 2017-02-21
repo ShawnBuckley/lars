@@ -10,10 +10,10 @@ import org.testng.Assert._
 class SystemTest {
   @Test
   def mass(): Unit = {
-    val system = new System("Sol", Vec2.addIdent, null)
+    val system = new System(Some("Sol"), Vec2.addIdent, null)
 
     val sun = new StellarBody(
-      "Sol",
+      Some("Sol"),
       CelestialConstants.Sol.sol.mass,
       new Vec2(0,0),
       Velocity.zero,
@@ -21,7 +21,7 @@ class SystemTest {
       system)
 
     val earth = new TerrestrialBody(
-      "Earth",
+      Some("Earth"),
       CelestialConstants.Sol.earth.mass,
       new Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0),
       new Velocity(new Vec2(0,CelestialConstants.Sol.earth.orbit.speed.ms)),

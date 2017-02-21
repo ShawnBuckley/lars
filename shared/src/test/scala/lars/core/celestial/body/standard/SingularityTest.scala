@@ -9,7 +9,7 @@ import org.testng.Assert._
 class SingularityTest {
   @Test
   def collide(): Unit = {
-    val singularity = new Singularity("Sol hole", CelestialConstants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
+    val singularity = new Singularity(None, CelestialConstants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
     val other = new Sizeable {
       override def collide(other: Sizeable) = ???
 
@@ -25,7 +25,7 @@ class SingularityTest {
 
   @Test
   def schwarzschildRadius(): Unit = {
-    val singularity = new Singularity("Sol hole", CelestialConstants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
+    val singularity = new Singularity(None, CelestialConstants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
     assertEquals(singularity.schwarzschildRadius.km, 2.951555398799874)
   }
 

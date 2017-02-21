@@ -33,7 +33,11 @@ object Main {
     val socketio = new SocketIOServer(config)
     socketio.addEventListener[Array[Byte]]("planets", classOf[Array[Byte]], new DataListener[Array[Byte]] {
       override def onData(client: SocketIOClient, data: Array[Byte], ackRequest: AckRequest): Unit = {
-        client.sendEvent("planets", SystemResource.write(systemName))
+        SystemResource.write(systemName) match {
+          case Some(json: String) => client.sendEvent("planets", json)
+          case None =>
+        }
+
       }
     })
     socketio.start()
@@ -44,11 +48,11 @@ object Main {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    val sol = new System(CelestialConstants.Sol.name, new Vec2(0,0), null)
+    val sol = new System(Some(CelestialConstants.Sol.name), new Vec2(0,0), null)
     Game.galaxy.addSystem(sol)
     CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, sol)
 
-    val xygon = new System(CelestialConstants.Xygon.name, Vec2.addIdent, null)
+    val xygon = new System(Some(CelestialConstants.Xygon.name), Vec2.addIdent, null)
     Game.galaxy.addSystem(xygon)
     CelestialFactory.createBodies(CelestialConstants.Xygon.primaries, null, xygon)
 
@@ -76,7 +80,11 @@ object Main {
         while(runLoop) {
           Thread.sleep(100)
           socketio.getAllClients.foreach((client: SocketIOClient) => {
-            client.sendEvent("planets", SystemResource.write(systemName))
+            SystemResource.write(systemName) match {
+              case Some(json: String) => client.sendEvent("planets", json)
+              case None =>
+            }
+
           })
         }
 

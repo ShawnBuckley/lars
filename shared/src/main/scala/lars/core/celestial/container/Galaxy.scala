@@ -17,8 +17,13 @@ class Galaxy extends Parent {
     systems.append(system)
   }
 
-  def getSystem(name: String): System =
-    systems.view.filter(_.name == name).head
+  def getSystem(query: String): Option[System] =
+    Some(systems.filter(system => {
+      system.name match {
+        case Some(name: String) => name.equals(query)
+        case None => false
+      }
+    }).head)
 
   override def absoluteLocation(relative: Vec2): Vec2 =
     relative

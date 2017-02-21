@@ -24,7 +24,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param location system location
   * @param parent system parent
   */
-class System(override var name: String, override var location: Vec2, override var parent: Parent)
+class System(override var name: Option[String], override var location: Vec2, override var parent: Parent)
   extends TemporalMassive
     with Parent
     with Child
@@ -45,8 +45,13 @@ class System(override var name: String, override var location: Vec2, override va
     mass -= body.mass
   }
 
-  def get(name: String): StandardBody =
-    bodies.filter(body => body.name.equals(name)).head
+  def get(query: String): StandardBody =
+    bodies.filter(body => {
+      body.name match {
+        case Some(name: String) => name.equals(query)
+        case None => false
+      }
+    }).head
 
   def getAll: Seq[StandardBody] = {
     bodies
