@@ -64,10 +64,10 @@ class System(override var name: String, override var location: Vec2, override va
   def tick(time: Time): Unit = {
     val tree = new BarnesHutTree(bodies, new Length(Length.Km.au*50))
     bodies.foreach(body => {
-      body.velocity += tree.root.calculate(body, time)
-      body.location += (body.velocity * time.s).kms
+      body.update(tree, time)
       body match {
         case observable: Observable => observable.observe(time)
+        case _ =>
       }
     })
   }
