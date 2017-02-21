@@ -29,7 +29,10 @@ lazy val project = crossProject.in(file(".")).
     )
   ).
   jsSettings(
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.1"
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "0.9.1",
+      "com.fasterxml.jackson.core" % "jackson-annotations" % "2.8.0"
+    )
   )
 lazy val client = project.js
 lazy val server = project.jvm
