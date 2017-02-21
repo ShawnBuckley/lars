@@ -12,7 +12,7 @@ import lars.core.physics.units.{Density, Length}
   * is nothing - that is determined entirely by the specific types of bodies that collide.  This behavior will vary
   * greatly for the different types of standard bodies (micro, gaseous, terrestrial, stellar, singularity).
   */
-trait Sizeable extends Massive {
+trait Sizeable extends TemporalMassive {
   var size: Length
 
   def density: Density =

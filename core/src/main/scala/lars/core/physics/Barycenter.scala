@@ -10,8 +10,6 @@ import lars.core.physics.units.{Mass, Velocity}
   * @param location calculated center of mass
   */
 case class Barycenter(override var mass: Mass, override var location: Vec2) extends Massive {
-  override var velocity: Velocity = Velocity.zero
-
   /**
     * Recalculates the barycenter to include another massive object.
     * @param massive massive to add

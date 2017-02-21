@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
 import lars.core.{Nameable, Observable}
-import lars.core.celestial.{Child, Massive, Parent}
+import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.physics.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
@@ -24,28 +24,28 @@ import scala.collection.mutable.ArrayBuffer
   * @param parent system parent
   */
 class System(override var name: String, override var location: Vec2, override var parent: Parent)
-  extends Massive
+  extends TemporalMassive
     with Parent
     with Child
     with Observable
     with Nameable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[Massive]
+  private var bodies = new ArrayBuffer[TemporalMassive]
 
-  def add(body: Massive): Massive = {
+  def add(body: TemporalMassive): Massive = {
     bodies.append(body)
     mass += body.mass
     body
   }
 
-  def del(body: Massive): Unit = {
+  def del(body: TemporalMassive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
   }
 
   def get(name: String): Massive = {
-    bodies.filter((body: Massive) =>
+    bodies.filter((body: TemporalMassive) =>
       body match {
         case nameable: Nameable => nameable.name.equals(name)
         case _=> false
@@ -53,7 +53,7 @@ class System(override var name: String, override var location: Vec2, override va
     ).head
   }
 
-  def getAll: Seq[Massive] = {
+  def getAll: Seq[TemporalMassive] = {
     bodies
   }
 
