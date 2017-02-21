@@ -45,13 +45,13 @@ class System(override var name: Option[String], override var location: Vec2, ove
     mass -= body.mass
   }
 
-  def get(query: String): StandardBody =
-    bodies.filter(body => {
+  def get(query: String): Option[StandardBody] =
+    bodies.find(body => {
       body.name match {
         case Some(name: String) => name.equals(query)
         case None => false
       }
-    }).head
+    })
 
   def getAll: Seq[StandardBody] = {
     bodies
