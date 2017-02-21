@@ -10,20 +10,17 @@ class Galaxy extends Parent {
   def hasSystem(vec: Vec2): Boolean =
     false
 
-//  def getSystem(vec: Vector2): System =
-//    new System()
-
   def addSystem(system: System): Unit = {
     systems.append(system)
   }
 
   def getSystem(query: String): Option[System] =
-    Some(systems.filter(system => {
+    systems.find(system => {
       system.name match {
         case Some(name: String) => name.equals(query)
         case None => false
       }
-    }).head)
+    })
 
   override def absoluteLocation(relative: Vec2): Vec2 =
     relative
