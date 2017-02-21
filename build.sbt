@@ -1,6 +1,6 @@
 //enablePlugins(ScalaJSPlugin)
 name := "Logistics and Research Simulator"
-scalaVersion in ThisBuild := "2.11.8"
+scalaVersion in ThisBuild := "2.12.1"
 lazy val root = project.in(file(".")).
   aggregate().
   settings(
@@ -14,18 +14,18 @@ lazy val project = crossProject.in(file(".")).
   ).
   jvmSettings(
     libraryDependencies ++= Seq(
-      "io.dropwizard" % "dropwizard-core" % "1.0.0",
+      "io.dropwizard" % "dropwizard-core" % "1.1.0-rc1",
 
-      "com.fasterxml.jackson" % "jackson-parent" % "2.8",
+      "com.fasterxml.jackson" % "jackson-bom" % "2.8.7",
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.6",
 
       "com.google.inject" % "guice" % "4.1.0",
       "com.google.inject.extensions" % "guice-multibindings" % "4.1.0",
 
       "javax.websocket" % "javax.websocket-api" % "1.1",
-      "com.corundumstudio.socketio" % "netty-socketio" % "1.7.11",
+      "com.corundumstudio.socketio" % "netty-socketio" % "1.7.12",
 
-      "org.testng" % "testng" % "6.9.10" % "test"
+      "org.testng" % "testng" % "6.10" % "test"
     )
   ).
   jsSettings(
