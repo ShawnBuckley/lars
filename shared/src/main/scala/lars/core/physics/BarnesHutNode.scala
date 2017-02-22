@@ -2,7 +2,7 @@ package lars.core.physics
 
 import lars.core.celestial.Massive
 import lars.core.math.Vec2
-import lars.core.physics.units.{Length, Time, Velocity}
+import lars.core.physics.units._
 
 class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter(child.mass, child.location) {
   private var leaves = new Array[BarnesHutNode](4)
@@ -47,23 +47,23 @@ class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter
     * @param massive body being acted upon
     * @return forces acting on the body
     */
-  def calculate(massive: Massive, time: Time): Velocity = {
-    var velocity = Velocity.zero
+  def calculate(massive: Massive): Force = {
+    var force = Force.zero
     if(child != null) {
       if(child != massive)
-        velocity += child.gravForce(massive) / massive.mass / time
+        force += child.gravForce(massive)
     }
     else {
       val distance = location.distance(massive.location).magnitude
       if(size.km / distance > BarnesHutNode.theta) {
         leaves.filter(_ != null).foreach(node => {
-          velocity += node.calculate(massive, time)
+          force += node.calculate(massive)
         })
       } else {
-        velocity += gravForce(massive) / massive.mass / time
+        force += gravForce(massive)
       }
     }
-    velocity
+    force
   }
 }
 

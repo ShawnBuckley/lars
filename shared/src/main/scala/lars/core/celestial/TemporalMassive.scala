@@ -2,7 +2,7 @@ package lars.core.celestial
 
 import lars.core.math.{Circle, Polar2, Vec2}
 import lars.core.physics.{Barycenter, Physics}
-import lars.core.physics.units.{Length, Time, Velocity}
+import lars.core.physics.units.{Force, Length, Time, Velocity}
 
 /**
   * TemporalMassive objects are massive objects that exist in time.  They add velocity to massives and a mechanism to
@@ -24,12 +24,12 @@ trait TemporalMassive extends Massive {
     * Updates the location.
     *
     * @param barycenter barycenter of the system
-    * @param forceCalculation function to calculation the forces of bodies in the system
+    * @param netForces function to calculation the forces of bodies in the system
     * @param time duration of orbit calculation
     */
-  def update(barycenter: Barycenter, forceCalculation: (TemporalMassive, Time) => Velocity, time: Time): Unit = {
+  def update(barycenter: Barycenter, netForces: (TemporalMassive) => Force, time: Time): Unit = {
     // TODO - preserve angular momentum
-    velocity += forceCalculation(this, time)
+    velocity += netForces(this) / mass / time
     val distance = Length(barycenter.location.distance(location).magnitude)
     val traversed = Length((velocity * time).magnitude)
     val angle = Circle.centralAngle(distance, traversed)
