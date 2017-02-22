@@ -1,6 +1,7 @@
-package lars.core.physics
+package lars.core.physics.celestial.gravitation
 
 import lars.core.celestial.Massive
+import lars.core.physics.Barycenter
 import lars.core.physics.units.Force
 
 /**

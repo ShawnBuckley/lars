@@ -1,7 +1,7 @@
 package lars.core.celestial
 
 import lars.core.math.{Circle, Polar2}
-import lars.core.physics.ForceCalculator
+import lars.core.physics.celestial.gravitation.ForceCalculator
 import lars.core.physics.units.{Length, Time, Velocity}
 
 /**

@@ -4,7 +4,7 @@ import lars.core.celestial.body.standard.StandardBody
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
-import lars.core.physics.BarnesHutTree
+import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 import scala.collection.mutable.ArrayBuffer

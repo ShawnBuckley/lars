@@ -1,7 +1,8 @@
-package lars.core.physics
+package lars.core.physics.celestial.gravitation.barneshut
 
 import lars.core.celestial.Massive
 import lars.core.math.Vec2
+import lars.core.physics.Barycenter
 import lars.core.physics.units._
 
 class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter(child.mass, child.location) {
