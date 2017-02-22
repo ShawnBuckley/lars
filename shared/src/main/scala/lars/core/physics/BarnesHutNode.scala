@@ -5,7 +5,7 @@ import lars.core.math.Vec2
 import lars.core.physics.units._
 
 class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter(child.mass, child.location) {
-  private var leaves = new Array[BarnesHutNode](4)
+  private var leaves: Array[BarnesHutNode] = _
 
   def getQuadrant(point: Vec2): Int = {
     if(point.x <= location.x) {
@@ -37,6 +37,7 @@ class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter
   }
 
   private def addToQuadrant(massive: Massive): Unit = {
+    if(leaves == null) leaves = new Array[BarnesHutNode](4)
     val quad = getQuadrant(massive.location)
     if(leaves(quad) != null) leaves(quad).add(massive)
     else leaves(quad) = new BarnesHutNode(massive, size/2)
