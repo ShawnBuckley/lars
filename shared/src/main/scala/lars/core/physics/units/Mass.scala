@@ -25,7 +25,7 @@ case class Mass(kg: Double) extends Vector1[Mass] {
   // Conversion to other types
   def /(that: Volume): Density = Density(kg / that.km3)
 
-  def *(that: Velocity): Momentum = Momentum(that.ms * kg)
+  def *(that: Velocity): Momentum = Momentum(this, that)
 }
 
 object Mass {
