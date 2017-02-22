@@ -4,7 +4,7 @@ import lars.core.math.Vector1
 
 case class Area(km2: Double) extends Vector1[Area] {
   override def +(that: Area): Area = new Area(km2 + that.km2)
-  override def -(that: Area): Area = new Area(km2 + that.km2)
+  override def -(that: Area): Area = new Area(km2 - that.km2)
   override def *(scalar: Double): Area = new Area(km2 * scalar)
   override def /(scalar: Double): Area = new Area(km2 / scalar)
   override def /(that: Area): Double = km2 / that.km2

@@ -4,7 +4,7 @@ import lars.core.math.Vector1
 
 case class Temperature(k: Double) extends Vector1[Temperature] {
   override def +(that: Temperature): Temperature = new Temperature(k + that.k)
-  override def -(that: Temperature): Temperature = new Temperature(k + that.k)
+  override def -(that: Temperature): Temperature = new Temperature(k - that.k)
   override def *(scalar: Double): Temperature = new Temperature(k * scalar)
   override def /(scalar: Double): Temperature = new Temperature(k / scalar)
   override def /(that: Temperature): Double = k / that.k

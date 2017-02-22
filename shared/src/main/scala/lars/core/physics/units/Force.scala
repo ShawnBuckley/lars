@@ -4,7 +4,7 @@ import lars.core.math.{Vec2, Vector2}
 
 case class Force(N: Vec2) extends Vector2[Force] {
   def +(that: Force) = new Force(N + that.N)
-  def -(that: Force) = new Force(N + that.N)
+  def -(that: Force) = new Force(N - that.N)
   def *(scalar: Double) = new Force(N * scalar)
   def /(scalar: Double) = new Force(N / scalar)
   def /(that: Force): Double = N / that.N

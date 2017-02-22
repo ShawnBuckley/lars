@@ -4,7 +4,7 @@ import lars.core.math.{Vec2, Vector2}
 
 case class Velocity(ms: Vec2) extends Vector2[Velocity] {
   def +(that: Velocity) = new Velocity(ms + that.ms)
-  def -(that: Velocity) = new Velocity(ms + that.ms)
+  def -(that: Velocity) = new Velocity(ms - that.ms)
   def *(scalar: Double) = new Velocity(ms * scalar)
   def /(scalar: Double) = new Velocity(ms / scalar)
   def /(that: Velocity): Double  = ms / that.ms

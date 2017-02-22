@@ -4,7 +4,7 @@ import lars.core.math.Vector1
 
 case class Pressure(Nm2: Double) extends Vector1[Pressure] {
   override def +(that: Pressure): Pressure = new Pressure(Nm2 + that.Nm2)
-  override def -(that: Pressure): Pressure = new Pressure(Nm2 + that.Nm2)
+  override def -(that: Pressure): Pressure = new Pressure(Nm2 - that.Nm2)
   override def *(scalar: Double): Pressure = new Pressure(Nm2 * scalar)
   override def /(scalar: Double): Pressure = new Pressure(Nm2 / scalar)
   override def /(that: Pressure): Double = Nm2 / that.Nm2
