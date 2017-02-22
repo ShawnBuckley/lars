@@ -1,7 +1,7 @@
 package lars.core.celestial
 
-import lars.core.math.{Circle, Polar2, Vec2}
-import lars.core.physics.{Barycenter, Physics}
+import lars.core.math.{Circle, Polar2}
+import lars.core.physics.Barycenter
 import lars.core.physics.units.{Force, Length, Time, Velocity}
 
 /**
@@ -10,15 +10,6 @@ import lars.core.physics.units.{Force, Length, Time, Velocity}
   */
 trait TemporalMassive extends Massive {
   var velocity: Velocity
-
-  /**
-    * Calculates the required velocity to escape this body.
-    * @param location location escaping from
-    * @return escape velocity
-    */
-  def escapeVelocity(location: Vec2): Velocity = {
-    Physics.escapeVelocity(this, location)
-  }
 
   /**
     * Updates the location.

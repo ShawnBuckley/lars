@@ -22,4 +22,12 @@ trait Massive {
     */
   def gravForce(other: Massive): Force =
     Force((location - other.location).normalize * (Physics.G.m * mass.kg * other.mass.kg) / math.pow(new Length(location.distance(other.location).magnitude).m, 2))
+
+  /**
+    * Calculates the required velocity to escape this mass.
+    * @param location location escaping from
+    * @return escape velocity
+    */
+  def escapeVelocity(location: Vec2): Velocity =
+    Physics.escapeVelocity(this, location)
 }
