@@ -74,7 +74,7 @@ object BarnesHutNode {
     * calculate forces acting on it.  The default value of 0.5 means that a body must be 2x the distance of node's size
     * in order for it to be abstractly far away.
     */
-  val theta = 0.25
+  val theta = 0.5
 
   val nw = 0
   val ne = 1
