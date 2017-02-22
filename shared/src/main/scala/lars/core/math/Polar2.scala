@@ -1,7 +1,15 @@
 package lars.core.math
 
 case class Polar2(angle: Double, length: Double) {
+  def cartesian: Vec2 = {
+    Vec2(length * Math.cos(angle), length * Math.sin(angle))
+  }
 
+  def cartesian(origin: Vec2): Vec2 = {
+    Vec2(
+      (length * Math.cos(angle)) + origin.x,
+      (length * Math.sin(angle)) + origin.y)
+  }
 }
 
 object Polar2 {
