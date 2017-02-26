@@ -13,7 +13,7 @@ var server = app.listen(3000, function () {
 });
 
 app.post('/rest/*', function(req, res) {
-  request('http://localhost:8082' + req.path).on('error', function(err) {
+  request.post('http://localhost:8082' + req.path).on('error', function(err) {
     console.log('err: ' + req.path + ' is unavailable');
   }).pipe(res);
 });
