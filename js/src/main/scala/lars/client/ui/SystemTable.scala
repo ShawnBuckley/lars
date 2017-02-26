@@ -2,7 +2,9 @@ package lars.client.ui
 
 import lars.client.JsonParser
 import lars.client.celestial.CelestialBody
+import lars.core.celestial.CelestialConstants
 import lars.core.math.Polar2
+import lars.core.physics.units.Length
 import org.scalajs.dom
 import org.scalajs.dom.document
 import org.scalajs.dom.raw.{HTMLButtonElement, HTMLTableCellElement, HTMLTableElement, HTMLTableRowElement}
@@ -12,8 +14,8 @@ import scala.scalajs.js
 class SystemTable(elementId: String, view: SystemView) {
   val table: HTMLTableElement = document.getElementById(elementId).asInstanceOf[HTMLTableElement]
 
-  val au = 1.496e8
-  val lunaDist = 384402
+  val au: Int = Length.Km.au.toInt
+  val lunaDist: Int = CelestialConstants.Sol.luna.orbit.radius.km.toInt
 
   val system = "Sol"
 

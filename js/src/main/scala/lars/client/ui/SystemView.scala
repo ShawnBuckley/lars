@@ -2,6 +2,7 @@ package lars.client.ui
 
 import lars.client.celestial.CelestialBody
 import lars.core.math.Vec2
+import lars.core.physics.units.Length
 import org.scalajs.dom
 import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
@@ -19,9 +20,8 @@ class SystemView(elementId: String) {
   private var viewport = Vec2.addIdent
   private var prevLocation = Vec2.addIdent
 
-  // 25 au in km
-  private val dist = 3.73994677e8
-  private var pixelDistance = ((dist * 2) / size.x) * zoom
+  private val au: Int = Length.Km.au.toInt
+  private var pixelDistance = ((au * 2) / size.x) * zoom
 
   // setup the canvas
   canvas.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
@@ -50,7 +50,7 @@ class SystemView(elementId: String) {
     val newZoom = zoom + event.deltaY
     if(newZoom >= 0 && newZoom <= 100) {
       zoom = newZoom
-      pixelDistance = ((dist * 2) / size.x) * newZoom
+      pixelDistance = ((au * 2) / size.x) * newZoom
       center(toPixels(toLocation(center)))
     }
     event.preventDefault()
