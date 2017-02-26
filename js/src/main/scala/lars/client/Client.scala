@@ -2,8 +2,6 @@ package lars.client
 
 import lars.client.celestial.CelestialBody
 import lars.client.ui.{SystemTable, SystemView}
-import lars.core.math.Vec2
-import lars.core.physics.units.{Length, Mass, Velocity}
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLButtonElement
 import org.scalajs.dom.window
@@ -53,26 +51,9 @@ class Client extends JSApp {
     val parsed = js.JSON.parse(data).asInstanceOf[js.Array[js.Dynamic]]
     val bodies = new Array[CelestialBody](parsed.length)
     for(i <- bodies.indices)
-      bodies(i) = Client.convertBody(parsed(i))
+      bodies(i) = JsonParser.parseCelestialBody(parsed(i))
 
     systemTable.update(bodies)
     systemView.update(bodies)
-  }
-}
-
-object Client {
-  def convertVec2(data: js.Dynamic): Vec2 = {
-    Vec2(data.x.asInstanceOf[Double],
-      data.y.asInstanceOf[Double])
-  }
-
-  def convertBody(data: js.Dynamic): CelestialBody = {
-    CelestialBody(
-      Some(data.name.asInstanceOf[String]),
-      Mass(data.mass.kg.asInstanceOf[Double]),
-      convertVec2(data.location),
-      Velocity(convertVec2(data.velocity.ms)),
-      Length(data.size.km.asInstanceOf[Double])
-    )
   }
 }

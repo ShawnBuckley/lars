@@ -1,6 +1,6 @@
 package lars.client.ui
 
-import lars.client.Client
+import lars.client.JsonParser
 import lars.client.celestial.CelestialBody
 import lars.core.math.Polar2
 import org.scalajs.dom
@@ -18,14 +18,13 @@ class SystemTable(elementId: String, view: SystemView) {
   val system = "Sol"
 
   // create table
-
   val xhr = new dom.XMLHttpRequest()
   xhr.open("GET", "rest/system/" + system)
   xhr.onload = { (e: dom.Event) =>
     if(xhr.status == 200) {
       val parsed = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[js.Dynamic]]
       parsed.foreach(data => {
-        val body = Client.convertBody(data)
+        val body = JsonParser.parseCelestialBody(data)
         val row = table.insertRow().asInstanceOf[HTMLTableRowElement]
         row.id = "system_table_" + body.name.get
 
