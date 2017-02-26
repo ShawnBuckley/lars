@@ -1,4 +1,4 @@
-package lars
+package lars.client.ui
 
 import scala.collection.mutable
 

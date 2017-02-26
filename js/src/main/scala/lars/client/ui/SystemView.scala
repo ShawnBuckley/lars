@@ -1,6 +1,6 @@
-package lars
+package lars.client.ui
 
-import lars.client.Body
+import lars.client.celestial.CelestialBody
 import lars.core.math.Vec2
 import org.scalajs.dom
 import org.scalajs.dom._
@@ -8,7 +8,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 
 class SystemView(elementId: String) {
   var mouseDown = false
-  var bodies: Array[Body] = _
+  var bodies: Array[CelestialBody] = _
 
   val canvas: HTMLCanvasElement = document.getElementById(elementId).asInstanceOf[HTMLCanvasElement]
   val context: CanvasRenderingContext2D = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
@@ -96,13 +96,13 @@ class SystemView(elementId: String) {
     bodies.find(_.name.get == name) match {
       case None =>
         println("Focus error: no body named " + name + " was found")
-      case Some(body: Body) =>
+      case Some(body: CelestialBody) =>
         println("Focusing on " + name)
         center(-toPixels(body.location))
     }
   }
 
-  def update(bodies: Array[Body]): Unit = {
+  def update(bodies: Array[CelestialBody]): Unit = {
     this.bodies = bodies
     render()
   }

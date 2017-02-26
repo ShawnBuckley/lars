@@ -1,6 +1,7 @@
-package lars
+package lars.client.ui
 
-import lars.client.Body
+import lars.client.Client
+import lars.client.celestial.CelestialBody
 import lars.core.math.Polar2
 import org.scalajs.dom
 import org.scalajs.dom.document
@@ -58,7 +59,7 @@ class SystemTable(elementId: String, view: SystemView) {
   }
   xhr.send()
 
-  def update(bodies: Array[Body]): Unit = {
+  def update(bodies: Array[CelestialBody]): Unit = {
     // handle sun absolute location
     val sol = bodies(0)
     val solRow = table.rows.namedItem("system_table_" + sol.name.get).asInstanceOf[HTMLTableRowElement]
@@ -68,10 +69,10 @@ class SystemTable(elementId: String, view: SystemView) {
     // handle luna
     bodies.find(body => body.name.getOrElse("") == "Earth") match {
       case None =>
-      case Some(earth: Body) =>
+      case Some(earth: CelestialBody) =>
         bodies.find(body => body.name.getOrElse("") == "Luna") match {
           case None =>
-          case Some(luna: Body) =>
+          case Some(luna: CelestialBody) =>
             val lunaPolar = Polar2.convert(earth.location, luna.location)
 
             val lunaRow = table.rows.namedItem("system_table_" + luna.name.get).asInstanceOf[HTMLTableRowElement]

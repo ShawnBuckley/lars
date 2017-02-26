@@ -1,6 +1,7 @@
-package lars
+package lars.client
 
-import lars.client.Body
+import lars.client.celestial.CelestialBody
+import lars.client.ui.{SystemTable, SystemView}
 import lars.core.math.Vec2
 import lars.core.physics.units.{Length, Mass, Velocity}
 import org.scalajs.dom
@@ -50,7 +51,7 @@ class Client extends JSApp {
 
   def readPlanets(data: String): Unit = {
     val parsed = js.JSON.parse(data).asInstanceOf[js.Array[js.Dynamic]]
-    val bodies = new Array[Body](parsed.length)
+    val bodies = new Array[CelestialBody](parsed.length)
     for(i <- bodies.indices)
       bodies(i) = Client.convertBody(parsed(i))
 
@@ -65,8 +66,8 @@ object Client {
       data.y.asInstanceOf[Double])
   }
 
-  def convertBody(data: js.Dynamic): Body = {
-    Body(
+  def convertBody(data: js.Dynamic): CelestialBody = {
+    CelestialBody(
       Some(data.name.asInstanceOf[String]),
       Mass(data.mass.kg.asInstanceOf[Double]),
       convertVec2(data.location),
