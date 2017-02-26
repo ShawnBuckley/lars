@@ -23,6 +23,8 @@ class SystemView(elementId: String) {
   private val au: Int = Length.Km.au.toInt
   private var pixelDistance = ((au * 2) / size.x) * zoom
 
+  center(toPixels(size/2))
+
   // setup the canvas
   canvas.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
   canvas.addEventListener("mousedown", (event: dom.MouseEvent) => {
