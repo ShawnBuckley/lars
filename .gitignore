@@ -105,3 +105,5 @@ frontend/src/main/resources/
 frontend/src/main/webapp/index.html
 frontend/src/main/webapp/compiled.js
 frontend/src/main/typescript/typings/*/*
+
+node_modules/
