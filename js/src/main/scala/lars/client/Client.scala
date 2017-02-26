@@ -6,6 +6,7 @@ import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLButtonElement
 import org.scalajs.dom.window
 
+import scala.collection.mutable
 import scala.scalajs.js
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
@@ -21,15 +22,15 @@ class Client extends JSApp {
   val system = "Sol"
 
   // refresh rate
-  val fps = 10
-  val rate: Double = (1 / fps) * 1000.0
+  val fps = 10.0
+  val rate: Double = (1.0 / fps) * 1000.0
   println(rate)
 
   @JSExport
   override def main(): Unit = {
     window.setInterval(() => {
       requestUpdate()
-    }, 100.0)
+    }, rate)
   }
 
   def pause(): Unit = {
@@ -49,9 +50,12 @@ class Client extends JSApp {
 
   def readPlanets(data: String): Unit = {
     val parsed = js.JSON.parse(data).asInstanceOf[js.Array[js.Dynamic]]
-    val bodies = new Array[CelestialBody](parsed.length)
-    for(i <- bodies.indices)
-      bodies(i) = JsonParser.parseCelestialBody(parsed(i))
+    val bodies = new mutable.ArrayBuffer[CelestialBody]
+    parsed.foreach(JsonParser.parseCelestialBody(_) match {
+      case None =>
+      case Some(body: CelestialBody) =>
+        bodies += body
+    })
 
     systemTable.update(bodies)
     systemView.update(bodies)

@@ -8,7 +8,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 
 class SystemView(elementId: String) {
   var mouseDown = false
-  var bodies: Array[CelestialBody] = _
+  var bodies: Seq[CelestialBody] = _
 
   val canvas: HTMLCanvasElement = document.getElementById(elementId).asInstanceOf[HTMLCanvasElement]
   val context: CanvasRenderingContext2D = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
@@ -102,7 +102,7 @@ class SystemView(elementId: String) {
     }
   }
 
-  def update(bodies: Array[CelestialBody]): Unit = {
+  def update(bodies: Seq[CelestialBody]): Unit = {
     this.bodies = bodies
     render()
   }

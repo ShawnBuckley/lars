@@ -24,43 +24,46 @@ class SystemTable(elementId: String, view: SystemView) {
     if(xhr.status == 200) {
       val parsed = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[js.Dynamic]]
       parsed.foreach(data => {
-        val body = JsonParser.parseCelestialBody(data)
-        val row = table.insertRow().asInstanceOf[HTMLTableRowElement]
-        row.id = "system_table_" + body.name.get
-
-        val nameCell = row.insertCell().asInstanceOf[HTMLTableCellElement]
-        body.name match {
+        JsonParser.parseCelestialBody(data) match {
           case None =>
-            nameCell.textContent = "Unnamed"
-          case Some(name: String) =>
-            val bodyButton = dom.document.createElement("button").asInstanceOf[HTMLButtonElement]
-            bodyButton.textContent = name
-            bodyButton.addEventListener("click", (event: dom.Event) =>
-              view.focus(name)
-            )
-            nameCell.appendChild(bodyButton)
+          case Some(body: CelestialBody) =>
+            val row = table.insertRow().asInstanceOf[HTMLTableRowElement]
+            row.id = "system_table_" + body.name.get
+
+            val nameCell = row.insertCell().asInstanceOf[HTMLTableCellElement]
+            body.name match {
+              case None =>
+                nameCell.textContent = "Unnamed"
+              case Some(name: String) =>
+                val bodyButton = dom.document.createElement("button").asInstanceOf[HTMLButtonElement]
+                bodyButton.textContent = name
+                bodyButton.addEventListener("click", (event: dom.Event) =>
+                  view.focus(name)
+                )
+                nameCell.appendChild(bodyButton)
+            }
+
+            val x = row.insertCell().asInstanceOf[HTMLTableCellElement]
+            x.className = "planet-location"
+
+            val y = row.insertCell().asInstanceOf[HTMLTableCellElement]
+            y.className = "planet-location"
+
+            val button = document.createElement("button").asInstanceOf[HTMLButtonElement]
+            button.className = "planet-button"
+            button.appendChild(document.createTextNode(body.name.get))
+            button.addEventListener("click", { (event: dom.Event) =>
+              view.focus(body.name.get)
+            })
         }
-
-        val x = row.insertCell().asInstanceOf[HTMLTableCellElement]
-        x.className = "planet-location"
-
-        val y = row.insertCell().asInstanceOf[HTMLTableCellElement]
-        y.className = "planet-location"
-
-        val button = document.createElement("button").asInstanceOf[HTMLButtonElement]
-        button.className = "planet-button"
-        button.appendChild(document.createTextNode(body.name.get))
-        button.addEventListener("click", { (event: dom.Event) =>
-          view.focus(body.name.get)
-        })
       })
     }
   }
   xhr.send()
 
-  def update(bodies: Array[CelestialBody]): Unit = {
+  def update(bodies: Seq[CelestialBody]): Unit = {
     // handle sun absolute location
-    val sol = bodies(0)
+    val sol = bodies.head
     val solRow = table.rows.namedItem("system_table_" + sol.name.get).asInstanceOf[HTMLTableRowElement]
     solRow.cells.item(1).textContent = (sol.location.x / au).toString
     solRow.cells.item(2).textContent = (sol.location.y / au).toString
