@@ -3,6 +3,7 @@ package lars.core.celestial.container
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
+import lars.core.physics.celestial.gravitation.{ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
@@ -75,10 +76,14 @@ class System(override var name: Option[String], override var location: Vec2, ove
   }
 
   def tick(time: Time): Unit = {
-    val tree = new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
+    val forceCalc: ForceCalculator =
+      if(bodies.length < 100)
+        new PairWise(bodies)
+      else
+        new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
     bodies.foreach(body => {
       body match {
-        case temporalMassive: TemporalMassive => temporalMassive.update(tree, time)
+        case temporalMassive: TemporalMassive => temporalMassive.update(forceCalc, time)
         case _ =>
       }
       body match {
