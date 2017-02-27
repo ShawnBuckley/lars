@@ -36,11 +36,19 @@ class System(override var name: Option[String], override var location: Vec2, ove
   override var mass: Mass = Mass.zero
   private var bodies = new ArrayBuffer[Massive]
 
+  /**
+    * Adds a body to the system and updates the mass.
+    * @param body body to add
+    */
   def add(body: Massive): Unit = {
     bodies.append(body)
     mass += body.mass
   }
 
+  /**
+    * Removes a body from the system and updates the mass.
+    * @param body body to remove
+    */
   def del(body: Massive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
@@ -56,6 +64,11 @@ class System(override var name: Option[String], override var location: Vec2, ove
     parent.foreach(_.del(mass))
   }
 
+  /**
+    *
+    * @param query body name
+    * @return first body that matches the name
+    */
   def get(query: String): Option[Massive] = {
     bodies.find({
       case nameable: Nameable =>
@@ -67,15 +80,15 @@ class System(override var name: Option[String], override var location: Vec2, ove
     })
   }
 
+  /**
+    * Gets all bodies.
+    * @return all bodies
+    */
   def getAll: Seq[Massive] = {
     bodies
   }
 
   override def observe(time: Time): Unit = {
-    tick(time)
-  }
-
-  def tick(time: Time): Unit = {
     val forceCalc: ForceCalculator =
       if(bodies.length < 100)
         new PairWise(bodies)

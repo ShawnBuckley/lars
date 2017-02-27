@@ -3,8 +3,8 @@ package lars.core.celestial
 import lars.core.math.Vec2
 
 /**
-  * NestedLocation allows for transforming relative coordinates to absolute coordinates.  See the Parent and Child
-  * traits.
+  * NestedLocation allows for transforming relative coordinates to absolute coordinates.  See the celestial parent and
+  * child traits.
   */
 trait NestedLocation {
   /**

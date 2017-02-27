@@ -15,8 +15,16 @@ import lars.core.physics.units.{Density, Length}
 trait Sizeable extends TemporalMassive {
   var size: Length
 
+  /**
+    * Calculates the density.
+    * @return density
+    */
   def density: Density =
     new Density(mass.kg / Sphere.volume(size).km3)
 
+  /**
+    * Updates this sizeable on a collision event.
+    * @param other other sizeable that is collided with
+    */
   def collide(other: Sizeable)
 }
