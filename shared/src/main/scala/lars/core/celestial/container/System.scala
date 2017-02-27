@@ -1,8 +1,7 @@
 package lars.core.celestial.container
 
-import lars.core.celestial.body.standard.StandardBody
 import lars.core.{Nameable, Observable}
-import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
+import lars.core.celestial.{Child, Parent, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
@@ -10,21 +9,23 @@ import lars.core.physics.units.{Length, Mass, Time, Velocity}
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * Systems are solar systems.  They will generally focus on a stellar primary or stellar binary+ primary.  There is no
-  * requirement that the primary be a stellar object; anything sufficiently massive will work.  In rare instances some
-  * systems can form around black holes and large collections of dark matter.
+  * Systems are celestial systems.  They are any type of celestial system including: planet and moons, solar systems,
+  * regions of space orbiting a primary, and even the galaxy itself.
   *
   * The boundaries of a system are determined by the gravitational field of the system's total mass from the
   * barycenter.
   *
-  * The motions of objects within systems are entirely driven by the interaction of gravitational fields.
+  * The motions of objects within systems are entirely driven by the interaction of gravitational fields.  For
+  * performance systems are considered to be isolated from other gravitational fields.  An object is considered to leave
+  * a system when it exceeds escape velocity.
   *
   * Observing a system will update the locations of all objects within it and observe all objects within it.
   *
+  * @param name optional system name
   * @param location system location
   * @param parent system parent
   */
-class System(override var name: Option[String], override var location: Vec2, override var parent: Parent)
+class System(override var name: Option[String], override var location: Vec2, override var parent: Option[Parent])
   extends TemporalMassive
     with Parent
     with Child
@@ -32,28 +33,41 @@ class System(override var name: Option[String], override var location: Vec2, ove
     with Nameable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[StandardBody]
+  private var bodies = new ArrayBuffer[TemporalMassive]
 
-  def add(body: StandardBody): Massive = {
+  def add(body: TemporalMassive): Unit = {
     bodies.append(body)
     mass += body.mass
-    body
   }
 
-  def del(body: StandardBody): Unit = {
+  def del(body: TemporalMassive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
   }
 
-  def get(query: String): Option[StandardBody] =
-    bodies.find(body => {
-      body.name match {
-        case Some(name: String) => name.equals(query)
-        case None => false
-      }
-    })
+  override def add(mass: Mass): Unit = {
+    this.mass += mass
+    parent.foreach(_.add(mass))
+  }
 
-  def getAll: Seq[StandardBody] = {
+
+  override def del(mass: Mass): Unit = {
+    this.mass -= mass
+    parent.foreach(_.del(mass))
+  }
+
+  def get(query: String): Option[TemporalMassive] = {
+    bodies.find({
+      case nameable: Nameable =>
+        nameable.name match {
+          case Some(name: String) => name.equals(query)
+          case None => false
+        }
+      case _ => false
+    })
+  }
+
+  def getAll: Seq[TemporalMassive] = {
     bodies
   }
 
@@ -72,6 +86,10 @@ class System(override var name: Option[String], override var location: Vec2, ove
     })
   }
 
-  override def absoluteLocation(relative: Vec2): Vec2 =
-    parent.absoluteLocation(location + relative)
+  override def absoluteLocation(relative: Vec2): Vec2 = {
+    parent match {
+      case Some(parent: Parent) => parent.absoluteLocation(location + relative)
+      case None => relative
+    }
+  }
 }

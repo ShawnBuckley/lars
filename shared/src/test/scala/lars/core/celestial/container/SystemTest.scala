@@ -18,7 +18,7 @@ class SystemTest {
       new Vec2(0,0),
       Velocity.zero,
       CelestialConstants.Sol.sol.radius,
-      system)
+      Some(system))
 
     val earth = new TerrestrialBody(
       Some("Earth"),
@@ -26,7 +26,7 @@ class SystemTest {
       new Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0),
       new Velocity(new Vec2(0,CelestialConstants.Sol.earth.orbit.speed.ms)),
       CelestialConstants.Sol.earth.radius,
-      system)
+      Some(system))
 
     system.add(sun)
     assertEquals(system.getAll.size, 1)

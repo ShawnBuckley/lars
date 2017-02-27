@@ -20,7 +20,7 @@ class Singularity(override var name: Option[String],
                   override var mass: Mass,
                   override var location: Vec2,
                   override var velocity: Velocity,
-                  override var parent: Parent)
+                  override var parent: Option[Parent])
   extends StandardBody {
   override var size: Length = schwarzschildRadius
 

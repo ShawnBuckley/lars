@@ -20,7 +20,7 @@ class TerrestrialBody(override var name: Option[String],
                       override var location: Vec2,
                       override var velocity: Velocity,
                       override var size: Length,
-                      override var parent: Parent)
+                      override var parent: Option[Parent])
   extends StandardBody with Observable {
 
   override def observe(time: Time): Unit = {
