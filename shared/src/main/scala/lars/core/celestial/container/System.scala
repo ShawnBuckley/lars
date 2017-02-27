@@ -75,7 +75,7 @@ class System(override var name: Option[String], override var location: Vec2, ove
   }
 
   def tick(time: Time): Unit = {
-    val tree = new BarnesHutTree(bodies, new Length(Length.Km.au*50))
+    val tree = new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
     bodies.foreach(body => {
       body match {
         case temporalMassive: TemporalMassive => temporalMassive.update(tree, time)
