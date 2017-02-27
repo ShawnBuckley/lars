@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
 import lars.core.{Nameable, Observable}
-import lars.core.celestial.{Child, Parent, TemporalMassive}
+import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
@@ -33,14 +33,14 @@ class System(override var name: Option[String], override var location: Vec2, ove
     with Nameable {
   override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[TemporalMassive]
+  private var bodies = new ArrayBuffer[Massive]
 
-  def add(body: TemporalMassive): Unit = {
+  def add(body: Massive): Unit = {
     bodies.append(body)
     mass += body.mass
   }
 
-  def del(body: TemporalMassive): Unit = {
+  def del(body: Massive): Unit = {
     bodies = bodies.diff(List(body))
     mass -= body.mass
   }
@@ -50,13 +50,12 @@ class System(override var name: Option[String], override var location: Vec2, ove
     parent.foreach(_.add(mass))
   }
 
-
   override def del(mass: Mass): Unit = {
     this.mass -= mass
     parent.foreach(_.del(mass))
   }
 
-  def get(query: String): Option[TemporalMassive] = {
+  def get(query: String): Option[Massive] = {
     bodies.find({
       case nameable: Nameable =>
         nameable.name match {
@@ -67,7 +66,7 @@ class System(override var name: Option[String], override var location: Vec2, ove
     })
   }
 
-  def getAll: Seq[TemporalMassive] = {
+  def getAll: Seq[Massive] = {
     bodies
   }
 
@@ -78,7 +77,10 @@ class System(override var name: Option[String], override var location: Vec2, ove
   def tick(time: Time): Unit = {
     val tree = new BarnesHutTree(bodies, new Length(Length.Km.au*50))
     bodies.foreach(body => {
-      body.update(tree, time)
+      body match {
+        case temporalMassive: TemporalMassive => temporalMassive.update(tree, time)
+        case _ =>
+      }
       body match {
         case observable: Observable => observable.observe(time)
         case _ =>
