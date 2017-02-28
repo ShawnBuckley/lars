@@ -29,8 +29,7 @@ object CelestialFactory {
             system.add(body)
         }
       case systemDefinition: SystemDefinition =>
-        val newSystem = new System(Some(systemDefinition.name), new Vec2(systemDefinition.orbit.radius.km, 0), Some(system))
-        newSystem.velocity = new Velocity(new Vec2(0, systemDefinition.orbit.speed.ms))
+        val newSystem = new System(Some(systemDefinition.name), new Vec2(systemDefinition.orbit.radius.km, 0), Velocity(new Vec2(0, systemDefinition.orbit.speed.ms)), Some(system))
         createBodies(systemDefinition, newSystem)
         system.add(newSystem)
     })

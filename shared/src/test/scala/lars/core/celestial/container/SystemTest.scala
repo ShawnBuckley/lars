@@ -10,7 +10,7 @@ import org.testng.Assert._
 class SystemTest {
   @Test
   def mass(): Unit = {
-    val system = new System(Some("Sol"), Vec2.addIdent, null)
+    val system = new System(Some("Sol"), Vec2.addIdent, Velocity.zero, null)
 
     val sun = new StellarBody(
       Some("Sol"),

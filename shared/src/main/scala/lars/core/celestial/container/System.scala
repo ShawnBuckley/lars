@@ -27,13 +27,15 @@ import scala.collection.mutable.ArrayBuffer
   * @param location system location
   * @param parent system parent
   */
-class System(override var name: Option[String], override var location: Vec2, override var parent: Option[Parent])
+class System(override var name: Option[String],
+             override var location: Vec2,
+             override var velocity: Velocity,
+             override var parent: Option[Parent])
   extends TemporalMassive
     with Parent
     with Child
     with Observable
     with Nameable {
-  override var velocity: Velocity = Velocity.zero
   override var mass: Mass = Mass.zero
   private var bodies = new ArrayBuffer[Massive]
 

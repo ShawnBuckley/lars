@@ -5,7 +5,7 @@ import lars.core.celestial.container.System
 import lars.core.math.Vec2
 import lars.application.LARSApplication
 import lars.core.celestial.CelestialConstants
-import lars.core.physics.units.Time
+import lars.core.physics.units.{Time, Velocity}
 
 object Main {
   var paused = false
@@ -13,7 +13,7 @@ object Main {
   def main(args: Array[String]) {
     new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
 
-    val sol = new System(Some(CelestialConstants.Sol.name), new Vec2(0,0), Some(Game.galaxy))
+    val sol = new System(Some(CelestialConstants.Sol.name), new Vec2(0,0), Velocity.zero, Some(Game.galaxy))
     CelestialFactory.createBodies(CelestialConstants.Sol.Sol, sol)
     Game.galaxy.add(sol)
 
