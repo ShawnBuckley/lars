@@ -8,7 +8,7 @@ import org.scalajs.dom._
 import org.scalajs.dom.raw.HTMLCanvasElement
 
 class SystemView(elementId: String) {
-  var mouseDown = false
+  var mouseClicked = false
   var bodies: Seq[CelestialBody] = _
 
   val canvas: HTMLCanvasElement = document.getElementById(elementId).asInstanceOf[HTMLCanvasElement]
@@ -27,25 +27,28 @@ class SystemView(elementId: String) {
 
   // setup the canvas
   canvas.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
-  canvas.addEventListener("mousedown", (event: dom.MouseEvent) => {
-    mouseDown = true
-    prevLocation = Vec2(event.pageX, event.pageY)
-  })
-
+  canvas.addEventListener("mousedown", mouseDown)
   canvas.addEventListener("mouseup", mouseUp)
   canvas.addEventListener("blur", mouseUp)
-  canvas.addEventListener("mousemove", (event: dom.MouseEvent) => {
-    if(mouseDown) {
+  canvas.addEventListener("mousemove", mouseMove)
+  canvas.addEventListener("mousewheel", mouseZoom)
+  canvas.addEventListener("DOMMouseScroll", mouseZoom)
+
+  private def mouseDown(event: dom.MouseEvent): Unit = {
+    mouseClicked = true
+    prevLocation = Vec2(event.pageX, event.pageY)
+  }
+
+  private def mouseMove(event: dom.MouseEvent): Unit = {
+    if(mouseClicked) {
       val current = Vec2(event.pageX, event.pageY)
       viewport += current - prevLocation
       prevLocation = current
     }
-  })
-  canvas.addEventListener("mousewheel", mouseZoom)
-  canvas.addEventListener("DOMMouseScroll", mouseZoom)
+  }
 
   private def mouseUp(event: dom.MouseEvent): Unit = {
-    mouseDown = false
+    mouseClicked = false
   }
 
   private def mouseZoom(event: dom.WheelEvent): Unit = {
