@@ -22,10 +22,12 @@ trait TemporalMassive extends Massive {
 
     // TODO - preserve angular momentum
     velocity += calculator.calculate(this) / mass / time
-    val distance = Length(barycenter.location.distance(location).magnitude)
-    val traversed = Length((velocity * time).magnitude)
-    val angle = Circle.centralAngle(distance, traversed)
-    val polar = Polar2.convert(barycenter.location, location)
-    location = Polar2(polar.angle + angle, polar.length).cartesian(barycenter.location)
+    if(velocity.ms.magnitude != 0) {
+      val distance = Length(barycenter.location.distance(location).magnitude)
+      val traversed = Length((velocity * time).magnitude)
+      val angle = Circle.centralAngle(distance, traversed)
+      val polar = Polar2.convert(barycenter.location, location)
+      location = Polar2(polar.angle + angle, polar.length).cartesian(barycenter.location)
+    }
   }
 }

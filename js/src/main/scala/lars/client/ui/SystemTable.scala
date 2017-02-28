@@ -3,7 +3,7 @@ package lars.client.ui
 import lars.client.JsonParser
 import lars.client.celestial.CelestialBody
 import lars.core.celestial.CelestialConstants
-import lars.core.math.Polar2
+import lars.core.math.{Polar2, Vec2}
 import lars.core.physics.units.Length
 import org.scalajs.dom
 import org.scalajs.dom.document
@@ -24,11 +24,10 @@ class SystemTable(elementId: String, view: SystemView) {
   xhr.open("GET", "rest/system/" + system)
   xhr.onload = { (e: dom.Event) =>
     if(xhr.status == 200) {
-      val parsed = js.JSON.parse(xhr.responseText).asInstanceOf[js.Array[js.Dynamic]]
-      parsed.foreach(data => {
-        JsonParser.parseCelestialBody(data) match {
-          case None =>
-          case Some(body: CelestialBody) =>
+      JsonParser.parseSystem(js.JSON.parse(xhr.responseText), Vec2.addIdent) match {
+        case None =>
+        case Some(bodies: Seq[CelestialBody]) =>
+          bodies.foreach(body => {
             val row = table.insertRow().asInstanceOf[HTMLTableRowElement]
             row.id = "system_table_" + body.name.get
 
@@ -57,8 +56,8 @@ class SystemTable(elementId: String, view: SystemView) {
             button.addEventListener("click", { (event: dom.Event) =>
               view.focus(body.name.get)
             })
-        }
-      })
+          })
+      }
     }
   }
   xhr.send()

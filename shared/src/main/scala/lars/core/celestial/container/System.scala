@@ -1,5 +1,6 @@
 package lars.core.celestial.container
 
+import com.fasterxml.jackson.annotation.{JsonIgnore, JsonIgnoreProperties}
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2

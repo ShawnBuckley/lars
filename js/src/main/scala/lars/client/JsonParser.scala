@@ -4,6 +4,7 @@ import lars.client.celestial.CelestialBody
 import lars.core.math.Vec2
 import lars.core.physics.units.{Length, Mass, Velocity}
 
+import scala.collection.mutable
 import scala.scalajs.js
 
 object JsonParser {
@@ -20,14 +21,37 @@ object JsonParser {
     }
   }
 
-  def parseCelestialBody(data: js.Dynamic): Option[CelestialBody] = {
+  def parseSystem(data: js.Dynamic, offset: Vec2): Option[Seq[CelestialBody]] = {
+    if(!hasFields(data, Array("name", "mass", "location", "velocity", "all"))) {
+      None
+    } else {
+      val bodies = data.all.asInstanceOf[js.Array[js.Dynamic]]
+      val result = new mutable.ArrayBuffer[CelestialBody](bodies.length)
+      val location = parseVec2(data.location).get + offset
+      bodies.foreach(body => {
+        parseSystem(body, location) match {
+          case None =>
+            parseCelestialBody(body, location) match {
+              case None =>
+              case Some(body: CelestialBody) =>
+                result += body
+            }
+          case Some(bodies: Seq[CelestialBody]) =>
+            result ++= bodies
+        }
+      })
+      Some(result)
+    }
+  }
+
+  def parseCelestialBody(data: js.Dynamic, offset: Vec2): Option[CelestialBody] = {
     if(!hasFields(data, Array("name", "mass", "location", "velocity", "size"))) {
       None
     } else {
       Some(CelestialBody(
         Some(data.name.asInstanceOf[String]),
         Mass(data.mass.kg.asInstanceOf[Double]),
-        parseVec2(data.location).get,
+        parseVec2(data.location).get + offset,
         Velocity(parseVec2(data.velocity.ms).get),
         Length(data.size.km.asInstanceOf[Double])
       ))

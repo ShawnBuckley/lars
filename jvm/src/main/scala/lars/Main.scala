@@ -14,7 +14,7 @@ object Main {
     new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
 
     val sol = new System(Some(CelestialConstants.Sol.name), new Vec2(0,0), Some(Game.galaxy))
-    CelestialFactory.createBodies(CelestialConstants.Sol.primaries, null, sol)
+    CelestialFactory.createBodies(CelestialConstants.Sol.Sol, sol)
     Game.galaxy.add(sol)
 
     println("LARS Core started. Press enter to stop.")

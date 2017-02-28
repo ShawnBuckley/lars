@@ -1,60 +1,48 @@
 package lars.core.celestial
 
-import lars.core.celestial.body.{BodyClassification, BodyDefinition}
 import lars.core.celestial.body.standard.OrbitDefinition
+import lars.core.celestial.definition.{BodyClassification, BodyDefinition, CelestialDefinition, SystemDefinition}
 import lars.core.physics.units.{Length, Mass, Time}
 
 object CelestialConstants {
   object MilkyWay {
-    val mass: Mass = new Mass(6e42)
-    val sgr_a_star: Mass = new Mass(8.57e36)
+    val mass: Mass = Mass(6e42)
+    val sgr_a_star: Mass = Mass(8.57e36)
   }
 
   object Sol {
     val name = "Sol"
-    val luna = new BodyDefinition("Luna", BodyClassification.terrestrial, new Length(1737.1), new Mass(7.342e22), new OrbitDefinition(new Length(385000), new Time(27.321582)), null)
 
-    val mercury = new BodyDefinition("Mercury", BodyClassification.terrestrial, new Length(2439.7), new Mass(3.3011e23), new OrbitDefinition(new Length(57909175), new Time(87.969)), null)
-    val venus = new BodyDefinition("Venus", BodyClassification.terrestrial, new Length(6051.59), new Mass(4.8690e24), new OrbitDefinition(new Length(108208930), new Time(224.5469999)), null)
-    val earth = new BodyDefinition("Earth", BodyClassification.terrestrial, new Length(6371.0), new Mass(5.9721986e24), new OrbitDefinition(new Length(149598023), new Time(365.006351)), List(luna))
-    val mars = new BodyDefinition("Mars", BodyClassification.terrestrial, new Length(3397.0), new Mass(6.4191e23), new OrbitDefinition(new Length(227936640), new Time(686.509374)), null)
-    val ceres = new BodyDefinition("Ceres", BodyClassification.terrestrial, new Length(473), new Mass(9.393e20), new OrbitDefinition(new Length(399426314.769), new Time(1681.63)), null)
-    val jupiter = new BodyDefinition("Jupiter", BodyClassification.gaseous, new Length(71492.68), new Mass(1.8987e27), new OrbitDefinition(new Length(778412010), new Time(4329.854475)), null)
-    val saturn = new BodyDefinition("Saturn", BodyClassification.gaseous, new Length(60267.14), new Mass(5.6851e26), new OrbitDefinition(new Length(1433449370), new Time(10748.33677)), null)
-    val uranus = new BodyDefinition("Uranus", BodyClassification.gaseous, new Length(25557.25), new Mass(8.6849e25), new OrbitDefinition(new Length(2870972200L), new Time(30666.14879)), null)
-    val neptune = new BodyDefinition("Neptune", BodyClassification.gaseous, new Length(24766.36), new Mass(1.0244e26), new OrbitDefinition(new Length(4498252900L), new Time(60148.8318)), null)
-    //    val pluto = new BodyDefinition("Pluto", BodyClassification.terrestrial, new Length(), new Mass(), new OrbitDefinition(new Length(), new Time()), null)
-    //    val charon = new BodyDefinition("Charon", BodyClassification.terrestrial, new Length(), new Mass(), new OrbitDefinition(new Length(), new Time()), null)
-    //    val sedna = new BodyDefinition("Sedna", BodyClassification.terrestrial, new Length(), new Mass(), new OrbitDefinition(new Length(), new Time()), null)
+    val mercury = BodyDefinition("Mercury", BodyClassification.terrestrial, Length(2439.7), Mass(3.3011e23), OrbitDefinition(Length(57909175), Time(87.969)))
 
-    val planets = List[BodyDefinition](mercury, venus, earth, mars, ceres, jupiter, saturn, uranus, neptune)
+    val venus = BodyDefinition("Venus", BodyClassification.terrestrial, Length(6051.59), Mass(4.8690e24), OrbitDefinition(Length(108208930), Time(224.5469999)))
 
-    val sol = new BodyDefinition(name, BodyClassification.stellar, new Length(695500), new Mass(1.98855e30), new OrbitDefinition(new Length(1), new Time(1)), planets)
+    val luna = BodyDefinition("Luna", BodyClassification.terrestrial, Length(1737.1), Mass(7.342e22), OrbitDefinition(Length(385000), Time(27.321582)))
+    val earth = BodyDefinition("Earth", BodyClassification.terrestrial, Length(6371.0), Mass(5.9721986e24), OrbitDefinition(Length.zero, Time.zero))
+    var Earth =  SystemDefinition("Earth System", List(earth, luna), OrbitDefinition(Length(Length.Km.au), Time(365.006351)))
 
-    val primaries = List[BodyDefinition](sol)
+    val mars = BodyDefinition("Mars", BodyClassification.terrestrial, Length(3397.0), Mass(6.4191e23), OrbitDefinition(Length(227936640), Time(686.509374)))
+    // phobos
+    // deimos
+
+    val ceres = BodyDefinition("Ceres", BodyClassification.terrestrial, Length(473), Mass(9.393e20), OrbitDefinition(Length(399426314.769), Time(1681.63)))
+
+    val jupiter = BodyDefinition("Jupiter", BodyClassification.gaseous, Length(71492.68), Mass(1.8987e27), OrbitDefinition(Length(778412010), Time(4329.854475)))
+
+    val saturn = BodyDefinition("Saturn", BodyClassification.gaseous, Length(60267.14), Mass(5.6851e26), OrbitDefinition(Length(1433449370), Time(10748.33677)))
+
+    val uranus = BodyDefinition("Uranus", BodyClassification.gaseous, Length(25557.25), Mass(8.6849e25), OrbitDefinition(Length(2870972200L), Time(30666.14879)))
+
+    val neptune = BodyDefinition("Neptune", BodyClassification.gaseous, Length(24766.36), Mass(1.0244e26), OrbitDefinition(Length(4498252900L), Time(60148.8318)))
+
+
+    //    val pluto = BodyDefinition("Pluto", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
+    //    val charon = BodyDefinition("Charon", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
+    //    var Pluto: SystemDefinition = _
+
+    //    val sedna = BodyDefinition("Sedna", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
+
+    val sol = BodyDefinition(name, BodyClassification.stellar, Length(695500), Mass(1.98855e30), OrbitDefinition(Length(1), Time(1)))
+    val Sol = SystemDefinition("Sol System", List[CelestialDefinition](sol, mercury, venus, Earth, mars, ceres, jupiter, saturn, uranus, neptune), OrbitDefinition(Length.zero, Time.zero))
   }
-
-  object Xygon {
-    val name = "Xygon"
-
-    val orbitLength = Sol.venus.orbit.radius
-
-    val xyferius = new BodyDefinition("Xyferius", BodyClassification.terrestrial, Sol.venus.radius, Sol.venus.mass, new OrbitDefinition(orbitLength * 2, Sol.venus.orbit.period * 100), null)
-
-    val planets = List(xyferius)
-
-    val xygon_star_mass = Sol.jupiter.mass
-    val xygon_star_radius = Sol.jupiter.radius
-
-    val xygon_a = new BodyDefinition("Xygon A", BodyClassification.stellar, xygon_star_radius, xygon_star_mass, new OrbitDefinition(orbitLength, new Time(100000000)), planets)
-    val xygon_b = new BodyDefinition("Xygon B", BodyClassification.stellar, xygon_star_radius, xygon_star_mass, new OrbitDefinition(orbitLength*(-1), new Time(100000000)), null)
-
-    val stars = List(xygon_a, xygon_b)
-
-    val barycenter = new BodyDefinition("Xygon", BodyClassification.none, new Length(1), Mass.zero, new OrbitDefinition(new Length(1), Time.second), stars)
-
-    val primaries = List(barycenter)
-  }
-
-
 }
