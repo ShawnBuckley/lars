@@ -19,6 +19,8 @@ object PlanetSprite {
   sol.put("Saturn", PlanetSprite("orange", 4))
   sol.put("Uranus", PlanetSprite("white", 3))
   sol.put("Neptune", PlanetSprite("blue", 3))
+  sol.put("Pluto", PlanetSprite("orange", 1))
+  sol.put("Charon", PlanetSprite("white", 1))
 
   system.put("Sol", sol)
 }

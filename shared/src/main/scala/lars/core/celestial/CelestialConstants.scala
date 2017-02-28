@@ -35,14 +35,13 @@ object CelestialConstants {
 
     val neptune = BodyDefinition("Neptune", BodyClassification.gaseous, Length(24766.36), Mass(1.0244e26), OrbitDefinition(Length(4498252900L), Time(60148.8318)))
 
-
-    //    val pluto = BodyDefinition("Pluto", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
-    //    val charon = BodyDefinition("Charon", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
-    //    var Pluto: SystemDefinition = _
+    val pluto = BodyDefinition("Pluto", BodyClassification.terrestrial, Length(1187), Mass(1.303e22), OrbitDefinition(Length.zero, Time.zero))
+    val charon = BodyDefinition("Charon", BodyClassification.terrestrial, Length(606), Mass(1.586e21), OrbitDefinition(Length(19571), Time(6.387)))
+    var Pluto: SystemDefinition = SystemDefinition("Pluto System", List(pluto, charon), OrbitDefinition(Length(5.9061e9), Time(90560)))
 
     //    val sedna = BodyDefinition("Sedna", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
 
-    val sol = BodyDefinition(name, BodyClassification.stellar, Length(695500), Mass(1.98855e30), OrbitDefinition(Length(1), Time(1)))
-    val Sol = SystemDefinition("Sol System", List[CelestialDefinition](sol, mercury, venus, Earth, mars, ceres, jupiter, saturn, uranus, neptune), OrbitDefinition(Length.zero, Time.zero))
+    val sol = BodyDefinition(name, BodyClassification.stellar, Length(695500), Mass(1.98855e30), OrbitDefinition(Length.zero, Time.zero))
+    val Sol = SystemDefinition("Sol System", List[CelestialDefinition](sol, mercury, venus, Earth, mars, ceres, jupiter, saturn, uranus, neptune, Pluto), OrbitDefinition(Length.zero, Time.zero))
   }
 }
