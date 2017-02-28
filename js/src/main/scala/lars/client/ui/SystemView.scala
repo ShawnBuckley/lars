@@ -67,11 +67,17 @@ class SystemView(elementId: String) {
     bodies.foreach(body => {
       PlanetSprite.sol.get(body.name.getOrElse("")) match {
         case None =>
-        case Some(sprite: PlanetSprite) =>
+        case Some(color: String) =>
           context.beginPath()
           val loc = toPixels(body.location) + viewport
-          context.arc(loc.x, loc.y, sprite.size, 0, 2 * Math.PI, anticlockwise = false)
-          context.fillStyle = sprite.color
+          context.arc(loc.x, loc.y, {
+            val logSize = Math.log((body.size.km / pixelDistance) * 1000)
+            if(logSize > 1)
+              logSize
+            else
+              1
+          }, 0, 2 * Math.PI)
+          context.fillStyle = color
           context.fill()
           context.lineWidth = 1
       }
