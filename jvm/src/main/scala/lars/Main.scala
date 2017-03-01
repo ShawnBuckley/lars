@@ -18,12 +18,13 @@ object Main {
 
   val logger: Logger = LoggerFactory.getLogger("lars.Main")
 
-  def createGalaxy(): Unit = {
-    val galString = new String(Files.readAllBytes(Paths.get("jvm/src/main/resources/milkyway.json")))
-    val galaxyData = JsonUtil.fromJson[Definition](galString)
+  private val galaxy = createGalaxy("jvm/src/main/resources/milkyway.json")
 
-    Game.galaxy = new Galaxy(Some(galaxyData.name))
-    CelestialFactory.createBodies(galaxyData, Game.galaxy)
+  def createGalaxy(filename: String): Galaxy = {
+    val galaxyData = JsonUtil.fromJson[Definition](new String(Files.readAllBytes(Paths.get(filename))))
+    val galaxy = new Galaxy(Some(galaxyData.name))
+    CelestialFactory.createBodies(galaxyData, galaxy)
+    galaxy
   }
 
   def start(): Unit = {
@@ -43,7 +44,7 @@ object Main {
       if(paused)
         Thread.sleep(1000)
       else
-        Game.galaxy.observe(Time.minute)
+        galaxy.observe(Time.minute)
     }
 
     logger.info("LARS stopped.")
@@ -54,8 +55,7 @@ object Main {
   }
 
   def main(args: Array[String]) {
-    new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
-    createGalaxy()
+    new LARSApplication(galaxy).run("server", "jvm/src/main/resources/config.yml")
     start()
   }
 }
