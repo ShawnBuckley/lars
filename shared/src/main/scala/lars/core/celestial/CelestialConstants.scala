@@ -1,6 +1,6 @@
 package lars.core.celestial
 
-import lars.core.celestial.body.standard.OrbitDefinition
+import lars.core.celestial.body.standard.{OrbitDefinition, Singularity}
 import lars.core.celestial.definition.{BodyClassification, BodyDefinition, CelestialDefinition, SystemDefinition}
 import lars.core.physics.units.{Length, Mass, Time}
 
@@ -8,6 +8,22 @@ object CelestialConstants {
   object MilkyWay {
     val mass: Mass = Mass(6e42)
     val sgr_a_star: Mass = Mass(8.57e36)
+  }
+
+  object SagittariusA {
+    val name = "Sagittarius A*"
+
+    val a = BodyDefinition("Sagittarius A*", BodyClassification.singularity, Singularity.schwarzschildRadius(MilkyWay.sgr_a_star), MilkyWay.sgr_a_star, OrbitDefinition.none)
+
+//    val s1 = BodyDefinition("S1", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 3300), Time(365 * 94.1)))
+//    val s2 = BodyDefinition("S2", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 980), Time(365 * 15.24)))
+//    val s8 = BodyDefinition("S8", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 2630), Time(365 * 67.2)))
+//    val s12 = BodyDefinition("S12", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 2290), Time(365 * 54.4)))
+//    val s13 = BodyDefinition("S13", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au *  1750), Time(365 * 36)))
+//    val s14 = BodyDefinition("S14", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 1800), Time(365 * 38)))
+//    val s0_102 = BodyDefinition("S0–102", BodyClassification.stellar, Length(), Mass(), OrbitDefinition(Length(Length.Km.au * 1020), Time(365 * 11.5)))
+
+    val A = SystemDefinition("Sagitarrius A*", List[CelestialDefinition](a), OrbitDefinition.none)
   }
 
   object Sol {
