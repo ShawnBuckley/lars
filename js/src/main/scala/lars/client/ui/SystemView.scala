@@ -52,12 +52,17 @@ class SystemView(elementId: String) {
   }
 
   private def mouseZoom(event: dom.WheelEvent): Unit = {
-    val newZoom = zoom + event.deltaY
-    if(newZoom >= 0 && newZoom <= 100) {
-      zoom = newZoom
-      pixelDistance = ((au * 2) / size.x) * newZoom
-      center(toPixels(toLocation(center)))
+    zoom = {
+      val calc = zoom + event.deltaY
+      if(calc <= 1)
+        1
+      else if(calc >= 100)
+        100
+      else
+        calc
     }
+    pixelDistance = ((au * 2) / size.x) * zoom
+    center(toPixels(toLocation(center)))
     event.preventDefault()
   }
 
