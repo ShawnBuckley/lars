@@ -31,4 +31,16 @@ trait Parent extends NestedLocation {
     * @param massive massive to remove
     */
   def del(massive: Massive)
+
+  /**
+    * Triggered when a massive object enters a system. This needs to remove the object from the parent.
+    * @param massive massive that entered the system
+    */
+  def enter(massive: Massive)
+
+  /**
+    * Triggers of moving a child element to the container's parent when the child exceeds the escape velocity.
+    * @param massive massive that escaped
+    */
+  def escape(massive: Massive)
 }

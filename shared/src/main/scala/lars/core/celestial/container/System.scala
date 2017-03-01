@@ -67,6 +67,34 @@ class System(override var name: Option[String],
   }
 
   /**
+    * Triggered when a massive object enters a system. This needs to remove the object from the parent.
+    *
+    * @param massive massive that entered the system
+    */
+  override def enter(massive: Massive): Unit = {
+    bodies += massive
+    parent match {
+      case None =>
+      case Some(parent: Parent) =>
+        parent.del(massive)
+    }
+  }
+
+  /**
+    * Triggers of moving a child element to the container's parent when the child exceeds the escape velocity.
+    *
+    * @param massive massive that escaped
+    */
+  override def escape(massive: Massive): Unit = {
+    parent match {
+      case None =>
+      case Some(parent: Parent) =>
+        bodies -= massive
+        parent.add(massive)
+    }
+  }
+
+/**
     *
     * @param query body name
     * @return first body that matches the name
@@ -90,7 +118,11 @@ class System(override var name: Option[String],
         new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
     bodies.foreach(body => {
       body match {
-        case temporalMassive: TemporalMassive => temporalMassive.update(forceCalc, time)
+        case body: TemporalMassive =>
+          body.update(forceCalc, time)
+          // TODO - escape velocity calculation. requires checking for escape velocity difference over a stable orbit
+//          if(body.velocity >= escapeVelocity(body.location))
+//            escape(body)
         case _ =>
       }
       body match {
