@@ -9,7 +9,6 @@ import lars.Main
 class PauseResource {
   @POST
   @Path("/pause")
-  def togglePause(): Unit = {
-    Main.paused = !Main.paused
-  }
+  def togglePause(): Unit =
+    Main.pause()
 }

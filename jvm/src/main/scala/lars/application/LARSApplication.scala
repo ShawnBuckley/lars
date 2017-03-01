@@ -42,7 +42,6 @@ class LARSApplication(galaxy: Galaxy) extends Application[LARSConfiguration] {
     objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false)
     objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
     objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-    objectMapper.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
     provider.setMapper(objectMapper)
     provider
   }

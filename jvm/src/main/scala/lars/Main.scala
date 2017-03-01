@@ -11,9 +11,8 @@ import java.nio.file.Paths
 import lars.core.celestial.definition.Definition
 import util.JsonUtil
 
-
 object Main {
-  var paused = true
+  private var paused = true
   private var running = true
 
   val logger: Logger = LoggerFactory.getLogger("lars.Main")
@@ -25,6 +24,10 @@ object Main {
     val galaxy = new Galaxy(Some(galaxyData.name))
     CelestialFactory.createBodies(galaxyData, galaxy)
     galaxy
+  }
+
+  def pause(): Unit = {
+    paused = !paused
   }
 
   def start(): Unit = {
