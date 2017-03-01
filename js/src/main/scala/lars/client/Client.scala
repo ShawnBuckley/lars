@@ -51,7 +51,6 @@ class Client extends JSApp {
     JsonParser.parseSystem(js.JSON.parse(data), Vec2.addIdent) match {
       case None =>
       case Some(bodies: Seq[CelestialBody]) =>
-        println("length " + bodies.length)
         systemTable.update(bodies)
         systemView.update(bodies)
     }
