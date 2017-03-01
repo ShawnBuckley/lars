@@ -13,7 +13,8 @@ import scala.scalajs.js.annotation.JSExport
 
 @JSExport("Client")
 class Client extends JSApp {
-  val system = "TRAPPIST-1"
+//  val system = "TRAPPIST-1"
+  val system = "Sol"
 
   val systemView = new SystemView("system-view")
   val systemTable = new SystemTable("system-table", systemView, system)

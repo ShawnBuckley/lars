@@ -56,12 +56,12 @@ class SystemView(elementId: String) {
       val calc = zoom + event.deltaY
       if(calc <= 1)
         1
-      else if(calc >= 100)
-        100
+      else if(calc >= 1000)
+        1000
       else
         calc
     }
-    pixelDistance = ((au * 2) / size.x) * zoom
+    pixelDistance = (au/2 / size.x) * zoom
     center(toPixels(toLocation(center)))
     event.preventDefault()
   }
