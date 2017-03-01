@@ -10,10 +10,9 @@ import lars.core.physics.units.{Length, Time, Velocity}
 
 object Main {
   var paused = false
+  private var running = true
 
-  def main(args: Array[String]) {
-    new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
-
+  def createGalaxy(): Unit = {
     val sgrA = new System(Some(CelestialConstants.SagittariusA.name), Vec2.addIdent, Velocity.zero, Some(Game.galaxy))
     CelestialFactory.createBodies(CelestialConstants.SagittariusA.A, sgrA)
     Game.galaxy.add(sgrA)
@@ -33,26 +32,34 @@ object Main {
         body.velocity = (galaxyBarycenter.remove(body).gravForce(body) / body.mass / Time.second).inverse
       case _ =>
     })
+  }
 
-    println("LARS Core started. Press enter to stop.")
+  def start(): Unit = {
+    println("LARS started. Press enter to pause.")
 
-    var runLoop = true
-
-    new Thread(new Runnable {
-      override def run(): Unit = {
+    new Thread(() => {
+      while(running) {
         Console.in.readLine()
-        println("LARS Core stopping.")
-        runLoop = false
+        println("LARS " + (if(paused) "unpaused." else "paused."))
+        paused = !paused
       }
     }).start()
 
-    while(runLoop) {
+    while(running) {
       if(paused)
         Thread.sleep(1000)
       else
         Game.galaxy.observe(Time.minute)
     }
+  }
 
-    println("LARS Core stopped.")
+  def stop(): Unit = {
+    running = false
+  }
+
+  def main(args: Array[String]) {
+    new LARSApplication().run("server", "jvm/src/main/resources/config.yml")
+    createGalaxy()
+    start()
   }
 }
