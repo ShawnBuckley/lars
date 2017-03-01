@@ -29,21 +29,21 @@ class SystemTest {
       Some(system))
 
     system.add(sun)
-    assertEquals(system.getAll.size, 1)
+    assertEquals(system.bodies.size, 1)
     assertEquals(system.mass, sun.mass)
 
     system.add(earth)
-    assertEquals(system.getAll.size, 2)
+    assertEquals(system.bodies.size, 2)
     assertEquals(system.mass, sun.mass + earth.mass)
 
     system.del(earth)
 
-    assertEquals(system.getAll.size, 1)
+    assertEquals(system.bodies.size, 1)
     assertEquals(system.mass.kg, sun.mass.kg)
 
     system.del(sun)
 
-    assertEquals(system.getAll.size, 0)
+    assertEquals(system.bodies.size, 0)
     assertEquals(system.mass, Mass.zero)
   }
 }

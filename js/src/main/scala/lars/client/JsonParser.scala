@@ -22,10 +22,10 @@ object JsonParser {
   }
 
   def parseSystem(data: js.Dynamic, offset: Vec2): Option[Seq[CelestialBody]] = {
-    if(!hasFields(data, Array("name", "mass", "location", "velocity", "all"))) {
+    if(!hasFields(data, Array("name", "mass", "location", "velocity", "bodies"))) {
       None
     } else {
-      val bodies = data.all.asInstanceOf[js.Array[js.Dynamic]]
+      val bodies = data.bodies.asInstanceOf[js.Array[js.Dynamic]]
       val result = new mutable.ArrayBuffer[CelestialBody](bodies.length)
       val location = parseVec2(data.location).get + offset
       bodies.foreach(body => {

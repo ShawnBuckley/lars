@@ -1,6 +1,5 @@
 package lars.core.celestial.container
 
-import com.fasterxml.jackson.annotation.{JsonIgnore, JsonIgnoreProperties}
 import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
 import lars.core.math.Vec2
@@ -8,7 +7,7 @@ import lars.core.physics.celestial.gravitation.{ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable
 
 /**
   * Systems are celestial systems.  They are any type of celestial system including: planet and moons, solar systems,
@@ -37,7 +36,7 @@ class System(override var name: Option[String],
     with Observable
     with Nameable {
   override var mass: Mass = Mass.zero
-  private var bodies = new ArrayBuffer[Massive]
+  val bodies = new mutable.ArrayBuffer[Massive]
 
   /**
     * Adds a body to the system and updates the mass.
@@ -53,7 +52,7 @@ class System(override var name: Option[String],
     * @param body body to remove
     */
   def del(body: Massive): Unit = {
-    bodies = bodies.diff(List(body))
+    bodies -= body
     mass -= body.mass
   }
 
@@ -81,14 +80,6 @@ class System(override var name: Option[String],
         }
       case _ => false
     })
-  }
-
-  /**
-    * Gets all bodies.
-    * @return all bodies
-    */
-  def getAll: Seq[Massive] = {
-    bodies
   }
 
   override def observe(time: Time): Unit = {
