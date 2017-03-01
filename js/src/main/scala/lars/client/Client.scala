@@ -13,13 +13,13 @@ import scala.scalajs.js.annotation.JSExport
 
 @JSExport("Client")
 class Client extends JSApp {
+  val system = "TRAPPIST-1"
+
   val systemView = new SystemView("system-view")
-  val systemTable = new SystemTable("system-table", systemView)
+  val systemTable = new SystemTable("system-table", systemView, system)
 
   val pauseButton: HTMLButtonElement = dom.document.getElementById("playpause").asInstanceOf[HTMLButtonElement]
   pauseButton.addEventListener("click", (_: dom.Event) => pause())
-
-  val system = "Sol"
 
   // refresh rate
   val fps = 10.0
@@ -52,7 +52,7 @@ class Client extends JSApp {
       case None =>
       case Some(bodies: Seq[CelestialBody]) =>
         systemTable.update(bodies)
-        systemView.update(bodies)
+        systemView.update(system, bodies)
     }
   }
 }

@@ -17,6 +17,10 @@ object Main {
     CelestialFactory.createBodies(CelestialConstants.Sol.Sol, sol)
     Game.galaxy.add(sol)
 
+    val trappist1 = new System(Some(CelestialConstants.TRAPPIST1.name), new Vec2(0,0), Velocity.zero, Some(Game.galaxy))
+    CelestialFactory.createBodies(CelestialConstants.TRAPPIST1.A, trappist1)
+    Game.galaxy.add(trappist1)
+
     println("LARS Core started. Press enter to stop.")
 
     var runLoop = true

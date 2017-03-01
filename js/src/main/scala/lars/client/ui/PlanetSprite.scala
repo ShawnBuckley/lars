@@ -21,4 +21,16 @@ object PlanetSprite {
   sol.put("Charon", "white")
 
   system.put("Sol", sol)
+
+  val trappist1 = new mutable.HashMap[String, String]()
+  trappist1.put("a", "red")
+  trappist1.put("b", "orange")
+  trappist1.put("c", "yellow")
+  trappist1.put("d", "blue")
+  trappist1.put("e", "blue")
+  trappist1.put("f", "blue")
+  trappist1.put("g", "green")
+  trappist1.put("h", "white")
+
+  system.put("TRAPPIST-1", trappist1)
 }

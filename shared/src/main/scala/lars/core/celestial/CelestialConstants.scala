@@ -13,12 +13,14 @@ object CelestialConstants {
   object Sol {
     val name = "Sol"
 
+    val sol = BodyDefinition(name, BodyClassification.stellar, Length(695500), Mass(1.98855e30), OrbitDefinition.none)
+
     val mercury = BodyDefinition("Mercury", BodyClassification.terrestrial, Length(2439.7), Mass(3.3011e23), OrbitDefinition(Length(57909175), Time(87.969)))
 
     val venus = BodyDefinition("Venus", BodyClassification.terrestrial, Length(6051.59), Mass(4.8690e24), OrbitDefinition(Length(108208930), Time(224.5469999)))
 
     val luna = BodyDefinition("Luna", BodyClassification.terrestrial, Length(1737.1), Mass(7.342e22), OrbitDefinition(Length(385000), Time(27.321582)))
-    val earth = BodyDefinition("Earth", BodyClassification.terrestrial, Length(6371.0), Mass(5.9721986e24), OrbitDefinition(Length.zero, Time.zero))
+    val earth = BodyDefinition("Earth", BodyClassification.terrestrial, Length(6371.0), Mass(5.9721986e24), OrbitDefinition.none)
     var Earth =  SystemDefinition("Earth System", List(earth, luna), OrbitDefinition(Length(Length.Km.au), Time(365.006351)))
 
     val mars = BodyDefinition("Mars", BodyClassification.terrestrial, Length(3397.0), Mass(6.4191e23), OrbitDefinition(Length(227936640), Time(686.509374)))
@@ -41,7 +43,21 @@ object CelestialConstants {
 
     //    val sedna = BodyDefinition("Sedna", BodyClassification.terrestrial, Length(), Mass(), OrbitDefinition(Length(), Time()))
 
-    val sol = BodyDefinition(name, BodyClassification.stellar, Length(695500), Mass(1.98855e30), OrbitDefinition(Length.zero, Time.zero))
-    val Sol = SystemDefinition("Sol System", List[CelestialDefinition](sol, mercury, venus, Earth, mars, ceres, jupiter, saturn, uranus, neptune, Pluto), OrbitDefinition(Length.zero, Time.zero))
+    val Sol = SystemDefinition("Sol System", List[CelestialDefinition](sol, mercury, venus, Earth, mars, ceres, jupiter, saturn, uranus, neptune, Pluto), OrbitDefinition.none)
+  }
+
+  object TRAPPIST1 {
+    val name = "TRAPPIST-1"
+
+    val a = BodyDefinition("a", BodyClassification.stellar, Length(162793), Mass(1.59e29), OrbitDefinition.none)
+    val b = BodyDefinition("b", BodyClassification.terrestrial, Length(6926.6), Mass(5.08e24), OrbitDefinition(Length(1.66e6), Time(1.51087081 )))
+    val c = BodyDefinition("c", BodyClassification.terrestrial, Length(6735.3), Mass(8.242e24), OrbitDefinition(Length(2.28e6), Time(2.4218233)))
+    val d = BodyDefinition("d", BodyClassification.terrestrial, Length(4924), Mass(2.45e24), OrbitDefinition(Length(3.14e6), Time(4.049610)))
+    val e = BodyDefinition("e", BodyClassification.terrestrial, Length(5855), Mass(3.7e24), OrbitDefinition(Length(4.19e6), Time(6.099615)))
+    val f = BodyDefinition("f", BodyClassification.terrestrial, Length(6665.1), Mass(4.06e24), OrbitDefinition(Length(5.54e6), Time(9.206690)))
+    val g = BodyDefinition("g", BodyClassification.terrestrial, Length(7188.1), Mass(8.003e24), OrbitDefinition(Length(6.73e6), Time(12.35294)))
+    val h = BodyDefinition("h", BodyClassification.terrestrial, Length(4815), Mass(4.9e24), OrbitDefinition(Length(9.4e6), Time(20.2)))
+
+    val A = SystemDefinition("TRAPPIST-1 a System", List[CelestialDefinition](a, b, c, d, e, f, g, h), OrbitDefinition.none)
   }
 }

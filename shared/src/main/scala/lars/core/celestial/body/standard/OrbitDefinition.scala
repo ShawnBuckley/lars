@@ -11,3 +11,7 @@ case class OrbitDefinition(radius: Length, period: Time) {
       Circle.circumference(radius) / period
   }
 }
+
+object OrbitDefinition {
+  val none = OrbitDefinition(Length.zero, Time.zero)
+}

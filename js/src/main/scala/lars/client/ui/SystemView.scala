@@ -65,24 +65,28 @@ class SystemView(elementId: String) {
     context.clearRect(0, 0, size.x, size.y)
   }
 
-  private def render(): Unit = {
+  private def render(system: String): Unit = {
     context.clearRect(0, 0, canvas.width, canvas.height)
     bodies.foreach(body => {
-      PlanetSprite.sol.get(body.name.getOrElse("")) match {
+      PlanetSprite.system.get(system) match {
         case None =>
-        case Some(color: String) =>
-          context.beginPath()
-          val loc = toPixels(body.location) + viewport
-          context.arc(loc.x, loc.y, {
-            val logSize = Math.log((body.size.km / pixelDistance) * 1000)
-            if(logSize > 1)
-              logSize
-            else
-              1
-          }, 0, 2 * Math.PI)
-          context.fillStyle = color
-          context.fill()
-          context.lineWidth = 1
+        case Some(system) =>
+          system.get(body.name.getOrElse("")) match {
+            case None =>
+            case Some(color: String) =>
+              context.beginPath()
+              val loc = toPixels(body.location) + viewport
+              context.arc(loc.x, loc.y, {
+                val logSize = Math.log((body.size.km / pixelDistance) * 1000)
+                if(logSize > 1)
+                  logSize
+                else
+                  1
+              }, 0, 2 * Math.PI)
+              context.fillStyle = color
+              context.fill()
+              context.lineWidth = 1
+          }
       }
     })
   }
@@ -113,8 +117,8 @@ class SystemView(elementId: String) {
     }
   }
 
-  def update(bodies: Seq[CelestialBody]): Unit = {
+  def update(system: String, bodies: Seq[CelestialBody]): Unit = {
     this.bodies = bodies
-    render()
+    render(system)
   }
 }

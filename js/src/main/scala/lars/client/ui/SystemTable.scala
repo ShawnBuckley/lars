@@ -11,13 +11,11 @@ import org.scalajs.dom.raw.{HTMLButtonElement, HTMLTableCellElement, HTMLTableEl
 
 import scala.scalajs.js
 
-class SystemTable(elementId: String, view: SystemView) {
+class SystemTable(elementId: String, view: SystemView, system: String) {
   val table: HTMLTableElement = document.getElementById(elementId).asInstanceOf[HTMLTableElement]
 
   val au: Int = Length.Km.au.toInt
   val lunaDist: Int = CelestialConstants.Sol.luna.orbit.radius.km.toInt
-
-  val system = "Sol"
 
   // create table
   val xhr = new dom.XMLHttpRequest()
