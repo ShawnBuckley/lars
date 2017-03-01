@@ -1,6 +1,6 @@
 package lars.core.celestial.container
 
-import lars.core.celestial.CelestialConstants
+import lars.core.celestial.Constants
 import lars.core.celestial.body.standard.{StellarBody, TerrestrialBody}
 import lars.core.math.Vec2
 import lars.core.physics.units.{Mass, Velocity}
@@ -14,18 +14,18 @@ class SystemTest {
 
     val sun = new StellarBody(
       Some("Sol"),
-      CelestialConstants.Sol.sol.mass,
+      Constants.Sol.sol.mass,
       new Vec2(0,0),
       Velocity.zero,
-      CelestialConstants.Sol.sol.radius,
+      Constants.Sol.sol.radius,
       Some(system))
 
     val earth = new TerrestrialBody(
       Some("Earth"),
-      CelestialConstants.Sol.earth.mass,
-      new Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0),
-      new Velocity(new Vec2(0,CelestialConstants.Sol.earth.orbit.speed.ms)),
-      CelestialConstants.Sol.earth.radius,
+      Constants.Sol.earth.mass,
+      new Vec2(Constants.Sol.earth.orbit.radius.km,0),
+      new Velocity(new Vec2(0,Constants.Sol.earth.orbit.speed.ms)),
+      Constants.Sol.earth.radius,
       Some(system))
 
     system.add(sun)

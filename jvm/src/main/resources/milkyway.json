@@ -1,0 +1,275 @@
+{
+  "name": "Milky Way",
+  "type": "galaxy",
+  "bodies": [
+    {
+      "name": "Sagittarius A*",
+      "type": "system",
+      "orbit": {
+        "length": 0,
+        "period": 0
+      },
+      "bodies": [
+        {
+          "name": "Sagittarius A*",
+          "type": "singularity",
+          "mass": 8.57e36,
+          "orbit": {
+            "length": 0,
+            "period": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sol",
+      "type": "system",
+      "orbit": {
+        "length": 2.349e17,
+        "period": 0
+      },
+      "bodies": [
+        {
+          "name": "Sol",
+          "type": "stellar",
+          "mass": 1.98855e30,
+          "radius": 695500,
+          "orbit": {
+            "length": 0,
+            "period": 0
+          }
+        },
+        {
+          "name": "Mercury",
+          "type": "terrestrial",
+          "mass": 3.3011e23,
+          "radius": 2439.7,
+          "orbit": {
+            "length": 57909175,
+            "period": 87.969
+          }
+        },
+        {
+          "name": "Venus",
+          "type": "terrestrial",
+          "mass": 4.8690e24,
+          "radius": 6051.59,
+          "orbit": {
+            "length": 108208930,
+            "period": 224.5469999
+          }
+        },
+        {
+          "name": "Earth System",
+          "type": "system",
+          "orbit": {
+            "length": 1.496e8,
+            "period": 365.006351
+          },
+          "bodies": [
+            {
+              "name": "Earth",
+              "type": "terrestrial",
+              "mass": 5.9721986e24,
+              "radius": 6371,
+              "orbit": {
+                "length": 0,
+                "period": 0
+              }
+            },
+            {
+              "name": "Luna",
+              "type": "terrestrial",
+              "mass": 7.342e22,
+              "radius": 1737.1,
+              "orbit": {
+                "length": 385000,
+                "period": 27.321582
+              }
+            }
+          ]
+        },
+        {
+          "name": "Mars",
+          "type": "terrestrial",
+          "mass": 6.4191e23,
+          "radius": 3397,
+          "orbit": {
+            "length": 227936640,
+            "period": 686.509374
+          }
+        },
+        {
+          "name": "Ceres",
+          "type": "terrestrial",
+          "mass": 9.393e20,
+          "radius": 473,
+          "orbit": {
+            "length": 399426314.769,
+            "period": 1681.63
+          }
+        },
+        {
+          "name": "Jupiter",
+          "type": "gaseous",
+          "mass": 1.8987e27,
+          "radius": 71492.68,
+          "orbit": {
+            "length": 778412010,
+            "period": 4329.854475
+          }
+        },
+        {
+          "name": "Saturn",
+          "type": "gaseous",
+          "mass": 5.6851e26,
+          "radius": 60267.14,
+          "orbit": {
+            "length": 1433449370,
+            "period": 10748.33677
+          }
+        },
+        {
+          "name": "Uranus",
+          "type": "gaseous",
+          "mass": 8.6849e25,
+          "radius": 25557.25,
+          "orbit": {
+            "length": 2870972200,
+            "period": 30666.14879
+          }
+        },
+        {
+          "name": "Neptune",
+          "type": "gaseous",
+          "mass": 1.0244e26,
+          "radius": 24766.36,
+          "orbit": {
+            "length": 4498252900,
+            "period": 60148.8318
+          }
+        },
+        {
+          "name": "Pluto System",
+          "type": "system",
+          "orbit": {
+            "length": 5.9061e9,
+            "period": 90560
+          },
+          "bodies": [
+            {
+              "name": "Pluto",
+              "type": "terrestrial",
+              "mass": 1.303e22,
+              "radius": 1187,
+              "orbit": {
+                "length": 0,
+                "period": 0
+              }
+            },
+            {
+              "name": "Charon",
+              "type": "terrestrial",
+              "mass": 1.586e21,
+              "radius": 606,
+              "orbit": {
+                "length": 19571,
+                "period": 6.387
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TRAPPIST-1",
+      "type": "system",
+      "orbit": {
+        "length": 2.353e17,
+        "period": 0
+      },
+      "bodies": [
+        {
+          "name": "a",
+          "type": "stellar",
+          "mass": 1.59e29,
+          "radius": 162793,
+          "orbit": {
+            "length": 0,
+            "period": 0
+          }
+        },
+        {
+          "name": "b",
+          "type": "terrestrial",
+          "mass": 5.08e24,
+          "radius": 6926.6,
+          "orbit": {
+            "length": 1.66e6,
+            "period": 1.51087081
+          }
+        },
+        {
+          "name": "c",
+          "type": "terrestrial",
+          "mass": 8.242e24,
+          "radius": 6735.3,
+          "orbit": {
+            "length": 2.28e6,
+            "period": 2.4218232
+          }
+        },
+        {
+          "name": "d",
+          "type": "terrestrial",
+          "mass": 2.45e24,
+          "radius": 4924,
+          "orbit": {
+            "length": 4.19e6,
+            "period": 4.049610
+          }
+        },
+        {
+          "name": "e",
+          "type": "terrestrial",
+          "mass": 3.7e24,
+          "radius": 5855,
+          "orbit": {
+            "length": 4.19e6,
+            "period": 6.099615
+          }
+        },
+        {
+          "name": "f",
+          "type": "terrestrial",
+          "mass": 4.06e24,
+          "radius": 6665.1,
+          "orbit": {
+            "length": 5.54e6,
+            "period": 9.206690
+          }
+        },
+        {
+          "name": "g",
+          "type": "terrestrial",
+          "mass": 8.003e24,
+          "radius": 7188.1,
+          "orbit": {
+            "length": 6.73e6,
+            "period": 12.35294
+          }
+        },
+        {
+          "name": "h",
+          "type": "terrestrial",
+          "mass": 4.9e24,
+          "radius": 4815,
+          "orbit": {
+            "length": 9.4e6,
+            "period": 20.2
+          }
+        }
+      ]
+    }
+  ]
+}

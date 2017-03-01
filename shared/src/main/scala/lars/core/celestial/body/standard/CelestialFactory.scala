@@ -2,36 +2,57 @@ package lars.core.celestial.body.standard
 
 import lars.core.celestial.Parent
 import lars.core.celestial.container.System
-import lars.core.celestial.definition.{BodyClassification, BodyDefinition, SystemDefinition}
+import lars.core.celestial.definition.Definition
 import lars.core.math.Vec2
-import lars.core.physics.units.Velocity
+import lars.core.physics.units.{Length, Mass, Velocity}
 
 object CelestialFactory {
-  def createBody(body: BodyDefinition, parent: Parent): Option[StandardBody] = {
-    val location = new Vec2(body.orbit.radius.km,0)
-    val velocity = new Velocity(new Vec2(0, body.orbit.speed.ms))
-    body.classification match {
-      case BodyClassification.singularity => Some(new Singularity(Some(body.name), body.mass, location, velocity, Some(parent)))
-      case BodyClassification.stellar => Some(new StellarBody(Some(body.name), body.mass, location, velocity, body.radius, Some(parent)))
-      case BodyClassification.gaseous => Some(new GaseousBody(Some(body.name), body.mass, location, velocity, body.radius, Some(parent)))
-      case BodyClassification.terrestrial => Some(new TerrestrialBody(Some(body.name), body.mass, location, velocity, body.radius, Some(parent)))
-      case BodyClassification.micro => Some(new MicroBody(Some(body.name), body.mass, location, velocity, body.radius, Some(parent)))
-      case BodyClassification.none => None
+  def createBody(definition: Definition, parent: Parent): Option[StandardBody] = {
+    val name = Some(definition.name)
+    val mass = Mass(definition.mass)
+    val radius = Length(definition.radius)
+    val location = new Vec2(definition.orbit.length, 0)
+    val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
+    definition.`type` match {
+      case "singularity" =>
+        Some(new Singularity(name, mass, location, velocity, Some(parent)))
+      case "stellar" =>
+        Some(new StellarBody(name, mass, location, velocity, radius, Some(parent)))
+      case "gaseous" =>
+        Some(new GaseousBody(name, mass, location, velocity, radius, Some(parent)))
+      case "terrestrial" =>
+        Some(new TerrestrialBody(name, mass, location, velocity, radius, Some(parent)))
+      case "micro" =>
+        Some(new MicroBody(name, mass, location, velocity, radius, Some(parent)))
+      case _ =>
+        None
     }
   }
 
-  def createBodies(systemDefinition: SystemDefinition, system: System): Unit = {
-    systemDefinition.bodies.foreach({
-      case bodyDefinition: BodyDefinition =>
-        CelestialFactory.createBody(bodyDefinition, system) match {
+  def createBodies(definition: Definition, parent: Parent): Unit = {
+    definition.`type` match {
+      case "galaxy" =>
+        definition.bodies.foreach(body => {
+          if(body.bodies != null && body.bodies.nonEmpty) {
+            createBodies(body, parent)
+          }
+        })
+      case "system" =>
+        val location = new Vec2(definition.orbit.length, 0)
+        val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
+        val system = new System(Some(definition.name), location, velocity, Some(parent))
+        if(definition.bodies != null && definition.bodies.nonEmpty) {
+          definition.bodies.foreach(body => {
+            createBodies(body, system)
+          })
+        }
+        parent.add(system)
+      case _ =>
+        createBody(definition, parent) match {
           case None =>
           case Some(body: StandardBody) =>
-            system.add(body)
+            parent.add(body)
         }
-      case systemDefinition: SystemDefinition =>
-        val newSystem = new System(Some(systemDefinition.name), new Vec2(systemDefinition.orbit.radius.km, 0), Velocity(new Vec2(0, systemDefinition.orbit.speed.ms)), Some(system))
-        createBodies(systemDefinition, newSystem)
-        system.add(newSystem)
-    })
+    }
   }
 }

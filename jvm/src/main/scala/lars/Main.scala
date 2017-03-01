@@ -1,49 +1,40 @@
 package lars
 
 import lars.core.celestial.body.standard._
-import lars.core.celestial.container.System
-import lars.core.math.Vec2
+import lars.core.celestial.container.Galaxy
 import lars.application.LARSApplication
-import lars.core.celestial.{CelestialConstants, TemporalMassive}
-import lars.core.physics.Barycenter
-import lars.core.physics.units.{Length, Time, Velocity}
+import lars.core.physics.units.Time
 import org.slf4j.{Logger, LoggerFactory}
+import java.nio.file.Files
+import java.nio.file.Paths
+
+import lars.core.celestial.definition.Definition
+import util.JsonUtil
+
 
 object Main {
-  var paused = false
+  var paused = true
   private var running = true
 
   val logger: Logger = LoggerFactory.getLogger("lars.Main")
 
   def createGalaxy(): Unit = {
-    val sgrA = new System(Some(CelestialConstants.SagittariusA.name), Vec2.addIdent, Velocity.zero, Some(Game.galaxy))
-    CelestialFactory.createBodies(CelestialConstants.SagittariusA.A, sgrA)
-    Game.galaxy.add(sgrA)
+    val galString = new String(Files.readAllBytes(Paths.get("jvm/src/main/resources/milkyway.json")))
+    val galaxyData = JsonUtil.fromJson[Definition](galString)
 
-    val sol = new System(Some(CelestialConstants.Sol.name), new Vec2(2.349e17, 0), Velocity.zero, Some(Game.galaxy))
-    CelestialFactory.createBodies(CelestialConstants.Sol.Sol, sol)
-    Game.galaxy.add(sol)
-
-    val trappist1 = new System(Some(CelestialConstants.TRAPPIST1.name), new Vec2(2.349e17 + 39.5 * Length.Km.au, 0), Velocity.zero, Some(Game.galaxy))
-    CelestialFactory.createBodies(CelestialConstants.TRAPPIST1.A, trappist1)
-    Game.galaxy.add(trappist1)
-
-    // Calculate system speeds
-    val galaxyBarycenter = Barycenter(Game.galaxy.mass, Game.galaxy.location)
-    Game.galaxy.bodies.foreach({
-      case body: TemporalMassive =>
-        body.velocity = (galaxyBarycenter.remove(body).gravForce(body) / body.mass / Time.second).inverse
-      case _ =>
-    })
+    Game.galaxy = new Galaxy(Some(galaxyData.name))
+    CelestialFactory.createBodies(galaxyData, Game.galaxy)
   }
 
   def start(): Unit = {
-    logger.info("LARS started. Press enter to pause.")
+    def getPaused = if(paused) "unpaused." else "paused."
+
+    logger.info("LARS started. Press enter to " + getPaused)
 
     new Thread(() => {
       while(running) {
         Console.in.readLine()
-        logger.info("LARS " + (if(paused) "unpaused." else "paused."))
+        logger.info("LARS " + getPaused)
         paused = !paused
       }
     }).start()

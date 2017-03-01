@@ -9,14 +9,26 @@ import lars.core.physics.units.Mass
   */
 trait Parent extends NestedLocation {
   /**
-    * Adds mass to the a celestial container.  Propegates to the eldest most celestial container.
+    * Adds mass to the celestial container.  Propagates to the eldest most celestial container.
     * @param mass mass to add
     */
   def add(mass: Mass)
 
   /**
-    * Removes mass from a celestial container.  Propegates to the eldest most celestial container.
+    * Removes mass from the celestial container.  Propagates to the eldest most celestial container.
     * @param mass mass to remove
     */
   def del(mass: Mass)
+
+  /**
+    * Adds massive to the celestial container.
+    * @param massive massive to add
+    */
+  def add(massive: Massive)
+
+  /**
+    * Removes massive from the celestial container.
+    * @param massive massive to remove
+    */
+  def del(massive: Massive)
 }

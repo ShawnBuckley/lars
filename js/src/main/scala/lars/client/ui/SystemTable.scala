@@ -2,7 +2,6 @@ package lars.client.ui
 
 import lars.client.JsonParser
 import lars.client.celestial.CelestialBody
-import lars.core.celestial.CelestialConstants
 import lars.core.math.{Polar2, Vec2}
 import lars.core.physics.units.Length
 import org.scalajs.dom
@@ -15,7 +14,7 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
   val table: HTMLTableElement = document.getElementById(elementId).asInstanceOf[HTMLTableElement]
 
   val au: Int = Length.Km.au.toInt
-  val lunaDist: Int = CelestialConstants.Sol.luna.orbit.radius.km.toInt
+  val lunaDist: Int = 38500
 
   // create table
   val xhr = new dom.XMLHttpRequest()

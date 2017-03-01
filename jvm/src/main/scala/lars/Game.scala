@@ -4,6 +4,6 @@ import lars.core.Gametime
 import lars.core.celestial.container.Galaxy
 
 object Game {
-  val galaxy = new Galaxy(Some("Milky Way"))
+  var galaxy: Galaxy = _
   var time = new Gametime(0)
 }

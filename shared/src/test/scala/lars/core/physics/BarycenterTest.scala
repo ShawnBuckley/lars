@@ -1,6 +1,6 @@
 package lars.core.physics
 
-import lars.core.celestial.CelestialConstants
+import lars.core.celestial.Constants
 import lars.core.math.Vec2
 import lars.core.physics.units.Mass
 import org.testng.annotations.Test
@@ -56,8 +56,8 @@ class BarycenterTest {
 
   @Test
   def barycenterRemove(): Unit = {
-    val sun = new MassiveBody(CelestialConstants.Sol.sol.mass, Vec2(0,0))
-    val earth = new MassiveBody(CelestialConstants.Sol.earth.mass, Vec2(CelestialConstants.Sol.earth.orbit.radius.km,0))
+    val sun = new MassiveBody(Constants.Sol.sol.mass, Vec2(0,0))
+    val earth = new MassiveBody(Constants.Sol.earth.mass, Vec2(Constants.Sol.earth.orbit.radius.km,0))
     val barycenter = Barycenter.calculate(sun, earth)
     assertEquals(Vec2(1.4959802299811888E8, 0), Barycenter.remove(barycenter, sun).location)
     assertEquals(sun.location, Barycenter.remove(barycenter, earth).location)
