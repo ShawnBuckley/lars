@@ -29,6 +29,7 @@ case class Vec2(x: Double, y: Double) extends Ordered[Vec2] {
 
   override def compare(that: Vec2) = magnitude.compare(that.magnitude)
 
+  def inverse: Vec2 = Vec2(y, x)
   def midpoint(that: Vec2) = new Vec2((x + that.x)/2, (y + that.y)/2)
   def distance(that: Vec2) = new Vec2(x - that.x, y - that.y)
   def magnitude = math.sqrt(math.pow(x, 2) + math.pow(y, 2))

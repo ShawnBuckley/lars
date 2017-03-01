@@ -28,11 +28,10 @@ object Main {
 
     // Calculate system speeds
     val galaxyBarycenter = Barycenter(Game.galaxy.mass, Game.galaxy.location)
-    Game.galaxy.getAll.foreach({
-      case _ =>
+    Game.galaxy.bodies.foreach({
       case body: TemporalMassive =>
-        val velocity = Barycenter.remove(galaxyBarycenter, body).gravForce(body) / body.mass / Time.second
-        body.velocity = Velocity(Vec2(velocity.ms.y, velocity.ms.x))
+        body.velocity = (galaxyBarycenter.remove(body).gravForce(body) / body.mass / Time.second).inverse
+      case _ =>
     })
 
     println("LARS Core started. Press enter to stop.")

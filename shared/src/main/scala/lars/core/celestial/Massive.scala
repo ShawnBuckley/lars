@@ -20,8 +20,14 @@ trait Massive {
     * @param other other mass
     * @return the gravitation force the objects are exerting on each other
     */
-  def gravForce(other: Massive): Force =
-    Force((location - other.location).normalize * (Physics.G.m * mass.kg * other.mass.kg) / math.pow(new Length(location.distance(other.location).magnitude).m, 2))
+  def gravForce(other: Massive): Force = {
+    val distance = Length(location.distance(other.location).magnitude).m
+    if(distance != 0)
+      Force((location - other.location).normalize * (Physics.G.m * mass.kg * other.mass.kg) / math.pow(distance, 2))
+    else
+      Force.zero
+  }
+
 
   /**
     * Calculates the required velocity to escape this mass.

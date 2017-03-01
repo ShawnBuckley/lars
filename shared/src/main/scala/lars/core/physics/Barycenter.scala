@@ -37,6 +37,10 @@ case class Barycenter(override var mass: Mass, override var location: Vec2) exte
     mass += total
     location += (newLocation / total.kg)
   }
+
+  def remove(body: Massive): Barycenter = {
+    Barycenter.remove(this, body)
+  }
 }
 
 object Barycenter {
