@@ -14,7 +14,7 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
   val table: HTMLTableElement = document.getElementById(elementId).asInstanceOf[HTMLTableElement]
 
   val au: Int = Length.Km.au.toInt
-  val lunaDist: Int = 38500
+  val lunaDist: Int = 385000
 
   // create table
   val xhr = new dom.XMLHttpRequest()
