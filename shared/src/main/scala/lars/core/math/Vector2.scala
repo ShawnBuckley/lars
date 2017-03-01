@@ -9,6 +9,7 @@ trait Vector2[T] extends Ordered[T] {
 
   def unary_- : T
 
+  def inverse: T
   def midpoint(that: T): T
   def distance(that: T): T
   def magnitude: Double

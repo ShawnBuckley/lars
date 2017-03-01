@@ -13,6 +13,7 @@ case class Force(N: Vec2) extends Vector2[Force] {
 
   override def compare(that: Force): Int = N.compare(that.N)
 
+  override def inverse: Force = Force(N.inverse)
   def midpoint(that: Force) = new Force(N.midpoint(that.N))
   def distance(that: Force) = new Force(N.distance(that.N))
   def magnitude: Double = N.magnitude

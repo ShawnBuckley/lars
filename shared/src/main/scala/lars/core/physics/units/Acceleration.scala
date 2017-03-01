@@ -13,6 +13,7 @@ case class Acceleration(ms2: Vec2) extends Vector2[Acceleration] {
 
   override def compare(that: Acceleration): Int = ms2.compare(that.ms2)
 
+  override def inverse: Acceleration = Acceleration(ms2.inverse)
   def midpoint(that: Acceleration) = new Acceleration(ms2.midpoint(that.ms2))
   def distance(that: Acceleration) = new Acceleration(ms2.distance(that.ms2))
   def magnitude: Double = ms2.magnitude
