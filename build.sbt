@@ -14,6 +14,8 @@ lazy val project = crossProject.in(file(".")).
   ).
   jvmSettings(
     libraryDependencies ++= Seq(
+      "org.slf4j" % "log4j-over-slf4j" % "1.7.24",
+
       "io.dropwizard" % "dropwizard-core" % "1.1.0-rc1",
 
       "com.fasterxml.jackson" % "jackson-bom" % "2.8.7",

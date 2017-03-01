@@ -7,10 +7,13 @@ import lars.application.LARSApplication
 import lars.core.celestial.{CelestialConstants, TemporalMassive}
 import lars.core.physics.Barycenter
 import lars.core.physics.units.{Length, Time, Velocity}
+import org.slf4j.{Logger, LoggerFactory}
 
 object Main {
   var paused = false
   private var running = true
+
+  val logger: Logger = LoggerFactory.getLogger("lars.Main")
 
   def createGalaxy(): Unit = {
     val sgrA = new System(Some(CelestialConstants.SagittariusA.name), Vec2.addIdent, Velocity.zero, Some(Game.galaxy))
@@ -35,12 +38,12 @@ object Main {
   }
 
   def start(): Unit = {
-    println("LARS started. Press enter to pause.")
+    logger.info("LARS started. Press enter to pause.")
 
     new Thread(() => {
       while(running) {
         Console.in.readLine()
-        println("LARS " + (if(paused) "unpaused." else "paused."))
+        logger.info("LARS " + (if(paused) "unpaused." else "paused."))
         paused = !paused
       }
     }).start()
@@ -51,6 +54,8 @@ object Main {
       else
         Game.galaxy.observe(Time.minute)
     }
+
+    logger.info("LARS stopped.")
   }
 
   def stop(): Unit = {
