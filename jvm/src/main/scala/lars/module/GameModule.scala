@@ -1,10 +1,10 @@
 package lars.module
 
-import com.google.inject.AbstractModule
 import lars.resource.PauseResource
+import net.codingwell.scalaguice.ScalaModule
 
-class GameModule() extends AbstractModule {
+class GameModule() extends ScalaModule {
   override def configure(): Unit = {
-    bind(classOf[PauseResource])
+    bind[PauseResource]
   }
 }

@@ -23,6 +23,7 @@ lazy val project = crossProject.in(file(".")).
 
       "com.google.inject" % "guice" % "4.1.0",
       "com.google.inject.extensions" % "guice-multibindings" % "4.1.0",
+      "net.codingwell" %% "scala-guice" % "4.1.0",
 
       "org.testng" % "testng" % "6.10" % "test"
     )
