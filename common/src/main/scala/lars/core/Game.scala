@@ -4,7 +4,7 @@ import lars.core.celestial.container.Galaxy
 import lars.core.physics.units.Time
 
 class Game(val galaxy: Galaxy) {
-  private var date = Time.zero
+  var date = Time.zero
 
   private var paused = true
   private var running = true
@@ -29,8 +29,10 @@ class Game(val galaxy: Galaxy) {
     while(running) {
       if(paused)
         Thread.sleep(1000)
-      else
-        galaxy.observe(Time.minute)
+      else{
+        date += Time.minute
+        galaxy.observe(date)
+      }
     }
 
     println("LARS stopped.")

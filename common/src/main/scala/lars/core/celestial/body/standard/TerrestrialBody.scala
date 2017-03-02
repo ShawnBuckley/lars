@@ -23,8 +23,8 @@ class TerrestrialBody(override var name: Option[String],
                       override var parent: Option[Parent])
   extends StandardBody with Observable {
 
-  override def observe(time: Time): Unit = {
-
+  override def observe(date: Time): Unit = {
+    lastObserved = date
   }
 
   override def collide(other: Sizeable): Unit = {

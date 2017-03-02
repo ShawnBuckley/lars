@@ -7,12 +7,24 @@ import com.google.inject.Inject
 import lars.core.Game
 import util.JsonUtil
 
-@Path("/galaxy")
+@Path("/game")
 @Produces(Array[String]("application/json"))
-class GalaxyResource @Inject()(game: Game) {
+class GameResource @Inject()(game: Game) {
   @GET
-  @Path("/")
+  @Path("/galaxy")
   def get(): Response = {
     Response.ok(JsonUtil.toJson(game.galaxy)).build
   }
+
+  @GET
+  @Path("/date")
+  def date: Response = {
+    Response.ok(JsonUtil.toJson(game.date)).build
+  }
+
+  @POST
+  @Path("/pause")
+  def togglePause(): Unit =
+    game.pause()
+
 }

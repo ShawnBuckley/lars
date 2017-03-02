@@ -113,7 +113,9 @@ class System(override var name: Option[String],
     })
   }
 
-  override def observe(time: Time): Unit = {
+  override def observe(date: Time): Unit = {
+    val duration = date - lastObserved
+    lastObserved = date
     val forceCalc: ForceCalculator =
       if(bodies.length < 100)
         new PairWise(bodies)
@@ -122,14 +124,14 @@ class System(override var name: Option[String],
     bodies.foreach(body => {
       body match {
         case body: TemporalMassive =>
-          body.update(forceCalc, time)
+          body.update(forceCalc, duration)
           // TODO - escape velocity calculation. requires checking for escape velocity difference over a stable orbit
 //          if(body.velocity >= escapeVelocity(body.location))
 //            escape(body)
         case _ =>
       }
       body match {
-        case observable: Observable => observable.observe(time)
+        case observable: Observable => observable.observe(date)
         case _ =>
       }
     })
