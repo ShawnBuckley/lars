@@ -3,6 +3,7 @@ lazy val scalaV = "2.12.1"
 
 lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
+  scalacOptions := Seq("-unchecked", "-deprecation"),
   libraryDependencies ++= Seq(
     "org.slf4j" % "log4j-over-slf4j" % "1.7.24",
 
@@ -19,6 +20,7 @@ lazy val server = (project in file("server")).settings(
 
 lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
+  scalacOptions := Seq("-unchecked", "-deprecation"),
   isScalaJSProject := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
@@ -29,11 +31,15 @@ lazy val client = (project in file("client")).settings(
 lazy val common = (crossProject.crossType(CrossType.Pure) in file ("common")).settings(
   version := "0.1-SNAPSHOT",
   scalaVersion := scalaV,
+  scalacOptions := Seq("-unchecked", "-deprecation"),
   libraryDependencies ++= Seq(
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.8.0",
-    "org.testng" % "testng" % "6.10" % "test"
+
+    "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
 )
 
 lazy val commonJS = common.js
 lazy val commonJVM = common.jvm
+
+logBuffered in Test := false

@@ -1,61 +1,90 @@
 package lars.core.math
 
 import lars.core.physics.units.{Area, Length, Speed, Time}
-import org.testng.annotations.Test
-import org.testng.Assert._
+import org.scalatest.FunSuite
 
-class LengthTest {
+class LengthTest extends FunSuite {
   val largerValue = 28.0
   val smallerValue = 16.0
 
   val larger = Length(largerValue)
   val smaller = Length(smallerValue)
 
-  @Test def + = assertEquals((larger + smaller).km, largerValue + smallerValue)
-  @Test def - = assertEquals((smaller - larger).km, smallerValue - largerValue)
-  @Test def * = assertEquals((larger * 4).km, largerValue * 4.0)
-  @Test def / = assertEquals((larger / 2).km, largerValue / 2.0)
+  test("+") {
+    assert((larger + smaller).km == largerValue + smallerValue)
+  }
 
-  @Test def unary_- = assertEquals(-larger, Length(-larger.km))
+  test("-") {
+    assert((smaller - larger).km == smallerValue - largerValue)
+  }
 
-  @Test def > = {
+  test("*") {
+    assert((larger * 4).km == largerValue * 4.0)
+  }
+
+  test("/") {
+    assert((larger / 2).km == largerValue / 2.0)
+  }
+
+  test("unary_-") {
+    assert(-larger == Length(-larger.km))
+  }
+
+  test(">") {
     assert(larger > smaller)
     assert(!(smaller > larger))
     assert(!(larger > larger))
   }
 
-  @Test def < = {
+  test("<") {
     assert(smaller < larger)
     assert(!(larger < smaller))
     assert(!(smaller < smaller))
   }
 
-  @Test def >= = {
+  test(">=") {
     assert(larger >= smaller)
     assert(!(smaller >= larger))
     assert(larger >= larger)
   }
 
-  @Test def <= = {
+  test("<=") {
     assert(smaller <= larger)
     assert(!(larger <= smaller))
     assert(smaller <= larger)
   }
 
-  @Test def equals = {
+  test("==") {
     assert(larger == larger)
+  }
+
+  test("!=") {
     assert(larger != smaller)
   }
 
-  @Test def midpoint = assertEquals(larger.midpoint(smaller), Length((largerValue + smallerValue) / 2.0))
-  @Test def distance = assertEquals(larger.distance(smaller), largerValue - smallerValue)
-  @Test def length = assertEquals(smaller.magnitude, smaller.km)
+  test("midpoint") {
+    assert(larger.midpoint(smaller) == Length((largerValue + smallerValue) / 2.0))
+  }
+
+  test("distance") {
+    assert(larger.distance(smaller) == largerValue - smallerValue)
+  }
+
+  test("length") {
+    assert(smaller.magnitude == smaller.km)
+  }
 
   // Other unit conversions
 
-  @Test def divideLength() = assertEquals(larger / smaller, largerValue / smallerValue)
+  test("divide by length") {
+    assert(larger / smaller == largerValue / smallerValue)
+  }
 
-  @Test def multiplyLength() = assertEquals(larger * smaller, new Area(largerValue * smallerValue))
+  test("multiply by length") {
+    assert(larger * smaller == Area(largerValue * smallerValue))
+  }
 
-  @Test def divideTime() = assertEquals(larger / Time.seconds(1), new Speed(largerValue * 1000))
+  test("divide by time") {
+    assert(larger / Time.seconds(1) == new Speed(largerValue * 1000))
+  }
 }

@@ -1,74 +1,61 @@
 package lars.core.physics.units
 
-import org.testng.Assert._
-import org.testng.annotations.Test
+import org.scalatest.FunSuite
 
-class MassTest {
+class MassTest extends FunSuite {
   val smaller = new Mass(1000)
   val larger =  new Mass(10000)
 
-  @Test
-  def +(): Unit = {
-    assertEquals(smaller + larger, Mass(11000))
+  test("+") {
+    assert(smaller + larger == new Mass(smaller.kg + larger.kg))
   }
 
-  @Test
-  def -(): Unit = {
-    assertEquals(larger - smaller, Mass(9000))
+  test("-") {
+    assert(larger - smaller == new Mass(larger.kg - smaller.kg))
   }
 
-  @Test
-  def *(): Unit = {
-    assertEquals(smaller * 2, Mass(2000))
+  test("*") {
+    assert(smaller * 2 == Mass(smaller.kg * 2))
   }
 
-  @Test
-  def /(): Unit = {
-    assertEquals(smaller / 2, Mass(500))
+  test("/") {
+    assert(smaller / 2 == Mass(smaller.kg / 2))
   }
 
-  @Test
-  def >() =
+  test("<") {
     assert(smaller < larger)
+  }
 
-  @Test
-  def <() =
+  test(">") {
     assert(larger > smaller)
+  }
 
-  @Test
-  def >=() = {
+  test(">=") {
     assert(larger >= smaller)
     assert(smaller >= smaller)
   }
 
-  @Test
-  def <=() = {
+  test("<=") {
     assert(smaller <= larger)
     assert(smaller <= smaller)
   }
 
-  @Test
-  def min() = {
-    assertEquals(Mass.min(smaller, larger), smaller)
-    assertEquals(Mass.min(larger, smaller), smaller)
+  test("==") {
+    assert(smaller == Mass(smaller.kg))
   }
 
-  @Test
-  def max() = {
-    assertEquals(Mass.max(larger, smaller), larger)
-    assertEquals(Mass.max(smaller, larger), larger)
+  test("min") {
+    assert(Mass.min(smaller, larger) == smaller)
+    assert(Mass.min(larger, smaller) == smaller)
   }
 
-  @Test
-  def sort() = {
-    val result = (larger, smaller)
-    assertEquals(Mass.sort(larger, smaller), result)
-    assertEquals(Mass.sort(smaller, larger), result)
+  test("max") {
+    assert(Mass.max(larger, smaller) == larger)
+    assert(Mass.max(smaller, larger) == larger)
   }
 
-  @Test
-  def density() = {
-    val volume = new Volume(10)
-    assertEquals(larger / volume, new Density(1000))
+  test("density") {
+    val volume = Volume(10)
+    assert(larger / volume == Density(1000))
   }
 }

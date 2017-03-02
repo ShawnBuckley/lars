@@ -3,12 +3,10 @@ package lars.core.celestial.body.standard
 import lars.core.celestial.{Constants, Sizeable}
 import lars.core.math.Vec2
 import lars.core.physics.units.{Length, Mass, Velocity}
-import org.testng.annotations.Test
-import org.testng.Assert._
+import org.scalatest.FunSuite
 
-class SingularityTest {
-  @Test
-  def collide(): Unit = {
+class SingularityTest extends FunSuite {
+  test("collide") {
     val singularity = new Singularity(None, Constants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
     val other = new Sizeable {
       override def collide(other: Sizeable) = ???
@@ -20,13 +18,12 @@ class SingularityTest {
     }
 
     singularity.collide(other)
-    assertEquals(singularity.mass, Constants.Sol.sol.mass + Mass(1000))
+    assert(singularity.mass == Constants.Sol.sol.mass + Mass(1000))
   }
 
-  @Test
-  def schwarzschildRadius(): Unit = {
+  test("schwarzschild radius") {
     val singularity = new Singularity(None, Constants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
-    assertEquals(singularity.schwarzschildRadius.km, 2.951555398799874)
+    assert(singularity.schwarzschildRadius.km == 2.951555398799874)
   }
 
 }
