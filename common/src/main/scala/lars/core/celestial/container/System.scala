@@ -36,60 +36,73 @@ class System(override var name: Option[String],
     with Observable
     with Nameable {
   override var mass: Mass = Mass.zero
-  val bodies = new mutable.ArrayBuffer[Massive]
+  val bodies = new mutable.ArrayBuffer[TemporalMassive with Child]
 
   /**
     * Adds a body to the system and updates the mass.
-    * @param body body to add
+    * @param massive body to add
     */
-  def add(body: Massive): Unit = {
-    bodies.append(body)
-    mass += body.mass
+  def add(massive: TemporalMassive with Child): Unit = {
+    bodies += massive
+    mass += massive.mass
   }
 
   /**
     * Removes a body from the system and updates the mass.
-    * @param body body to remove
+    * @param massive body to remove
+    * @return if body was removed
     */
-  def del(body: Massive): Unit = {
-    bodies -= body
-    mass -= body.mass
+  def del(massive: TemporalMassive with Child): Boolean = {
+    if(!bodies.contains(massive))
+      false
+    else {
+      bodies -= massive
+      mass -= massive.mass
+      true
+    }
   }
 
   /**
     * Triggered when a massive object enters a system. This needs to remove the object from the parent.
-    *
     * @param massive massive that entered the system
     */
-  override def enter(massive: Massive): Unit = {
-    bodies += massive
+  override def enter(massive: TemporalMassive with Child): Unit = {
+    add(massive)
+    massive.location -= location
+    massive.velocity -= velocity
     parent match {
       case None =>
       case Some(parent: Parent) =>
         parent.del(massive)
     }
+    massive.parent = Some(this)
   }
 
   /**
-    * Triggers of moving a child element to the container's parent when the child exceeds the escape velocity.
-    *
+    * Triggers of moving a child element to the container's parent when the child exceeds the escape velocity.  Does
+    * nothing when there is no parent to escape into.
     * @param massive massive that escaped
     */
-  override def escape(massive: Massive): Unit = {
-    parent match {
-      case None =>
-      case Some(parent: Parent) =>
-        bodies -= massive
-        parent.add(massive)
+  override def escape(massive: TemporalMassive with Child): Unit = {
+    if(bodies.contains(massive)) {
+      parent match {
+        case None =>
+        case Some(parent: Parent) =>
+          bodies -= massive
+          mass -= massive.mass
+          massive.location += location
+          massive.velocity += velocity
+          parent.enter(massive)
+      }
     }
   }
 
-/**
+  /**
     *
     * @param query body name
     * @return first body that matches the name
     */
-  def get(query: String): Option[Massive] = {
+  def get(query: String): Option[TemporalMassive with Child] = {
     bodies.find({
       case nameable: Nameable =>
         nameable.name match {
