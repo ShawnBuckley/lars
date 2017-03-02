@@ -17,7 +17,7 @@ object Main {
 
   val logger: Logger = LoggerFactory.getLogger("lars.Main")
 
-  private val galaxy = createGalaxy("jvm/src/main/resources/milkyway.json")
+  private val galaxy = createGalaxy("server/src/main/resources/milkyway.json")
 
   def createGalaxy(filename: String): Galaxy = {
     val galaxyData = JsonUtil.fromJson[Definition](new String(Files.readAllBytes(Paths.get(filename))))
@@ -58,7 +58,7 @@ object Main {
   }
 
   def main(args: Array[String]) {
-    new LARSApplication(galaxy).run("server", "jvm/src/main/resources/config.yml")
+    new LARSApplication(galaxy).run("server", "server/src/main/resources/config.yml")
     start()
   }
 }
