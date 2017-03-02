@@ -12,17 +12,17 @@ import com.google.inject.Module
 import io.dropwizard.Application
 import io.dropwizard.setup.Environment
 import lars.application.GuiceInjector.{withInjector, wrap}
-import lars.core.celestial.container.Galaxy
+import lars.core.Game
 import lars.module.{CelestialModule, GameModule}
 
-class LARSApplication(galaxy: Galaxy) extends Application[LARSConfiguration] {
+class LARSApplication(game: Game) extends Application[LARSConfiguration] {
 
   override def run(config: LARSConfiguration, env: Environment): Unit = {
     configure(config, env)
   }
 
   def configure(config: LARSConfiguration, env: Environment): Unit = {
-    List(new CelestialModule(galaxy), new GameModule()).foreach((module: Module) => {
+    List(new CelestialModule(game), new GameModule(game)).foreach((module: Module) => {
       withInjector(module) { injector =>
         injector.instancesWithAnnotation(classOf[Path]).foreach { r => env.jersey().register(r) }
         injector.instancesOfType(classOf[HealthCheck]).foreach { h => env.healthChecks.register(h.getClass.getName, h) }
