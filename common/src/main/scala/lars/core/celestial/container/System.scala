@@ -56,16 +56,6 @@ class System(override var name: Option[String],
     mass -= body.mass
   }
 
-  override def add(mass: Mass): Unit = {
-    this.mass += mass
-    parent.foreach(_.add(mass))
-  }
-
-  override def del(mass: Mass): Unit = {
-    this.mass -= mass
-    parent.foreach(_.del(mass))
-  }
-
   /**
     * Triggered when a massive object enters a system. This needs to remove the object from the parent.
     *
