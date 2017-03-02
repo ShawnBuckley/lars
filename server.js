@@ -5,8 +5,8 @@ var app = express();
 
 app.use(express.static('src/main/webapp'));
 
-app.use('/lars-fastopt.js', express.static('js/target/scala-2.12/lars-fastopt.js'));
-app.use('/lars-fastopt.js.map', express.static('js/target/scala-2.12/lars-fastopt.js.map'));
+app.use('/lars-fastopt.js', express.static('client/target/scala-2.12/client-fastopt.js'));
+app.use('/lars-fastopt.js.map', express.static('client/target/scala-2.12/client-fastopt.js.map'));
 
 var server = app.listen(3000, function () {
     console.log('Dev server listening at http://%s:%s/', server.address().address, server.address().port);
