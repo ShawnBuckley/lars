@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation
 
 import com.google.inject.{Guice, Injector, Module, TypeLiteral}
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.language.implicitConversions
 import scala.reflect._
 
@@ -23,19 +23,19 @@ object GuiceInjector {
 
 class InjectorWrapper(injector: Injector) {
   def instancesWithAnnotation[T <: Annotation](annotationClass: Class[T]): List[AnyRef] = {
-    injector.getAllBindings.filter { case (k, v) =>
+    injector.getAllBindings.asScala.filter { case (k, v) =>
       !k.getTypeLiteral.getRawType.getAnnotationsByType[T](annotationClass).isEmpty
     }.map { case (k, v) => injector.getInstance(k).asInstanceOf[AnyRef] }.toList
   }
 
   def instancesOfType[T: ClassTag](typeClass: Class[T]): List[T] = {
-    injector.findBindingsByType(TypeLiteral.get(classTag[T].runtimeClass)).map { b =>
+    injector.findBindingsByType(TypeLiteral.get(classTag[T].runtimeClass)).asScala.map { b =>
       injector.getInstance(b.getKey).asInstanceOf[T]
     }.toList
   }
 
   def dumpBindings(): Unit = {
-    injector.getBindings.keySet() foreach { k =>
+    injector.getBindings.keySet().asScala foreach { k =>
       println(s"bind key = ${k.toString}")
     }
   }
