@@ -22,7 +22,7 @@ class SystemTest extends FunSuite {
       Some("Earth"),
       Constants.Sol.earth.mass,
       new Vec2(Constants.Sol.earth.orbit.radius.km,0),
-      new Velocity(new Vec2(0,Constants.Sol.earth.orbit.speed.ms)),
+      Velocity.zero,
       Constants.Sol.earth.radius,
       Some(system))
 

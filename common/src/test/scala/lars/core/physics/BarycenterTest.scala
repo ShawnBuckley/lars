@@ -51,7 +51,7 @@ class BarycenterTest extends FunSuite {
 
   test("remove") {
     val sun = new MassiveBody(Constants.Sol.sol.mass, Vec2(0,0))
-    val earth = new MassiveBody(Constants.Sol.earth.mass, Vec2(Constants.Sol.Earth.orbit.radius.km,0))
+    val earth = new MassiveBody(Constants.Sol.earth.mass, Vec2(Constants.Sol.earth.orbit.radius.km,0))
     val barycenter = Barycenter.calculate(sun, earth)
     assert(Vec2(1.4959787069811887E8, 0) == Barycenter.remove(barycenter, sun).location)
     assert(sun.location == Barycenter.remove(barycenter, earth).location)
