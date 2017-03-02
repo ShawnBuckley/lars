@@ -1,6 +1,5 @@
-package lars.core.math
+package lars.core.physics.units
 
-import lars.core.physics.units.{Area, Length, Speed, Time}
 import org.scalatest.FunSuite
 
 class LengthTest extends FunSuite {

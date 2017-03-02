@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
 import lars.core.{Nameable, Observable}
-import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
+import lars.core.celestial.{Child, Parent, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.physics.celestial.gravitation.{ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
