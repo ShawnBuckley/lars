@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
 import lars.core.math.Vec2
-import lars.core.observation.Unobservable
+import lars.core.observation.SelfObservable
 import lars.core.physics.units.Velocity
 
 /**
@@ -9,4 +9,4 @@ import lars.core.physics.units.Velocity
   * instances of LARS.  All celestial objects exist within the galaxy and cannot escape it.
   * @param name galaxy name
   */
-class Galaxy(name: Option[String]) extends System(name, Vec2.addIdent, Velocity.zero, None) with Unobservable
+class Galaxy(name: Option[String]) extends System(name, Vec2.addIdent, Velocity.zero, None) with SelfObservable

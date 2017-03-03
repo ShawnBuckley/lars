@@ -51,7 +51,7 @@ class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time
   }
 
   /**
-    * Splits an observation into multiple obvservations based on the maximum tick length of an observation.
+    * Splits an observation into multiple observations based on the maximum tick length of an observation.
     * @param observable eldest object to start observing from
     * @param date current simulation time
     */
@@ -71,6 +71,7 @@ class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time
     observable.observed(date)
     observable.lastObserved = date
     observable match {
+      case _: SelfObservable =>
       case parent: Parent =>
         parent.children.foreach({
           case observable: Observable => observe(observable, date)

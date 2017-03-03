@@ -32,6 +32,9 @@ trait Observer {
       case None => child
       case Some(parent: Parent) =>
         parent match {
+          case self: SelfObservable =>
+            observe(self)
+            child
           case _: Unobservable => child
           case _ => getEldest(parent)
         }
