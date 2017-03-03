@@ -14,7 +14,9 @@ lazy val server = (project in file("server")).settings(
 
     "com.google.inject" % "guice" % "4.1.0",
     "com.google.inject.extensions" % "guice-multibindings" % "4.1.0",
-    "net.codingwell" %% "scala-guice" % "4.1.0"
+    "net.codingwell" %% "scala-guice" % "4.1.0",
+
+    "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
 ).dependsOn(commonJVM)
 
