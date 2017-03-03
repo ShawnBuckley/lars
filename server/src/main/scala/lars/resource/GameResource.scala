@@ -19,12 +19,6 @@ class GameResource @Inject()(game: Game) {
   @GET
   @Path("/date")
   def date: Response = {
-    Response.ok(JsonUtil.toJson(game.date)).build
+    Response.ok(JsonUtil.toJson(game.observer.date)).build
   }
-
-  @POST
-  @Path("/pause")
-  def togglePause(): Unit =
-    game.pause()
-
 }

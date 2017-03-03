@@ -8,7 +8,7 @@ import lars.core.math.Vec2
   */
 @JsonIgnoreProperties(Array[String]("parent"))
 trait Child extends NestedLocation {
-  var parent: Option[Parent]
+  var parent: Option[Parent with Child]
 
   /**
     * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using

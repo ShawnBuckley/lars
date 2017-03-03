@@ -9,15 +9,15 @@ import java.nio.file.Paths
 
 import lars.core.Game
 import lars.core.celestial.definition.Definition
+import lars.core.observation.StandardObserver
+import lars.core.physics.units.Time
 import util.JsonUtil
 
 object Main {
-  private var paused = true
-  private var running = true
-
   val logger: Logger = LoggerFactory.getLogger("lars.Main")
 
-  private val game = new Game(createGalaxy("server/src/main/resources/milkyway.json"))
+  private val game = new Game(createGalaxy("server/src/main/resources/milkyway.json"),
+    new StandardObserver(System.currentTimeMillis(), 1e7, Time.hour))
 
   def createGalaxy(filename: String): Galaxy = {
     val galaxyData = JsonUtil.fromJson[Definition](new String(Files.readAllBytes(Paths.get(filename))))
@@ -28,6 +28,5 @@ object Main {
 
   def main(args: Array[String]) {
     new LARSApplication(game).run("server", "server/src/main/resources/config.yml")
-    game.start()
   }
 }

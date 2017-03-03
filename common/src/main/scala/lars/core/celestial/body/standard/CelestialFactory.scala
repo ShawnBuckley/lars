@@ -1,13 +1,13 @@
 package lars.core.celestial.body.standard
 
-import lars.core.celestial.Parent
+import lars.core.celestial.{Child, Parent}
 import lars.core.celestial.container.System
 import lars.core.celestial.definition.Definition
 import lars.core.math.Vec2
 import lars.core.physics.units.{Length, Mass, Velocity}
 
 object CelestialFactory {
-  def createBody(definition: Definition, parent: Parent): Option[StandardBody] = {
+  def createBody(definition: Definition, parent: Parent with Child): Option[StandardBody] = {
     val name = Some(definition.name)
     val mass = Mass(definition.mass)
     val radius = Length(definition.radius)
@@ -29,7 +29,7 @@ object CelestialFactory {
     }
   }
 
-  def createBodies(definition: Definition, parent: Parent): Unit = {
+  def createBodies(definition: Definition, parent: Parent with Child): Unit = {
     definition.`type` match {
       case "galaxy" =>
         definition.bodies.foreach(body => {

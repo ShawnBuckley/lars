@@ -1,8 +1,8 @@
 package lars.core.celestial.body.standard
 
-import lars.core.{Nameable, Observable}
 import lars.core.celestial.{Child, Parent, Sizeable}
 import lars.core.math.Vec2
+import lars.core.observation.Observable
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 /**
@@ -20,11 +20,16 @@ class TerrestrialBody(override var name: Option[String],
                       override var location: Vec2,
                       override var velocity: Velocity,
                       override var size: Length,
-                      override var parent: Option[Parent])
+                      override var parent: Option[Parent with Child])
   extends StandardBody with Observable {
 
-  override def observe(date: Time): Unit = {
-    lastObserved = date
+  /**
+    * Observe an object.  The time passed is the current simulation date.
+    *
+    * @param date the current simulation time
+    */
+  override def observed(date: Time): Unit = {
+
   }
 
   override def collide(other: Sizeable): Unit = {

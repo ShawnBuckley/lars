@@ -1,4 +1,4 @@
-package lars.core
+package lars.core.observation
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import lars.core.physics.units.Time
@@ -9,13 +9,12 @@ import lars.core.physics.units.Time
   * observation will notify economies to run and celestial bodies to update their surface.
   */
 trait Observable {
+
   /**
     * Observe an object.  The time passed is the current simulation date.
-    * @param date the game's current time
+    * @param date the current simulation time
     */
-  def observe(date: Time): Unit = {
-    lastObserved = date
-  }
+  def observed(date: Time): Unit
 
   @JsonIgnore
   var lastObserved: Time = Time.zero

@@ -7,6 +7,7 @@ import com.google.inject.Inject
 import lars.core.Game
 import lars.core.celestial.container.System
 import lars.core.celestial.Massive
+import lars.core.observation.Observable
 import util.JsonUtil
 
 @Path("/system")
@@ -14,11 +15,19 @@ import util.JsonUtil
 class SystemResource @Inject()(game: Game) {
   @GET
   @Path("/{name}")
-  def getPlanets(@PathParam("name") name: String): Response = {
+  def get(@PathParam("name") name: String): Response = {
     game.galaxy.get(name) match {
-      case Some(system: System) => Response.ok(JsonUtil.toJson(system)).build
-      case Some(body: Massive) => Response.ok(JsonUtil.toJson(body)).build
-      case None => Response.status(Response.Status.NOT_FOUND).build
+      case Some(system: System) =>
+        game.observer.observe(system)
+        Response.ok(JsonUtil.toJson(system)).build
+      case Some(body: Massive) =>
+        body match {
+          case observable: Observable => game.observer.observe(observable)
+          case _ =>
+        }
+        Response.ok(JsonUtil.toJson(body)).build
+      case None =>
+        Response.status(Response.Status.NOT_FOUND).build
     }
   }
 }

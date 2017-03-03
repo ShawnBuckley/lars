@@ -1,8 +1,10 @@
 package lars.core.celestial.container
 
-import lars.core.{Nameable, Observable}
+import com.fasterxml.jackson.annotation.JsonIgnore
+import lars.core.Nameable
 import lars.core.celestial.{Child, Parent, TemporalMassive}
 import lars.core.math.Vec2
+import lars.core.observation.Observable
 import lars.core.physics.celestial.gravitation.{ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
@@ -29,7 +31,7 @@ import scala.collection.mutable
 class System(override var name: Option[String],
              override var location: Vec2,
              override var velocity: Velocity,
-             override var parent: Option[Parent])
+             override var parent: Option[Parent with Child])
   extends TemporalMassive
     with Parent
     with Child
@@ -98,6 +100,13 @@ class System(override var name: Option[String],
   }
 
   /**
+    * Returns children of the parent
+    * @return children
+    */
+  @JsonIgnore override def children: Seq[Child] =
+    bodies
+
+  /**
     *
     * @param query body name
     * @return first body that matches the name
@@ -113,29 +122,22 @@ class System(override var name: Option[String],
     })
   }
 
-  override def observe(date: Time): Unit = {
-    val duration = date - lastObserved
-    lastObserved = date
+  override def observed(date: Time): Unit = {
     val forceCalc: ForceCalculator =
       if(bodies.length < 100)
         new PairWise(bodies)
       else
         new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
-    bodies.foreach(body => {
-      body match {
-        case body: TemporalMassive =>
-          body.update(forceCalc, duration)
-          // TODO - escape velocity calculation. requires checking for escape velocity difference over a stable orbit
-//          if(body.velocity >= escapeVelocity(body.location))
-//            escape(body)
-        case _ =>
-      }
-      body match {
-        case observable: Observable => observable.observe(date)
-        case _ =>
-      }
+    bodies.foreach({
+      case body: TemporalMassive =>
+        body.update(forceCalc, date - lastObserved)
+        // TODO - escape velocity calculation. requires checking for escape velocity difference over a stable orbit
+//        if(body.velocity >= escapeVelocity(body.location))
+//          escape(body)
+      case _ =>
     })
   }
+
 
   override def absoluteLocation(relative: Vec2): Vec2 = {
     parent match {

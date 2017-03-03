@@ -31,4 +31,10 @@ trait Parent extends NestedLocation {
     * @param massive massive that escaped
     */
   def escape(massive: TemporalMassive with Child)
+
+  /**
+    * Returns children of the parent
+    * @return children
+    */
+  def children: Seq[Child]
 }
