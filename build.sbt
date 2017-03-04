@@ -1,24 +1,23 @@
-lazy val name = "lars"
-lazy val scalaV = "2.12.1"
+val name = "lars"
+val scalaV = "2.11.8"
 
 lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
+  scalaJSProjects := Seq(client),
   scalacOptions := Seq("-unchecked", "-deprecation"),
+  pipelineStages in Assets := Seq(scalaJSPipeline),
+  pipelineStages := Seq(digest, gzip),
+  compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
   libraryDependencies ++= Seq(
     "org.slf4j" % "log4j-over-slf4j" % "1.7.24",
-
-    "io.dropwizard" % "dropwizard-core" % "1.1.0-rc1",
-
+    "net.codingwell" %% "scala-guice" % "4.1.0",
     "com.fasterxml.jackson" % "jackson-bom" % "2.8.7",
     "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.6",
-
-    "com.google.inject" % "guice" % "4.1.0",
-    "com.google.inject.extensions" % "guice-multibindings" % "4.1.0",
-    "net.codingwell" %% "scala-guice" % "4.1.0",
-
+    "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
     "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
-).dependsOn(commonJVM)
+).enablePlugins(PlayScala).
+  dependsOn(commonJVM)
 
 lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
@@ -30,13 +29,12 @@ lazy val client = (project in file("client")).settings(
 ).dependsOn(commonJS).
   enablePlugins(ScalaJSPlugin)
 
-lazy val common = (crossProject.crossType(CrossType.Pure) in file ("common")).settings(
+lazy val common = (crossProject.crossType(CrossType.Pure) in file("common")).settings(
   version := "0.1-SNAPSHOT",
   scalaVersion := scalaV,
   scalacOptions := Seq("-unchecked", "-deprecation"),
   libraryDependencies ++= Seq(
     "com.fasterxml.jackson.core" % "jackson-annotations" % "2.8.0",
-
     "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
 )

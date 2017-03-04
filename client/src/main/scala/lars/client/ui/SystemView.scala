@@ -27,12 +27,12 @@ class SystemView(elementId: String) {
 
   // setup the canvas
   canvas.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
-  canvas.addEventListener("mousedown", mouseDown)
-  canvas.addEventListener("mouseup", mouseUp)
-  canvas.addEventListener("blur", mouseUp)
-  canvas.addEventListener("mousemove", mouseMove)
-  canvas.addEventListener("mousewheel", mouseZoom)
-  canvas.addEventListener("DOMMouseScroll", mouseZoom)
+  canvas.addEventListener("mousedown", (e: dom.MouseEvent) => mouseDown(e))
+  canvas.addEventListener("mouseup", (e: dom.MouseEvent) => mouseUp(e))
+  canvas.addEventListener("blur", (e: dom.MouseEvent) => mouseUp(e))
+  canvas.addEventListener("mousemove", (e: dom.MouseEvent) => mouseMove(e))
+  canvas.addEventListener("mousewheel", (e: dom.WheelEvent) => mouseZoom(e))
+  canvas.addEventListener("DOMMouseScroll", (e: dom.WheelEvent) => mouseZoom(e))
 
   private def mouseDown(event: dom.MouseEvent): Unit = {
     mouseClicked = true
