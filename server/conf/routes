@@ -2,5 +2,5 @@
 
 GET     /rest/system/:name      controllers.SystemController.find(name: String)
 
-GET     /rest/game/galaxy       controllers.GameController.galaxy
+GET     /rest/game/galaxy       controllers.GameController.getGalaxy
 GET     /rest/game/date         controllers.GameController.date
