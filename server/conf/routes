@@ -5,3 +5,4 @@ GET     /rest/body/:name        controllers.BodyController.find(name: String)
 
 GET     /rest/game/galaxy       controllers.GameController.getGalaxy
 GET     /rest/game/date         controllers.GameController.date
+GET     /rest/game/pause        controllers.GameController.pause

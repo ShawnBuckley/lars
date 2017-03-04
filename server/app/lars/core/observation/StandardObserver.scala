@@ -3,16 +3,49 @@ package lars.core.observation
 import lars.core.celestial.{Child, Parent}
 import lars.core.physics.units.Time
 
-// TODO - handle non-continuous system running
 /**
   * The standard observer.
-  * @param startTime millis when the simulation started
   * @param timeMulti simulation time multiplier
   * @param maxTickLength max length a single observation can be
   */
-class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time) extends Observer {
+class StandardObserver(timeMulti: Double, maxTickLength: Time) extends Observer {
+  private var startTime: Double = 0
+  private var stopTime: Double = 0
+  private var offset: Time = Time.zero
+  private var running = true
+
+  start()
+
+  /**
+    * Runs the simulation clock.
+    */
+  override def start(): Unit = {
+    startTime = System.currentTimeMillis()
+    running = true
+  }
+
+  /**
+    * Stops the simulation clock.
+    */
+  override def stop(): Unit = {
+    stopTime = System.currentTimeMillis()
+    offset = convertTime(stopTime)
+    running = false
+  }
+
+  /**
+    * Starts or stops the simulation clock
+    */
+  override def pause(): Unit = {
+    if(running)
+      stop()
+    else
+      start()
+  }
+
   /**
     * Converts the current system time into game time.
+ *
     * @return current game time
     */
   override def date: Time = {
@@ -25,7 +58,14 @@ class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time
     * @return corresponding game time
     */
   def convertTime(millis: Double): Time = {
-    Time(timeMulti * (millis - startTime) / 86400000)
+    val difference = {
+      if(running)
+        millis - startTime
+      else
+        stopTime - startTime
+    }
+
+    offset + Time(timeMulti * difference / 86400000)
   }
 
   /**
@@ -33,6 +73,7 @@ class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time
     * @param child object being observed
     */
   override def observe(child: Child): Unit = {
+    if(!running) return
     def handle(parent: Parent with Child): Unit = {
       getEldest(parent) match {
         case observable: Observable => splitObservations(observable, date)

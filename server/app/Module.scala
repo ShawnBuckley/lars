@@ -14,7 +14,7 @@ class Module extends ScalaModule {
     val galaxy = new Galaxy(Some(galaxyData.name))
     CelestialFactory.createBodies(galaxyData, galaxy)
 
-    val observer = new StandardObserver(System.currentTimeMillis(), 1e7, Time.hour)
+    val observer = new StandardObserver(1e7, Time.hour)
 
     bind[Galaxy].toInstance(galaxy)
     bind[Observer].toInstance(observer)

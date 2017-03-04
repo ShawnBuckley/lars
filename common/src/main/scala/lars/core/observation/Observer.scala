@@ -10,6 +10,21 @@ import scala.annotation.tailrec
   */
 trait Observer {
   /**
+    * Runs the simulation clock.
+    */
+  def start(): Unit
+
+  /**
+    * Stops the simulation clock.
+    */
+  def stop(): Unit
+
+  /**
+    * Starts or stops the simulation clock
+    */
+  def pause(): Unit
+
+  /**
     * Creates an observation chain starting from a single observable object. The chain will cascade until it reaches
     * the youngest most objects and the eldest most or unobservable object.
     * @param child object to observe

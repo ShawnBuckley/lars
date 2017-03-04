@@ -16,4 +16,9 @@ class GameController @Inject()(galaxy: Galaxy, observer: Observer) extends Contr
   def date = Action {
     Ok(JsonUtil.toJson(observer.date))
   }
+
+  def pause = Action {
+    observer.pause()
+    Ok("")
+  }
 }
