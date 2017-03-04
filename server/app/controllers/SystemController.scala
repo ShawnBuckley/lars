@@ -2,9 +2,8 @@ package controllers
 
 import javax.inject._
 
-import lars.core.celestial.Massive
 import lars.core.celestial.container.{Galaxy, System}
-import lars.core.observation.{Observable, Observer}
+import lars.core.observation.Observer
 import play.api.mvc._
 import util.JsonUtil
 
@@ -15,12 +14,7 @@ class SystemController @Inject()(galaxy: Galaxy, observer: Observer) extends Con
       case Some(system: System) =>
         observer.observe(system)
         Ok(JsonUtil.toJson(system))
-      case Some(body: Massive) => body match {
-        case observable: Observable => observer.observe(observable)
-        case _ =>
-      }
-        Ok(JsonUtil.toJson(body))
-      case None =>
+      case _ =>
         NotFound(s"No such system $name")
     }
   }

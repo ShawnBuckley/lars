@@ -37,4 +37,11 @@ trait Parent extends NestedLocation {
     * @return children
     */
   def children: Seq[Child]
+
+  /**
+    * Searches all children nodes for a child.
+    * @param name body name
+    * @return first match
+    */
+  def find(name: String): Option[Child]
 }

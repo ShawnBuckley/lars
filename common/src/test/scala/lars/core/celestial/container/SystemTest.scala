@@ -77,6 +77,17 @@ class SystemTest extends FunSuite with BeforeAndAfter {
     assert(system.get("Planet X").isEmpty)
   }
 
+  test("find earth in galaxy") {
+    system.add(earth)
+    galaxy.add(system)
+
+    assert(galaxy.find("Earth").get == earth)
+  }
+
+  test("find none") {
+    assert(system.find("Planet X").isEmpty)
+  }
+
   test("enter") {
     galaxy.add(sol)
     galaxy.add(earth)

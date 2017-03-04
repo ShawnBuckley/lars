@@ -106,6 +106,32 @@ class System(override var name: Option[String],
   @JsonIgnore override def children: Seq[Child] =
     bodies
 
+  override def find(query: String): Option[Child] = {
+    val result = bodies.find({
+      case nameable: Nameable =>
+        nameable.name match {
+          case Some(name: String) => name.equals(query)
+          case None => false
+        }
+      case _ => false
+    })
+    if(result.isEmpty) {
+      def findChild(system: TemporalMassive with Child): Option[Child] = {
+        system match {
+          case parent: Parent =>
+            parent.find(query) match {
+              case Some(child: Child) => Some(child)
+              case _ => None
+            }
+          case _ => None
+        }
+      }
+      bodies.flatMap(findChild).headOption
+    }
+    else
+      result
+  }
+
   /**
     *
     * @param query body name
