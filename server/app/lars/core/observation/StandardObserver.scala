@@ -30,18 +30,18 @@ class StandardObserver(startTime: Double, timeMulti: Double, maxTickLength: Time
 
   /**
     * Triggers observation of objects from the source's eldest observable parent.
-    * @param observable object being observed
+    * @param child object being observed
     */
-  override def observe(observable: Observable): Unit = {
+  override def observe(child: Child): Unit = {
     def handle(parent: Parent with Child): Unit = {
       getEldest(parent) match {
         case observable: Observable => splitObservations(observable, date)
         case _ =>
       }
     }
-    observable match {
+    child match {
       case parent: Parent with Child => handle(parent)
-      case child: Child with Observable =>
+      case child: Child =>
         child.parent match {
           case None => // TODO - orphaned object. handle here?
           case Some(parent: Parent) => handle(parent)

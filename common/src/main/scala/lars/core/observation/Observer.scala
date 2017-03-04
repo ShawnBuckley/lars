@@ -12,9 +12,9 @@ trait Observer {
   /**
     * Creates an observation chain starting from a single observable object. The chain will cascade until it reaches
     * the youngest most objects and the eldest most or unobservable object.
-    * @param observable object to observe
+    * @param child object to observe
     */
-  def observe(observable: Observable): Unit
+  def observe(child: Child): Unit
 
   /**
     * Gets the current simulation date
