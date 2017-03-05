@@ -12,9 +12,7 @@ class StandardObserver(timeMulti: Double, maxTickLength: Time) extends Observer 
   private var startTime: Double = 0
   private var stopTime: Double = 0
   private var offset: Time = Time.zero
-  private var running = true
-
-  start()
+  private var running = false
 
   /**
     * Runs the simulation clock.
