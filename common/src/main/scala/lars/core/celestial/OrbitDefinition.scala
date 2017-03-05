@@ -1,4 +1,4 @@
-package lars.core.celestial.body.standard
+package lars.core.celestial
 
 import lars.core.math.Circle
 import lars.core.physics.units.{Length, Speed, Time}

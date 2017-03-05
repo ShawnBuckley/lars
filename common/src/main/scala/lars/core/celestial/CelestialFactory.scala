@@ -1,6 +1,6 @@
-package lars.core.celestial.body.standard
+package lars.core.celestial
 
-import lars.core.celestial.{Child, Parent}
+import lars.core.celestial.body._
 import lars.core.celestial.container.System
 import lars.core.celestial.definition.Definition
 import lars.core.math.Vec2

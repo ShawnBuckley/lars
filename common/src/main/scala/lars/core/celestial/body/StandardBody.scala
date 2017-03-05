@@ -1,4 +1,4 @@
-package lars.core.celestial.body.standard
+package lars.core.celestial.body
 
 import lars.core.Nameable
 import lars.core.celestial.{Child, Parent, Sizeable}

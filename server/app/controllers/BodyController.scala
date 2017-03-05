@@ -3,7 +3,7 @@ package controllers
 import javax.inject.{Inject, Singleton}
 
 import lars.core.celestial.Child
-import lars.core.celestial.body.standard.StandardBody
+import lars.core.celestial.body.StandardBody
 import lars.core.celestial.container.Galaxy
 import lars.core.observation.Observer
 import play.api.mvc.{Action, Controller}

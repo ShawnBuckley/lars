@@ -49,7 +49,7 @@ class BarnesHutNode(private var child: Massive, size: Length) extends Barycenter
     * @param massive body being acted upon
     * @return forces acting on the body
     */
-  def calculate(massive: Massive): Force = {
+  def  calculate(massive: Massive): Force = {
     var force = Force.zero
     if(child != null) {
       if(child != massive)

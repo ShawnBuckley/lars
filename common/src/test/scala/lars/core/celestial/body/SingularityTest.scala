@@ -1,4 +1,4 @@
-package lars.core.celestial.body.standard
+package lars.core.celestial.body
 
 import lars.core.celestial.{Constants, Sizeable}
 import lars.core.math.Vec2

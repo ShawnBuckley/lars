@@ -1,8 +1,7 @@
-package lars.core.celestial.body.standard
+package lars.core.celestial.body
 
 import lars.core.celestial.{Child, Parent, Sizeable}
 import lars.core.math.Vec2
-import lars.core.observation.Observable
 import lars.core.physics.units.{Length, Mass, Velocity}
 
 /**

@@ -1,6 +1,6 @@
 import java.nio.file.{Files, Paths}
 
-import lars.core.celestial.body.standard.CelestialFactory
+import lars.core.celestial.CelestialFactory
 import lars.core.celestial.container.Galaxy
 import lars.core.celestial.definition.Definition
 import lars.core.observation.{Observer, StandardObserver}

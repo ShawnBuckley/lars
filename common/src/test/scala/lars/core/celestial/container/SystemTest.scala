@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
 import lars.core.celestial.Constants
-import lars.core.celestial.body.standard.{StellarBody, TerrestrialBody}
+import lars.core.celestial.body.{StellarBody, TerrestrialBody}
 import lars.core.math.Vec2
 import lars.core.physics.units.{Mass, Velocity}
 import org.scalatest.{BeforeAndAfter, FunSuite}
