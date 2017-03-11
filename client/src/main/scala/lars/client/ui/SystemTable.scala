@@ -2,7 +2,7 @@ package lars.client.ui
 
 import lars.client.JsonParser
 import lars.client.celestial.CelestialBody
-import lars.core.math.{Polar2, Vec2}
+import lars.core.math.Polar2
 import lars.core.physics.units.Length
 import org.scalajs.dom
 import org.scalajs.dom.document
@@ -21,7 +21,7 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
   xhr.open("GET", "rest/system/" + system)
   xhr.onload = { (e: dom.Event) =>
     if(xhr.status == 200) {
-      JsonParser.parseSystem(js.JSON.parse(xhr.responseText), Vec2.addIdent) match {
+      JsonParser.parseSystem(js.JSON.parse(xhr.responseText)) match {
         case None =>
         case Some(bodies: Seq[CelestialBody]) =>
           bodies.foreach(body => {

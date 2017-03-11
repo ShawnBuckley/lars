@@ -21,17 +21,17 @@ object JsonParser {
     }
   }
 
-  def parseSystem(data: js.Dynamic, offset: Vec2): Option[Seq[CelestialBody]] = {
+  def parseSystem(data: js.Dynamic): Option[Seq[CelestialBody]] = {
     if(!hasFields(data, Array("name", "mass", "location", "velocity", "bodies"))) {
       None
     } else {
       val bodies = data.bodies.asInstanceOf[js.Array[js.Dynamic]]
       val result = new mutable.ArrayBuffer[CelestialBody](bodies.length)
-      val location = parseVec2(data.location).get + offset
+      val location = parseVec2(data.location).get
       bodies.foreach(body => {
-        parseSystem(body, location) match {
+        parseSystem(body) match {
           case None =>
-            parseCelestialBody(body, location) match {
+            parseCelestialBody(body) match {
               case None =>
               case Some(body: CelestialBody) =>
                 result += body
@@ -44,14 +44,14 @@ object JsonParser {
     }
   }
 
-  def parseCelestialBody(data: js.Dynamic, offset: Vec2): Option[CelestialBody] = {
+  def parseCelestialBody(data: js.Dynamic): Option[CelestialBody] = {
     if(!hasFields(data, Array("name", "mass", "location", "velocity", "size"))) {
       None
     } else {
       Some(CelestialBody(
         Some(data.name.asInstanceOf[String]),
         Mass(data.mass.kg.asInstanceOf[Double]),
-        parseVec2(data.location).get + offset,
+        parseVec2(data.location).get,
         Velocity(parseVec2(data.velocity.ms).get),
         Length(data.size.km.asInstanceOf[Double])
       ))

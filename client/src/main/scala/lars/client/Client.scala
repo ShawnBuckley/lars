@@ -60,7 +60,7 @@ class Client extends JSApp {
   }
 
   def readPlanets(data: String): Unit = {
-    JsonParser.parseSystem(js.JSON.parse(data), Vec2.addIdent) match {
+    JsonParser.parseSystem(js.JSON.parse(data)) match {
       case None =>
       case Some(bodies: Seq[CelestialBody]) =>
         systemTable.update(bodies)
