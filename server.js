@@ -5,10 +5,10 @@ var app = express();
 
 var hostname = 'http://localhost:9000'
 
-app.use(express.static('src/main/webapp'));
+app.use(express.static('server/public'));
 
-app.use('/lars-fastopt.js', express.static('client/target/scala-2.11/client-fastopt.js'));
-app.use('/lars-fastopt.js.map', express.static('client/target/scala-2.11/client-fastopt.js.map'));
+app.use('/assets/client-fastopt.js', express.static('client/target/scala-2.11/client-fastopt.js'));
+app.use('/assets/client-fastopt.js.map', express.static('client/target/scala-2.11/client-fastopt.js.map'));
 
 var server = app.listen(3000, function () {
     console.log('Dev server listening at http://%s:%s/', server.address().address, server.address().port);

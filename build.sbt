@@ -27,7 +27,7 @@ lazy val client = (project in file("client")).settings(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
   )
 ).dependsOn(commonJS).
-  enablePlugins(ScalaJSPlugin)
+  enablePlugins(ScalaJSPlugin, ScalaJSWeb)
 
 lazy val common = (crossProject.crossType(CrossType.Pure) in file("common")).settings(
   version := "0.1-SNAPSHOT",
