@@ -59,12 +59,16 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
   }
   xhr.send()
 
+  def truncate(double: Double): Double = {
+    math.floor(double * 10000) / 10000
+  }
+
   def update(bodies: Seq[CelestialBody]): Unit = {
     // handle sun absolute location
     val sol = bodies.head
     val solRow = table.rows.namedItem("system_table_" + sol.name.get).asInstanceOf[HTMLTableRowElement]
-    solRow.cells.item(1).textContent = (sol.location.x / au).toString
-    solRow.cells.item(2).textContent = (sol.location.y / au).toString
+    solRow.cells.item(1).textContent = truncate(sol.location.x / au).toString
+    solRow.cells.item(2).textContent = truncate(sol.location.y / au).toString
 
     // handle luna
     bodies.find(body => body.name.getOrElse("") == "Earth") match {
@@ -76,8 +80,8 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
             val lunaPolar = Polar2.convert(earth.location, luna.location)
 
             val lunaRow = table.rows.namedItem("system_table_" + luna.name.get).asInstanceOf[HTMLTableRowElement]
-            lunaRow.cells.item(1).textContent = lunaPolar.angle.toString
-            lunaRow.cells.item(2).textContent = (lunaPolar.length / lunaDist).toString
+            lunaRow.cells.item(1).textContent = truncate(lunaPolar.angle).toString
+            lunaRow.cells.item(2).textContent = truncate(lunaPolar.length).toString
         }
     }
 
@@ -86,8 +90,8 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
       foreach(body => {
         val row = table.rows.namedItem("system_table_" + body.name.get).asInstanceOf[HTMLTableRowElement]
         val polar = Polar2.convert(sol.location, body.location)
-        row.cells.item(1).textContent = polar.angle.toString
-        row.cells.item(2).textContent = (polar.length / au).toString
+        row.cells.item(1).textContent = truncate(polar.angle).toString
+        row.cells.item(2).textContent = truncate(polar.length / au).toString
       })
   }
 }
