@@ -13,7 +13,7 @@ class SystemController @Inject()(galaxy: Galaxy, observer: Observer) extends Con
     galaxy.get(name) match {
       case Some(system: System) =>
         observer.observe(system)
-        Ok(JsonUtil.toJson(system))
+        Ok(JsonUtil.toJson(system)).as("application/json")
       case _ =>
         NotFound(s"No such system $name")
     }

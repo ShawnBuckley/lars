@@ -16,7 +16,7 @@ class BodyController @Inject()(galaxy: Galaxy, observer: Observer) extends Contr
       case Some(child: Child) => child match {
         case body: StandardBody =>
           observer.observe(body)
-          Ok(JsonUtil.toJson(body))
+          Ok(JsonUtil.toJson(body)).as("application/json")
         case _ =>
           NotFound(s"No such body $name")
       }
