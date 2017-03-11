@@ -20,9 +20,16 @@ trait Observer {
   def stop(): Unit
 
   /**
-    * Starts or stops the simulation clock
+    * Starts or stops the simulation clock and returns the current state.
+    * @return true is running
     */
-  def pause(): Unit
+  def pause(): Boolean
+
+  /**
+    * Gets the current state of the observer.
+    * @return true is running
+    */
+  def isRunning: Boolean
 
   /**
     * Creates an observation chain starting from a single observable object. The chain will cascade until it reaches

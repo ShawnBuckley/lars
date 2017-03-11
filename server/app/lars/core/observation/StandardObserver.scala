@@ -34,12 +34,20 @@ class StandardObserver(timeMulti: Double, maxTickLength: Time) extends Observer 
   /**
     * Starts or stops the simulation clock
     */
-  override def pause(): Unit = {
+  override def pause(): Boolean = {
     if(running)
       stop()
     else
       start()
+    running
   }
+
+  /**
+    * Gets the current state of the observer.
+    *
+    * @return true is running
+    */
+  override def isRunning: Boolean = running
 
   /**
     * Converts the current system time into game time.

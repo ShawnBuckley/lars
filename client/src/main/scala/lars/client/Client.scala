@@ -36,6 +36,17 @@ class Client extends JSApp {
   def pause(): Unit = {
     val xhr = new dom.XMLHttpRequest
     xhr.open("POST", "rest/game/pause")
+    xhr.onload = { (_: dom.Event) =>
+      xhr.responseText match {
+        case "true" =>
+          pauseButton.textContent = "Stop"
+          pauseButton.className = pauseButton.className.replace("btn-success", "btn-danger")
+        case "false" =>
+          pauseButton.textContent = "Run"
+          pauseButton.className = pauseButton.className.replace("btn-danger", "btn-success")
+        case _ =>
+      }
+    }
     xhr.send()
   }
 
