@@ -34,6 +34,7 @@ class SystemTable(elementId: String, view: SystemView, system: String) {
                 nameCell.textContent = "Unnamed"
               case Some(name: String) =>
                 val bodyButton = dom.document.createElement("button").asInstanceOf[HTMLButtonElement]
+                bodyButton.className = "btn btn-sm btn-default"
                 bodyButton.textContent = name
                 bodyButton.addEventListener("click", (event: dom.Event) =>
                   view.focus(name)
