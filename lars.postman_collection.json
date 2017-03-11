@@ -1,0 +1,44 @@
+{
+	"variables": [],
+	"info": {
+		"name": "lars",
+		"_postman_id": "b3a4ef7c-d64e-4e8a-15e0-01d69144b73d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get system",
+			"request": {
+				"url": "http://{{url}}/rest/system/Sol",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get body",
+			"request": {
+				"url": "http://{{url}}/rest/body/Earth",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "game pause",
+			"request": {
+				"url": "http://{{url}}/rest/game/pause",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
