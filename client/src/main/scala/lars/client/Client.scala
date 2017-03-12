@@ -1,8 +1,7 @@
 package lars.client
 
-import lars.client.celestial.CelestialBody
+import lars.client.celestial.System
 import lars.client.ui.{SystemTable, SystemView}
-import lars.core.math.Vec2
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLButtonElement
 import org.scalajs.dom.window
@@ -14,10 +13,12 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport("Client")
 class Client extends JSApp {
 //  val system = "TRAPPIST-1"
-  val system = "Sol"
+  val systemName = "Sol"
 
   val systemView = new SystemView("system-view")
-  val systemTable = new SystemTable("system-table", systemView, system)
+  val systemTable = new SystemTable("system-table", systemView)
+
+  systemTable.create(systemName)
 
   val pauseButton: HTMLButtonElement = dom.document.getElementById("playpause").asInstanceOf[HTMLButtonElement]
   pauseButton.addEventListener("click", (_: dom.Event) => pause())
@@ -52,7 +53,7 @@ class Client extends JSApp {
 
   def requestUpdate(): Unit = {
     val xhr = new dom.XMLHttpRequest
-    xhr.open("GET", "rest/system/" + system)
+    xhr.open("GET", "rest/system/" + systemName)
     xhr.onload = { (_: dom.Event) =>
       readPlanets(xhr.responseText)
     }
@@ -62,9 +63,9 @@ class Client extends JSApp {
   def readPlanets(data: String): Unit = {
     JsonParser.parseSystem(js.JSON.parse(data)) match {
       case None =>
-      case Some(bodies: Seq[CelestialBody]) =>
-        systemTable.update(bodies)
-        systemView.update(system, bodies)
+      case Some(system: System) =>
+        systemTable.update(system)
+        systemView.update(systemName, system)
     }
   }
 }

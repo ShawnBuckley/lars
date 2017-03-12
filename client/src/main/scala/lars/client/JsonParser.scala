@@ -1,6 +1,6 @@
 package lars.client
 
-import lars.client.celestial.CelestialBody
+import lars.client.celestial.{CelestialBody, System}
 import lars.core.math.Vec2
 import lars.core.physics.units.{Length, Mass, Velocity}
 
@@ -21,13 +21,12 @@ object JsonParser {
     }
   }
 
-  def parseSystem(data: js.Dynamic): Option[Seq[CelestialBody]] = {
+  def parseSystem(data: js.Dynamic): Option[System] = {
     if(!hasFields(data, Array("name", "mass", "location", "velocity", "bodies"))) {
       None
     } else {
       val bodies = data.bodies.asInstanceOf[js.Array[js.Dynamic]]
       val result = new mutable.ArrayBuffer[CelestialBody](bodies.length)
-      val location = parseVec2(data.location).get
       bodies.foreach(body => {
         parseSystem(body) match {
           case None =>
@@ -36,11 +35,17 @@ object JsonParser {
               case Some(body: CelestialBody) =>
                 result += body
             }
-          case Some(bodies: Seq[CelestialBody]) =>
-            result ++= bodies
+          case Some(system: System) =>
+            result += system
         }
       })
-      Some(result)
+      Some(new System(
+        Some(data.name.asInstanceOf[String]),
+        Mass(data.mass.kg.asInstanceOf[Double]),
+        parseVec2(data.location).get,
+        Velocity(parseVec2(data.velocity.ms).get),
+        Length.zero,
+        result))
     }
   }
 
