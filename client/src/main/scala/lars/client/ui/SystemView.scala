@@ -65,8 +65,16 @@ class SystemView(elementId: String) {
       else
         calc
     }
+
+    // focal point location on the canvas
+    val focalCoords = Vec2(event.pageX, event.pageY)
+
+    // in game location of the mouse
+    val focalLocation = unproject(Vec2(event.pageX, event.pageY))
+
     pixelDistance = (au/2 / size.x) * zoom
-    center(viewportLocation(toLocation(center)))
+
+    viewport = viewportLocation(focalLocation) - focalCoords
     event.preventDefault()
   }
 
