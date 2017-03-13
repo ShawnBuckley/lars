@@ -36,6 +36,9 @@ class SystemTable(elementId: String, view: SystemView) {
                 case None =>
                   nameCell.textContent = "Unnamed"
                 case Some(name: String) =>
+                  row.addEventListener("mouseenter", (e: dom.MouseEvent) => view.highlight(name))
+                  row.addEventListener("mouseout", (e: dom.MouseEvent) => view.unhighlight(name))
+
                   val bodyButton = dom.document.createElement("button").asInstanceOf[HTMLButtonElement]
                   bodyButton.className = "btn btn-sm btn-default body-button"
                   bodyButton.textContent = name

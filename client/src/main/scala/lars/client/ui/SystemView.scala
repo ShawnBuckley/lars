@@ -15,6 +15,7 @@ class SystemView(elementId: String) {
   private var systemName: String = _
   private var sprites: mutable.HashMap[String, String] = _
   private var locations = new mutable.HashMap[String, Vec2]()
+  private var highlights = new mutable.HashSet[String]()
 
   private val canvas: HTMLCanvasElement = document.getElementById(elementId).asInstanceOf[HTMLCanvasElement]
   private val context: CanvasRenderingContext2D = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
@@ -79,7 +80,7 @@ class SystemView(elementId: String) {
   }
 
   private def clear(): Unit = {
-    locations = new mutable.HashMap[String, Vec2]()
+    locations.clear()
     context.clearRect(0, 0, size.x, size.y)
   }
 
@@ -103,17 +104,25 @@ class SystemView(elementId: String) {
 
   def render(body: CelestialBody, offset: Vec2, color: String): Unit = {
     locations.put(body.name.get, offset + body.location)
-    context.beginPath()
+
     val coords = project(body.location + offset)
     val bodySize = {
       val logSize = Math.log((body.size.km / pixelDistance) * 1000)
       if(logSize > 1)
-        logSize
+        logSize.toInt
       else
         1
     }
     if(coords.x >= 0 - bodySize && coords.x <= size.x + bodySize &&
       coords.y >= 0  - bodySize && coords.y <= size.y + bodySize) {
+      if(highlights.contains(body.name.get)) {
+        context.beginPath()
+        context.arc(coords.x, coords.y, bodySize * 2, 0, 2 * Math.PI)
+        context.lineWidth = 1
+        context.strokeStyle = "white"
+        context.stroke()
+      }
+      context.beginPath()
       context.arc(coords.x, coords.y, bodySize, 0, 2 * Math.PI)
       context.fillStyle = color
       context.fill()
@@ -158,8 +167,22 @@ class SystemView(elementId: String) {
         println(s"Focusing on $name")
         center(viewportLocation(location))
       case None =>
-        println("Focus error: no body named " + name + " was found")
+        println(s"Focus error: no body named $name")
     }
+  }
+
+  def highlight(name: String): Unit = {
+    locations.get(name) match {
+      case Some(location: Vec2) =>
+        println(s"Hightlighting $name")
+        highlights += name
+      case None =>
+        println(s"Highlight error: no body named $name")
+    }
+  }
+
+  def unhighlight(name: String): Unit = {
+    highlights -= name
   }
 
   def update(systemName: String, system: System): Unit = {
