@@ -13,3 +13,14 @@
 .body-button {
     width: 95%;
 }
+
+.body-row {
+}
+
+.body-row:hover {
+    background-color: #464a51;
+}
+
+.body-location {
+    padding: 2px 6px 6px 2px;
+}

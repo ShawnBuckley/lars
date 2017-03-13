@@ -29,6 +29,7 @@ class SystemTable(elementId: String, view: SystemView) {
             case body: CelestialBody =>
               val row = table.insertRow().asInstanceOf[HTMLTableRowElement]
               row.id = "system_table_" + body.name.get
+              row.className = "body-row"
 
               val nameCell = row.insertCell().asInstanceOf[HTMLTableCellElement]
               body.name match {
@@ -45,13 +46,13 @@ class SystemTable(elementId: String, view: SystemView) {
               }
 
               val x = row.insertCell().asInstanceOf[HTMLTableCellElement]
-              x.className = "planet-location"
+              x.className = "body-location"
 
               val y = row.insertCell().asInstanceOf[HTMLTableCellElement]
-              y.className = "planet-location"
+              y.className = "body-location"
 
               val button = document.createElement("button").asInstanceOf[HTMLButtonElement]
-              button.className = "planet-button"
+              button.className = "body-button"
               button.appendChild(document.createTextNode(body.name.get))
               button.addEventListener("click", { (event: dom.Event) =>
                 view.focus(body.name.get)
