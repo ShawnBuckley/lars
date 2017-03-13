@@ -152,11 +152,6 @@ class SystemView(elementId: String) {
     render()
   }
 
-  private def toLocation(pixels: Vec2): Vec2 = {
-    pixels * pixelDistance
-  }
-
-
   def focus(name: String): Unit = {
     locations.get(name) match {
       case Some(location: Vec2) =>
