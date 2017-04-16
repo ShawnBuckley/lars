@@ -5,7 +5,7 @@ import lars.core.Nameable
 import lars.core.celestial.{Child, Parent, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.observation.Observable
-import lars.core.physics.celestial.gravitation.{ForceCalculator, PairWise}
+import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
@@ -151,7 +151,7 @@ class System(override var name: Option[String],
   override def observed(date: Time): Unit = {
     val forceCalc: ForceCalculator =
       if(bodies.length < 100)
-        new PairWise(bodies)
+        new BarycenterRemove(bodies)
       else
         new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
     bodies.foreach({
