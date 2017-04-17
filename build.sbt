@@ -26,6 +26,9 @@ lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
   scalacOptions := Seq("-unchecked", "-deprecation"),
   isScalaJSProject := true,
+  mainClass in Compile := Some("Client"),
+  persistLauncher in Compile := true,
+  persistLauncher in Test := false,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
   ),

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
-<title>Logistics and Research Simulator</title>
+<head>
+    <title>Logistics and Research Simulator</title>
 
-<script src="assets/client-jsdeps.js"></script>
-<script src="assets/client-fastopt.js"></script>
+    <script src="assets/client-jsdeps.js"></script>
+    <script src="assets/client-fastopt.js"></script>
 
-<link rel="stylesheet" href="assets/lib/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" href="assets/slate-bootstrap.min.css" >
+    <link rel="stylesheet" href="assets/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/slate-bootstrap.min.css" >
 
-<link href="assets/lars.css" rel="stylesheet">
-
-<body onload="new Client().main()">
+    <link href="assets/lars.css" rel="stylesheet">
+</head>
+<body>
     <div class="container">
         <div>
             <canvas id="system-view" width=800 height=640></canvas>
@@ -21,4 +21,5 @@
             <table id="system-table"></table>
         </div>
     </div>
+    <script src="assets/client-launcher.js"></script>
 </body>
