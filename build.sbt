@@ -13,6 +13,9 @@ lazy val server = (project in file("server")).settings(
     "net.codingwell" %% "scala-guice" % "4.1.0",
     "com.fasterxml.jackson" % "jackson-bom" % "2.8.7",
     "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.6",
+
+    "org.webjars.npm" % "bootstrap" % "3.3.7",
+
     "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % "test",
     "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
@@ -25,6 +28,11 @@ lazy val client = (project in file("client")).settings(
   isScalaJSProject := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1"
+  ),
+  jsDependencies ++= Seq(
+    "org.webjars.npm" % "jquery" % "3.2.1" / "dist/jquery.js",
+    "org.webjars.npm" % "bootstrap" % "3.3.7" / "bootstrap.js" dependsOn "dist/jquery.js",
+    "org.webjars.npm" % "angular" % "1.6.4" / "angular.js" dependsOn "dist/jquery.js"
   )
 ).dependsOn(commonJS).
   enablePlugins(ScalaJSPlugin, ScalaJSWeb)
