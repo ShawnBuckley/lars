@@ -25,6 +25,8 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
     private pixelDistance: number;
     private au: number;
 
+    private mouseDown: boolean;
+
 
     // Angular stuff
 
@@ -36,11 +38,13 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
         this.size = new Vec2(this.width, this.height);
         this.viewport = new Vec2(-this.size.x / 2, -this.size.y / 2);
-        this.prevLocation = this.viewport;
+        this.prevLocation = new Vec2(0,0);
 
         this.au = 1.49598e8;
 
         this.pixelDistance = ((this.au * 2) / this.size.x) * this.zoom;
+
+        this.mouseDown = false;
     }
 
     ngAfterViewInit(): void {
@@ -51,10 +55,29 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!this.system || !this.context) return;
+        this.viewport = new Vec2(-this.size.x / 2, -this.size.y / 2);
         this.update();
     }
 
-    // Canvas
+    mousedown(event: MouseEvent): void {
+        this.mouseDown = true;
+        this.prevLocation = new Vec2(event.pageX, event.pageY);
+    }
+
+    mouseup(): void {
+        this.mouseDown = false;
+    }
+
+    mousemove(event: MouseEvent): void {
+        if(this.mouseDown) {
+            console.log(this.prevLocation);
+            this.viewport = new Vec2(
+                this.viewport.x - (event.pageX - this.prevLocation.x),
+                this.viewport.y - (event.pageY - this.prevLocation.y));
+            this.prevLocation = new Vec2(event.pageX, event.pageY);
+            this.update();
+        }
+    }
 
     center(): Vec2 {
         return new Vec2(

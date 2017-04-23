@@ -1,1 +1,10 @@
-<canvas id="system-view" #systemview [attr.width]='width' [attr.height]='height'></canvas>
+<canvas
+        id="system-view"
+        #systemview
+        [attr.width]='width'
+        [attr.height]='height'
+        (mousedown)="mousedown($event)"
+        (mouseup)="mouseup()"
+        (mouseleave)="mouseup()"
+        (mousemove)="mousemove($event)"
+></canvas>
