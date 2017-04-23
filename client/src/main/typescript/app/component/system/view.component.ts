@@ -128,6 +128,13 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
             this.viewport.y + (this.size.y / 2));
     }
 
+    centerOn(coords: Vec2): void {
+        this.viewport = new Vec2(
+            coords.x - (this.size.x / 2),
+            coords.y - (this.size.y / 2));
+        this.update();
+    }
+
     viewportLocation(location: Vec2): Vec2 {
         return new Vec2(
             location.x / this.pixelDistance,
@@ -186,6 +193,13 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
             else
                 this.renderBody(body, this.bodyColors[this.system.name][body.name], offset)
         });
+    }
+
+    focus(name: string): void {
+        let body = this.system.bodies.filter(body => body.name === name)[0];
+        if(body) {
+            this.centerOn(this.viewportLocation(body.location));
+        }
     }
 
     update(): void {

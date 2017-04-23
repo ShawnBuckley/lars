@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { System } from "../../model/system.model";
 
 @Component({
@@ -7,4 +7,10 @@ import { System } from "../../model/system.model";
 })
 export class SystemTableComponent {
     @Input() system: System;
+
+    @Output() focusEvent: EventEmitter<String> = new EventEmitter<String>();
+
+    focus(name: String): void {
+        this.focusEvent.emit(name);
+    }
 }

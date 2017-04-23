@@ -5,7 +5,9 @@
         <th class="body-location">Y</th>
     </tr>
     <tr *ngFor="let body of system.bodies" class="body-row">
-        <td class="body-location">{{body.name}}</td>
+        <td class="body-location">
+            <button class="btn btn-sm btn-default body-button" (click)="focus(body.name)">{{body.name}}</button>
+        </td>
         <td class="body-location">{{body.location.x}}</td>
         <td class="body-location">{{body.location.y}}</td>
     </tr>

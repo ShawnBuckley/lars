@@ -5,6 +5,6 @@
     <div>
         <h1 *ngIf="system != null">{{system.name}}</h1>
         <button id="playpause" class="btn btn-sm btn-success">Start</button>
-        <system-table [system]="system"></system-table>
+        <system-table [system]="system" (focusEvent)="focus($event)"></system-table>
     </div>
 </div>

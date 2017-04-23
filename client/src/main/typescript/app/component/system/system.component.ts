@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -6,6 +6,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { SystemService } from "../../service/system.service";
 import { System } from "../../model/system.model";
+import {SystemViewComponent} from "./view.component";
 
 @Component({
     selector: 'system',
@@ -13,6 +14,8 @@ import { System } from "../../model/system.model";
 })
 export class SystemComponent implements OnInit {
     system: System;
+
+    @ViewChild(SystemViewComponent) view: SystemViewComponent;
 
     constructor(
             private systemService: SystemService,
@@ -26,5 +29,9 @@ export class SystemComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    focus(name: string): void {
+        this.view.focus(name);
     }
 }
