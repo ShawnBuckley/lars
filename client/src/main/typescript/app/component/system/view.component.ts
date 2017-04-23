@@ -27,6 +27,9 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     private mouseDown: boolean;
 
+    // TODO - temporary
+    private bodyColors: any;
+
     ngOnInit(): void {
         this.width = 800;
         this.height = 640;
@@ -42,6 +45,33 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
         this.pixelDistance = ((this.au * 2) / this.size.x) * this.zoom;
 
         this.mouseDown = false;
+
+        // TODO - implement this somewhere else
+        this.bodyColors = {};
+        this.bodyColors['Sol'] = {};
+        this.bodyColors['Sol']['Sol'] = 'yellow';
+        this.bodyColors['Sol']['Luna'] = 'white';
+        this.bodyColors['Sol']['Mercury'] = 'gray';
+        this.bodyColors['Sol']['Venus'] = 'red';
+        this.bodyColors['Sol']['Earth'] = 'blue';
+        this.bodyColors['Sol']['Mars'] = 'red';
+        this.bodyColors['Sol']['Ceres'] = 'white';
+        this.bodyColors['Sol']['Jupiter'] = 'brown';
+        this.bodyColors['Sol']['Saturn'] = 'orange';
+        this.bodyColors['Sol']['Uranus'] = 'white';
+        this.bodyColors['Sol']['Neptune'] = 'blue';
+        this.bodyColors['Sol']['Pluto'] = 'orange';
+        this.bodyColors['Sol']['Charon'] = 'white';
+
+        this.bodyColors['TRAPPIST-1'] = {};
+        this.bodyColors['TRAPPIST-1']['a'] = 'red';
+        this.bodyColors['TRAPPIST-1']['b'] = 'orange';
+        this.bodyColors['TRAPPIST-1']['c'] = 'yellow';
+        this.bodyColors['TRAPPIST-1']['d'] = 'blue';
+        this.bodyColors['TRAPPIST-1']['e'] = 'blue';
+        this.bodyColors['TRAPPIST-1']['f'] = 'blue';
+        this.bodyColors['TRAPPIST-1']['g'] = 'green';
+        this.bodyColors['TRAPPIST-1']['h'] = 'white';
     }
 
     ngAfterViewInit(): void {
@@ -154,7 +184,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
                     body.location.x + offset.x,
                     body.location.y + offset.y));
             else
-                this.renderBody(body, 'white', offset)
+                this.renderBody(body, this.bodyColors[this.system.name][body.name], offset)
         });
     }
 
