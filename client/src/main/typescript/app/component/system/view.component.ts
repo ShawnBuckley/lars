@@ -27,9 +27,6 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     private mouseDown: boolean;
 
-
-    // Angular stuff
-
     ngOnInit(): void {
         this.width = 800;
         this.height = 640;
@@ -70,13 +67,29 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     mousemove(event: MouseEvent): void {
         if(this.mouseDown) {
-            console.log(this.prevLocation);
             this.viewport = new Vec2(
                 this.viewport.x - (event.pageX - this.prevLocation.x),
                 this.viewport.y - (event.pageY - this.prevLocation.y));
             this.prevLocation = new Vec2(event.pageX, event.pageY);
             this.update();
         }
+    }
+
+    mousewheel(event: MouseWheelEvent): void {
+        let zoom = this.zoom + event.deltaY;
+        if(zoom <= 1)
+            zoom = 1;
+        else if(zoom >= 1000)
+            zoom = 1000;
+        this.zoom = zoom;
+
+        let focalLocation = this.unproject(new Vec2(event.pageX, event.pageY));
+        this.pixelDistance = (this.au/2 / this.size.x) * this.zoom;
+
+        let viewportLocation = this.viewportLocation(focalLocation);
+        this.viewport = new Vec2(viewportLocation.x - event.pageX, viewportLocation.y - event.pageY);
+        event.preventDefault();
+        this.update();
     }
 
     center(): Vec2 {
