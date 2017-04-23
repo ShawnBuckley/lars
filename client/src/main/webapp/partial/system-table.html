@@ -1,0 +1,12 @@
+<table *ngIf="system != null" class="system-table">
+    <tr>
+        <th class="body-location">Name</th>
+        <th class="body-location">X</th>
+        <th class="body-location">Y</th>
+    </tr>
+    <tr *ngFor="let body of system.bodies" class="body-row">
+        <td class="body-location">{{body.name}}</td>
+        <td class="body-location">{{body.location.x}}</td>
+        <td class="body-location">{{body.location.y}}</td>
+    </tr>
+</table>

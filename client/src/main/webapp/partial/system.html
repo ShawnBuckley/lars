@@ -1,0 +1,10 @@
+<div class="container">
+    <div>
+        <system-view [system]="system"></system-view>
+    </div>
+    <div>
+        <h1 *ngIf="system != null">{{system.name}}</h1>
+        <button id="playpause" class="btn btn-sm btn-success">Start</button>
+        <system-table [system]="system"></system-table>
+    </div>
+</div>

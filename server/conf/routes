@@ -1,8 +1,5 @@
 # Routes
 
-GET     /                       controllers.Assets.at(path="/public", file="index.html")
-GET     /assets/*file           controllers.Assets.at(path="/public", file)
-
 GET     /rest/system/:name      controllers.SystemController.find(name: String)
 GET     /rest/body/:name        controllers.BodyController.find(name: String)
 

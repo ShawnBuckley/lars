@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Logistics and Research Simulator</title>
+
+    <base href="/">
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="slate-bootstrap.min.css" >
+
+    <link href="lars.css" rel="stylesheet">
+
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+</head>
+<body><app></app></body>

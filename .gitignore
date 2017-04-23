@@ -1,5 +1,11 @@
 .idea/
 target/
-node_modules/
+
 logs/
 *.log
+
+node_modules/
+*.js.map
+client/src/main/webapp/**/*.js
+!client/src/main/webapp/systemjs.config.js
+!client/src/main/webapp/systemjs-angular-loader.js
