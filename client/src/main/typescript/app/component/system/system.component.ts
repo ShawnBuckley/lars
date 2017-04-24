@@ -49,4 +49,8 @@ export class SystemComponent implements OnInit {
     focus(name: string): void {
         this.view.focus(name);
     }
+
+    pauseButton(): void {
+        this.gameService.pause().subscribe(running => this.running = running)
+    }
 }
