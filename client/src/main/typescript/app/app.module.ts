@@ -8,6 +8,7 @@ import { SystemViewComponent } from "./component/system/view.component";
 import { SystemTableComponent } from "./component/system/table.component";
 import { SystemComponent } from "./component/system/system.component";
 
+import { GameService } from "./service/game.service";
 import { SystemService } from "./service/system.service";
 
 @NgModule({
@@ -34,6 +35,7 @@ import { SystemService } from "./service/system.service";
         SystemTableComponent
     ],
     providers: [
+        GameService,
         SystemService
     ],
     bootstrap: [ AppComponent ]
