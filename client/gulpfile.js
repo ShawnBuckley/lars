@@ -21,4 +21,9 @@ gulp.task('typescript', function() {
     .pipe(gulp.dest(baseDir + 'webapp/'));
 });
 
+gulp.task('watch', function() {
+  gulp.watch(baseDir + 'typescript/**/*.ts', ['typescript']);
+  gulp.watch(baseDir + 'scss/**/*.scss', ['scss']);
+});
+
 gulp.task('default', ['typescript', 'scss']);
