@@ -5,7 +5,9 @@ logs/
 *.log
 
 node_modules/
-*.js.map
+client/src/main/webapp/sourcemaps/
 client/src/main/webapp/**/*.js
+client/src/main/webapp/**/*.css
+!client/src/main/webapp/**/slate-bootstrap.min.css
 !client/src/main/webapp/systemjs.config.js
 !client/src/main/webapp/systemjs-angular-loader.js
