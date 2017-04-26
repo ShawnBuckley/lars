@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const ts = require('gulp-typescript');
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
+const tslint = require('gulp-tslint');
 
 const baseDir = 'src/main/';
 
@@ -24,6 +25,14 @@ gulp.task('typescript', function() {
 gulp.task('watch', function() {
   gulp.watch(baseDir + 'typescript/**/*.ts', ['typescript']);
   gulp.watch(baseDir + 'scss/**/*.scss', ['scss']);
+});
+
+gulp.task('lint', function() {
+  gulp.src(baseDir + 'typescript/**/*.ts')
+    .pipe(tslint({
+      formatter: 'verbose'
+    }))
+    .pipe(tslint.report());
 });
 
 gulp.task('default', ['typescript', 'scss']);
