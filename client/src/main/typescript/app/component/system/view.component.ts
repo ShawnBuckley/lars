@@ -82,7 +82,6 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     ngOnChanges(changes: SimpleChanges): void {
         if(!this.system || !this.context) return;
-        this.viewport = new Vec2(-this.size.x / 2, -this.size.y / 2);
         this.update();
     }
 
