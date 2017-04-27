@@ -31,25 +31,17 @@ export class SystemComponent implements OnInit, OnDestroy {
             private location: Location) {}
 
     ngOnInit(): void {
-        this.subscriptions.push( this.gameService.isRunning().subscribe(running => this.running = running));
+        this.gameService.isRunning().then(running => this.running = running);
 
         this.subscriptions.push(this.route.params.map(params => params['name']).subscribe(name => {
-            const self = this;
+            this.systemService.get(name).then(system => this.system = system);
             this.name = name;
-            this.systemService.get(name, function(system): void {
-                self.system = system;
-            })
         }));
 
         let timer = Observable.timer(1000, 100);
         this.subscriptions.push(timer.subscribe(_ => {
-            if(this.running) {
-                const self = this;
-                this.systemService.get(this.name, function(system): void {
-                    self.system = system;
-                })
-            }
-
+            if(this.running)
+                this.systemService.get(this.name).then(system => this.system = system);
         }));
     }
 
@@ -66,6 +58,6 @@ export class SystemComponent implements OnInit, OnDestroy {
     }
 
     pauseButton(): void {
-        this.gameService.pause().first().subscribe(running => this.running = running)
+        this.gameService.pause().then(running => this.running = running);
     }
 }

@@ -1,19 +1,25 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class GameService {
     constructor(private http: Http) {}
 
-    isRunning(): Observable<boolean> {
-        return this.http.get('rest/game/running').map(response => <boolean>response.json());
+    isRunning(): Promise<boolean> {
+        const self = this;
+        return new Promise<boolean>(function(resolve, _) {
+            self.http.get('rest/game/running').map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
+        });
     }
 
-    pause(): Observable<boolean> {
-        return this.http.post('rest/game/pause', {}, {}).map(response => <boolean>response.json());
+    pause(): Promise<boolean> {
+        const self = this;
+        return new Promise<boolean>(function(resolve, _) {
+            self.http.post('rest/game/pause', {}, {}).map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
+        });
+
     }
 }
 

@@ -9,8 +9,11 @@ import {System} from "../model/system.model";
 export class SystemService {
     constructor(private http: Http) {}
 
-    get(name: string, callback: (system: System) => void): void {
-        this.http.get('rest/system/' + name).map(response => <System>response.json()).first().subscribe(system => callback(system));
+    get(name: string): Promise<System> {
+        const self = this;
+        return new Promise<System>(function(resolve, _) {
+            self.http.get('rest/system/' + name).map(response => <System>response.json()).first().subscribe(system => resolve(system));
+        });
     }
 }
 
