@@ -1,11 +1,11 @@
 package lars.core.celestial.container
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.{JsonIgnore, JsonProperty}
 import lars.core.Nameable
-import lars.core.celestial.{Child, Parent, TemporalMassive}
+import lars.core.celestial.{Child, Parent, Sizeable, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.observation.Observable
-import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator, PairWise}
+import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
@@ -32,13 +32,22 @@ class System(override var name: Option[String],
              override var location: Vec2,
              override var velocity: Velocity,
              override var parent: Option[Parent with Child])
-  extends TemporalMassive
+  extends Sizeable
     with Parent
     with Child
     with Observable
     with Nameable {
   override var mass: Mass = Mass.zero
   val bodies = new mutable.ArrayBuffer[TemporalMassive with Child]
+
+  override def size: Length = {
+    if(bodies.isEmpty)
+      Length.zero
+    else
+      new Length(bodies.maxBy(_.location.magnitude).location.magnitude)
+  }
+
+  override def collide(other: Sizeable): Unit = {}
 
   /**
     * Adds a body to the system and updates the mass.

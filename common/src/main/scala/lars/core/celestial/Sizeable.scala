@@ -1,5 +1,6 @@
 package lars.core.celestial
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import lars.core.math.Sphere
 import lars.core.physics.units.{Density, Length}
 
@@ -13,7 +14,8 @@ import lars.core.physics.units.{Density, Length}
   * greatly for the different types of standard bodies (micro, gaseous, terrestrial, stellar, singularity).
   */
 trait Sizeable extends TemporalMassive {
-  var size: Length
+  @JsonProperty("size")
+  def size: Length
 
   /**
     * Calculates the density.

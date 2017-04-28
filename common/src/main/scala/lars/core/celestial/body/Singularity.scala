@@ -22,7 +22,7 @@ class Singularity(override var name: Option[String],
                   override var velocity: Velocity,
                   override var parent: Option[Parent with Child])
   extends StandardBody {
-  override var size: Length = schwarzschildRadius
+  override def size: Length = schwarzschildRadius
 
   /**
     * This happens when an object falls into the event horizon of a blackhole.
@@ -30,7 +30,6 @@ class Singularity(override var name: Option[String],
     */
   override def collide(other: Sizeable): Unit = {
     mass += other.mass
-    size = schwarzschildRadius
     // TODO - destroy other object
   }
 

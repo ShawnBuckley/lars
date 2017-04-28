@@ -18,7 +18,7 @@ class GaseousBody(override var name: Option[String],
                   override var mass: Mass,
                   override var location: Vec2,
                   override var velocity: Velocity,
-                  override var size: Length,
+                  var size: Length,
                   override var parent: Option[Parent with Child])
   extends StandardBody {
 

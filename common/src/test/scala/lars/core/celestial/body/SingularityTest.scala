@@ -9,9 +9,9 @@ class SingularityTest extends FunSuite {
   test("collide") {
     val singularity = new Singularity(None, Constants.Sol.sol.mass, Vec2.addIdent, Velocity.zero, null)
     val other = new Sizeable {
-      override def collide(other: Sizeable) = ???
+      override def collide(other: Sizeable) = {}
 
-      override var size: Length = Length(1)
+      var size: Length = Length(1)
       override var location: Vec2 = Vec2.addIdent
       override var mass: Mass = Mass(1000)
       override var velocity: Velocity = Velocity.zero
