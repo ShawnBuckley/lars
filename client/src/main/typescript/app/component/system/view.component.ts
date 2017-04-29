@@ -23,7 +23,6 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
     private size: Vec2;
 
     private pixelDistance: number;
-    private au: number;
 
     private mouseDown: boolean;
 
@@ -34,15 +33,11 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
         this.width = 800;
         this.height = 640;
 
-        this.zoom = 25.0;
+        this.zoom = 2.0;
 
         this.size = new Vec2(this.width, this.height);
         this.viewport = new Vec2(-this.size.x / 2, -this.size.y / 2);
         this.prevLocation = new Vec2(0,0);
-
-        this.au = 1.49598e8;
-
-        this.pixelDistance = ((this.au * 2) / this.size.x) * this.zoom;
 
         this.mouseDown = false;
 
@@ -81,7 +76,12 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(!this.system || !this.context) return;
+        if(!this.system || !this.context || !changes.system) return;
+        if(!changes.system.previousValue ||
+                changes.system.currentValue.name != changes.system.previousValue.name) {
+            this.zoom = 2.0;
+            this.pixelDistance = ((this.system.size.km * 2) / this.size.x) * this.zoom;
+        }
         this.update();
     }
 
@@ -113,7 +113,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
         this.zoom = zoom;
 
         let focalLocation = this.unproject(new Vec2(event.pageX, event.pageY));
-        this.pixelDistance = (this.au/2 / this.size.x) * this.zoom;
+        this.pixelDistance = ((this.system.size.km * 2) / this.size.x) * this.zoom;
 
         let viewportLocation = this.viewportLocation(focalLocation);
         this.viewport = new Vec2(viewportLocation.x - event.pageX, viewportLocation.y - event.pageY);
