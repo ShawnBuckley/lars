@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { System } from "../../model/system.model";
+
+import { System } from "../../../model/system.model";
 
 @Component({
     selector: 'system-table',

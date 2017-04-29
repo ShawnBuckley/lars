@@ -7,9 +7,10 @@ import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/operator/switchMap';
 
 import { SystemService } from "../../service/system.service";
-import { System } from "../../model/system.model";
 import { SystemViewComponent } from "./view.component";
 import { GameService } from "../../service/game.service";
+
+import { System } from "../../../model/system.model";
 
 @Component({
     selector: 'system',

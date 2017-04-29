@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { System } from "../../model/system.model";
-import { Vec2 } from "../../model/vec2.model";
-import { Body } from "../../model/body.model";
+
+import { Body } from "../../../model/body.model"
+import { System } from "../../../model/system.model";
+import { Vec2 } from "../../../model/vec2.model";
 
 @Component({
     selector: 'system-view',
