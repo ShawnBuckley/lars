@@ -36,7 +36,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
         this.zoom = 2.0;
 
         this.size = new Vec2(this.width, this.height);
-        this.viewport = new Vec2(-this.size.x / 2, -this.size.y / 2);
+        this.viewport = this.size.div(-2);
         this.prevLocation = new Vec2(0,0);
 
         this.mouseDown = false;
@@ -96,9 +96,8 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     mousemove(event: MouseEvent): void {
         if(this.mouseDown) {
-            this.viewport = new Vec2(
-                this.viewport.x - (event.pageX - this.prevLocation.x),
-                this.viewport.y - (event.pageY - this.prevLocation.y));
+            let eventLocation = new Vec2(event.pageX, event.pageY);
+            this.viewport = this.viewport.sub(eventLocation.sub(this.prevLocation));
             this.prevLocation = new Vec2(event.pageX, event.pageY);
             this.update();
         }
@@ -112,45 +111,36 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
             zoom = 1000;
         this.zoom = zoom;
 
-        let focalLocation = this.unproject(new Vec2(event.pageX, event.pageY));
+
+        let mouseLocation = new Vec2(event.pageX, event.pageY);
+        let focalLocation = this.unproject(mouseLocation);
         this.pixelDistance = ((this.system.size.km * 2) / this.size.x) * this.zoom;
 
         let viewportLocation = this.viewportLocation(focalLocation);
-        this.viewport = new Vec2(viewportLocation.x - event.pageX, viewportLocation.y - event.pageY);
+        this.viewport = viewportLocation.sub(mouseLocation);
         event.preventDefault();
         this.update();
     }
 
     center(): Vec2 {
-        return new Vec2(
-            this.viewport.x + (this.size.x / 2),
-            this.viewport.y + (this.size.y / 2));
+        return this.viewport.add(this.size.div(2));
     }
 
     centerOn(coords: Vec2): void {
-        this.viewport = new Vec2(
-            coords.x - (this.size.x / 2),
-            coords.y - (this.size.y / 2));
-        this.update();
+        this.viewport.sub(coords.sub(this.size));
     }
 
     viewportLocation(location: Vec2): Vec2 {
-        return new Vec2(
-            location.x / this.pixelDistance,
-            location.y / this.pixelDistance);
+        return location.div(this.pixelDistance);
     }
 
     project(location: Vec2): Vec2 {
         let viewportLocation = this.viewportLocation(location);
-        return new Vec2(
-            viewportLocation.x - this.viewport.x,
-            viewportLocation.y - this.viewport.y);
+        return viewportLocation.sub(this.viewport);
     }
 
     unproject(coords: Vec2): Vec2 {
-        return new Vec2(
-            (this.viewport.x + coords.x) * this.pixelDistance,
-            (this.viewport.y + coords.y) * this.pixelDistance);
+        return (this.viewport.add(coords)).mul(this.pixelDistance);
     }
 
     clear(): void {
