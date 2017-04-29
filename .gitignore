@@ -4,8 +4,9 @@ target/
 logs/
 *.log
 
+*.map
+
 node_modules/
-client/src/main/webapp/sourcemaps/
 client/src/main/webapp/**/*.js
 client/src/main/webapp/**/*.css
 !client/src/main/webapp/**/slate-bootstrap.min.css
