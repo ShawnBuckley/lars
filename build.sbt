@@ -9,7 +9,7 @@ lazy val settings = Seq(
   publishLocal := {}
 )
 
-lazy val server = (project in file("server"))
+lazy val playframework = (project in file("playframework"))
   .settings(settings: _*)
   .settings(
     libraryDependencies ++= Seq(
