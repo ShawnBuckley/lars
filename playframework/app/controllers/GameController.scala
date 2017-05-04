@@ -2,15 +2,16 @@ package controllers
 
 import javax.inject._
 
-import lars.core.celestial.container.Galaxy
 import lars.core.observation.Observer
+import mapper.CelestialMapper
 import play.api.mvc._
 import util.JsonUtil
 
 @Singleton
-class GameController @Inject()(galaxy: Galaxy, observer: Observer) extends Controller {
+class GameController @Inject()(celestialMapper: CelestialMapper, observer: Observer) extends Controller {
+
   def getGalaxy = Action {
-    Ok(JsonUtil.toJson(galaxy))
+    Ok(JsonUtil.toJson(celestialMapper.get(0)))
   }
 
   def date = Action {

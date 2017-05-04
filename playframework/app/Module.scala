@@ -1,22 +1,30 @@
 import java.nio.file.{Files, Paths}
 
-import lars.core.celestial.CelestialFactory
-import lars.core.celestial.container.Galaxy
+import dao.CelestialDao
+import dao.memory.MemoryCelestialDao
 import lars.core.celestial.definition.Definition
 import lars.core.observation.{Observer, StandardObserver}
 import lars.core.physics.units.Time
+import mapper.CelestialMapper
 import net.codingwell.scalaguice.ScalaModule
 import util.JsonUtil
 
-class Module extends ScalaModule {
+class
+Module extends ScalaModule {
   override def configure(): Unit = {
+
+    val celestialDao = new MemoryCelestialDao
+    bind[CelestialDao].toInstance(celestialDao)
+
+    val celestialMapper = new CelestialMapper(celestialDao)
+    bind[CelestialMapper].toInstance(celestialMapper)
+
+    val factory = new CelestialModelFactory(celestialDao)
+
     val galaxyData = JsonUtil.fromJson[Definition](new String(Files.readAllBytes(Paths.get("src/main/resources/milkyway.json"))))
-    val galaxy = new Galaxy(Some(galaxyData.name))
-    CelestialFactory.createBodies(galaxyData, galaxy)
+    factory.create(galaxyData)
 
     val observer = new StandardObserver(1e7, Time.hour)
-
-    bind[Galaxy].toInstance(galaxy)
     bind[Observer].toInstance(observer)
   }
 
