@@ -3,7 +3,7 @@ package mapper
 import com.google.inject.Inject
 import dao.CelestialDao
 import lars.core.Nameable
-import lars.core.celestial.{Child, Massive, Parent, TemporalMassive}
+import lars.core.celestial._
 import lars.core.celestial.body._
 import lars.core.celestial.container._
 import lars.core.math.Vec2
@@ -72,7 +72,11 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
 
   def save(massive: Massive): Long = {
     def handle(body: TemporalMassive with Nameable with Child, kind: String, lastObserved: Option[Double]): Celestial = {
-      Celestial(body.id, kind, body.name, body.location.x, body.location.y, body.mass.kg, None, body.velocity.ms.x, body.velocity.ms.y, lastObserved,
+      val radius = massive match {
+        case sizeable: Sizeable => Some(sizeable.size.km)
+        case _ => None
+      }
+      Celestial(body.id, kind, body.name, body.location.x, body.location.y, body.mass.kg, radius, body.velocity.ms.x, body.velocity.ms.y, lastObserved,
         body.parent match {
           case None => 0L
           case Some(parent) => parent.id.get
