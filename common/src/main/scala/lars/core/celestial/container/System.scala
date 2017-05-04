@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
-import com.fasterxml.jackson.annotation.{JsonIgnore, JsonProperty}
-import lars.core.Nameable
+import com.fasterxml.jackson.annotation.JsonIgnore
+import lars.core.{Identity, Nameable}
 import lars.core.celestial.{Child, Parent, Sizeable, TemporalMassive}
 import lars.core.math.Vec2
 import lars.core.observation.Observable
@@ -28,17 +28,20 @@ import scala.collection.mutable
   * @param location system location
   * @param parent system parent
   */
-class System(override var name: Option[String],
+class System(override var id: Option[Long],
+             override var name: Option[String],
              override var location: Vec2,
              override var velocity: Velocity,
+             override var lastObserved: Time,
              override var parent: Option[Parent with Child])
   extends Sizeable
     with Parent
     with Child
     with Observable
-    with Nameable {
+    with Nameable
+    with Identity {
   override var mass: Mass = Mass.zero
-  val bodies = new mutable.ArrayBuffer[TemporalMassive with Child]
+  val bodies = new mutable.ArrayBuffer[TemporalMassive with Child with Identity]
 
   override def size: Length = {
     if(bodies.isEmpty)
@@ -53,7 +56,7 @@ class System(override var name: Option[String],
     * Adds a body to the system and updates the mass.
     * @param massive body to add
     */
-  def add(massive: TemporalMassive with Child): Unit = {
+  def add(massive: TemporalMassive with Child with Identity): Unit = {
     bodies += massive
     mass += massive.mass
   }
@@ -63,7 +66,7 @@ class System(override var name: Option[String],
     * @param massive body to remove
     * @return if body was removed
     */
-  def del(massive: TemporalMassive with Child): Boolean = {
+  def del(massive: TemporalMassive with Child with Identity): Boolean = {
     if(!bodies.contains(massive))
       false
     else {
@@ -77,7 +80,7 @@ class System(override var name: Option[String],
     * Triggered when a massive object enters a system. This needs to remove the object from the parent.
     * @param massive massive that entered the system
     */
-  override def enter(massive: TemporalMassive with Child): Unit = {
+  override def enter(massive: TemporalMassive with Child with Identity): Unit = {
     add(massive)
     massive.location -= location
     massive.velocity -= velocity
@@ -94,7 +97,7 @@ class System(override var name: Option[String],
     * nothing when there is no parent to escape into.
     * @param massive massive that escaped
     */
-  override def escape(massive: TemporalMassive with Child): Unit = {
+  override def escape(massive: TemporalMassive with Child with Identity): Unit = {
     if(bodies.contains(massive)) {
       parent match {
         case None =>
@@ -146,7 +149,7 @@ class System(override var name: Option[String],
     * @param query body name
     * @return first body that matches the name
     */
-  def get(query: String): Option[TemporalMassive with Child] = {
+  def get(query: String): Option[TemporalMassive with Child with Identity] = {
     bodies.find({
       case nameable: Nameable =>
         nameable.name match {

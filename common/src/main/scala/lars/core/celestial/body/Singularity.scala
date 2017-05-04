@@ -16,7 +16,8 @@ import lars.core.physics.units.{Length, Mass, Velocity}
   * @param velocity initial drift
   * @param parent parent container
   */
-class Singularity(override var name: Option[String],
+class Singularity(override var id: Option[Long],
+                  override var name: Option[String],
                   override var mass: Mass,
                   override var location: Vec2,
                   override var velocity: Velocity,

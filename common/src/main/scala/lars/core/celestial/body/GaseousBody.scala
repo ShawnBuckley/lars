@@ -14,13 +14,14 @@ import lars.core.physics.units.{Length, Mass, Velocity}
   * @param location
   * @param size
   */
-class GaseousBody(override var name: Option[String],
+class GaseousBody(override var id: Option[Long],
+                  override var name: Option[String],
                   override var mass: Mass,
                   override var location: Vec2,
                   override var velocity: Velocity,
                   var size: Length,
                   override var parent: Option[Parent with Child])
-  extends StandardBody {
+    extends StandardBody {
 
   override def collide(other: Sizeable): Unit = ???
 }

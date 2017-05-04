@@ -4,7 +4,7 @@ import lars.core.celestial.body._
 import lars.core.celestial.container.System
 import lars.core.celestial.definition.Definition
 import lars.core.math.Vec2
-import lars.core.physics.units.{Length, Mass, Velocity}
+import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
 object CelestialFactory {
   def createBody(definition: Definition, parent: Parent with Child): Option[StandardBody] = {
@@ -15,15 +15,15 @@ object CelestialFactory {
     val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
     definition.`type` match {
       case "singularity" =>
-        Some(new Singularity(name, mass, location, velocity, Some(parent)))
+        Some(new Singularity(None, name, mass, location, velocity, Some(parent)))
       case "stellar" =>
-        Some(new StellarBody(name, mass, location, velocity, radius, Some(parent)))
+        Some(new StellarBody(None, name, mass, location, velocity, radius, Some(parent)))
       case "gaseous" =>
-        Some(new GaseousBody(name, mass, location, velocity, radius, Some(parent)))
+        Some(new GaseousBody(None, name, mass, location, velocity, radius, Some(parent)))
       case "terrestrial" =>
-        Some(new TerrestrialBody(name, mass, location, velocity, radius, Some(parent)))
+        Some(new TerrestrialBody(None, name, mass, location, velocity, radius, Time.zero, Some(parent)))
       case "micro" =>
-        Some(new MicroBody(name, mass, location, velocity, radius, Some(parent)))
+        Some(new MicroBody(None, name, mass, location, velocity, radius, Some(parent)))
       case _ =>
         None
     }
@@ -40,7 +40,7 @@ object CelestialFactory {
       case "system" =>
         val location = new Vec2(definition.orbit.length, 0)
         val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
-        val system = new System(Some(definition.name), location, velocity, Some(parent))
+        val system = new System(None, Some(definition.name), location, velocity, Time.zero, Some(parent))
         if(definition.bodies != null && definition.bodies.nonEmpty) {
           definition.bodies.foreach(body => {
             createBodies(body, system)

@@ -13,7 +13,8 @@ import lars.core.physics.units.{Length, Mass, Velocity}
   * @param location
   * @param size
   */
-class StellarBody(override var name: Option[String],
+class StellarBody(override var id: Option[Long],
+                  override var name: Option[String],
                   override var mass: Mass,
                   override var location: Vec2,
                   override var velocity: Velocity,
