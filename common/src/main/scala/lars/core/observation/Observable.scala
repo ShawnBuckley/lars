@@ -3,6 +3,8 @@ package lars.core.observation
 import com.fasterxml.jackson.annotation.JsonIgnore
 import lars.core.physics.units.Time
 
+import scala.annotation.meta.getter
+
 /**
   * This trait is for objects that can be observed.  The game engine is lazy and will only update objects when the are
   * observed.  The specifics what happens during observation is determined by the object's subtype.  Generally
@@ -16,6 +18,6 @@ trait Observable {
     */
   def observed(date: Time): Unit
 
-  @JsonIgnore
-  var lastObserved: Time = Time.zero
+  @(JsonIgnore @getter)
+  var lastObserved: Time
 }
