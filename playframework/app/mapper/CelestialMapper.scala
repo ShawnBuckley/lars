@@ -34,7 +34,7 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
       case "galaxy" =>
         Some(new Galaxy(name))
       case "system" =>
-        val result = Some(new System(celestial.id, name, location, velocity, new Time(celestial.lastObserved.get), parent))
+        val result = Some(new System(celestial.id, name, location, velocity, new Time(celestial.observed.get), parent))
         convertChildren(result.get)
         result
       case "micro" =>
@@ -42,7 +42,7 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
       case "gaseous" =>
         Some(new GaseousBody(celestial.id, name, mass, location, velocity, radius, parent))
       case "terrestrial" =>
-        Some(new TerrestrialBody(celestial.id, name, mass, location, velocity, radius, new Time(celestial.lastObserved.get), parent))
+        Some(new TerrestrialBody(celestial.id, name, mass, location, velocity, radius, new Time(celestial.observed.get), parent))
       case "stellar" =>
         Some(new StellarBody(celestial.id, name, mass, location, velocity, radius, parent))
       case "singularity" =>

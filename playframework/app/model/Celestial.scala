@@ -1,6 +1,6 @@
 package model
 
-case class Celestial(var id: Option[Long],
+case class Celestial(id: Option[Long],
                      kind: String,
                      name: Option[String],
                      x: Double,
@@ -9,6 +9,24 @@ case class Celestial(var id: Option[Long],
                      size: Option[Double],
                      velX: Double,
                      velY: Double,
-                     lastObserved: Option[Double],
+                     observed: Option[Double],
                      parent: Long,
-                     ancestor: Option[Long])
+                     ancestor: Option[Long]) {
+
+  def setId(id: Long): Celestial = {
+    Celestial(
+      Some(id),
+      kind,
+      name,
+      x,
+      y,
+      mass,
+      size,
+      velX,
+      velY,
+      observed,
+      parent,
+      ancestor
+    )
+  }
+}

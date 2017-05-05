@@ -43,8 +43,7 @@ class MemoryCelestialDao extends CelestialDao {
     celestial.id match {
       case None =>
         val id = idSeq
-        celestial.id = Some(id)
-        bodies.put(id, celestial)
+        bodies.put(id, celestial.setId(id))
         idSeq += 1
         id
       case Some(long) =>
