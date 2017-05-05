@@ -8,7 +8,7 @@ import scala.collection.mutable
 class MemoryCelestialDao extends CelestialDao {
 
   private var idSeq = 0L
-  private val bodies = new mutable.LinkedHashMap[Long, Celestial]()
+  private val bodies = new mutable.HashMap[Long, Celestial]()
 
   override def get(id: Long): Option[Celestial] = {
     bodies.get(id)

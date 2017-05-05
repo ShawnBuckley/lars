@@ -14,7 +14,10 @@ import model.Celestial
 class CelestialMapper @Inject()(celestialDao: CelestialDao) {
 
   def convertChildren(parent: System): Unit = {
-    celestialDao.getByParent(parent.id.get).foreach(celestial => parent.add(convert(celestial, Some(parent)).get))
+    celestialDao.getByParent(parent.id.get)
+      .toSeq
+      .sortBy(model => Vec2(model.x, model.y).magnitude)
+      .foreach(celestial => parent.add(convert(celestial, Some(parent)).get))
   }
 
   def convert(celestial: Celestial, parent: Option[Parent with Child]): Option[TemporalMassive with Child] = {
