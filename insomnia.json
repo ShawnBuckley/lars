@@ -1,0 +1,114 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2017-05-28T15:39:17.300Z",
+	"__export_source": "insomnia.desktop.app:v5.1.0",
+	"resources": [
+		{
+			"_id": "wrk_b99d950ea4c7423d862e869c129b2754",
+			"parentId": null,
+			"modified": 1495935869358,
+			"created": 1495935869358,
+			"name": "lars",
+			"description": "",
+			"certificates": [],
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_133b8b47aad14889978abd0712a20178",
+			"parentId": "wrk_b99d950ea4c7423d862e869c129b2754",
+			"modified": 1495935886070,
+			"created": 1495935886070,
+			"name": "Base Environment",
+			"data": {},
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_e547b6761a654dc2a9b01024be6367c1",
+			"parentId": "wrk_b99d950ea4c7423d862e869c129b2754",
+			"modified": 1495935976436,
+			"created": 1495935976436,
+			"name": "Default Jar",
+			"cookies": [],
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_7626ba5085e74c6bb1bf991f4e96a087",
+			"parentId": "wrk_b99d950ea4c7423d862e869c129b2754",
+			"modified": 1495935886086,
+			"created": 1495935886086,
+			"name": "lars",
+			"environment": {},
+			"metaSortKey": -1495935886086,
+			"_type": "request_group"
+		},
+		{
+			"_id": "env_0e2cc2a496a44bdd98fb1b4d5a10057f",
+			"parentId": "env_133b8b47aad14889978abd0712a20178",
+			"modified": 1495935909615,
+			"created": 1495935897172,
+			"name": "local",
+			"data": {
+				"url": "http://localhost:9000"
+			},
+			"_type": "environment"
+		},
+		{
+			"_id": "req_f74e2918a1f8471b9730b8ee97ccc709",
+			"parentId": "fld_7626ba5085e74c6bb1bf991f4e96a087",
+			"modified": 1495985651701,
+			"created": 1495935886074,
+			"url": "{{url}}/api/v1/game/pause",
+			"name": "game pause",
+			"method": "POST",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1495935886074,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_851bc57b5d2c4bf5b44104f7443bf373",
+			"parentId": "fld_7626ba5085e74c6bb1bf991f4e96a087",
+			"modified": 1495985646517,
+			"created": 1495935886083,
+			"url": "{{url}}/api/v1/body/Earth",
+			"name": "get body",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1495935886083,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		},
+		{
+			"_id": "req_d0007e97f75844f2894c83a4d1e6b194",
+			"parentId": "fld_7626ba5085e74c6bb1bf991f4e96a087",
+			"modified": 1495985641955,
+			"created": 1495935886084,
+			"url": "{{url}}/api/v1/system/Sol",
+			"name": "get system",
+			"method": "GET",
+			"body": {},
+			"parameters": [],
+			"headers": [],
+			"authentication": {},
+			"metaSortKey": -1495935886084,
+			"settingStoreCookies": true,
+			"settingSendCookies": true,
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"_type": "request"
+		}
+	]
+}
