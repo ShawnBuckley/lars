@@ -1,5 +1,7 @@
 package dao
 
+import java.util.UUID
+
 import model.Celestial
 
 trait CelestialDao {
@@ -9,21 +11,21 @@ trait CelestialDao {
     * @param id celestial id
     * @return optional celestial
     */
-  def get(id: Long): Option[Celestial]
+  def get(id: UUID): Option[Celestial]
 
   /**
     * Gets all celestials by parent id.
     * @param parent ancestor id
     * @return descendants
     */
-  def getByParent(parent: Long): Iterable[Celestial]
+  def getByParent(parent: UUID): Seq[Celestial]
 
   /**
     * Gets all celestials by ancestor id.
     * @param ancestor ancestor id
     * @return descendants
     */
-  def getByAncestor(ancestor: Long): Iterable[Celestial]
+  def getByAncestor(ancestor: UUID): Seq[Celestial]
 
   /**
     * Attemps to find a celestial with the matching name.
@@ -44,12 +46,12 @@ trait CelestialDao {
     * @param celestial celestial object
     * @return celestial id
     */
-  def save(celestial: Celestial): Long
+  def save(celestial: Celestial): Unit
 
   /**
     * Deletes a system by id.
     * @param id id
     */
-  def delete(id: Long): Unit
+  def delete(id: UUID): Unit
 
 }

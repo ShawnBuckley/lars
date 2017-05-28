@@ -11,7 +11,7 @@ import util.JsonUtil
 class GameController @Inject()(celestialMapper: CelestialMapper, observer: Observer) extends Controller {
 
   def getGalaxy = Action {
-    Ok(JsonUtil.toJson(celestialMapper.get(0)))
+    Ok(JsonUtil.toJson(celestialMapper.get(CelestialMapper.galaxyId)))
   }
 
   def date = Action {

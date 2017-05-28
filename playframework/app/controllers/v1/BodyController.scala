@@ -8,8 +8,12 @@ import mapper.CelestialMapper
 import play.api.mvc.{Action, Controller}
 import util.JsonUtil
 
+import scala.concurrent.ExecutionContext
+
 @Singleton
-class BodyController @Inject()(celestialMapper: CelestialMapper, observer: Observer) extends Controller {
+class BodyController @Inject()(celestialMapper: CelestialMapper, observer: Observer)(implicit ec: ExecutionContext)
+  extends Controller {
+
   def find(name: String) = Action {
     celestialMapper.findByName(name) match {
       case Some(child: Child) => child match {

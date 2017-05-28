@@ -1,6 +1,8 @@
 package model
 
-case class Celestial(id: Option[Long],
+import java.util.UUID
+
+case class Celestial(id: Option[UUID],
                      kind: String,
                      name: Option[String],
                      x: Double,
@@ -10,10 +12,10 @@ case class Celestial(id: Option[Long],
                      velX: Option[Double],
                      velY: Option[Double],
                      observed: Option[Double],
-                     parent: Option[Long],
-                     ancestor: Option[Long]) {
+                     parent: Option[UUID],
+                     ancestor: Option[UUID]) {
 
-  def setId(id: Long): Celestial = {
+  def setId(id: UUID): Celestial = {
     Celestial(
       Some(id),
       kind,

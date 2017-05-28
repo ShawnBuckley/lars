@@ -1,5 +1,7 @@
 package dao.memory
 
+import java.util.UUID
+
 import dao.CelestialDao
 import model.Celestial
 
@@ -7,22 +9,21 @@ import scala.collection.mutable
 
 class MemoryCelestialDao extends CelestialDao {
 
-  private var idSeq = 0L
-  private val bodies = new mutable.HashMap[Long, Celestial]()
+  private val bodies = new mutable.HashMap[UUID, Celestial]()
 
-  override def get(id: Long): Option[Celestial] = {
+  override def get(id: UUID): Option[Celestial] = {
     bodies.get(id)
   }
 
-  override def getByParent(id: Long): Iterable[Celestial] = {
-    bodies.values.filter(_.parent.contains(id))
+  override def getByParent(id: UUID): Seq[Celestial] = {
+    bodies.values.filter(_.parent.contains(id)).toSeq
   }
 
-  override def getByAncestor(id: Long): Iterable[Celestial] = {
+  override def getByAncestor(id: UUID): Seq[Celestial] = {
     bodies.values.filter(_.ancestor match {
       case None => false
       case Some(ancestor) => ancestor == id
-    })
+    }).toSeq
   }
 
   override def findByName(term: String): Option[Celestial] = {
@@ -39,20 +40,11 @@ class MemoryCelestialDao extends CelestialDao {
     }))
   }
 
-  override def save(celestial: Celestial): Long = {
-    celestial.id match {
-      case None =>
-        val id = idSeq
-        bodies.put(id, celestial.setId(id))
-        idSeq += 1
-        id
-      case Some(long) =>
-        bodies.put(long, celestial)
-        long
-    }
+  override def save(celestial: Celestial): Unit = {
+    celestial.id.foreach(id => bodies.put(id, celestial))
   }
 
-  override def delete(id: Long): Unit = {
+  override def delete(id: UUID): Unit = {
     bodies.remove(id)
   }
 }

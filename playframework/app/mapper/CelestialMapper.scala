@@ -1,5 +1,7 @@
 package mapper
 
+import java.util.UUID
+
 import com.google.inject.Inject
 import dao.CelestialDao
 import lars.core.{Identity, Nameable}
@@ -14,7 +16,6 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
 
   def convertChildren(parent: System): Unit = {
     celestialDao.getByParent(parent.id.get)
-      .toSeq
       .sortBy(model => Vec2(model.x, model.y).magnitude)
       .foreach(celestial =>
         convert(celestial, Some(parent)) match {
@@ -69,7 +70,7 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
     }
   }
 
-  def get(id: Long): Option[Massive] = {
+  def get(id: UUID): Option[Massive] = {
     celestialDao.get(id) match {
       case None => None
       case Some(celestial) => convert(celestial, None)
@@ -90,7 +91,7 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
     }
   }
 
-  def save(massive: Massive with Identity): Long = {
+  def save(massive: Massive with Identity): UUID = {
     def handle(body: Massive with Nameable with Child with Identity, kind: String, lastObserved: Option[Double]): Celestial = {
 
       val radius = massive match {
@@ -124,20 +125,25 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
       handle(body, kind, Some(body.lastObserved.d))
     }
 
-    def handleStandard(body: Massive with Nameable with Child with Identity, kind: String): Celestial = {
-      handle(body, kind, None)
+    def handleStandard(body: Massive with Nameable with Child with Identity): UUID = {
+      val id = if(body.id.isEmpty) Some(UUID.randomUUID) else body.id
+      body.id = id
+      celestialDao.save(handle(body, "body", None))
+      id.get
     }
 
-    def handleSystem(system: System): Long = {
-      val id = celestialDao.save(handleObservable(system, "system"))
+    def handleSystem(system: System): UUID = {
+      val id = if(system.id.isEmpty) Some(UUID.randomUUID) else system.id
+      celestialDao.save(handleObservable(system, "system"))
       system.bodies.foreach(save(_))
-      id
+      id.get
     }
 
-    def handleGalaxy(galaxy: Galaxy): Long = {
-      val id = celestialDao.save(Celestial(galaxy.id, "galaxy", galaxy.name, 0, 0, galaxy.mass.kg, None, None, None, None, None, None))
+    def handleGalaxy(galaxy: Galaxy): UUID = {
+      val id = if(galaxy.id.isEmpty) Some(UUID.randomUUID) else galaxy.id
+      celestialDao.save(Celestial(id, "galaxy", galaxy.name, 0, 0, galaxy.mass.kg, None, None, None, None, None, None))
       galaxy.bodies.foreach(save(_))
-      id
+      id.get
     }
 
     massive match {
@@ -146,11 +152,15 @@ class CelestialMapper @Inject()(celestialDao: CelestialDao) {
       case body: System =>
         handleSystem(body)
       case body: Body =>
-        celestialDao.save(handleStandard(body, "body"))
+        handleStandard(body)
     }
   }
 
-  def delete(id: Long): Unit = {
+  def delete(id: UUID): Unit = {
     celestialDao.delete(id)
   }
+}
+
+object CelestialMapper {
+  var galaxyId: UUID = _
 }
