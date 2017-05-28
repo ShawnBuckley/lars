@@ -10,14 +10,14 @@ export class GameService {
     isRunning(): Promise<boolean> {
         const self = this;
         return new Promise<boolean>(function(resolve, _) {
-            self.http.get('rest/game/running').map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
+            self.http.get('api/v1/game/running').map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
         });
     }
 
     pause(): Promise<boolean> {
         const self = this;
         return new Promise<boolean>(function(resolve, _) {
-            self.http.post('rest/game/pause', {}, {}).map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
+            self.http.post('api/v1/game/pause', {}, {}).map(response => <boolean>response.json()).first().subscribe(result => resolve(result));
         });
 
     }

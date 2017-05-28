@@ -12,7 +12,7 @@ export class SystemService {
     get(name: string): Promise<System> {
         const self = this;
         return new Promise<System>(function(resolve, _) {
-            self.http.get('rest/system/' + name).map(response => <System>response.json()).first().subscribe(system => resolve(system));
+            self.http.get('api/v1/system/' + name).map(response => <System>response.json()).first().subscribe(system => resolve(system));
         });
     }
 }

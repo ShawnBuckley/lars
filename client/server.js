@@ -13,13 +13,13 @@ var server = app.listen(3000, function () {
     console.log('Dev server listening at http://%s:%s/', server.address().address, server.address().port);
 });
 
-app.post('/rest/*', function(req, res) {
+app.post('/api/*', function(req, res) {
   request.post(apiGateway + req.path).on('error', function(err) {
     console.log('err: ' + req.path + ' is unavailable');
   }).pipe(res);
 });
 
-app.get('/rest/*', function(req, res) {
+app.get('/api/*', function(req, res) {
   request(apiGateway + req.path).on('error', function(err) {
     fs.readFile(__dirname + '/mockdata' + req.path, function(err, data) {
       if(err)
