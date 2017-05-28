@@ -31,7 +31,7 @@
       "bodies": [
         {
           "name": "Sol",
-          "type": "stellar",
+          "type": "body",
           "mass": 1.98855e30,
           "radius": 695500,
           "orbit": {
@@ -41,7 +41,7 @@
         },
         {
           "name": "Mercury",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 3.3011e23,
           "radius": 2439.7,
           "orbit": {
@@ -51,7 +51,7 @@
         },
         {
           "name": "Venus",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 4.8690e24,
           "radius": 6051.59,
           "orbit": {
@@ -69,7 +69,7 @@
           "bodies": [
             {
               "name": "Earth",
-              "type": "terrestrial",
+              "type": "body",
               "mass": 5.9721986e24,
               "radius": 6371,
               "orbit": {
@@ -79,7 +79,7 @@
             },
             {
               "name": "Luna",
-              "type": "terrestrial",
+              "type": "body",
               "mass": 7.342e22,
               "radius": 1737.1,
               "orbit": {
@@ -91,7 +91,7 @@
         },
         {
           "name": "Mars",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 6.4191e23,
           "radius": 3397,
           "orbit": {
@@ -101,7 +101,7 @@
         },
         {
           "name": "Ceres",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 9.393e20,
           "radius": 473,
           "orbit": {
@@ -111,7 +111,7 @@
         },
         {
           "name": "Jupiter",
-          "type": "gaseous",
+          "type": "body",
           "mass": 1.8987e27,
           "radius": 71492.68,
           "orbit": {
@@ -121,7 +121,7 @@
         },
         {
           "name": "Saturn",
-          "type": "gaseous",
+          "type": "body",
           "mass": 5.6851e26,
           "radius": 60267.14,
           "orbit": {
@@ -131,7 +131,7 @@
         },
         {
           "name": "Uranus",
-          "type": "gaseous",
+          "type": "body",
           "mass": 8.6849e25,
           "radius": 25557.25,
           "orbit": {
@@ -141,7 +141,7 @@
         },
         {
           "name": "Neptune",
-          "type": "gaseous",
+          "type": "body",
           "mass": 1.0244e26,
           "radius": 24766.36,
           "orbit": {
@@ -159,7 +159,7 @@
           "bodies": [
             {
               "name": "Pluto",
-              "type": "terrestrial",
+              "type": "body",
               "mass": 1.303e22,
               "radius": 1187,
               "orbit": {
@@ -169,7 +169,7 @@
             },
             {
               "name": "Charon",
-              "type": "terrestrial",
+              "type": "body",
               "mass": 1.586e21,
               "radius": 606,
               "orbit": {
@@ -191,7 +191,7 @@
       "bodies": [
         {
           "name": "a",
-          "type": "stellar",
+          "type": "body",
           "mass": 1.59e29,
           "radius": 162793,
           "orbit": {
@@ -201,7 +201,7 @@
         },
         {
           "name": "b",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 5.08e24,
           "radius": 6926.6,
           "orbit": {
@@ -211,7 +211,7 @@
         },
         {
           "name": "c",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 8.242e24,
           "radius": 6735.3,
           "orbit": {
@@ -221,7 +221,7 @@
         },
         {
           "name": "d",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 2.45e24,
           "radius": 4924,
           "orbit": {
@@ -231,7 +231,7 @@
         },
         {
           "name": "e",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 3.7e24,
           "radius": 5855,
           "orbit": {
@@ -241,7 +241,7 @@
         },
         {
           "name": "f",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 4.06e24,
           "radius": 6665.1,
           "orbit": {
@@ -251,7 +251,7 @@
         },
         {
           "name": "g",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 8.003e24,
           "radius": 7188.1,
           "orbit": {
@@ -261,7 +261,7 @@
         },
         {
           "name": "h",
-          "type": "terrestrial",
+          "type": "body",
           "mass": 4.9e24,
           "radius": 4815,
           "orbit": {

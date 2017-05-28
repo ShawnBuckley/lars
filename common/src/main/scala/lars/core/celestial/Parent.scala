@@ -12,27 +12,26 @@ trait Parent extends NestedLocation with Identity {
     * Adds massive to the celestial container.
     * @param massive massive to add
     */
-  def add(massive: TemporalMassive with Child with Identity)
+    def add(massive: Massive with Child)
 
   /**
     * Removes a body from the system and updates the mass.
     * @param massive body to remove
     * @return if body was removed
     */
-  def del(massive: TemporalMassive with Child with Identity): Boolean
-
+    def del(massive: Massive with Child): Boolean
   /**
     * Triggered when a massive object enters a system. This needs to remove the object from the parent.
     * @param massive massive that entered the system
     */
-  def enter(massive: TemporalMassive with Child with Identity)
+    def enter(massive: Massive with Child)
 
   /**
     * Triggers of moving a child element to the container's parent when the child exceeds the escape velocity.  Does
     * nothing when there is no parent to escape into.
     * @param massive massive that escaped
     */
-  def escape(massive: TemporalMassive with Child with Identity)
+  def escape(massive: Massive with Child)
 
   /**
     * Returns children of the parent

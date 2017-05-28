@@ -15,7 +15,7 @@ class MemoryCelestialDao extends CelestialDao {
   }
 
   override def getByParent(id: Long): Iterable[Celestial] = {
-    bodies.values.filter(_.parent == id)
+    bodies.values.filter(_.parent.contains(id))
   }
 
   override def getByAncestor(id: Long): Iterable[Celestial] = {

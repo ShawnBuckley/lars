@@ -2,8 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 
-import lars.core.celestial.Child
-import lars.core.celestial.body.StandardBody
+import lars.core.celestial.{Body, Child}
 import lars.core.observation.Observer
 import mapper.CelestialMapper
 import play.api.mvc.{Action, Controller}
@@ -14,7 +13,7 @@ class BodyController @Inject()(celestialMapper: CelestialMapper, observer: Obser
   def find(name: String) = Action {
     celestialMapper.findByName(name) match {
       case Some(child: Child) => child match {
-        case body: StandardBody =>
+        case body: Body =>
           observer.observe(body)
           Ok(JsonUtil.toJson(body)).as("application/json")
         case _ =>

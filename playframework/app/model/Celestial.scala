@@ -7,10 +7,10 @@ case class Celestial(id: Option[Long],
                      y: Double,
                      mass: Double,
                      size: Option[Double],
-                     velX: Double,
-                     velY: Double,
+                     velX: Option[Double],
+                     velY: Option[Double],
                      observed: Option[Double],
-                     parent: Long,
+                     parent: Option[Long],
                      ancestor: Option[Long]) {
 
   def setId(id: Long): Celestial = {
@@ -29,4 +29,8 @@ case class Celestial(id: Option[Long],
       ancestor
     )
   }
+}
+
+object Celestial {
+
 }

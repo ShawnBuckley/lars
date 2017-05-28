@@ -9,7 +9,7 @@ import lars.core.math.Vec2
   */
 @JsonIgnoreProperties(Array[String]("parent"))
 trait Child extends NestedLocation with Identity {
-  var parent: Option[Parent with Child]
+  var parent: Option[Parent]
 
   /**
     * Gets the eldest most parent.
@@ -17,13 +17,11 @@ trait Child extends NestedLocation with Identity {
     */
   def ancestor: Option[Parent] = {
     parent match {
+      case Some(parent) => parent match {
+        case child: Child => child.ancestor
+        case _ => Some(parent)
+      }
       case None => None
-      case Some(parent) =>
-        parent.parent match {
-          case None => Some(parent)
-          case Some(_) => parent.ancestor
-        }
-
     }
   }
 

@@ -34,9 +34,9 @@ trait Observer {
   /**
     * Creates an observation chain starting from a single observable object. The chain will cascade until it reaches
     * the youngest most objects and the eldest most or unobservable object.
-    * @param child object to observe
+    * @param observable object to observe
     */
-  def observe(child: Child): Unit
+  def observe(observable: Observable): Unit
 
   /**
     * Gets the current simulation date
@@ -46,20 +46,25 @@ trait Observer {
 
   /**
     * Returns the eldest most observable object
-    * @param child child
+    * @param current child
     * @return eldest observable object
     */
-  @tailrec final def getEldest(child: Parent with Child): Parent with Child = {
-    child.parent match {
-      case None => child
-      case Some(parent: Parent) =>
-        parent match {
+  @tailrec final def getEldest(current: Parent): Parent = {
+    current match {
+      case child: Child =>
+        child.parent match {
+          case _: Unobservable =>
+            current
           case self: SelfObservable =>
             observe(self)
             child
-          case _: Unobservable => child
-          case _ => getEldest(parent)
+          case _ =>
+            child.parent match {
+              case Some(parent) => getEldest(parent)
+              case None => current
+            }
         }
+      case _ => current
     }
   }
 }

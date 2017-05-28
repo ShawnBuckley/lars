@@ -23,10 +23,10 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
       0, // y
       definition.mass,
       Some(definition.radius),
-      0, // velX
-      if(definition.orbit != null) definition.orbit.speed.ms else 0L,
+      Some(0), // velX
+      if(definition.orbit != null) Some(definition.orbit.speed.ms) else Some(0L),
       getLastObserved(definition.`type`),
-      parent,
+      Some(parent),
       ancestor
     ))
   }

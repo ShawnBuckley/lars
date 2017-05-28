@@ -1,9 +1,9 @@
 package lars.core.celestial.container
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.{JsonIgnore, JsonProperty}
 import lars.core.{Identity, Nameable}
-import lars.core.celestial.{Child, Parent, Sizeable, TemporalMassive}
-import lars.core.math.Vec2
+import lars.core.celestial._
+import lars.core.math.{Circle, Polar2, Vec2}
 import lars.core.observation.Observable
 import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
@@ -31,32 +31,32 @@ import scala.collection.mutable
 class System(override var id: Option[Long],
              override var name: Option[String],
              override var location: Vec2,
-             override var velocity: Velocity,
+             override var velocity: Option[Velocity],
              override var lastObserved: Time,
-             override var parent: Option[Parent with Child])
-  extends Sizeable
+             override var parent: Option[Parent])
+  extends Massive
     with Parent
     with Child
     with Observable
+    with Drifting
     with Nameable
     with Identity {
   override var mass: Mass = Mass.zero
-  val bodies = new mutable.ArrayBuffer[TemporalMassive with Child with Identity]
+  val bodies = new mutable.ArrayBuffer[Massive with Child]
 
-  override def size: Length = {
+  @JsonProperty("size")
+  def size: Length = {
     if(bodies.isEmpty)
       Length.zero
     else
       new Length(bodies.maxBy(_.location.magnitude).location.magnitude)
   }
 
-  override def collide(other: Sizeable): Unit = {}
-
   /**
     * Adds a body to the system and updates the mass.
     * @param massive body to add
     */
-  def add(massive: TemporalMassive with Child with Identity): Unit = {
+  def add(massive: Massive with Child): Unit = {
     bodies += massive
     mass += massive.mass
   }
@@ -66,7 +66,7 @@ class System(override var id: Option[Long],
     * @param massive body to remove
     * @return if body was removed
     */
-  def del(massive: TemporalMassive with Child with Identity): Boolean = {
+  def del(massive: Massive with Child): Boolean = {
     if(!bodies.contains(massive))
       false
     else {
@@ -80,15 +80,19 @@ class System(override var id: Option[Long],
     * Triggered when a massive object enters a system. This needs to remove the object from the parent.
     * @param massive massive that entered the system
     */
-  override def enter(massive: TemporalMassive with Child with Identity): Unit = {
+  override def enter(massive: Massive with Child): Unit = {
     add(massive)
-    massive.location -= location
-    massive.velocity -= velocity
-    parent match {
-      case None =>
-      case Some(parent: Parent) =>
-        parent.del(massive)
+
+    // Update drift if it has drift
+    massive match {
+      case drifting: Drifting =>
+        drifting.velocity.foreach(drift => velocity.foreach(vel => drifting.velocity = Some(drift - vel)))
+      case _ =>
     }
+
+    massive.location -= location
+
+    parent.foreach(_.del(massive))
     massive.parent = Some(this)
   }
 
@@ -97,17 +101,20 @@ class System(override var id: Option[Long],
     * nothing when there is no parent to escape into.
     * @param massive massive that escaped
     */
-  override def escape(massive: TemporalMassive with Child with Identity): Unit = {
+  override def escape(massive: Massive with Child): Unit = {
     if(bodies.contains(massive)) {
-      parent match {
-        case None =>
-        case Some(parent: Parent) =>
-          bodies -= massive
-          mass -= massive.mass
-          massive.location += location
-          massive.velocity += velocity
-          parent.enter(massive)
+      bodies -= massive
+      mass -= massive.mass
+      massive.location += location
+
+      // Update drift if it has drift
+      massive match {
+        case drifting: Drifting =>
+          drifting.velocity.foreach(drift => velocity.foreach(vel => drifting.velocity = Some(drift + vel)))
+        case _ =>
       }
+
+      parent.foreach(_.enter(massive))
     }
   }
 
@@ -128,7 +135,7 @@ class System(override var id: Option[Long],
       case _ => false
     })
     if(result.isEmpty) {
-      def findChild(system: TemporalMassive with Child): Option[Child] = {
+      def findChild(system: Massive with Child): Option[Child] = {
         system match {
           case parent: Parent =>
             parent.find(query) match {
@@ -149,7 +156,7 @@ class System(override var id: Option[Long],
     * @param query body name
     * @return first body that matches the name
     */
-  def get(query: String): Option[TemporalMassive with Child with Identity] = {
+  def get(query: String): Option[Massive with Child] = {
     bodies.find({
       case nameable: Nameable =>
         nameable.name match {
@@ -167,7 +174,7 @@ class System(override var id: Option[Long],
       else
         new BarnesHutTree(bodies, new Length(bodies.maxBy(_.location.magnitude).location.magnitude))
     bodies.foreach({
-      case body: TemporalMassive =>
+      case body: Massive with Drifting =>
         body.update(forceCalc, date - lastObserved)
         // TODO - escape velocity calculation. requires checking for escape velocity difference over a stable orbit
 //        if(body.velocity >= escapeVelocity(body.location))
@@ -176,6 +183,21 @@ class System(override var id: Option[Long],
     })
   }
 
+  override def update(calculator: ForceCalculator, time: Time): Unit = {
+    val barycenter = calculator.barycenter
+
+    velocity.foreach(drift => {
+      // TODO - preserve angular momentum
+      velocity = Some(drift + calculator.calculate(this) / mass / time)
+      if(drift.ms.magnitude != 0) {
+        val distance = Length(barycenter.location.distance(location).magnitude)
+        val traversed = Length((drift * time).magnitude)
+        val angle = Circle.centralAngle(distance, traversed)
+        val polar = Polar2.convert(barycenter.location, location)
+        location = Polar2(polar.angle + angle, polar.length).cartesian(barycenter.location)
+      }
+    })
+  }
 
   override def absoluteLocation(relative: Vec2): Vec2 = {
     parent match {

@@ -1,7 +1,7 @@
 package lars.core.celestial.container
 
-import lars.core.celestial.Constants
-import lars.core.celestial.body.{StellarBody, TerrestrialBody}
+import lars.core.celestial.{Body, Constants}
+import lars.core.physics.units.Time
 import lars.core.math.Vec2
 import lars.core.physics.units.{Mass, Velocity}
 import org.scalatest.{BeforeAndAfter, FunSuite}
@@ -10,25 +10,33 @@ class SystemTest extends FunSuite with BeforeAndAfter {
   var galaxy: System = _
   var system: System = _
 
-  val sol = new StellarBody(
-    Some("Sol"),
-    Constants.Sol.sol.mass,
-    new Vec2(0,0),
-    Velocity.zero,
-    Constants.Sol.sol.radius,
-    None)
+  val sol = Body(
+    id = None,
+    name = Some("Sol"),
+    parent = None,
+    lastObserved = Time.zero,
+    mass = Constants.Sol.sol.mass,
+    location = Vec2.addIdent,
+    size = Some(Constants.Sol.sol.radius),
+    orbiting = None,
+    velocity = Some(Velocity.zero),
+    surface = None)
 
-  val earth = new TerrestrialBody(
-    Some("Earth"),
-    Constants.Sol.earth.mass,
-    new Vec2(Constants.Sol.earth.orbit.radius.km,0),
-    Velocity.zero,
-    Constants.Sol.earth.radius,
-    None)
+  val earth = Body(
+    id = None,
+    name = Some("Earth"),
+    parent = None,
+    lastObserved = Time.zero,
+    mass = Constants.Sol.earth.mass,
+    location = Vec2.addIdent,
+    size = Some(Constants.Sol.earth.radius),
+    orbiting = None,
+    velocity = Some(Velocity.zero),
+    surface = None)
 
   before {
-    galaxy = new System(Some("Milky Way"), Vec2.addIdent, Velocity.zero, None)
-    system = new System(Some("Sol"), Vec2.addIdent, Velocity.zero, Some(galaxy))
+    galaxy = new System(None, Some("Milky Way"), Vec2.addIdent, Some(Velocity.zero), Time.zero, None)
+    system = new System(None, Some("Sol"), Vec2.addIdent, Some(Velocity.zero), Time.zero, Some(galaxy))
   }
 
   test("add body") {
@@ -101,7 +109,7 @@ class SystemTest extends FunSuite with BeforeAndAfter {
 
     assert(earth.parent.get == system)
     assert(earth.location == oldLocation - system.location)
-    assert(earth.velocity == oldVelocity - system.velocity)
+    assert(earth.velocity.contains(oldVelocity.get - system.velocity.get))
 
     assert(sol.parent.get == galaxy)
 
@@ -125,7 +133,7 @@ class SystemTest extends FunSuite with BeforeAndAfter {
 
     assert(earth.parent.get == galaxy)
     assert(earth.location == oldLocation + system.location)
-    assert(earth.velocity == oldVelocity + system.velocity)
+    assert(earth.velocity.contains(oldVelocity.get + system.velocity.get))
 
     assert(sol.parent.get == system)
 
