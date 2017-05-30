@@ -205,4 +205,9 @@ class System(override var id: ID = ID(),
       case None => relative
     }
   }
+
+  override def rank(child: Child): Option[Int] = {
+    val index = bodies.indexOf(child)
+    if(index < 0) None else Some(index)
+  }
 }

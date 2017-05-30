@@ -1,10 +1,12 @@
 import java.util.UUID
 
 import dao.CelestialDao
-import lars.core.celestial.definition.Definition
+import lars.core.celestial.definition.{Definition, DefinitionOrdering}
 import model.Celestial
 
 class CelestialModelFactory(celestialDao: CelestialDao) {
+
+  implicit val ordering = DefinitionOrdering
 
   def create(definition: Definition): Unit = {
     createBodies(definition, None, None)
@@ -20,6 +22,7 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
     val id = UUID.randomUUID
     celestialDao.save(Celestial(
       id,
+      definition.rank,
       definition.`type`,
       Some(definition.name),
       if(definition.orbit != null) definition.orbit.length else 0L,
@@ -47,7 +50,7 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
         val id = createBody(definition, None, None)
         CelestialDao.galaxyId = id
         if(definition.bodies != null && definition.bodies.nonEmpty) {
-          definition.bodies.foreach(createBodies(_, Some(id), None))
+          definition.bodies.sortWith(_.rank > _.rank).foreach(createBodies(_, Some(id), None))
         }
       case "system" =>
         val id = createBody(definition, parent, ancestor)
@@ -56,7 +59,7 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
           case Some(_) => ancestor
         }
         if(definition.bodies != null && definition.bodies.nonEmpty) {
-          definition.bodies.foreach(createBodies(_, Some(id), nextAncestor))
+          definition.bodies.sortWith(_.rank > _.rank).foreach(createBodies(_, Some(id), nextAncestor))
         }
       case _ =>
         createBody(definition, parent, ancestor)

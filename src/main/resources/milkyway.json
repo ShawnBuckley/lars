@@ -1,9 +1,11 @@
 {
   "name": "Milky Way",
+  "rank": 0,
   "type": "galaxy",
   "bodies": [
     {
       "name": "Sagittarius A*",
+      "rank": 0,
       "type": "system",
       "orbit": {
         "length": 0,
@@ -12,7 +14,8 @@
       "bodies": [
         {
           "name": "Sagittarius A*",
-          "type": "singularity",
+          "rank": 0,
+          "type": "body",
           "mass": 8.57e36,
           "orbit": {
             "length": 0,
@@ -23,6 +26,7 @@
     },
     {
       "name": "Sol",
+      "rank": 0,
       "type": "system",
       "orbit": {
         "length": 2.349e17,
@@ -31,6 +35,7 @@
       "bodies": [
         {
           "name": "Sol",
+          "rank": 0,
           "type": "body",
           "mass": 1.98855e30,
           "radius": 695500,
@@ -41,6 +46,7 @@
         },
         {
           "name": "Mercury",
+          "rank": 1,
           "type": "body",
           "mass": 3.3011e23,
           "radius": 2439.7,
@@ -51,6 +57,7 @@
         },
         {
           "name": "Venus",
+          "rank": 2,
           "type": "body",
           "mass": 4.8690e24,
           "radius": 6051.59,
@@ -61,6 +68,7 @@
         },
         {
           "name": "Earth System",
+          "rank": 3,
           "type": "system",
           "orbit": {
             "length": 1.496e8,
@@ -69,6 +77,7 @@
           "bodies": [
             {
               "name": "Earth",
+              "rank": 0,
               "type": "body",
               "mass": 5.9721986e24,
               "radius": 6371,
@@ -79,6 +88,7 @@
             },
             {
               "name": "Luna",
+              "rank": 1,
               "type": "body",
               "mass": 7.342e22,
               "radius": 1737.1,
@@ -91,6 +101,7 @@
         },
         {
           "name": "Mars",
+          "rank": 4,
           "type": "body",
           "mass": 6.4191e23,
           "radius": 3397,
@@ -101,6 +112,7 @@
         },
         {
           "name": "Ceres",
+          "rank": 5,
           "type": "body",
           "mass": 9.393e20,
           "radius": 473,
@@ -111,6 +123,7 @@
         },
         {
           "name": "Jupiter",
+          "rank": 6,
           "type": "body",
           "mass": 1.8987e27,
           "radius": 71492.68,
@@ -121,6 +134,7 @@
         },
         {
           "name": "Saturn",
+          "rank": 7,
           "type": "body",
           "mass": 5.6851e26,
           "radius": 60267.14,
@@ -131,6 +145,7 @@
         },
         {
           "name": "Uranus",
+          "rank": 8,
           "type": "body",
           "mass": 8.6849e25,
           "radius": 25557.25,
@@ -141,6 +156,7 @@
         },
         {
           "name": "Neptune",
+          "rank": 9,
           "type": "body",
           "mass": 1.0244e26,
           "radius": 24766.36,
@@ -151,6 +167,7 @@
         },
         {
           "name": "Pluto System",
+          "rank": 10,
           "type": "system",
           "orbit": {
             "length": 5.9061e9,
@@ -159,6 +176,7 @@
           "bodies": [
             {
               "name": "Pluto",
+              "rank": 0,
               "type": "body",
               "mass": 1.303e22,
               "radius": 1187,
@@ -169,6 +187,7 @@
             },
             {
               "name": "Charon",
+              "rank": 1,
               "type": "body",
               "mass": 1.586e21,
               "radius": 606,
@@ -183,6 +202,7 @@
     },
     {
       "name": "TRAPPIST-1",
+      "rank": 1,
       "type": "system",
       "orbit": {
         "length": 2.353e17,
@@ -191,6 +211,7 @@
       "bodies": [
         {
           "name": "a",
+          "rank": 0,
           "type": "body",
           "mass": 1.59e29,
           "radius": 162793,
@@ -201,6 +222,7 @@
         },
         {
           "name": "b",
+          "rank": 1,
           "type": "body",
           "mass": 5.08e24,
           "radius": 6926.6,
@@ -211,6 +233,7 @@
         },
         {
           "name": "c",
+          "rank": 2,
           "type": "body",
           "mass": 8.242e24,
           "radius": 6735.3,
@@ -221,6 +244,7 @@
         },
         {
           "name": "d",
+          "rank": 3,
           "type": "body",
           "mass": 2.45e24,
           "radius": 4924,
@@ -231,6 +255,7 @@
         },
         {
           "name": "e",
+          "rank": 4,
           "type": "body",
           "mass": 3.7e24,
           "radius": 5855,
@@ -241,6 +266,7 @@
         },
         {
           "name": "f",
+          "rank": 5,
           "type": "body",
           "mass": 4.06e24,
           "radius": 6665.1,
@@ -251,6 +277,7 @@
         },
         {
           "name": "g",
+          "rank": 6,
           "type": "body",
           "mass": 8.003e24,
           "radius": 7188.1,
@@ -261,6 +288,7 @@
         },
         {
           "name": "h",
+          "rank": 7,
           "type": "body",
           "mass": 4.9e24,
           "radius": 4815,

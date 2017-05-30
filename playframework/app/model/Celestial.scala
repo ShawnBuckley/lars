@@ -12,6 +12,7 @@ import lars.core.physics.units.{Length, Mass, Time, Velocity}
 import scala.collection.mutable
 
 case class Celestial(id: UUID,
+                     rank: Int,
                      kind: String,
                      name: Option[String],
                      x: Double,
@@ -88,8 +89,16 @@ object Celestial {
       case _ => (None, None)
     }
 
-     Seq(Celestial(
+    val rank = massive match {
+      case child: Child => child.parent match {
+        case Some(parent) => parent.rank(child).getOrElse(0)
+        case None => 0
+      }
+    }
+
+    Seq(Celestial(
       id = massive.id.get,
+      rank = rank,
       kind = massive match {
         case _: Body => "body"
         case _: System => "system"
@@ -132,6 +141,8 @@ object Celestial {
     val converted = new mutable.HashMap[UUID, Massive with Identity]
     val added = new mutable.HashSet[UUID]
 
+    val bodies = new mutable.HashMap[UUID, mutable.HashMap[Int, Massive with Identity]]
+
     val celestialMap = new mutable.HashMap[UUID, Celestial]
 
     def getOrConvert(celestial: Celestial, parent: Option[Parent]): Option[Massive with Identity] = {
@@ -158,7 +169,13 @@ object Celestial {
             getOrConvert(celestial, Some(parent)).map(result => {
               if(!added.contains(result.id.get)) {
                 added.add(result.id.get)
-                parent.add(result.asInstanceOf[Massive with Child])
+                bodies.get(parent.id.get) match {
+                  case None =>
+                    bodies.put(parent.id.get, new mutable.HashMap[Int, Massive with Identity])
+                    bodies(parent.id.get).put(celestial.rank, result.asInstanceOf[Massive with Child])
+                  case Some(_) =>
+                    bodies(parent.id.get).put(celestial.rank, result.asInstanceOf[Massive with Child])
+                }
               }
               result
             })
@@ -168,6 +185,18 @@ object Celestial {
 
     celestials.foreach(celestial => celestialMap.put(celestial.id, celestial))
     celestials.foreach(celestial => convertElders(celestial))
+
+    bodies.foreach { keyPair =>
+      converted.get(keyPair._1) match {
+        case Some(result) => result match {
+          case parent: Parent => keyPair._2.toSeq.sortWith(_._1 < _._1).map(_._2).foreach {
+            case child: Child => parent.add(child)
+            case _ => println("it happened")
+          }
+        }
+        case None => // shouldn't happen
+      }
+    }
 
     eldest
   }

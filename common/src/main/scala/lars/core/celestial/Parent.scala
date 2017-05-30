@@ -45,4 +45,11 @@ trait Parent extends NestedLocation with Identity {
     * @return first match
     */
   def find(name: String): Option[Child]
+
+  /**
+    * Returns the rank of a child if descended from the parent.
+    * @param child child
+    * @return optional rank
+    */
+  def rank(child: Child): Option[Int]
 }
