@@ -1,13 +1,11 @@
 package lars.core.celestial.container
 
-import java.util.UUID
-
 import com.fasterxml.jackson.annotation.{JsonIgnore, JsonProperty}
-import lars.core.{Identity, Nameable}
+import lars.core.{ID, Identity, Nameable}
 import lars.core.celestial._
 import lars.core.math.{Circle, Polar2, Vec2}
 import lars.core.observation.Observable
-import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator}
+import lars.core.physics.celestial.gravitation.{BarycenterRemove, ForceCalculator, PairWise}
 import lars.core.physics.celestial.gravitation.barneshut.BarnesHutTree
 import lars.core.physics.units.{Length, Mass, Time, Velocity}
 
@@ -30,7 +28,7 @@ import scala.collection.mutable
   * @param location system location
   * @param parent system parent
   */
-class System(override var id: Option[UUID],
+class System(override var id: ID = ID(),
              override var name: Option[String],
              override var location: Vec2,
              override var velocity: Option[Velocity],

@@ -13,7 +13,6 @@ class SingularityTest extends FunSuite with BeforeAndAfter {
 
   before {
     singularity = Body(
-      id = None,
       name = Some("Sol"),
       parent = None,
       lastObserved = Time.zero,
@@ -27,7 +26,6 @@ class SingularityTest extends FunSuite with BeforeAndAfter {
     singularitySurface = new Singularity(singularity)
 
     earth = Body(
-      id = None,
       name = Some("Earth"),
       parent = None,
       lastObserved = Time.zero,

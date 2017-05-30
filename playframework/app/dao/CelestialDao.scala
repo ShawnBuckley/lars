@@ -2,56 +2,51 @@ package dao
 
 import java.util.UUID
 
+import lars.core.Identity
+import lars.core.celestial.Massive
 import model.Celestial
 
+import scala.concurrent.{ExecutionContext, Future}
+
 trait CelestialDao {
+  implicit val ec: ExecutionContext
 
-  /**
-    * Gets a celestial by id.
-    * @param id celestial id
-    * @return optional celestial
-    */
-  def get(id: UUID): Option[Celestial]
+  def get(id: UUID): Future[Option[Massive with Identity]]
 
-  /**
-    * Gets all celestials by parent id.
-    * @param parent ancestor id
-    * @return descendants
-    */
-  def getByParent(parent: UUID): Seq[Celestial]
+  def query: CelestialQuery
+  def find(query: CelestialQuery): Future[Seq[Massive with Identity]]
+  def findRaw(query: CelestialQuery): Future[Seq[Celestial]]
 
-  /**
-    * Gets all celestials by ancestor id.
-    * @param ancestor ancestor id
-    * @return descendants
-    */
-  def getByAncestor(ancestor: UUID): Seq[Celestial]
+  def findWithAncestors(query: CelestialQuery): Future[Seq[Massive with Identity]] = {
+    findRaw(query).flatMap { celestials =>
+      findRaw(this.query.withAncestors(celestials.map(_.ancestor))).map { withAncestors =>
+        Celestial.convert(withAncestors ++ celestials)
+      }
+    }
+  }
 
-  /**
-    * Attemps to find a celestial with the matching name.
-    * @param term name to query
-    * @return optional celestial
-    */
-  def findByName(term: String): Option[Celestial]
+  def save(massive: Massive with Identity): Future[Unit]
+  def save(celestial: Celestial): Future[Unit]
+  def save(celestials: Seq[Celestial]): Future[Unit]
 
-  /**
-    * Attemps to find a celestial with the matching name.
-    * @param term name to query
-    * @return optional celestial
-    */
-  def findByName(term: String, kind: String): Option[Celestial]
+  def delete(id: UUID): Future[Unit]
+  def delete(query: CelestialQuery): Future[Unit]
+}
 
-  /**
-    * Saves a celestial. Returns id on success.
-    * @param celestial celestial object
-    * @return celestial id
-    */
-  def save(celestial: Celestial): Unit
+trait CelestialQuery {
+  def withId(id: UUID): CelestialQuery
+  def withKind(kind: String): CelestialQuery
+  def withName(name: String): CelestialQuery
+  def withParent(parent: UUID): CelestialQuery
+  def withAncestor(ancestor: UUID): CelestialQuery
 
-  /**
-    * Deletes a system by id.
-    * @param id id
-    */
-  def delete(id: UUID): Unit
+  def withIds(ids: Seq[UUID]): CelestialQuery
+  def withKinds(kinds: Seq[String]): CelestialQuery
+  def withNames(names: Seq[String]): CelestialQuery
+  def withParents(parents: Seq[UUID]): CelestialQuery
+  def withAncestors(ancestors: Seq[UUID]): CelestialQuery
+}
 
+object CelestialDao {
+  var galaxyId: UUID = _
 }

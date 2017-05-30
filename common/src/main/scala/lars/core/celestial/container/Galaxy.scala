@@ -1,8 +1,6 @@
 package lars.core.celestial.container
 
-import java.util.UUID
-
-import lars.core.Identity
+import lars.core.{ID, Identity}
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vec2
 import lars.core.observation.Unobservable
@@ -15,7 +13,7 @@ import scala.collection.mutable
   * instances of LARS.  All celestial objects exist within the galaxy and cannot escape it.
   * @param name galaxy name
   */
-class Galaxy(override var id: Option[UUID], val name: Option[String], override var mass: Mass) extends Massive with Parent with Identity with Unobservable {
+class Galaxy(override var id: ID, val name: Option[String], override var mass: Mass) extends Massive with Parent with Identity with Unobservable {
   override var location: Vec2 = Vec2.addIdent
   val bodies = new mutable.ArrayBuffer[Massive with Child]()
 

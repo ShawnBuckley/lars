@@ -3,7 +3,7 @@
 GET     /api/v1/system/:name      controllers.v1.SystemController.find(name: String)
 GET     /api/v1/body/:name        controllers.v1.BodyController.find(name: String)
 
-GET     /api/v1/game/galaxy       controllers.v1.GameController.getGalaxy
+#GET     /api/v1/game/galaxy       controllers.v1.GameController.getGalaxy
 GET     /api/v1/game/date         controllers.v1.GameController.date
 POST    /api/v1/game/pause        controllers.v1.GameController.pause
 GET     /api/v1/game/running      controllers.v1.GameController.running

@@ -1,5 +1,6 @@
 package lars.core.celestial.container
 
+import lars.core.ID
 import lars.core.celestial.{Body, Constants}
 import lars.core.physics.units.Time
 import lars.core.math.Vec2
@@ -11,7 +12,6 @@ class SystemTest extends FunSuite with BeforeAndAfter {
   var system: System = _
 
   val sol = Body(
-    id = None,
     name = Some("Sol"),
     parent = None,
     lastObserved = Time.zero,
@@ -23,7 +23,6 @@ class SystemTest extends FunSuite with BeforeAndAfter {
     surface = None)
 
   val earth = Body(
-    id = None,
     name = Some("Earth"),
     parent = None,
     lastObserved = Time.zero,
@@ -35,8 +34,8 @@ class SystemTest extends FunSuite with BeforeAndAfter {
     surface = None)
 
   before {
-    galaxy = new System(None, Some("Milky Way"), Vec2.addIdent, Some(Velocity.zero), Time.zero, None)
-    system = new System(None, Some("Sol"), Vec2.addIdent, Some(Velocity.zero), Time.zero, Some(galaxy))
+    galaxy = new System(ID(), Some("Milky Way"), Vec2.addIdent, Some(Velocity.zero), Time.zero, None)
+    system = new System(ID(), Some("Sol"), Vec2.addIdent, Some(Velocity.zero), Time.zero, Some(galaxy))
   }
 
   test("add body") {

@@ -21,7 +21,7 @@ trait Child extends NestedLocation with Identity {
         case child: Child => child.ancestor
         case _ => Some(parent)
       }
-      case None => None
+      case None => None // orphaned object
     }
   }
 

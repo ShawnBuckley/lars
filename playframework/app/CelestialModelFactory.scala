@@ -2,7 +2,6 @@ import java.util.UUID
 
 import dao.CelestialDao
 import lars.core.celestial.definition.Definition
-import mapper.CelestialMapper
 import model.Celestial
 
 class CelestialModelFactory(celestialDao: CelestialDao) {
@@ -16,11 +15,11 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
   }
 
   private def createBody(definition: Definition,
-                 parent: Option[UUID],
-                 ancestor: Option[UUID]): UUID = {
+                         parent: Option[UUID],
+                         ancestor: Option[UUID]): UUID = {
     val id = UUID.randomUUID
     celestialDao.save(Celestial(
-      Some(id),
+      id,
       definition.`type`,
       Some(definition.name),
       if(definition.orbit != null) definition.orbit.length else 0L,
@@ -30,8 +29,14 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
       Some(0), // velX
       if(definition.orbit != null) Some(definition.orbit.speed.ms) else Some(0L),
       getLastObserved(definition.`type`),
-      parent,
-      ancestor
+      ancestor match {
+        case Some(_) => parent
+        case None => None
+      },
+      ancestor match {
+        case Some(ancestorId) => ancestorId
+        case None => id
+      }
     ))
     id
   }
@@ -40,7 +45,7 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
     definition.`type` match {
       case "galaxy" =>
         val id = createBody(definition, None, None)
-        CelestialMapper.galaxyId = id
+        CelestialDao.galaxyId = id
         if(definition.bodies != null && definition.bodies.nonEmpty) {
           definition.bodies.foreach(createBodies(_, Some(id), None))
         }

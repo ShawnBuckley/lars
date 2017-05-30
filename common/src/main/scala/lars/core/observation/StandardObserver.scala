@@ -78,8 +78,8 @@ class StandardObserver(timeMulti: Double, maxTickLength: Time) extends Observer 
     * Triggers observation of objects from the source's eldest observable parent.
     * @param observable object being observed
     */
-  override def observe(observable: Observable): Unit = {
-    if(!running) return
+  override def observe(observable: Observable): Observable = {
+    if(!running) return observable
     def handle(parent: Parent with Child): Unit = {
       getEldest(parent) match {
         case observable: Observable => splitObservations(observable, date)
@@ -99,6 +99,7 @@ class StandardObserver(timeMulti: Double, maxTickLength: Time) extends Observer 
         }
       case _ =>
     }
+    observable
   }
 
   /**

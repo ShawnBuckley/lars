@@ -5,9 +5,10 @@ import dao.memory.MemoryCelestialDao
 import lars.core.celestial.definition.Definition
 import lars.core.observation.{Observer, StandardObserver}
 import lars.core.physics.units.Time
-import mapper.CelestialMapper
 import net.codingwell.scalaguice.ScalaModule
 import util.JsonUtil
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class
 Module extends ScalaModule {
@@ -15,9 +16,6 @@ Module extends ScalaModule {
 
     val celestialDao = new MemoryCelestialDao
     bind[CelestialDao].toInstance(celestialDao)
-
-    val celestialMapper = new CelestialMapper(celestialDao)
-    bind[CelestialMapper].toInstance(celestialMapper)
 
     val factory = new CelestialModelFactory(celestialDao)
 

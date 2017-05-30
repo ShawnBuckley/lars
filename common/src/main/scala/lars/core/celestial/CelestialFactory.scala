@@ -1,5 +1,6 @@
 package lars.core.celestial
 
+import lars.core.ID
 import lars.core.celestial.container.System
 import lars.core.celestial.definition.Definition
 import lars.core.math.Vec2
@@ -14,8 +15,8 @@ object CelestialFactory {
     val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
     definition.`type` match {
       case "body" =>
-        Some(new Body(
-          id = None,
+        Some(Body(
+          id = new ID,
           name = name,
           parent = Some(parent),
           lastObserved = Time.zero,
@@ -42,7 +43,7 @@ object CelestialFactory {
       case "system" =>
         val location = new Vec2(definition.orbit.length, 0)
         val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
-        val system = new System(None, Some(definition.name), location, Some(velocity), Time.zero, Some(parent))
+        val system = new System(new ID, Some(definition.name), location, Some(velocity), Time.zero, Some(parent))
         if(definition.bodies != null && definition.bodies.nonEmpty) {
           definition.bodies.foreach(body => {
             createBodies(body, system)

@@ -1,50 +1,87 @@
 package dao.memory
 
 import java.util.UUID
+import javax.inject.Inject
 
-import dao.CelestialDao
+import dao.{CelestialDao, CelestialQuery}
+import lars.core.Identity
+import lars.core.celestial.Massive
 import model.Celestial
 
 import scala.collection.mutable
+import scala.concurrent.{ExecutionContext, Future}
 
-class MemoryCelestialDao extends CelestialDao {
-
+class MemoryCelestialDao @Inject()()(override implicit val ec: ExecutionContext) extends CelestialDao {
   private val bodies = new mutable.HashMap[UUID, Celestial]()
 
-  override def get(id: UUID): Option[Celestial] = {
-    bodies.get(id)
+  override def get(id: UUID): Future[Option[Massive with Identity]] = {
+    Future.successful(bodies.get(id).flatMap(_.convert()))
   }
 
-  override def getByParent(id: UUID): Seq[Celestial] = {
-    bodies.values.filter(_.parent.contains(id)).toSeq
+  override def query: CelestialQuery = new MemoryCelestialQuery(bodies.values)
+
+  override def findRaw(query: CelestialQuery): Future[Seq[Celestial]] = {
+    Future.successful(query.asInstanceOf[MemoryCelestialQuery].query.toSeq)
   }
 
-  override def getByAncestor(id: UUID): Seq[Celestial] = {
-    bodies.values.filter(_.ancestor match {
-      case None => false
-      case Some(ancestor) => ancestor == id
-    }).toSeq
+  override def find(query: CelestialQuery): Future[Seq[Massive with Identity]] = {
+    Future.successful(query.asInstanceOf[MemoryCelestialQuery].query.toSeq.flatMap(_.convert()))
   }
 
-  override def findByName(term: String): Option[Celestial] = {
-    bodies.values.find(_.name match {
-      case Some(name) => name.equals(term)
-      case None => false
-    })
+  override def save(massive: Massive with Identity): Future[Unit] = {
+    save(Celestial.convert(massive))
   }
 
-  override def findByName(term: String, kind: String): Option[Celestial] = {
-    bodies.values.find(celestial => celestial.kind.equals(kind) && (celestial.name match {
-      case Some(name) => name.equals(term)
-      case None => false
-    }))
+  override def save(celestial: Celestial): Future[Unit] = {
+    Future.successful(bodies.put(celestial.id, celestial))
   }
 
-  override def save(celestial: Celestial): Unit = {
-    celestial.id.foreach(id => bodies.put(id, celestial))
+  override def save(celestials: Seq[Celestial]): Future[Unit] = {
+    Future.successful(celestials.foreach(celestial => bodies.put(celestial.id, celestial)))
   }
 
-  override def delete(id: UUID): Unit = {
-    bodies.remove(id)
+  override def delete(id: UUID): Future[Unit] = {
+    Future.successful(bodies.remove(id))
+  }
+
+  override def delete(query: CelestialQuery): Future[Unit] = {
+    Future.successful(convert(query).foreach(celestial => bodies.remove(celestial.id)))
+  }
+
+  private def convert(query: CelestialQuery): Iterable[Celestial] =
+    query.asInstanceOf[MemoryCelestialQuery].query
+
+
+  private class MemoryCelestialQuery(val query: Iterable[Celestial]) extends CelestialQuery {
+    override def withId(id: UUID): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(_.id == id))
+
+    override def withKind(kind: String): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(_.kind == kind))
+
+    override def withName(name: String): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(_.name.contains(name)))
+
+    override def withParent(parent: UUID): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(_.parent.contains(parent)))
+
+    override def withAncestor(ancestor: UUID): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(_.ancestor == ancestor))
+
+
+    override def withIds(ids: Seq[UUID]): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(celestial => ids.contains(celestial.id)))
+
+    override def withKinds(kinds: Seq[String]): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(celestial => kinds.contains(celestial.kind)))
+
+    override def withNames(names: Seq[String]): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(celestial => names.contains(celestial.name.orNull)))
+
+    override def withParents(parents: Seq[UUID]): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(celestial => parents.contains(celestial.parent.orNull)))
+
+    override def withAncestors(ancestors: Seq[UUID]): CelestialQuery =
+      new MemoryCelestialQuery(query.filter(celestial => ancestors.contains(celestial.ancestor)))
   }
 }

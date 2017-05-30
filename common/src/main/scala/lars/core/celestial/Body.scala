@@ -1,15 +1,13 @@
 package lars.core.celestial
 
-import java.util.UUID
-
-import lars.core.{Identity, Nameable}
+import lars.core.{ID, Identity, Nameable}
 import lars.core.math.{Circle, Polar2, Sphere, Vec2}
 import lars.core.observation.Observable
 import lars.core.physics.celestial.gravitation.ForceCalculator
 import lars.core.physics.units._
 import lars.core.surface.Surface
 
-case class Body(override var id: Option[UUID],
+case class Body(override var id: ID = ID(),
                 override var name: Option[String],
                 override var parent: Option[Parent],
                 override var lastObserved: Time,
