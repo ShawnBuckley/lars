@@ -13,7 +13,7 @@ case class Body(override var id: ID = ID(),
                 override var lastObserved: Time,
                 override var mass: Mass,
                 override var location: Vec2,
-                override val size: Option[Length],
+                override var size: Option[Length],
                 var orbiting: Option[Orbiting],
                 override var velocity: Option[Velocity],
                 var surface: Option[Surface])

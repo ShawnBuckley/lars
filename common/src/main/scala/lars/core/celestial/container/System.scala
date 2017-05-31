@@ -51,6 +51,8 @@ class System(override var id: ID = ID(),
       Some(Length(bodies.maxBy(_.location.magnitude).location.magnitude))
   }
 
+  override def size_=(length: Option[Length]): Unit = {}
+
   /**
     * Adds a body to the system and updates the mass.
     * @param massive body to add
