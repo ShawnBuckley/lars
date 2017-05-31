@@ -1,6 +1,5 @@
 package lars.core.celestial.container
 
-import com.fasterxml.jackson.annotation.{JsonIgnore, JsonProperty}
 import lars.core.{ID, Identity, Nameable}
 import lars.core.celestial._
 import lars.core.math.{Circle, Polar2, Vec2}
@@ -45,7 +44,6 @@ class System(override var id: ID = ID(),
   override var mass: Mass = Mass.zero
   val bodies = new mutable.ArrayBuffer[Massive with Child]
 
-  @JsonProperty("size")
   override def size: Option[Length] = {
     if(bodies.isEmpty)
       None
@@ -123,7 +121,7 @@ class System(override var id: ID = ID(),
     * Returns children of the parent
     * @return children
     */
-  @JsonIgnore override def children: Seq[Massive with Child] =
+  override def children: Seq[Massive with Child] =
     bodies
 
   override def find(query: String): Option[Massive with Child] = {

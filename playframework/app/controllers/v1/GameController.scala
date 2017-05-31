@@ -3,8 +3,8 @@ package controllers.v1
 import javax.inject._
 
 import lars.core.observation.Observer
+import play.api.libs.json.Json
 import play.api.mvc._
-import util.JsonUtil
 
 @Singleton
 class GameController @Inject()(observer: Observer) extends Controller {
@@ -14,7 +14,7 @@ class GameController @Inject()(observer: Observer) extends Controller {
 //  }
 
   def date = Action {
-    Ok(JsonUtil.toJson(observer.date))
+    Ok(Json.toJson(observer.date.d))
   }
 
   def running = Action {

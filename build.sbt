@@ -15,8 +15,10 @@ lazy val playframework = (project in file("playframework"))
     libraryDependencies ++= Seq(
       "org.slf4j" % "log4j-over-slf4j" % "1.7.25",
       "net.codingwell" %% "scala-guice" % "4.1.0",
-      "com.fasterxml.jackson" % "jackson-bom" % "2.8.8",
-      "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.8",
+
+      "com.typesafe.play" %% "play-slick" % "2.1.0",
+      "com.typesafe.play" %% "play-slick-evolutions" % "2.1.0",
+      "org.postgresql" % "postgresql" % "42.1.1",
 
       "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % "test",
       "org.scalatest" %% "scalatest" % "3.0.3" % "test"
@@ -29,7 +31,6 @@ lazy val common = (project in file("common"))
   .settings(settings: _*)
   .settings(
     libraryDependencies ++= Seq(
-      "com.fasterxml.jackson.core" % "jackson-annotations" % "2.8.8",
       "org.scalatest" %% "scalatest" % "3.0.3" % "test"
     )
   )

@@ -1,13 +1,11 @@
 package lars.core.celestial
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import lars.core.Identity
 import lars.core.math.Vec2
 
 /**
   * This trait is used to determine a nested object's absolute location in the galaxy.
   */
-@JsonIgnoreProperties(Array[String]("parent"))
 trait Child extends NestedLocation with Identity {
   var parent: Option[Parent]
 
