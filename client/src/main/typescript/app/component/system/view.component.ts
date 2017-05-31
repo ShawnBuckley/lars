@@ -81,7 +81,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
         if(!changes.system.previousValue ||
                 changes.system.currentValue.name != changes.system.previousValue.name) {
             this.zoom = 2.0;
-            this.pixelDistance = ((this.system.size.km * 2) / this.size.x) * this.zoom;
+            this.pixelDistance = ((this.system.size * 2) / this.size.x) * this.zoom;
         }
         this.update();
     }
@@ -115,7 +115,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
         let mouseLocation = new Vec2(event.pageX, event.pageY);
         let focalLocation = this.unproject(mouseLocation);
-        this.pixelDistance = ((this.system.size.km * 2) / this.size.x) * this.zoom;
+        this.pixelDistance = ((this.system.size * 2) / this.size.x) * this.zoom;
 
         let viewportLocation = this.viewportLocation(focalLocation);
         this.viewport = viewportLocation.sub(mouseLocation);
@@ -150,7 +150,7 @@ export class SystemViewComponent implements OnInit, OnChanges, AfterViewInit {
 
     renderBody(body: Body, color: string, offset: Vec2): void {
         // calculate non linear inverse perspective scaled body size
-        let bodySize = Math.log((body.size.km / this.pixelDistance) * 1000);
+        let bodySize = Math.log((body.size / this.pixelDistance) * 1000);
         if(bodySize > 1)
             bodySize = Math.round(bodySize);
         else

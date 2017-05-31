@@ -1,20 +1,18 @@
 import { Vec2 } from "./vec2.model";
-import { Mass } from "./mass.model";
-import { Length } from "./length.model";
 
 export class Body {
     name: string;
-    mass: Mass;
+    mass: number;
     location: Vec2;
     velocity: Vec2;
-    size: Length;
+    size: number;
 
     constructor(
             name: string,
-            mass: Mass,
+            mass: number,
             location: Vec2,
             velocity: Vec2,
-            size: Length) {
+            size: number) {
         this.name = name;
         this.mass = mass;
         this.location = location;
