@@ -10,7 +10,7 @@ object CelestialFactory {
   def createBody(definition: Definition, parent: Parent with Child): Option[Massive with Child] = {
     val name = Some(definition.name)
     val mass = Mass(definition.mass)
-    val radius = Length(definition.radius)
+    val radius = definition.radius.map(radius => new Length(radius.toDouble))
     val location = new Vec2(definition.orbit.length, 0)
     val velocity = new Velocity(new Vec2(0, definition.orbit.speed.ms))
     definition.`type` match {
@@ -22,7 +22,7 @@ object CelestialFactory {
           lastObserved = Time.zero,
           mass = mass,
           location = location,
-          size = Some(radius),
+          size = radius,
           orbiting = None,
           velocity = Some(velocity),
           surface = None

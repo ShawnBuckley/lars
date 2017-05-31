@@ -4,7 +4,7 @@ case class Definition(name: String,
                       rank: Int,
                       `type`: String,
                       mass: Double,
-                      radius: Double,
+                      radius: Option[Double],
                       orbit: Orbit,
                       bodies: Seq[Definition])
 

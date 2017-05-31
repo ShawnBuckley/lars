@@ -38,7 +38,7 @@
           "rank": 0,
           "type": "body",
           "mass": 1.98855e30,
-          "radius": 695500,
+          "radius": 695500.0,
           "orbit": {
             "length": 0,
             "period": 0
@@ -80,7 +80,7 @@
               "rank": 0,
               "type": "body",
               "mass": 5.9721986e24,
-              "radius": 6371,
+              "radius": 6371.0,
               "orbit": {
                 "length": 0,
                 "period": 0
@@ -104,7 +104,7 @@
           "rank": 4,
           "type": "body",
           "mass": 6.4191e23,
-          "radius": 3397,
+          "radius": 3397.0,
           "orbit": {
             "length": 227936640,
             "period": 686.509374
@@ -115,7 +115,7 @@
           "rank": 5,
           "type": "body",
           "mass": 9.393e20,
-          "radius": 473,
+          "radius": 473.0,
           "orbit": {
             "length": 399426314.769,
             "period": 1681.63
@@ -179,7 +179,7 @@
               "rank": 0,
               "type": "body",
               "mass": 1.303e22,
-              "radius": 1187,
+              "radius": 1187.0,
               "orbit": {
                 "length": 0,
                 "period": 0
@@ -190,7 +190,7 @@
               "rank": 1,
               "type": "body",
               "mass": 1.586e21,
-              "radius": 606,
+              "radius": 606.0,
               "orbit": {
                 "length": 19571,
                 "period": 6.387
@@ -214,7 +214,7 @@
           "rank": 0,
           "type": "body",
           "mass": 1.59e29,
-          "radius": 162793,
+          "radius": 162793.0,
           "orbit": {
             "length": 0,
             "period": 0
@@ -247,7 +247,7 @@
           "rank": 3,
           "type": "body",
           "mass": 2.45e24,
-          "radius": 4924,
+          "radius": 4924.0,
           "orbit": {
             "length": 4.19e6,
             "period": 4.049610
@@ -258,7 +258,7 @@
           "rank": 4,
           "type": "body",
           "mass": 3.7e24,
-          "radius": 5855,
+          "radius": 5855.0,
           "orbit": {
             "length": 4.19e6,
             "period": 6.099615
@@ -291,7 +291,7 @@
           "rank": 7,
           "type": "body",
           "mass": 4.9e24,
-          "radius": 4815,
+          "radius": 4815.0,
           "orbit": {
             "length": 9.4e6,
             "period": 20.2

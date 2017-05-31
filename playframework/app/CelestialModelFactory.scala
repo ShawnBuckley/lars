@@ -20,7 +20,8 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
                          parent: Option[UUID],
                          ancestor: Option[UUID]): UUID = {
     val id = UUID.randomUUID
-    celestialDao.save(Celestial(
+
+    val celestial = Celestial(
       id,
       definition.rank,
       definition.`type`,
@@ -28,7 +29,7 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
       if(definition.orbit != null) definition.orbit.length else 0L,
       0, // y
       definition.mass,
-      Some(definition.radius),
+      definition.radius.map(radius => radius),
       Some(0), // velX
       if(definition.orbit != null) Some(definition.orbit.speed.ms) else Some(0L),
       getLastObserved(definition.`type`),
@@ -40,7 +41,9 @@ class CelestialModelFactory(celestialDao: CelestialDao) {
         case Some(ancestorId) => ancestorId
         case None => id
       }
-    ))
+    )
+    println(s"INSERT INTO `CELESTIALS` VALUES('${celestial.id}', ${celestial.rank}, '${celestial.kind}', '${celestial.name.getOrElse("NULL")}', ${celestial.x}, ${celestial.y}, ${celestial.mass}, ${celestial.size.getOrElse("NULL")}, ${celestial.velX.getOrElse("NULL")}, ${celestial.velY.getOrElse("NULL")}, ${celestial.observed.getOrElse("NULL")}, '${celestial.parent.getOrElse("NULL")}', '${celestial.ancestor}');")
+    celestialDao.save(celestial)
     id
   }
 
