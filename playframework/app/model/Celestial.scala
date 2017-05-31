@@ -113,7 +113,6 @@ object Celestial {
       massive.location.y,
       massive.mass.kg,
       size = massive match {
-        case system: System => Some(system.size.km)
         case body: Body => body.size.map(_.km)
         case _ => None
       },

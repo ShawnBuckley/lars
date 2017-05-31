@@ -13,11 +13,12 @@ case class Body(override var id: ID = ID(),
                 override var lastObserved: Time,
                 override var mass: Mass,
                 override var location: Vec2,
-                var size: Option[Length],
+                override val size: Option[Length],
                 var orbiting: Option[Orbiting],
                 override var velocity: Option[Velocity],
                 var surface: Option[Surface])
   extends Massive
+     with Sizeable
      with Drifting
      with Nameable
      with Identity

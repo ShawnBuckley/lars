@@ -35,6 +35,7 @@ class System(override var id: ID = ID(),
              override var lastObserved: Time,
              override var parent: Option[Parent])
   extends Massive
+    with Sizeable
     with Parent
     with Child
     with Observable
@@ -45,11 +46,11 @@ class System(override var id: ID = ID(),
   val bodies = new mutable.ArrayBuffer[Massive with Child]
 
   @JsonProperty("size")
-  def size: Length = {
+  override def size: Option[Length] = {
     if(bodies.isEmpty)
-      Length.zero
+      None
     else
-      new Length(bodies.maxBy(_.location.magnitude).location.magnitude)
+      Some(Length(bodies.maxBy(_.location.magnitude).location.magnitude))
   }
 
   /**
