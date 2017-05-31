@@ -60,7 +60,7 @@ class Galaxy(override var id: ID, val name: Option[String], override var mass: M
     *
     * @return children
     */
-  override def children: Seq[Child] = bodies
+  override def children: Seq[Massive with Child] = bodies
 
   /**
     * Searches all children nodes for a child.
@@ -68,7 +68,7 @@ class Galaxy(override var id: ID, val name: Option[String], override var mass: M
     * @param name body name
     * @return first match
     */
-  override def find(name: String): Option[Child] = None
+  override def find(name: String): Option[Massive with Child] = None
 
   /**
     * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
@@ -79,7 +79,7 @@ class Galaxy(override var id: ID, val name: Option[String], override var mass: M
     */
   override def absoluteLocation(relative: Vec2): Vec2 = relative
 
-  override def rank(child: Child): Option[Int] = {
+  override def rank(child: Massive with Child): Option[Int] = {
     val index = bodies.indexOf(child)
     if(index < 0) None else Some(index)
   }

@@ -122,10 +122,10 @@ class System(override var id: ID = ID(),
     * Returns children of the parent
     * @return children
     */
-  @JsonIgnore override def children: Seq[Child] =
+  @JsonIgnore override def children: Seq[Massive with Child] =
     bodies
 
-  override def find(query: String): Option[Child] = {
+  override def find(query: String): Option[Massive with Child] = {
     val result = bodies.find({
       case nameable: Nameable =>
         nameable.name match {
@@ -135,7 +135,7 @@ class System(override var id: ID = ID(),
       case _ => false
     })
     if(result.isEmpty) {
-      def findChild(system: Massive with Child): Option[Child] = {
+      def findChild(system: Massive with Child): Option[Massive with Child] = {
         system match {
           case parent: Parent =>
             parent.find(query) match {
@@ -206,7 +206,7 @@ class System(override var id: ID = ID(),
     }
   }
 
-  override def rank(child: Child): Option[Int] = {
+  override def rank(child: Massive with Child): Option[Int] = {
     val index = bodies.indexOf(child)
     if(index < 0) None else Some(index)
   }

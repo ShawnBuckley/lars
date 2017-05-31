@@ -37,19 +37,19 @@ trait Parent extends NestedLocation with Identity {
     * Returns children of the parent
     * @return children
     */
-  def children: Seq[Child]
+  def children: Seq[Massive with Child]
 
   /**
     * Searches all children nodes for a child.
     * @param name body name
     * @return first match
     */
-  def find(name: String): Option[Child]
+  def find(name: String): Option[Massive with Child]
 
   /**
     * Returns the rank of a child if descended from the parent.
     * @param child child
     * @return optional rank
     */
-  def rank(child: Child): Option[Int]
+  def rank(child: Massive with Child): Option[Int]
 }
