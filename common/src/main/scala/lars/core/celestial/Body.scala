@@ -57,10 +57,10 @@ case class Body(override var id: ID = ID(),
     surface.foreach(_.observed(date))
   }
 
-  override def absoluteLocation(relative: Vec2): Vec2 = {
+  override def absoluteLocation: Vec2 = {
     parent match {
-      case Some(parent: Parent) => parent.absoluteLocation(location + relative)
-      case None => relative
+      case Some(parent: Parent) => parent.absoluteLocation(location)
+      case None => location
     }
   }
 }

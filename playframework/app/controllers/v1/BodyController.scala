@@ -21,7 +21,7 @@ class BodyController @Inject()(celestialDao: CelestialDao, observer: Observer)(i
     celestialDao.find(celestialDao.query.withName(name).withKind("body")).map { results =>
       results.head match {
         case body: Body =>
-          celestialDao.save(observer.observe(body).asInstanceOf[Body])
+//          celestialDao.save(observer.observe(body).asInstanceOf[Body])
           Ok(Json.toJson(body))
         case _ =>
           NotFound(s"No such body $name")

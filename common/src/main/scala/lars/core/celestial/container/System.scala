@@ -200,10 +200,24 @@ class System(override var id: ID = ID(),
     })
   }
 
+  override def absoluteLocation: Vec2 = {
+    parent match {
+      case Some(parent: Parent) => parent.absoluteLocation(location)
+      case None => location
+    }
+  }
+
   override def absoluteLocation(relative: Vec2): Vec2 = {
     parent match {
       case Some(parent: Parent) => parent.absoluteLocation(location + relative)
-      case None => relative
+      case None => location + relative
+    }
+  }
+
+  override def relativeLocation(absolute: Vec2): Vec2 = {
+    parent match {
+      case Some(parent) => parent.relativeLocation(absolute - location)
+      case None => absolute - location
     }
   }
 

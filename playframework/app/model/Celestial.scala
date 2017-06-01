@@ -30,7 +30,10 @@ case class Celestial(id: UUID,
       case None => None
       case Some(length) => Some(new Length(length))
     }
-    val location = new Vec2(x, y)
+    val location = parent match {
+      case Some(parent) => parent.relativeLocation(new Vec2(x, y))
+      case None => new Vec2(x, y)
+    }
     val velocity = velX match {
       case None => None
       case Some(velX) => Some(new Velocity(new Vec2(velX, velY.get)))
@@ -96,7 +99,12 @@ object Celestial {
       }
     }
 
-    Seq(Celestial(
+    val location = massive match {
+      case child: Child => child.absoluteLocation
+      case _ => massive.location
+    }
+
+    val celestial = Celestial(
       id = massive.id.get,
       rank = rank,
       kind = massive match {
@@ -109,8 +117,8 @@ object Celestial {
         case nameable: Nameable => nameable.name
         case _ => None
       },
-      massive.location.x,
-      massive.location.y,
+      location.x,
+      location.y,
       massive.mass.kg,
       size = massive match {
         case body: Body => body.size.map(_.km)
@@ -124,7 +132,9 @@ object Celestial {
       },
       parent = bottomParentId,
       ancestor = bottomAncestorId
-    )) ++ (massive match {
+    )
+
+    Seq(celestial) ++ (massive match {
        case parent: Parent =>
          parent.children.flatMap{
            case child: Massive with Child with Identity => Celestial.convert(child, Some(bottomAncestorId))

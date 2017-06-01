@@ -79,6 +79,14 @@ class Galaxy(override var id: ID, val name: Option[String], override var mass: M
     */
   override def absoluteLocation(relative: Vec2): Vec2 = relative
 
+  /**
+    * Returns the objects relative position.
+    *
+    * @param absolute absolute location
+    * @return relative location
+    */
+  override def relativeLocation(absolute: Vec2): Vec2 = absolute
+
   override def rank(child: Massive with Child): Option[Int] = {
     val index = bodies.indexOf(child)
     if(index < 0) None else Some(index)

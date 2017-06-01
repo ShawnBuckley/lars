@@ -6,7 +6,7 @@ import lars.core.math.Vec2
 /**
   * This trait is used to determine a nested object's absolute location in the galaxy.
   */
-trait Child extends NestedLocation with Identity {
+trait Child extends Identity {
   var parent: Option[Parent]
 
   /**
@@ -26,9 +26,7 @@ trait Child extends NestedLocation with Identity {
   /**
     * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
     * it's coordinate system.
-    *
-    * @param relative relative location
     * @return absolute location
     */
-  def absoluteLocation(relative: Vec2): Vec2
+  def absoluteLocation: Vec2
 }

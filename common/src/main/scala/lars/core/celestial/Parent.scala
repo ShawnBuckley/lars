@@ -1,13 +1,14 @@
 package lars.core.celestial
 
 import lars.core.Identity
+import lars.core.math.Vec2
 
 /**
   * This is a trait that celestial containers will inherit.  It allows for transforming relative interior coordinates to
   * the coordinate system that the container resides in and for updating celestial parent mass on child changes.  This
   * call propagates to the eldest container to get the absolute coordinates.
   */
-trait Parent extends NestedLocation with Identity {
+trait Parent extends Identity {
   /**
     * Adds massive to the celestial container.
     * @param massive massive to add
@@ -52,4 +53,19 @@ trait Parent extends NestedLocation with Identity {
     * @return optional rank
     */
   def rank(child: Massive with Child): Option[Int]
+
+  /**
+    * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
+    * it's coordinate system.
+    * @param relative relative position
+    * @return absolute location
+    */
+  def absoluteLocation(relative: Vec2): Vec2
+
+  /**
+    * Returns the objects relative position.
+    * @param absolute absolute location
+    * @return relative location
+    */
+  def relativeLocation(absolute: Vec2): Vec2
 }
