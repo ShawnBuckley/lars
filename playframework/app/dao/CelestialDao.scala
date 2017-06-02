@@ -4,6 +4,7 @@ import java.util.UUID
 
 import lars.core.Identity
 import lars.core.celestial.Massive
+import lars.core.math.Vec2
 import model.Celestial
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -58,6 +59,7 @@ trait CelestialQuery {
   def withName(name: String): CelestialQuery
   def withParent(parent: UUID): CelestialQuery
   def withAncestor(ancestor: UUID): CelestialQuery
+  def withBounds(lower: Vec2, upper: Vec2): CelestialQuery
 
   def withIds(ids: Seq[UUID]): CelestialQuery
   def withKinds(kinds: Seq[String]): CelestialQuery

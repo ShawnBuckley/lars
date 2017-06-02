@@ -4,8 +4,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 import dao.{CelestialDao, CelestialQuery}
-import lars.core.Identity
-import lars.core.celestial.Massive
+import lars.core.math.Vec2
 import model.Celestial
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
@@ -85,6 +84,11 @@ class SlickCelestialDao @Inject()(protected val dbConfigProvider: DatabaseConfig
 
     override def withAncestor(ancestor: UUID): CelestialQuery =
       new SlickCelestialQuery(query.filter(_.ancestor === ancestor))
+
+    override def withBounds(lower: Vec2, upper: Vec2): CelestialQuery =
+      new SlickCelestialQuery(query.filter(obj =>
+        obj.x >= lower.x && obj.x <= upper.x &&
+        obj.y >= lower.y && obj.y <= upper.y))
 
 
     override def withIds(ids: Seq[UUID]): CelestialQuery =
