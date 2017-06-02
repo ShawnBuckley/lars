@@ -18,7 +18,7 @@ class SystemController @Inject()(celestialDao: CelestialDao, observer: Observer)
   implicit val writer: OWrites[System] = JsonWrites.systemWriter
 
   def find(name: String): Action[AnyContent] = Action.async {
-    celestialDao.findWithAncestors(celestialDao.query.withName(name).withKind("system")).map { results =>
+    celestialDao.findWithAncestors(celestialDao.query.withName(name).withKind("system").withInterest(1)).map { results =>
       results.head match {
         case system: System =>
           celestialDao.update(observer.observe(system).asInstanceOf[System])

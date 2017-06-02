@@ -52,6 +52,7 @@ class SlickCelestialDao @Inject()(protected val dbConfigProvider: DatabaseConfig
     def id = column[UUID]("id", O.PrimaryKey)
     def rank = column[Int]("rank")
     def kind = column[String]("kind")
+    def interest = column[Int]("interest")
     def name = column[Option[String]]("name")
     def x = column[Double]("x")
     def y = column[Double]("y")
@@ -63,7 +64,7 @@ class SlickCelestialDao @Inject()(protected val dbConfigProvider: DatabaseConfig
     def parent = column[Option[UUID]]("parent")
     def ancestor = column[UUID]("ancestor")
 
-    override def * : ProvenShape[Celestial] = (id, rank, kind, name, x, y, mass, size, velX, velY, observed, parent, ancestor) <>
+    override def * : ProvenShape[Celestial] = (id, rank, kind, interest, name, x, y, mass, size, velX, velY, observed, parent, ancestor) <>
       ((Celestial.apply _).tupled, Celestial.unapply)
   }
 
@@ -75,6 +76,9 @@ class SlickCelestialDao @Inject()(protected val dbConfigProvider: DatabaseConfig
 
     override def withKind(kind: String): CelestialQuery =
       new SlickCelestialQuery(query.filter(_.kind === kind))
+
+    override def withInterest(interest: Int): CelestialQuery =
+      new SlickCelestialQuery(query.filter(_.interest >= interest))
 
     override def withName(name: String): CelestialQuery =
       new SlickCelestialQuery(query.filter(_.name === name))

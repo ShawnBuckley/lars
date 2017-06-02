@@ -57,6 +57,7 @@ trait CelestialQuery {
   def withId(id: UUID): CelestialQuery
   def withKind(kind: String): CelestialQuery
   def withName(name: String): CelestialQuery
+  def withInterest(interest: Int): CelestialQuery
   def withParent(parent: UUID): CelestialQuery
   def withAncestor(ancestor: UUID): CelestialQuery
   def withBounds(lower: Vec2, upper: Vec2): CelestialQuery

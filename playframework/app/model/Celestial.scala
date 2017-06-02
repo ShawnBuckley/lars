@@ -14,6 +14,7 @@ import scala.collection.mutable
 case class Celestial(id: UUID,
                      rank: Int,
                      kind: String,
+                     interest: Int,
                      name: Option[String],
                      x: Double,
                      y: Double,
@@ -113,6 +114,9 @@ object Celestial {
       case _ => (None, None)
     }
 
+    var interest = 1
+    if(!massive.isInstanceOf[Nameable]) interest -= 1
+
     val celestial = Celestial(
       id = massive.id.get,
       rank = rank,
@@ -121,6 +125,7 @@ object Celestial {
         case _: System => "system"
         case _ => "unknown"
       },
+      interest = interest,
       name = massive match {
         case nameable: Nameable => nameable.name
         case _ => None
