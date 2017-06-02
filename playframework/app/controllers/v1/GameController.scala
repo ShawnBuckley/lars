@@ -9,10 +9,6 @@ import play.api.mvc._
 @Singleton
 class GameController @Inject()(observer: Observer) extends Controller {
 
-//  def getGalaxy = Action {
-//    Ok(JsonUtil.toJson(celestialMapper.get(CelestialMapper.galaxyId)))
-//  }
-
   def date = Action {
     Ok(Json.toJson(observer.date.d))
   }

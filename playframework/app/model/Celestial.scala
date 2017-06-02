@@ -3,7 +3,7 @@ package model
 import java.util.UUID
 
 import lars.core.{ID, Identity, Nameable}
-import lars.core.celestial.container.{Galaxy, System}
+import lars.core.celestial.container.System
 import lars.core.celestial._
 import lars.core.math.Vec2
 import lars.core.observation.Observable
@@ -56,7 +56,6 @@ case class Celestial(id: UUID,
           velocity = velocity,
           surface = None))
       case "system" => Some(new System(ID(id), name, location, velocity, new Time(observed.get), parent))
-      case "galaxy" => Some(new Galaxy(ID(id), name, Mass(mass)))
       case _ => None
     }
   }
@@ -120,7 +119,6 @@ object Celestial {
       kind = massive match {
         case _: Body => "body"
         case _: System => "system"
-        case _: Galaxy => "galaxy"
         case _ => "unknown"
       },
       name = massive match {
