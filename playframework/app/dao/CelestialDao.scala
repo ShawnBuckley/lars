@@ -11,11 +11,23 @@ import scala.concurrent.{ExecutionContext, Future}
 trait CelestialDao {
   implicit val ec: ExecutionContext
 
-  def get(id: UUID): Future[Option[Massive with Identity]]
+  def get(id: UUID): Future[Option[Massive with Identity]] =
+    getRaw(id).map(_.flatMap(_.convert()))
 
-  def query: CelestialQuery
-  def find(query: CelestialQuery): Future[Seq[Massive with Identity]]
-  def findRaw(query: CelestialQuery): Future[Seq[Celestial]]
+  def find(query: CelestialQuery): Future[Seq[Massive with Identity]] =
+    findRaw(query).map(_.flatMap(_.convert()))
+
+  def update(massive: Massive with Identity): Future[Unit] =
+    updateRaw(Celestial.convert(massive))
+
+  def update(massives: Seq[Massive with Identity]): Future[Unit] =
+    Future.successful(massives.foreach(massive => Celestial.convert(massive)))
+
+  def insert(massive: Massive with Identity): Future[Unit] =
+    insertRaw(Celestial.convert(massive))
+
+  def insert(massives: Seq[Massive with Identity]): Future[Unit] =
+    Future.successful(massives.foreach(massive => insertRaw(Celestial.convert(massive))))
 
   def findWithAncestors(query: CelestialQuery): Future[Seq[Massive with Identity]] = {
     findRaw(query).flatMap { celestials =>
@@ -25,9 +37,16 @@ trait CelestialDao {
     }
   }
 
-  def save(massive: Massive with Identity): Future[Unit]
-  def save(celestial: Celestial): Future[Unit]
-  def save(celestials: Seq[Celestial]): Future[Unit]
+  def query: CelestialQuery
+
+  def getRaw(id: UUID): Future[Option[Celestial]]
+  def findRaw(query: CelestialQuery): Future[Seq[Celestial]]
+
+  def updateRaw(celestial: Celestial): Future[Unit]
+  def updateRaw(celestials: Seq[Celestial]): Future[Unit]
+
+  def insertRaw(celestial: Celestial): Future[Unit]
+  def insertRaw(celestials: Seq[Celestial]): Future[Unit]
 
   def delete(id: UUID): Future[Unit]
   def delete(query: CelestialQuery): Future[Unit]

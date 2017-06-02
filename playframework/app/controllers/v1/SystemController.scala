@@ -21,7 +21,7 @@ class SystemController @Inject()(celestialDao: CelestialDao, observer: Observer)
     celestialDao.findWithAncestors(celestialDao.query.withName(name).withKind("system")).map { results =>
       results.head match {
         case system: System =>
-          celestialDao.save(observer.observe(system).asInstanceOf[System])
+          celestialDao.update(observer.observe(system).asInstanceOf[System])
           Ok(Json.toJson(system))
         case _ =>
           NotFound(s"No such system $name")

@@ -21,33 +21,33 @@ class SlickCelestialDao @Inject()(protected val dbConfigProvider: DatabaseConfig
 
   private val celestials = TableQuery[CelestialTable]
 
-  override def get(id: UUID): Future[Option[Massive with Identity]] =
-    db.run(celestials.filter(_.id === id).result.headOption.map(result => result.flatMap(_.convert())))
-
-  override def query: CelestialQuery =
-    new SlickCelestialQuery(celestials)
-
-  override def find(query: CelestialQuery): Future[Seq[Massive with Identity]] =
-    db.run(query.asInstanceOf[SlickCelestialQuery].query.result.map(_.flatMap(_.convert())))
+  override def getRaw(id: UUID): Future[Option[Celestial]] =
+    db.run(celestials.filter(_.id === id).result.headOption)
 
   override def findRaw(query: CelestialQuery): Future[Seq[Celestial]] =
     db.run(query.asInstanceOf[SlickCelestialQuery].query.result)
 
-  override def save(massive: Massive with Identity): Future[Unit] =
-    save(Celestial.convert(massive))
-
-  override def save(celestial: Celestial): Future[Unit] =
+  override def updateRaw(celestial: Celestial): Future[Unit] =
     db.run(celestials.filter(_.id === celestial.id).update(celestial)).map { _ => () }
 
-  override def save(celestials: Seq[Celestial]): Future[Unit] = {
-    Future.successful(celestials.foreach(save))
-  }
+  override def updateRaw(celestials: Seq[Celestial]): Future[Unit] =
+    Future.successful(celestials.foreach(celestial =>
+      db.run(this.celestials.filter(_.id === celestial.id).update(celestial))))
+
+  override def insertRaw(celestial: Celestial): Future[Unit] =
+    db.run(celestials += celestial).map { _ => () }
+
+  override def insertRaw(celestials: Seq[Celestial]): Future[Unit] =
+    db.run(this.celestials ++= celestials).map { _ => () }
 
   override def delete(id: UUID): Future[Unit] =
     db.run(celestials.filter(_.id === id).delete).map { _ => () }
 
   override def delete(query: CelestialQuery): Future[Unit] =
     db.run(query.asInstanceOf[SlickCelestialQuery].query.delete).map { _ => () }
+
+  override def query: CelestialQuery =
+    new SlickCelestialQuery(celestials)
 
   private class CelestialTable(tag: Tag) extends Table[Celestial](tag, "CELESTIALS") {
     def id = column[UUID]("id", O.PrimaryKey)
