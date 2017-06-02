@@ -63,4 +63,12 @@ case class Body(override var id: ID = ID(),
       case None => location
     }
   }
+
+  override def absoluteVelocity: Option[Velocity] = {
+    parent.flatMap { parent =>
+      velocity.map { velocity =>
+        parent.absoluteVelocity(velocity)
+      }
+    }
+  }
 }

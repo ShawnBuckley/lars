@@ -4,7 +4,7 @@ import lars.core.{ID, Identity}
 import lars.core.celestial.{Child, Massive, Parent}
 import lars.core.math.Vec2
 import lars.core.observation.Unobservable
-import lars.core.physics.units.Mass
+import lars.core.physics.units.{Mass, Velocity}
 
 import scala.collection.mutable
 
@@ -86,6 +86,10 @@ class Galaxy(override var id: ID, val name: Option[String], override var mass: M
     * @return relative location
     */
   override def relativeLocation(absolute: Vec2): Vec2 = absolute
+
+  override def absoluteVelocity(relative: Velocity): Velocity = relative
+
+  override def relativeVelocity(absolute: Velocity): Velocity = absolute
 
   override def rank(child: Massive with Child): Option[Int] = {
     val index = bodies.indexOf(child)

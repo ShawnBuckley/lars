@@ -2,6 +2,7 @@ package lars.core.celestial
 
 import lars.core.Identity
 import lars.core.math.Vec2
+import lars.core.physics.units.Velocity
 
 /**
   * This is a trait that celestial containers will inherit.  It allows for transforming relative interior coordinates to
@@ -68,4 +69,8 @@ trait Parent extends Identity {
     * @return relative location
     */
   def relativeLocation(absolute: Vec2): Vec2
+
+  def relativeVelocity(absolute: Velocity): Velocity
+
+  def absoluteVelocity(relative: Velocity): Velocity
 }

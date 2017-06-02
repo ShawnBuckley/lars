@@ -30,13 +30,17 @@ case class Celestial(id: UUID,
       case None => None
       case Some(length) => Some(new Length(length))
     }
+
     val location = parent match {
       case Some(parent) => parent.relativeLocation(new Vec2(x, y))
       case None => new Vec2(x, y)
     }
-    val velocity = velX match {
-      case None => None
-      case Some(velX) => Some(new Velocity(new Vec2(velX, velY.get)))
+
+    val velocity = velX.map { velX =>
+      parent match {
+        case Some(parent) => parent.relativeVelocity(new Velocity(new Vec2(velX, velY.get)))
+        case None => new Velocity(new Vec2(velX, velY.get))
+      }
     }
 
     kind match {
@@ -84,14 +88,6 @@ object Celestial {
         }
     }
 
-    val velocity = massive match {
-      case drifting: Drifting => drifting.velocity match {
-        case Some(velocity) => (Some(velocity.ms.x), Some(velocity.ms.y))
-        case None => (None, None)
-      }
-      case _ => (None, None)
-    }
-
     val rank = massive match {
       case child: Child => child.parent match {
         case Some(parent) => parent.rank(child).getOrElse(0)
@@ -102,6 +98,20 @@ object Celestial {
     val location = massive match {
       case child: Child => child.absoluteLocation
       case _ => massive.location
+    }
+
+    val velocity = massive match {
+      case drifting: Drifting => drifting.velocity match {
+        case Some(velocity) => massive match {
+          case child: Child => child.absoluteVelocity match {
+            case Some(result) => (Some(result.ms.x), Some(result.ms.y))
+            case None => (None, None)
+          }
+          case _ => (Some(velocity.ms.x), Some(velocity.ms.y))
+        }
+        case None => (None, None)
+      }
+      case _ => (None, None)
     }
 
     val celestial = Celestial(

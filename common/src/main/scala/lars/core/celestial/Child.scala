@@ -2,10 +2,8 @@ package lars.core.celestial
 
 import lars.core.Identity
 import lars.core.math.Vec2
+import lars.core.physics.units.Velocity
 
-/**
-  * This trait is used to determine a nested object's absolute location in the galaxy.
-  */
 trait Child extends Identity {
   var parent: Option[Parent]
 
@@ -22,6 +20,8 @@ trait Child extends Identity {
       case None => None // orphaned object
     }
   }
+
+  def absoluteVelocity: Option[Velocity]
 
   /**
     * Returns the objects absolute location. This works by propagating the call up to the most elder parent and using
